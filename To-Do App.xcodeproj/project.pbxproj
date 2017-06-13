@@ -8,13 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514AFE1EEF736F00D67A6E /* AppDelegate.swift */; };
-		37514B011EEF736F00D67A6E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B001EEF736F00D67A6E /* ViewController.swift */; };
 		37514B041EEF736F00D67A6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B021EEF736F00D67A6E /* Main.storyboard */; };
 		37514B071EEF736F00D67A6E /* To_Do_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37514B051EEF736F00D67A6E /* To_Do_App.xcdatamodeld */; };
 		37514B091EEF736F00D67A6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37514B081EEF736F00D67A6E /* Assets.xcassets */; };
 		37514B0C1EEF736F00D67A6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B0A1EEF736F00D67A6E /* LaunchScreen.storyboard */; };
 		37514B171EEF736F00D67A6E /* To_Do_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B161EEF736F00D67A6E /* To_Do_AppTests.swift */; };
 		37514B221EEF736F00D67A6E /* To_Do_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B211EEF736F00D67A6E /* To_Do_AppUITests.swift */; };
+		37514B301EEF80AF00D67A6E /* ToDoCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B2F1EEF80AF00D67A6E /* ToDoCategoryCell.swift */; };
+		37514B321EEF811F00D67A6E /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B311EEF811F00D67A6E /* Photo.swift */; };
+		37514B341EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B331EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift */; };
+		37514B361EEF8BA700D67A6E /* ToDoCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B351EEF8BA700D67A6E /* ToDoCategoryViewController.swift */; };
+		37514B381EEF96F400D67A6E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B371EEF96F400D67A6E /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +41,6 @@
 /* Begin PBXFileReference section */
 		37514AFB1EEF736F00D67A6E /* To-Do App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-Do App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37514AFE1EEF736F00D67A6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		37514B001EEF736F00D67A6E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		37514B031EEF736F00D67A6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37514B061EEF736F00D67A6E /* To_Do_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = To_Do_App.xcdatamodel; sourceTree = "<group>"; };
 		37514B081EEF736F00D67A6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +52,11 @@
 		37514B1D1EEF736F00D67A6E /* To-Do AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To-Do AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37514B211EEF736F00D67A6E /* To_Do_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_AppUITests.swift; sourceTree = "<group>"; };
 		37514B231EEF736F00D67A6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37514B2F1EEF80AF00D67A6E /* ToDoCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCategoryCell.swift; sourceTree = "<group>"; };
+		37514B311EEF811F00D67A6E /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		37514B331EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fake_ToDoCategoryViewController.swift; sourceTree = "<group>"; };
+		37514B351EEF8BA700D67A6E /* ToDoCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCategoryViewController.swift; sourceTree = "<group>"; };
+		37514B371EEF96F400D67A6E /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +108,16 @@
 			isa = PBXGroup;
 			children = (
 				37514AFE1EEF736F00D67A6E /* AppDelegate.swift */,
-				37514B001EEF736F00D67A6E /* ViewController.swift */,
 				37514B021EEF736F00D67A6E /* Main.storyboard */,
 				37514B081EEF736F00D67A6E /* Assets.xcassets */,
 				37514B0A1EEF736F00D67A6E /* LaunchScreen.storyboard */,
 				37514B0D1EEF736F00D67A6E /* Info.plist */,
 				37514B051EEF736F00D67A6E /* To_Do_App.xcdatamodeld */,
+				37514B2F1EEF80AF00D67A6E /* ToDoCategoryCell.swift */,
+				37514B311EEF811F00D67A6E /* Photo.swift */,
+				37514B331EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift */,
+				37514B351EEF8BA700D67A6E /* ToDoCategoryViewController.swift */,
+				37514B371EEF96F400D67A6E /* Constant.swift */,
 			);
 			path = "To-Do App";
 			sourceTree = "<group>";
@@ -265,9 +277,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37514B381EEF96F400D67A6E /* Constant.swift in Sources */,
+				37514B361EEF8BA700D67A6E /* ToDoCategoryViewController.swift in Sources */,
 				37514B071EEF736F00D67A6E /* To_Do_App.xcdatamodeld in Sources */,
-				37514B011EEF736F00D67A6E /* ViewController.swift in Sources */,
+				37514B301EEF80AF00D67A6E /* ToDoCategoryCell.swift in Sources */,
+				37514B341EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift in Sources */,
 				37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */,
+				37514B321EEF811F00D67A6E /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
