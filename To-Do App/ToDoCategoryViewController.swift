@@ -24,7 +24,6 @@ class ToDoCategoryViewController: UIViewController {
         for category in allCategories {
             let description = category.description()
             categoryPhotos.append(Photo(title: description, category: category, imageName: description))
-            print(description)
         }
     }
 
@@ -73,10 +72,19 @@ extension ToDoCategoryViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let itemPerRow: CGFloat = Constant.toDoCategoryPerRow
+        var itemPerRow: CGFloat {
+            switch collectionView.bounds.width {
+            case 300..<500:
+                return 3
+            case 500..<800:
+                return 4
+            default:
+                return 5
+            }
+        }
         let hardCodedPadding: CGFloat = Constant.hardCodedPadding
         let itemWidth = (collectionView.bounds.width / itemPerRow) - hardCodedPadding
-        let itemHeight = itemWidth 
+        let itemHeight = itemWidth
         return CGSize(width: itemWidth, height: itemHeight)
     }
     
