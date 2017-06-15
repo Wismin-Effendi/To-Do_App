@@ -32,23 +32,24 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="nEZ-ge-eBo" customClass="ToDoCategoryCell" customModule="To_Do_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="145"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="125"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="120" height="145"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6yn-I2-Nyt">
-                                                    <rect key="frame" x="10" y="10" width="100" height="125"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6yn-I2-Nyt">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="125"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="6yn-I2-Nyt" firstAttribute="leading" secondItem="nEZ-ge-eBo" secondAttribute="leading" constant="10" id="HoH-qF-YPK"/>
-                                            <constraint firstItem="6yn-I2-Nyt" firstAttribute="top" secondItem="nEZ-ge-eBo" secondAttribute="top" constant="10" id="Pfz-gD-K8D"/>
-                                            <constraint firstAttribute="bottom" secondItem="6yn-I2-Nyt" secondAttribute="bottom" constant="10" id="Qau-j8-pcJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="6yn-I2-Nyt" secondAttribute="trailing" constant="10" id="e9w-x4-7hr"/>
+                                            <constraint firstItem="6yn-I2-Nyt" firstAttribute="top" secondItem="nEZ-ge-eBo" secondAttribute="top" id="2Je-AP-da5"/>
+                                            <constraint firstAttribute="trailing" secondItem="6yn-I2-Nyt" secondAttribute="trailing" id="Tzh-Yn-XvA"/>
+                                            <constraint firstItem="6yn-I2-Nyt" firstAttribute="leading" secondItem="nEZ-ge-eBo" secondAttribute="leading" id="aff-5q-kTX"/>
+                                            <constraint firstAttribute="bottom" secondItem="6yn-I2-Nyt" secondAttribute="bottom" id="x3W-7e-6jX"/>
                                         </constraints>
+                                        <size key="customSize" width="100" height="125"/>
                                         <connections>
                                             <outlet property="categoryImageView" destination="6yn-I2-Nyt" id="rHn-Fz-JP9"/>
                                         </connections>

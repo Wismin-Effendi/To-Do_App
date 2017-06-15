@@ -16,7 +16,6 @@
 		37514B221EEF736F00D67A6E /* To_Do_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B211EEF736F00D67A6E /* To_Do_AppUITests.swift */; };
 		37514B301EEF80AF00D67A6E /* ToDoCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B2F1EEF80AF00D67A6E /* ToDoCategoryCell.swift */; };
 		37514B321EEF811F00D67A6E /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B311EEF811F00D67A6E /* Photo.swift */; };
-		37514B341EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B331EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift */; };
 		37514B361EEF8BA700D67A6E /* ToDoCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B351EEF8BA700D67A6E /* ToDoCategoryViewController.swift */; };
 		37514B381EEF96F400D67A6E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514B371EEF96F400D67A6E /* Constant.swift */; };
 /* End PBXBuildFile section */
@@ -54,7 +53,6 @@
 		37514B231EEF736F00D67A6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37514B2F1EEF80AF00D67A6E /* ToDoCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCategoryCell.swift; sourceTree = "<group>"; };
 		37514B311EEF811F00D67A6E /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
-		37514B331EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fake_ToDoCategoryViewController.swift; sourceTree = "<group>"; };
 		37514B351EEF8BA700D67A6E /* ToDoCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCategoryViewController.swift; sourceTree = "<group>"; };
 		37514B371EEF96F400D67A6E /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,7 +113,6 @@
 				37514B051EEF736F00D67A6E /* To_Do_App.xcdatamodeld */,
 				37514B2F1EEF80AF00D67A6E /* ToDoCategoryCell.swift */,
 				37514B311EEF811F00D67A6E /* Photo.swift */,
-				37514B331EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift */,
 				37514B351EEF8BA700D67A6E /* ToDoCategoryViewController.swift */,
 				37514B371EEF96F400D67A6E /* Constant.swift */,
 			);
@@ -281,7 +278,6 @@
 				37514B361EEF8BA700D67A6E /* ToDoCategoryViewController.swift in Sources */,
 				37514B071EEF736F00D67A6E /* To_Do_App.xcdatamodeld in Sources */,
 				37514B301EEF80AF00D67A6E /* ToDoCategoryCell.swift in Sources */,
-				37514B341EEF858F00D67A6E /* Fake_ToDoCategoryViewController.swift in Sources */,
 				37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */,
 				37514B321EEF811F00D67A6E /* Photo.swift in Sources */,
 			);
@@ -536,6 +532,7 @@
 				37514B281EEF736F00D67A6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		37514B291EEF736F00D67A6E /* Build configuration list for PBXNativeTarget "To-Do AppTests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +541,7 @@
 				37514B2B1EEF736F00D67A6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		37514B2C1EEF736F00D67A6E /* Build configuration list for PBXNativeTarget "To-Do AppUITests" */ = {
 			isa = XCConfigurationList;
@@ -552,6 +550,7 @@
 				37514B2E1EEF736F00D67A6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

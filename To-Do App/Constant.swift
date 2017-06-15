@@ -10,5 +10,5 @@ import UIKit
 
 struct Constant {
     static let toDoCategoryPerRow: CGFloat = 3
-    static let hardCodedPadding: CGFloat = 0
+    static let hardCodedPadding: CGFloat = 40.0
 }

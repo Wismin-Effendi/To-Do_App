@@ -69,6 +69,12 @@ extension ToDoCategoryViewController: UICollectionViewDelegate {
 
 extension ToDoCategoryViewController: UICollectionViewDelegateFlowLayout {
     
+    fileprivate var sectionInsets: UIEdgeInsets {
+        return UIEdgeInsetsMake(0, Constant.hardCodedPadding, 0, Constant.hardCodedPadding)
+    }
+    
+    fileprivate var innerSpacing: CGFloat { return Constant.hardCodedPadding }
+    fileprivate var rowSpacing: CGFloat { return Constant.hardCodedPadding }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -82,10 +88,23 @@ extension ToDoCategoryViewController: UICollectionViewDelegateFlowLayout {
                 return 5
             }
         }
-        let hardCodedPadding: CGFloat = Constant.hardCodedPadding
-        let itemWidth = (collectionView.bounds.width / itemPerRow) - hardCodedPadding
-        let itemHeight = itemWidth
+
+        let innerSpacingCount = itemPerRow - 1
+        let edgesPadding = Constant.hardCodedPadding * 2.0
+        let itemWidth = (collectionView.bounds.width - (innerSpacing * innerSpacingCount + edgesPadding)) / itemPerRow
+        let itemHeight = itemWidth * CGFloat(1.25)
         return CGSize(width: itemWidth, height: itemHeight)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return rowSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return innerSpacing
+    }
 }
