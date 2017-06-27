@@ -152,26 +152,13 @@ class TaskTableViewController: UITableViewController {
         self.fetchedResultsController.delegate = self
     }
     
+    // MARK: - Action 
     
-    // MARK: Actions 
-    @IBAction func unwindToTaskList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? TaskViewController,
-            let task = sourceViewController.task {
-            
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing meal.
-                tasks[selectedIndexPath.row] = task
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            } else {
-                // Add a new task
-                let newIndexPath = IndexPath(row: tasks.count, section: 0)
-                tasks.append(task)
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
-        }
+    // Do nothing but still needed to unwind
+    @IBAction func unwindToTaskList(_ sender: UIStoryboardSegue) {
+    
+        os_log("Nothing to do, all update handled by fetchResultsController", log: OSLog.default, type:. debug)
     }
-    
-
     
     // MARK: - Navigation
 
@@ -179,15 +166,20 @@ class TaskTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         print(segue.destination.description)
-        guard let taskDetailViewController = segue.destination as? TaskViewController else {
-            fatalError("Unexpected destination: \(segue.destination)")
-        }
-        taskDetailViewController.managedContext = coreDataStack.managedContext
         
         switch (segue.identifier ?? "") {
         case "AddTask":
             os_log("Adding a new task.", log: OSLog.default, type: .debug)
+            guard let navCon = segue.destination as? UINavigationController,
+                let taskDetailViewController = navCon.topViewController as? TaskViewController  else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            taskDetailViewController.managedContext = coreDataStack.managedContext
         case "ShowDetail":
+            guard let taskDetailViewController = segue.destination as? TaskViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            taskDetailViewController.managedContext = coreDataStack.managedContext
             guard let selectedTaskCell = sender as? TaskCell else {
                 fatalError("Unexpected sender: \(String(describing: sender))")
             }

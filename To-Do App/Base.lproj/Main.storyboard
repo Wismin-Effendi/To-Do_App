@@ -286,7 +286,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="M2X-89-Vll">
                             <connections>
-                                <segue destination="2aL-6L-2k8" kind="unwind" unwindAction="unwindToTaskListWithSender:" id="9eA-Ku-mhg"/>
+                                <segue destination="2aL-6L-2k8" kind="unwind" unwindAction="unwindToTaskList:" id="1Xp-Gr-mlL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

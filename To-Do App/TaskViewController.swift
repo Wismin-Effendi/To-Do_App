@@ -71,12 +71,12 @@ class TaskViewController: UIViewController {
         dueDateTextField.delegate = self
         
         // Set up views if editing an existing Task
-        if let task = task {
-            navigationItem.title = task.name
-            taskNameTexField.text = task.name
-            priorityTextField.text = "\(task.priority)"
-            categoryTextField.text = task.category
-            if let taskDueDate = task.dueDate as Date? {
+        if task != nil {
+            navigationItem.title = task?.name
+            taskNameTexField.text = task?.name
+            priorityTextField.text = "\(task?.priority ?? 1)"
+            categoryTextField.text = task?.category
+            if let taskDueDate = task?.dueDate as Date? {
                 dueDate = taskDueDate
             }
         }
@@ -132,16 +132,18 @@ class TaskViewController: UIViewController {
         
         // Set the task to be passed to TaskTableViewController after the unwind segue
         do {
-            if task == nil {  // add new Task 
+            if task == nil {  // add new Task
                 task = Task(context: managedContext)
             }
-            task?.name = name
-            task?.priority = priority
-            task?.category = category
-            task?.dueDate = dueDate as NSDate?
+            task!.name = name
+            task!.priority = priority
+            task!.category = category
+            task!.dueDate = dueDate as NSDate?
             
             try managedContext.save()
+            print("hi there")
         } catch {
+            print("hi here..")
             print(error)
         }
 
