@@ -26,8 +26,9 @@ class TaskTableViewController: UITableViewController {
         super.viewDidLoad()
         
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true)
-        fetchRequest.sortDescriptors = [nameSort]
+        let prioritySort = NSSortDescriptor(key: #keyPath(Task.priority), ascending: true)
+        let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
+        fetchRequest.sortDescriptors = [prioritySort, nameSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                               managedObjectContext: coreDataStack.managedContext,
@@ -83,6 +84,13 @@ class TaskTableViewController: UITableViewController {
     }
     
 
+    // MARK: - UITableViewDelegate 
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionInfo = fetchedResultsController.sections?[section]
+        let headerText = "Priority \(sectionInfo!.name)"
+        return headerText
+    }
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -135,6 +143,9 @@ class TaskTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
+        // Row move only allowed within the same section.
+        guard sourceIndexPath.section == destinationIndexPath.section else { return }
+        
         let taskToMove = fetchedResultsController.object(at: sourceIndexPath)
         
         self.fetchedResultsController.delegate = nil
@@ -156,8 +167,10 @@ class TaskTableViewController: UITableViewController {
     
     // Do nothing but still needed to unwind
     @IBAction func unwindToTaskList(_ sender: UIStoryboardSegue) {
-    
-        os_log("Nothing to do, all update handled by fetchResultsController", log: OSLog.default, type:. debug)
+        // we need to call tableView.reloadData() here. Else it won't update until next app restart. 
+        // would be very difficult to figure out where the new Task should be in. 
+       tableView.reloadData()
+       os_log("Need to call tableView.reloadData() after we add section headers", log: OSLog.default, type:. debug)
     }
     
     // MARK: - Navigation
