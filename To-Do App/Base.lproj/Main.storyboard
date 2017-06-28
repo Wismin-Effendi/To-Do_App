@@ -108,11 +108,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="redraw" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" textLabel="kbg-uL-fIF" detailTextLabel="4k3-7M-E7L" style="IBUITableViewCellStyleSubtitle" id="O2N-5h-uhJ" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="redraw" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" textLabel="kbg-uL-fIF" detailTextLabel="4k3-7M-E7L" style="IBUITableViewCellStyleSubtitle" id="O2N-5h-uhJ" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O2N-5h-uhJ" id="dUv-jV-Odl">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kbg-uL-fIF">
