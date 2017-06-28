@@ -178,8 +178,10 @@ class TaskViewController: UIViewController {
 // MARK: UITextFieldDelegate
 extension TaskViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Disable the Save button while editing 
-        saveButton.isEnabled = false
+        // Disable the Save button while editing Task Name only
+        if textField.tag == TextFieldTag.taskName.rawValue {
+            saveButton.isEnabled = false
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
