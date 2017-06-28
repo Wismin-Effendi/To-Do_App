@@ -142,9 +142,9 @@ class TaskTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-
-        // Row move only allowed within the same section.
-        guard sourceIndexPath.section == destinationIndexPath.section else { return }
+        // The code below won't work as  it didn't take into consideration the Section number.
+        // found this gist, but have issue with  ' .sortId ?' 
+        // https://gist.github.com/kayoslab/088aac932870bdedcdd254652384f8ca
         
         let taskToMove = fetchedResultsController.object(at: sourceIndexPath)
         
@@ -168,7 +168,7 @@ class TaskTableViewController: UITableViewController {
     // Do nothing but still needed to unwind
     @IBAction func unwindToTaskList(_ sender: UIStoryboardSegue) {
         // we need to call tableView.reloadData() here. Else it won't update until next app restart. 
-        // would be very difficult to figure out where the new Task should be in. 
+        // would be very difficult to figure out where the new Task should be in.
        tableView.reloadData()
        os_log("Need to call tableView.reloadData() after we add section headers", log: OSLog.default, type:. debug)
     }
@@ -178,7 +178,6 @@ class TaskTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        print(segue.destination.description)
         
         switch (segue.identifier ?? "") {
         case "AddTask":
@@ -189,7 +188,8 @@ class TaskTableViewController: UITableViewController {
             }
             taskDetailViewController.managedContext = coreDataStack.managedContext
         case "ShowDetail":
-            guard let taskDetailViewController = segue.destination as? TaskViewController else {
+            guard let navCon = segue.destination as? UINavigationController,
+                let taskDetailViewController = navCon.topViewController as? TaskViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             taskDetailViewController.managedContext = coreDataStack.managedContext

@@ -18,6 +18,7 @@ class TaskViewController: UIViewController {
         case dueDate
     }
     
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var taskNameTexField: UITextField!
     @IBOutlet weak var priorityTextField: UITextField!
@@ -61,13 +62,15 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        registerForKeyboardNotification()  // to scroll content up when show keyboard 
         showDatePicker = false
-        priorityTextField.isEnabled = false 
+        priorityTextField.isEnabled = false
         // Set tag on textField of interest only
         taskNameTexField.tag = TextFieldTag.taskName.rawValue
         dueDateTextField.tag = TextFieldTag.dueDate.rawValue
         // Handle the text fields's user input through delegate callbacks.
         taskNameTexField.delegate = self
+        categoryTextField.delegate = self
         dueDateTextField.delegate = self
         
         // Set up views if editing an existing Task
@@ -84,23 +87,15 @@ class TaskViewController: UIViewController {
         // Enable the Save button only if the text field has a valid Task name 
         updateSaveButtonState()
     }
+    
+    
+    
 
     // MARK: Action 
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        // Depending on style of presentation (modal or push presentation), controller needs to be dismissed in two different ways
-        let isPresentingInAddTaskMode = presentingViewController is UINavigationController
-        if isPresentingInAddTaskMode {
-            // Add Task mode
-            dismiss(animated: true, completion: nil)
-        }
-        else if let owningNavigationController = navigationController {
-            // editing Task mode
-            owningNavigationController.popViewController(animated: true)
-        }
-        else {
-            fatalError("The TaskViewController is not inside a navigation controller.")
-        }
+        // For SplitView 
+        self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
 
     @IBAction func datePickerValueChange(_ sender: UIDatePicker) {
@@ -141,9 +136,7 @@ class TaskViewController: UIViewController {
             task!.dueDate = dueDate as NSDate?
             
             try managedContext.save()
-            print("hi there")
         } catch {
-            print("hi here..")
             print(error)
         }
 
@@ -155,6 +148,29 @@ class TaskViewController: UIViewController {
         // Disable the Save button if the text field is empty
         let text = taskNameTexField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
+    }
+    
+    private func registerForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    
+    func keyboardDidShow(_ notification: Notification) {
+        if let info = notification.userInfo,
+            let kbSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
+            
+            let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+            
+        }
+    }
+    
+    func keyboardWillHide(_ notification: Notification) {
+        let contentInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
     }
 
 }
@@ -168,7 +184,7 @@ extension TaskViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState()
-        navigationItem.title = textField.text
+        navigationItem.title = taskNameTexField.text
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -178,6 +194,11 @@ extension TaskViewController: UITextFieldDelegate {
         showDatePicker = !showDatePicker
         dueDate = datePicker.date
         return false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
     

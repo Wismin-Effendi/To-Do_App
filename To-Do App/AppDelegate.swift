@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
 
@@ -19,14 +19,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        guard let navController = window?.rootViewController as? UINavigationController,
-            let taskTableViewController = navController.topViewController as? TaskTableViewController else {
-              return true
+        // Case of SplitView controller
+        let splitViewController = window?.rootViewController as? UISplitViewController
+        let navController = splitViewController?.viewControllers.first as? UINavigationController
+        let taskTableViewController = navController?.topViewController as? TaskTableViewController
+            
+        splitViewController?.delegate = self
+        
+        taskTableViewController?.coreDataStack = coreDataStack
+        
+        if let detailNavController = splitViewController?.viewControllers.last as? UINavigationController,
+            let taskViewController = detailNavController.topViewController as? TaskViewController {
+            
+            taskViewController.managedContext = coreDataStack.managedContext
         }
         
-        taskTableViewController.coreDataStack = coreDataStack
-        
         return true
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -55,6 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    // MARK: UISplitViewControllerDelegate 
+    
+    // always show MasterView first in Compact width
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        
+        return true
+    }
     
 
 }
