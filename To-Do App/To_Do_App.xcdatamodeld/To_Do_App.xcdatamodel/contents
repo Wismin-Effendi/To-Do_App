@@ -5,8 +5,9 @@
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="priority" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ranking" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Task" positionX="-45" positionY="0" width="128" height="105"/>
+        <element name="Task" positionX="-45" positionY="0" width="128" height="120"/>
     </elements>
 </model>

@@ -142,9 +142,10 @@ class TaskTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        // The code below won't work as  it didn't take into consideration the Section number.
-        // found this gist, but have issue with  ' .sortId ?' 
-        // https://gist.github.com/kayoslab/088aac932870bdedcdd254652384f8ca
+        os_log("Source indexPath: %@", log: OSLog.default, type: OSLogType.debug, sourceIndexPath as CVarArg)
+        
+        os_log("Destination indexPath: %@", log: OSLog.default, type: OSLogType.debug, destinationIndexPath as CVarArg)
+        
         
         let taskToMove = fetchedResultsController.object(at: sourceIndexPath)
         

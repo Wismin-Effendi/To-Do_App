@@ -58,6 +58,7 @@ class TaskViewController: UIViewController {
     var managedContext: NSManagedObjectContext!
     
     var task: Task?
+    var priorityMaxRankingDict: [Int:Int]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,14 @@ class TaskViewController: UIViewController {
         
         // Enable the Save button only if the text field has a valid Task name 
         updateSaveButtonState()
+        
+        // Test to print out max ranking by priority 
+        if let maxRankByPriority = getMaxRankingGroupByPriority() {
+            print("This is maxRankByPriority output: ")
+            print(maxRankByPriority)
+        }
+        // actual assignemnt 
+        priorityMaxRankingDict = getMaxRankingGroupByPriority()
     }
     
     
@@ -129,12 +138,20 @@ class TaskViewController: UIViewController {
         do {
             if task == nil {  // add new Task
                 task = Task(context: managedContext)
+                // assign new Ranking for new Task
+                if let priorityMaxRankingDict = priorityMaxRankingDict,
+                    let maxRanking = priorityMaxRankingDict[Int(priority)] {
+                    let nextRanking = maxRanking + 1
+                    task!.ranking = Int32(nextRanking)
+                } else {
+                    task!.ranking = 0  // default first value for ranking
+                }
             }
             task!.name = name
             task!.priority = priority
             task!.category = category
             task!.dueDate = dueDate as NSDate?
-            
+
             try managedContext.save()
         } catch {
             print(error)
@@ -172,7 +189,8 @@ class TaskViewController: UIViewController {
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
     }
-
+    
+    
 }
 
 // MARK: UITextFieldDelegate
@@ -202,7 +220,46 @@ extension TaskViewController: UITextFieldDelegate {
         self.view.endEditing(true)
         return true
     }
+}
+
+
+// MARK: Helper for find max ranking for each priority 
+extension TaskViewController {
     
-    
-    
+    func getMaxRankingGroupByPriority() -> [Int:Int]? {
+        
+        func propertiesGroupToPriorityMaxRankingDict(_ arrayOfDict: [Dictionary<String,Int>]) -> [Int:Int] {
+            let priorityToMaxRankingDict = arrayOfDict.map { arr1 in
+                return [arr1["priority"]! : arr1["maxOfRanking"]!]
+            }
+                .flatMap { $0 }
+                .reduce([Int:Int]()) { (dict, tuple) in
+                    var nextDict = dict
+                    nextDict.updateValue(tuple.1, forKey: tuple.0)
+                    return nextDict
+            }
+            
+            return priorityToMaxRankingDict
+        }
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        let predicate = NSPredicate(format: "priority > %@", NSNumber(value: Int16(0)))
+        fetch.predicate = predicate
+        fetch.resultType = .dictionaryResultType
+        let maxExpression = NSExpression(format: "max:(ranking)")
+        let maxED = NSExpressionDescription()
+        maxED.expression = maxExpression
+        maxED.name = "maxOfRanking"
+        maxED.expressionResultType = .doubleAttributeType
+        fetch.propertiesToFetch = ["priority", maxED]
+        fetch.propertiesToGroupBy = ["priority"]
+        let sort = NSSortDescriptor(key: "priority", ascending: false)
+        fetch.sortDescriptors = [sort]
+        if let results = try? managedContext.fetch(fetch) as? [Dictionary<String,Int>] {
+            print("Max ranking group by priority:")
+            print(results)
+            return propertiesGroupToPriorityMaxRankingDict(results!)
+        } else {
+            return nil
+        }
+    }
 }
