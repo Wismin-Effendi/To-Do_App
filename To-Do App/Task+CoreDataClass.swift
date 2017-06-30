@@ -13,3 +13,9 @@ import CoreData
 public class Task: NSManagedObject {
 
 }
+
+extension Task {
+    var descriptions: String {
+        return "\(name!) Priority: \(priority)  Ranking: \(ranking)"
+    }
+}

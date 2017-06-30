@@ -76,6 +76,7 @@ class TaskViewController: UIViewController {
         
         // Set up views if editing an existing Task
         if task != nil {
+            os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task!)
             navigationItem.title = task?.name
             taskNameTexField.text = task?.name
             priorityTextField.text = "\(task?.priority ?? 1)"

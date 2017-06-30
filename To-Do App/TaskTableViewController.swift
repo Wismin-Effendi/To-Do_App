@@ -158,28 +158,6 @@ class TaskTableViewController: UITableViewController {
         // Need to stop live update during moving cells around
         self.fetchedResultsController.delegate = nil
         
-        let newRanking: Int32
-        let destinationSectionLastRowIndex = fetchedResultsController.sections![destinationIndexPath.section].numberOfObjects - 1
-        
-        if destinationIndexPath.row <= destinationSectionLastRowIndex {
-            print("Case move inside, copy the destination ranking")
-            let destTask = fetchedResultsController.object(at: destinationIndexPath)
-            newRanking = destTask.ranking
-            print("Destination task: \(destTask.name!)")
-            print("Destination ranking: \(destTask.ranking)")
-        }
-        // we move beyond last row
-        else {
-            print("Case move beyond last row..")
-            let destTaskMinus1 = fetchedResultsController.object(at: IndexPath(row: destinationSectionLastRowIndex, section: destinationIndexPath.section))
-            newRanking = destTaskMinus1.ranking + 1
-        }
-        print("New ranking for Moved Cell: \(newRanking)")
-        let newPriority = Int16(destinationIndexPath.section + 1) // priority start from 1, section start from 0
-        print("New priority for Moved Cell: \(newPriority)")
-        taskToMove.priority = newPriority
-        taskToMove.ranking = newRanking
-        
         // Update other rows on both Source and Destionation
         // Case same section
         if sourceIndexPath.section == destinationIndexPath.section {
@@ -189,7 +167,14 @@ class TaskTableViewController: UITableViewController {
         else {
             handleCellMoveDifferentSection(source: sourceIndexPath, destination: destinationIndexPath)
         }
-
+        
+        // Update moved task
+        let newRanking = Int32(destinationIndexPath.row)
+        print("New ranking for Moved Cell: \(newRanking)")
+        let newPriority = Int16(destinationIndexPath.section + 1) // priority start from 1, section start from 0
+        print("New priority for Moved Cell: \(newPriority)")
+        taskToMove.priority = newPriority
+        taskToMove.ranking = newRanking
         
         do {
             try coreDataStack.managedContext.save()
@@ -229,7 +214,7 @@ class TaskTableViewController: UITableViewController {
                 let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: source.section))
                 print(taskObject.name!)
                 print("original Ranking: \(taskObject.ranking)")
-                taskObject.ranking += 1
+                taskObject.ranking = Int32(row + 1)
                 print("new Ranking: \(taskObject.ranking)")
                 do {
                     try coreDataStack.managedContext.save()
@@ -248,7 +233,7 @@ class TaskTableViewController: UITableViewController {
                 let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: source.section))
                 print(taskObject.name!)
                 print("original Ranking: \(taskObject.ranking)")
-                taskObject.ranking -= 1
+                taskObject.ranking = Int32(row - 1)
                 print("new Ranking: \(taskObject.ranking)")
                 do {
                     try coreDataStack.managedContext.save()
@@ -282,7 +267,7 @@ class TaskTableViewController: UITableViewController {
         
         for row in destinationStartRow...destinationEndRow {
             let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: destination.section))
-            taskObject.ranking += 1
+            taskObject.ranking = Int32(row + 1)
             do {
                 try coreDataStack.managedContext.save()
             } catch {
@@ -303,7 +288,7 @@ class TaskTableViewController: UITableViewController {
         guard sourceEndRow >= sourceStartRow else { return }
         for row in sourceStartRow...sourceEndRow {
             let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: source.section))
-            taskObject.ranking -= 1
+            taskObject.ranking = Int32(row - 1)
             do {
                 try coreDataStack.managedContext.save()
             } catch {
