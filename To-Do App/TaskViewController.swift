@@ -124,7 +124,7 @@ class TaskViewController: UIViewController {
         // Need to update Ranking as it's tied to a particular Priority 
         if task != nil {
             if let maxRankingGroupByPriority = Util.getMaxRankingGroupByPriority(moc: managedContext),
-                let maxRankingOfThisPriority = maxRankingGroupByPriority[Int(task!.priority)] {
+                let maxRankingOfThisPriority = maxRankingGroupByPriority[Int(sender.value)] {
                 task?.ranking = Int32(maxRankingOfThisPriority + 1)
             } else {
                 task?.ranking = 0

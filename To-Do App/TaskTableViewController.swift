@@ -204,6 +204,8 @@ class TaskTableViewController: UITableViewController {
         } catch let error as NSError {
             print("Fetching error: \(error), \(error.userInfo)")
         }
+        // reload tableView 
+        tableView.reloadData()
     }
     
     // Helper for  tableView(_:moveRowAt:to)
@@ -268,6 +270,7 @@ class TaskTableViewController: UITableViewController {
         
         // Handling on Destination section
         let destinationLastRowIndex = fetchedResultsController.sections![destination.section].numberOfObjects - 1
+        
         guard destination.row <= destinationLastRowIndex else {
             // insert after last row at destination, nothing to do for other cells
             return
@@ -310,43 +313,6 @@ class TaskTableViewController: UITableViewController {
     }
     
     
-    private func moveDownByOneRowAfterDestinationIndexPath(dest: IndexPath, maxRank: Int) {
-
-        let startRank = dest.row + 1
-        guard startRank <= maxRank else { return }
-        
-        for rank in startRank...maxRank {
-            let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: rank, section: dest.section))
-            print("Going to move down \(taskObject.name)")
-            print("Current rank before move: \(taskObject.ranking)")
-            taskObject.ranking += 1   // increment ranking will resulted in move row down by one after sorting
-            print("New rank after move: \(taskObject.ranking)")
-            do {
-                try coreDataStack.managedContext.save()
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    private func moveUpByOneRowAfterSourceIndexPath(source: IndexPath, maxRank: Int) {
-
-        let startRank = source.row + 1
-        guard startRank <= maxRank else { return }
-        
-        for rank in startRank...maxRank {
-            let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: rank, section: source.section))
-            print("Going to move up \(taskObject.name)")
-            print("Current rank before move: \(taskObject.ranking)")
-            taskObject.ranking -= 1   // decrement ranking will resulted in move row down by one after sorting
-            print("New rank after move: \(taskObject.ranking)")
-            do {
-                try coreDataStack.managedContext.save()
-            } catch {
-                print(error)
-            }
-        }
-    }
     
     // MARK: - Action 
     
