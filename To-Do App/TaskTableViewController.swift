@@ -203,10 +203,12 @@ class TaskTableViewController: UITableViewController {
         
         // let lastRowIndex = fetchedResultsController.sections![source.section].numberOfObjects - 1
         
+        var tempArray = [Task]()
         // Case for move up
         if source.row > destination.row {
             print("Case move up same section...")
             // from dest.row up to  source row - 1 => rank #  + 1
+
             let startRow = destination.row
             let endRow = source.row - 1
             print("startRow: \(startRow) endRow: \(endRow)")
@@ -216,11 +218,7 @@ class TaskTableViewController: UITableViewController {
                 print("original Ranking: \(taskObject.ranking)")
                 taskObject.ranking = Int32(row + 1)
                 print("new Ranking: \(taskObject.ranking)")
-                do {
-                    try coreDataStack.managedContext.save()
-                } catch {
-                    print(error)
-                }
+                tempArray.append(taskObject)
             }
         }
         // Case move down
@@ -235,14 +233,14 @@ class TaskTableViewController: UITableViewController {
                 print("original Ranking: \(taskObject.ranking)")
                 taskObject.ranking = Int32(row - 1)
                 print("new Ranking: \(taskObject.ranking)")
-                do {
-                    try coreDataStack.managedContext.save()
-                } catch {
-                    print(error)
-                }
+                tempArray.append(taskObject)
             }
         }
-        
+        do {
+            try coreDataStack.managedContext.save()
+        } catch {
+            print(error)
+        }
     }
     
     private func handleCellMoveDifferentSection(source: IndexPath, destination: IndexPath) {
@@ -263,18 +261,23 @@ class TaskTableViewController: UITableViewController {
         let destinationStartRow = destination.row
         let destinationEndRow = destinationLastRowIndex
         
-        guard destinationStartRow >= destinationEndRow else { return }
-        
+        guard destinationStartRow <= destinationEndRow else {
+            print("Move diff section: we got \(destinationStartRow) > \(destinationEndRow)")
+            return
+        }
+        print("Move diff section: increment rank from \(destinationStartRow) up to \(destinationEndRow)")
+        var tempArray = [Task]()
         for row in destinationStartRow...destinationEndRow {
             let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: destination.section))
             taskObject.ranking = Int32(row + 1)
-            do {
-                try coreDataStack.managedContext.save()
-            } catch {
-                print(error)
-            }
+            tempArray.append(taskObject)
         }
         
+        do {
+            try coreDataStack.managedContext.save()
+        } catch {
+            print(error)
+        }
     }
     
 
@@ -286,20 +289,23 @@ class TaskTableViewController: UITableViewController {
         
         // Prevent crash due to move from last row
         guard sourceEndRow >= sourceStartRow else { return }
+        var tempArray = [Task]()
         for row in sourceStartRow...sourceEndRow {
             let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: source.section))
             taskObject.ranking = Int32(row - 1)
-            do {
-                try coreDataStack.managedContext.save()
-            } catch {
-                print(error)
-            }
+            tempArray.append(taskObject)
+        }
+        
+        do {
+            try coreDataStack.managedContext.save()
+        } catch {
+            print(error)
         }
     }
     
     
     
-    // MARK: - Action 
+    // MARK: - Action
     
     // Do nothing but still needed to unwind
     @IBAction func unwindToTaskList(_ sender: UIStoryboardSegue) {
