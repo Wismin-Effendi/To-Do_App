@@ -89,12 +89,12 @@ class TaskViewController: UIViewController {
         updateSaveButtonState()
         
         // Test to print out max ranking by priority 
-        if let maxRankByPriority = getMaxRankingGroupByPriority() {
+        if let maxRankByPriority = Util.getMaxRankingGroupByPriority(moc: managedContext) {
             print("This is maxRankByPriority output: ")
             print(maxRankByPriority)
         }
         // actual assignemnt 
-        priorityMaxRankingDict = getMaxRankingGroupByPriority()
+        priorityMaxRankingDict = Util.getMaxRankingGroupByPriority(moc: managedContext)
     }
     
     
@@ -120,6 +120,16 @@ class TaskViewController: UIViewController {
     
     @IBAction func priorityStepperValueChange(_ sender: UIStepper) {
         priorityTextField.text = Int(sender.value).description
+        // Handle case  for update Priority on existing Task
+        // Need to update Ranking as it's tied to a particular Priority 
+        if task != nil {
+            if let maxRankingGroupByPriority = Util.getMaxRankingGroupByPriority(moc: managedContext),
+                let maxRankingOfThisPriority = maxRankingGroupByPriority[Int(task!.priority)] {
+                task?.ranking = Int32(maxRankingOfThisPriority + 1)
+            } else {
+                task?.ranking = 0
+            }
+        }
     }
     
     // MARK: - Navigation
@@ -224,14 +234,14 @@ extension TaskViewController: UITextFieldDelegate {
 
 
 // MARK: Helper for find max ranking for each priority 
-extension TaskViewController {
-    
-    func getMaxRankingGroupByPriority() -> [Int:Int]? {
+struct Util {
+    // specific to implementation of To_Do_App, Task Entity only
+    static func getMaxRankingGroupByPriority(moc: NSManagedObjectContext) -> [Int:Int]? {
         
         func propertiesGroupToPriorityMaxRankingDict(_ arrayOfDict: [Dictionary<String,Int>]) -> [Int:Int] {
             let priorityToMaxRankingDict = arrayOfDict.map { arr1 in
                 return [arr1["priority"]! : arr1["maxOfRanking"]!]
-            }
+                }
                 .flatMap { $0 }
                 .reduce([Int:Int]()) { (dict, tuple) in
                     var nextDict = dict
@@ -254,7 +264,7 @@ extension TaskViewController {
         fetch.propertiesToGroupBy = ["priority"]
         let sort = NSSortDescriptor(key: "priority", ascending: false)
         fetch.sortDescriptors = [sort]
-        if let results = try? managedContext.fetch(fetch) as? [Dictionary<String,Int>] {
+        if let results = try? moc.fetch(fetch) as? [Dictionary<String,Int>] {
             print("Max ranking group by priority:")
             print(results)
             return propertiesGroupToPriorityMaxRankingDict(results!)
