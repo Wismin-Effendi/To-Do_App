@@ -8,11 +8,13 @@
 
 import UIKit
 import CoreData
+import Seam3
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
+    var controller: UIViewController?
 
     lazy var coreDataStack = CoreDataStack(modelName: "To_Do_App")
 
@@ -27,12 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         splitViewController?.delegate = self
         
         taskTableViewController?.coreDataStack = coreDataStack
+        controller = taskTableViewController
         
         if let detailNavController = splitViewController?.viewControllers.last as? UINavigationController,
             let taskViewController = detailNavController.topViewController as? TaskViewController {
             
             taskViewController.managedContext = coreDataStack.managedContext
         }
+        
+        // Seam3 ClouldKit sync 
+        coreDataStack.smStore = coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores.first as? SMStore
+        coreDataStack.validateCloudKitAndSync({})
+        
+        application.registerForRemoteNotifications()
         
         return true
         
@@ -71,7 +80,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         return true
     }
-    
 
+}
+
+// MARK: - Remote Notification 
+extension AppDelegate {
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("Registered for remote notification")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Remote notification registration failed")
+        controller?.showAlertWarning(message: "Please login to iCloud for remote data sync.")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        print("Received push")
+        coreDataStack.smStore?.handlePush(userInfo: userInfo)
+        completionHandler(.newData)
+    }
 }
 
