@@ -15,7 +15,8 @@ import CoreData
 class TaskTableViewController: UITableViewController {
 
     // MARK: - Properties
-    fileprivate let cellIdentifier = "TaskCell"
+    fileprivate let cellIdentifier = CellIdentifier.TaskCell
+    
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
     
@@ -24,6 +25,8 @@ class TaskTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         
         initializeFetchResultsController()
         
@@ -95,6 +98,14 @@ class TaskTableViewController: UITableViewController {
         let sectionInfo = fetchedResultsController.sections?[section]
         let headerText = "Priority \(sectionInfo!.name)"
         return headerText
+    }
+    
+    // Override row selection, we want to automatically save the editing / new task into coredata 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("We are in row selected")
+        // save any pending edit on detail view 
+        self.coreDataStack.saveContext()
+        
     }
     
     // Override to support conditional editing of the table view.

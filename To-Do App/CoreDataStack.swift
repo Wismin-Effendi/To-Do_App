@@ -13,8 +13,22 @@ class CoreDataStack {
     
     private let modelName: String
     
-    init(modelName: String) {
+    private static var sharedInstance: CoreDataStack!
+    
+    private init(modelName: String) {
         self.modelName = modelName
+        CoreDataStack.sharedInstance = self
+    }
+    
+    // Note: model name can't be change, only the first time initialize the model, other times will be ignored. 
+    static func shared(modelName: String) -> CoreDataStack {
+        switch (sharedInstance, modelName) {
+        case let (nil, modelName):
+            sharedInstance = CoreDataStack(modelName: modelName)
+            return sharedInstance
+        default:
+            return sharedInstance
+        }
     }
     
     lazy var storeContainer: NSPersistentContainer = {

@@ -26,11 +26,14 @@ class TaskViewController: UIViewController {
     @IBOutlet weak var dueDateTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     @IBOutlet weak var taskStackView: UIStackView!
     @IBOutlet weak var categoryStackView: UIStackView!
     
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    var isSplitView = false
     
     var showDatePicker: Bool = false {
         didSet {
@@ -62,7 +65,7 @@ class TaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         registerForKeyboardNotification()  // to scroll content up when show keyboard 
         showDatePicker = false
         priorityTextField.isEnabled = false
@@ -98,16 +101,26 @@ class TaskViewController: UIViewController {
         priorityMaxRankingDict = Util.getMaxRankingGroupByPriority(moc: managedContext)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        updateCancelButtonTitle()
+    }
     
+    
+    private func updateCancelButtonTitle() {
+        isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
+        cancelButton.title = isSplitView ? "Clear All" : "Cancel"
+    }
+    
+    private func clearAllFields() {
+        taskNameTexField.text = ""
+        priorityTextField.text = "1"
+        categoryTextField.text = ""
+        dueDateTextField.text = ""
+    }
     
 
     // MARK: Action 
     
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
-        // For SplitView 
-        self.navigationController?.navigationController?.popToRootViewController(animated: true)
-    }
-
     @IBAction func datePickerValueChange(_ sender: UIDatePicker) {
         dueDate = sender.date
     }
@@ -133,14 +146,16 @@ class TaskViewController: UIViewController {
         }
     }
     
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        guard let button = sender as? UIBarButtonItem, button == saveButton else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
-            return
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        // For SplitView
+        if isSplitView { // clear all button
+            clearAllFields()
+        } else {  // cancel button
+            self.navigationController?.navigationController?.popToRootViewController(animated: true)
         }
+    }
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
         let name = taskNameTexField.text ?? ""
         let priority = Int16(priorityTextField.text!) ?? 1
         let category = categoryTextField.text ?? ""
@@ -168,8 +183,15 @@ class TaskViewController: UIViewController {
             print(error)
         }
 
+        if !isSplitView {
+            self.navigationController?.navigationController?.popToRootViewController(animated: true)
+        }
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateCancelButtonTitle()
+    }
+    
     
     // MARK: Private Methods
     fileprivate func updateSaveButtonState() {
@@ -209,7 +231,7 @@ extension TaskViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing Task Name only
         if textField.tag == TextFieldTag.taskName.rawValue {
-            saveButton.isEnabled = false
+            saveButton?.isEnabled = false
         }
     }
     

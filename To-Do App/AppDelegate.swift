@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
     var controller: UIViewController?
 
-    lazy var coreDataStack = CoreDataStack(modelName: "To_Do_App")
+    lazy var coreDataStack = CoreDataStack.shared(modelName: ModelName.toDoApp)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
