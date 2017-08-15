@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Seam3
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -36,10 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             
             taskViewController.managedContext = coreDataStack.managedContext
         }
-        
-        // Seam3 ClouldKit sync 
-        coreDataStack.smStore = coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores.first as? SMStore
-        coreDataStack.validateCloudKitAndSync({})
         
         application.registerForRemoteNotifications()
         
@@ -98,7 +93,6 @@ extension AppDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         print("Received push")
-        coreDataStack.smStore?.handlePush(userInfo: userInfo)
         completionHandler(.newData)
     }
 }
