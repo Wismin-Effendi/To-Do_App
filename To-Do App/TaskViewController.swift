@@ -102,13 +102,14 @@ class TaskViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        updateCancelButtonTitle()
+        updateSplitViewSetting()
     }
     
     
-    private func updateCancelButtonTitle() {
+    private func updateSplitViewSetting() {
         isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
         cancelButton.title = isSplitView ? "Clear All" : "Cancel"
+        // also the cancel and save button has dependency on isSplitView value.
     }
     
     private func clearAllFields() {
@@ -189,7 +190,7 @@ class TaskViewController: UIViewController {
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        updateCancelButtonTitle()
+        updateSplitViewSetting()
     }
     
     
