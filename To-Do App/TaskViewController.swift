@@ -175,6 +175,7 @@ class TaskViewController: UIViewController {
                 }
             }
             task!.name = name
+            task!.completed = false 
             task!.priority = priority
             task!.category = category
             task!.dueDate = dueDate as NSDate?

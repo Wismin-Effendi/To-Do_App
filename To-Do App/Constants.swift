@@ -16,3 +16,16 @@ struct ModelName {
 struct CellIdentifier {
     static let TaskCell = "TaskCell"
 }
+
+struct TaskCategory {
+    static let others = "others"
+    static let home = "home"
+    static let errants = "errants"
+    static let shopping = "shopping"
+    static let social = "social"
+    static let spiritual = "spiritual"
+    static let childCare = "child care"
+    static let exercise = "exercise"
+    static let study = "study"
+    static let entertainment = "entertainment"
+}

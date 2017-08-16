@@ -9,8 +9,7 @@
 import UIKit
 import os.log
 import CoreData
-
-
+import MGSwipeTableCell
 
 class TaskTableViewController: UITableViewController {
 
@@ -82,7 +81,7 @@ class TaskTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TaskCell else {
+        guard let cell: TaskCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TaskCell else {
             fatalError("The dequeed cell is not an instance of TaskCell")
         }
 
@@ -367,18 +366,43 @@ class TaskTableViewController: UITableViewController {
 // MARK: - Internal 
 extension TaskTableViewController {
     
-    func configure(cell: UITableViewCell, for indexPath: IndexPath) {
+    func configure(cell: MGSwipeTableCell, for indexPath: IndexPath) {
         guard let cell = cell as? TaskCell else {
             return
         }
         
         let task = fetchedResultsController.object(at: indexPath)
-        cell.textLabel?.text = task.name
+        let text = task.name!
+        let attributedString = NSMutableAttributedString(string: text)
+        cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
         let categoryText = task.category ?? "Any"
         let dueDateText = task.dueDate != nil ? "\(task.dueDate!)" : "No due date"
         cell.detailTextLabel?.text = categoryText + " - " + dueDateText
+        
+        // configure let buttons 
+        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green) {[unowned self]
+            (sender: MGSwipeTableCell!) -> Bool in
+            guard (sender as? TaskCell) != nil else { return false }
+                task.completed = true
+                self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                return true
+            }]
+        cell.leftSwipeSettings.transition = .static
+    }
+    
+    private func addThickStrikethrough(_ attributedString: NSMutableAttributedString) -> NSAttributedString {
+        attributedString.addAttribute(NSBaselineOffsetAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.styleThick.rawValue, range: NSMakeRange(0, attributedString.length))
+        return attributedString
+    }
+    
+    private func noStrikethrough(_ attributedString: NSMutableAttributedString) -> NSAttributedString {
+        attributedString.addAttribute(NSBaselineOffsetAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
+        return attributedString
     }
 }
+
 
 
 

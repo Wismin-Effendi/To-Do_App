@@ -12,6 +12,12 @@ import CoreData
 @objc(Task)
 public class Task: NSManagedObject {
 
+    func setDefaultsForNewTask() {
+        self.completed = false
+        self.category = TaskCategory.others
+        
+    }
+    
 }
 
 extension Task {

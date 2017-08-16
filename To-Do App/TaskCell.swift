@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import MGSwipeTableCell
 
-class TaskCell: UITableViewCell {
+class TaskCell: MGSwipeTableCell {
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
