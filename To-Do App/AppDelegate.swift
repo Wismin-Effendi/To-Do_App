@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Mixpanel.initialize(token: "17c93a8fd533e37f8885e1177f8cf1d5")
         
         // Case of SplitView controller
         let splitViewController = window?.rootViewController as? UISplitViewController

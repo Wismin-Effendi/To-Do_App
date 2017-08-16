@@ -10,6 +10,7 @@ import UIKit
 import os.log
 import CoreData
 import MGSwipeTableCell
+import Mixpanel
 
 class TaskTableViewController: UITableViewController {
 
@@ -338,6 +339,7 @@ class TaskTableViewController: UITableViewController {
                 let taskDetailViewController = navCon.topViewController as? TaskViewController  else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
+            Mixpanel.mainInstance().people.increment(property: "add new task", by: 1)
             taskDetailViewController.managedContext = coreDataStack.managedContext
         case "ShowDetail":
             guard let navCon = segue.destination as? UINavigationController,
@@ -384,6 +386,7 @@ extension TaskTableViewController {
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
                 task.completed = true
+                Mixpanel.mainInstance().people.increment(property: "completed task", by: 1)
                 self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
                 return true
             }]
