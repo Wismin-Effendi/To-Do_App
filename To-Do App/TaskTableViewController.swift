@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import ToDoCoreDataCloudKit
 import CoreData
 import MGSwipeTableCell
 import Mixpanel
@@ -377,9 +378,8 @@ extension TaskTableViewController {
         let text = task.name!
         let attributedString = NSMutableAttributedString(string: text)
         cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
-        let categoryText = task.category ?? "Any"
         let dueDateText = task.dueDate != nil ? "\(task.dueDate!)" : "No due date"
-        cell.detailTextLabel?.text = categoryText + " - " + dueDateText
+        cell.detailTextLabel?.text = dueDateText
         
         // configure let buttons 
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green) {[unowned self]

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ToDoCoreDataCloudKit
 
 extension UIViewController {
     func showAlertError(message: String) {
@@ -22,9 +23,8 @@ extension UIViewController {
     }
 }
 
-extension UIApplication {
-    public var isSplitOrSlideOver: Bool {
-        guard let w = self.delegate?.window, let window = w else { return false }
-        return !window.frame.equalTo(window.screen.bounds)
+extension Sample {
+    func test() -> Bool {
+        return true
     }
 }

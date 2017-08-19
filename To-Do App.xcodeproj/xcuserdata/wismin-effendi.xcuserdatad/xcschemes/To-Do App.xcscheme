@@ -48,6 +48,26 @@
                ReferencedContainer = "container:To-Do App.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3792EE731F477F8600ACAAAE"
+               BuildableName = "To-Do CoreData-CloudKitTests.xctest"
+               BlueprintName = "To-Do CoreData-CloudKitTests"
+               ReferencedContainer = "container:To-Do App.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3792EE981F47816900ACAAAE"
+               BuildableName = "ToDoCoreDataCloudKitTests.xctest"
+               BlueprintName = "ToDoCoreDataCloudKitTests"
+               ReferencedContainer = "container:To-Do App.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

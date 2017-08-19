@@ -9,15 +9,15 @@
 import Foundation
 
 
-struct ModelName {
-    static let toDoApp = "To_Do_App"
+public struct ModelName {
+    public static let ToDo = "ToDoApp"
 }
 
-struct CellIdentifier {
-    static let TaskCell = "TaskCell"
+public struct CellIdentifier {
+    public static let TaskCell = "TaskCell"
 }
 
-struct TaskCategory {
+public struct TaskCategory {
     static let others = "others"
     static let home = "home"
     static let errants = "errants"
@@ -29,3 +29,11 @@ struct TaskCategory {
     static let study = "study"
     static let entertainment = "entertainment"
 }
+
+
+extension UserDefaults {
+    public struct Keys {
+        public static let mixpanelIdentity = "mixpanelIdentity"
+    }
+}
+

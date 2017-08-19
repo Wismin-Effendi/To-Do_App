@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "4k3-7M-E7L"; */
+"4k3-7M-E7L.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Task:"; ObjectID = "DTl-Uo-5ok"; */
+"DTl-Uo-5ok.text" = "Task:";
+
+/* Class = "UILabel"; text = "Category"; ObjectID = "Jsz-gm-YI5"; */
+"Jsz-gm-YI5.text" = "Category";
+
+/* Class = "UINavigationItem"; title = "New Task"; ObjectID = "PHD-8t-ezp"; */
+"PHD-8t-ezp.title" = "New Task";
+
+/* Class = "UINavigationItem"; title = "Tasks"; ObjectID = "cU2-qE-OyQ"; */
+"cU2-qE-OyQ.title" = "Tasks";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "f3K-Nv-yBh"; */
+"f3K-Nv-yBh.title" = "Cancel";
+
+/* Class = "UILabel"; text = "Due:"; ObjectID = "fG5-y9-jkG"; */
+"fG5-y9-jkG.text" = "Due:";
+
+/* Class = "UITextField"; text = "1"; ObjectID = "ma7-aH-XLM"; */
+"ma7-aH-XLM.text" = "1";
+
+/* Class = "UILabel"; text = "Priority:"; ObjectID = "qF8-Ya-kCv"; */
+"qF8-Ya-kCv.text" = "Priority:";
+
+/* Class = "UILabel"; text = "Category:"; ObjectID = "sRh-55-2lf"; */
+"sRh-55-2lf.text" = "Category:";

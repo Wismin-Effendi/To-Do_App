@@ -2,7 +2,7 @@
 //  Task+CoreDataClass.swift
 //  To-Do App
 //
-//  Created by Wismin Effendi on 6/27/17.
+//  Created by Wismin Effendi on 8/18/17.
 //  Copyright © 2017 iShinobi. All rights reserved.
 //
 
@@ -11,10 +11,8 @@ import CoreData
 
 @objc(Task)
 public class Task: NSManagedObject {
-
     func setDefaultsForNewTask() {
         self.completed = false
-        self.category = TaskCategory.others
         
     }
     

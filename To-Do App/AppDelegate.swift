@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ToDoCoreDataCloudKit
 import CoreData
 import Mixpanel
 
@@ -16,12 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
     var controller: UIViewController?
 
-    lazy var coreDataStack = CoreDataStack.shared(modelName: ModelName.toDoApp)
+    lazy var coreDataStack = CoreDataStack.shared(modelName: ModelName.ToDo)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Mixpanel analytics
         Mixpanel.initialize(token: "17c93a8fd533e37f8885e1177f8cf1d5")
+        let mixpanel = Mixpanel.mainInstance()
+        // maybe better to use iCloud user identifier, but what if user not logged in. 
+        // for our purpose tracking one device as one user might be okay for now.
+        let newUUIDString = UUID().uuidString
+        let mixpanelIdentity = UserDefaults.standard.string(forKey: UserDefaults.Keys.mixpanelIdentity) ?? newUUIDString
+        if mixpanelIdentity == newUUIDString {
+            UserDefaults.standard.set(mixpanelIdentity, forKey: UserDefaults.Keys.mixpanelIdentity)
+        }
+        mixpanel.identify(distinctId: mixpanelIdentity)
+        mixpanel.people.setOnce(properties: ["add new task": 0 , "completed task" : 0])
         
         // Case of SplitView controller
         let splitViewController = window?.rootViewController as? UISplitViewController

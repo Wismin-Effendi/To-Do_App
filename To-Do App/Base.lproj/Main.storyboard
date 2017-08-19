@@ -112,11 +112,11 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O2N-5h-uhJ" id="dUv-jV-Odl">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kbg-uL-fIF">
-                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Title">
@@ -128,7 +128,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4k3-7M-E7L">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -224,14 +224,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="245" translatesAutoresizingMaskIntoConstraints="NO" id="X1g-gN-2d0">
                                                 <rect key="frame" x="0.0" y="67" width="300" height="30"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRh-55-2lf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="88" height="30"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRh-55-2lf">
+                                                        <rect key="frame" x="0.0" y="0.0" width="82.5" height="30"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="0rF-5u-OEN">
-                                                        <rect key="frame" x="88" y="0.0" width="212" height="30"/>
+                                                        <rect key="frame" x="82.5" y="0.0" width="217.5" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>

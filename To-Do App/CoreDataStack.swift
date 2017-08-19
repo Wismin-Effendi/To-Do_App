@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class CoreDataStack {
+public class CoreDataStack {
     
     private let modelName: String
     
@@ -21,7 +21,7 @@ class CoreDataStack {
     }
     
     // Note: model name can't be change, only the first time initialize the model, other times will be ignored. 
-    static func shared(modelName: String) -> CoreDataStack {
+    public static func shared(modelName: String) -> CoreDataStack {
         switch (sharedInstance, modelName) {
         case let (nil, modelName):
             sharedInstance = CoreDataStack(modelName: modelName)
@@ -31,14 +31,14 @@ class CoreDataStack {
         }
     }
     
-    lazy var storeContainer: NSPersistentContainer = {
+    public lazy var storeContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: self.modelName)
         
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ninja.pragprog.todo")
         
-        if let applicationDocumentsDirectory = urls.last {
-            let url = applicationDocumentsDirectory.appendingPathComponent("ToDoAppCoreData.sqlite")
+        if let applicationDocumentsDirectory = directory {
+            let url = applicationDocumentsDirectory.appendingPathComponent("ToDo.sqlite")
             let storeDescription = NSPersistentStoreDescription(url: url)
             
             container.persistentStoreDescriptions = [storeDescription]
@@ -48,16 +48,19 @@ class CoreDataStack {
                     fatalError("Unresolved error \(error), \(error.userInfo)")
                 }
             }
+            print("Location for the sqlite3 file: ")
+            print(url)
+
             return container
         }
-        fatalError("Unable to access documents directory")
+        fatalError("Unable to access group documents directory")
     }()
     
-    lazy var managedContext: NSManagedObjectContext = {
+    public lazy var managedContext: NSManagedObjectContext = {
         return self.storeContainer.viewContext
     }()
     
-    func saveContext() {
+    public func saveContext() {
         guard managedContext.hasChanges else { return }
         
         do {

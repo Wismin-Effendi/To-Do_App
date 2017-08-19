@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ToDoCoreDataCloudKit
 import os.log
 import CoreData
 import Mixpanel
@@ -84,7 +85,6 @@ class TaskViewController: UIViewController {
             navigationItem.title = task?.name
             taskNameTexField.text = task?.name
             priorityTextField.text = "\(task?.priority ?? 1)"
-            categoryTextField.text = task?.category
             if let taskDueDate = task?.dueDate as Date? {
                 dueDate = taskDueDate
             }
@@ -178,7 +178,6 @@ class TaskViewController: UIViewController {
             task!.name = name
             task!.completed = false 
             task!.priority = priority
-            task!.category = category
             task!.dueDate = dueDate as NSDate?
 
             try managedContext.save()
