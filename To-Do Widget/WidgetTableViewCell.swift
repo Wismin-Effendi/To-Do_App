@@ -13,7 +13,9 @@ class WidgetTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var statusButton: UIButton!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
-
+    
+    var completed: Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,7 +27,13 @@ class WidgetTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+
     }
 
+    @IBAction func doneButtonTapped(_ sender: UIButton) {
+        completed = !completed
+        // Configure the view for the selected state
+        let image = completed ? #imageLiteral(resourceName: "checked") : #imageLiteral(resourceName: "unchecked")
+        statusButton.setImage(image, for: .normal)
+    }
 }

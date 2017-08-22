@@ -1,0 +1,15 @@
+PODS:
+  - MGSwipeTableCell (1.5.6)
+  - Mixpanel-swift (2.2.0)
+
+DEPENDENCIES:
+  - MGSwipeTableCell
+  - Mixpanel-swift
+
+SPEC CHECKSUMS:
+  MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
+  Mixpanel-swift: 389d347987f56ca185cc639b490df1af7102e39c
+
+PODFILE CHECKSUM: 4f6b6db504a7cb452b04c68d44c4599a6d741576
+
+COCOAPODS: 1.2.1

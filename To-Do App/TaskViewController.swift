@@ -35,19 +35,29 @@ class TaskViewController: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
+    
     var isSplitView = false
     
     var showDatePicker: Bool = false {
         didSet {
             switch showDatePicker {
             case true:
-                datePicker.isHidden = false
-                taskStackView.isHidden = true
-                categoryStackView.isHidden = true
+                UIView.animate(withDuration: 0.65, delay: 0.0, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [.transitionCurlDown], animations: {[unowned self] in
+                    self.datePickerHeight.constant = 300
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
             case false:
-                datePicker.isHidden = true
-                taskStackView.isHidden = false
-                categoryStackView.isHidden = false
+                if oldValue == false {
+                    self.datePicker.isHidden = false
+                    self.datePickerHeight.constant = 0
+                    return
+                } else {
+                    UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [], animations: {[unowned self] in
+                        self.datePickerHeight.constant = 0
+                        self.view.layoutIfNeeded()
+                    })
+                }
             }
         }
     }
@@ -68,7 +78,8 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerForKeyboardNotification()  // to scroll content up when show keyboard 
+        registerForKeyboardNotification()  // to scroll content up when show keyboard
+        datePicker.isHidden = true
         showDatePicker = false
         priorityTextField.isEnabled = false
         // Set tag on textField of interest only
@@ -87,6 +98,7 @@ class TaskViewController: UIViewController {
             priorityTextField.text = "\(task?.priority ?? 1)"
             if let taskDueDate = task?.dueDate as Date? {
                 dueDate = taskDueDate
+                if dueDate != nil { datePicker.date = dueDate! }
             }
         }
         
@@ -213,16 +225,19 @@ class TaskViewController: UIViewController {
             let kbSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
             
             let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
-            scrollView.contentInset = contentInsets
-            scrollView.scrollIndicatorInsets = contentInsets
-            
+            UIView.animate(withDuration: 0.5) {[unowned self] in
+                self.scrollView.contentInset = contentInsets
+                self.scrollView.scrollIndicatorInsets = contentInsets
+            }
         }
     }
     
     func keyboardWillHide(_ notification: Notification) {
         let contentInsets = UIEdgeInsets.zero
-        scrollView.contentInset = contentInsets
-        scrollView.scrollIndicatorInsets = contentInsets
+        UIView.animate(withDuration: 0.33) { [unowned self] in
+            self.scrollView.contentInset = contentInsets
+            self.scrollView.scrollIndicatorInsets = contentInsets
+        }
     }
     
     
@@ -244,11 +259,15 @@ extension TaskViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         // Special treatment for dueDateTextField only
-        guard textField.tag == TextFieldTag.dueDate.rawValue else { return true }
-        // dueDate use datePicker instead
-        showDatePicker = !showDatePicker
-        dueDate = datePicker.date
-        return false
+        if textField.tag == TextFieldTag.dueDate.rawValue {
+            self.view.endEditing(true)  // hide the keyboard
+            showDatePicker = !showDatePicker
+            dueDate = datePicker.date
+            return false
+        } else {
+            showDatePicker = false
+            return true
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

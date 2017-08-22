@@ -381,7 +381,7 @@ extension TaskTableViewController {
         let dueDateText = task.dueDate != nil ? "\(task.dueDate!)" : "No due date"
         cell.detailTextLabel?.text = dueDateText
         
-        // configure let buttons 
+        // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green) {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }

@@ -21,7 +21,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         readFromCoreData()
-        tableView.reloadData()
+        tableView.dataSource = self
+        tableView.delegate = self 
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,7 +36,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        
+        tableView.reloadData()
         completionHandler(NCUpdateResult.newData)
     }
     
@@ -69,6 +70,10 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WidgetTableViewCell", for: indexPath) as! WidgetTableViewCell
         print("We are here....")
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 59
     }
 }
 
