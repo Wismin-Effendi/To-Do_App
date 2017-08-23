@@ -24,18 +24,18 @@ class TaskViewController: UIViewController {
     
     @IBOutlet weak var taskNameTexField: UITextField!
     @IBOutlet weak var priorityTextField: UITextField!
-    @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     @IBOutlet weak var taskStackView: UIStackView!
-    @IBOutlet weak var categoryStackView: UIStackView!
+    @IBOutlet weak var locationStackView: UIStackView!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
+    @IBOutlet weak var locationHeight: NSLayoutConstraint!
     
     var isSplitView = false
     
@@ -45,6 +45,8 @@ class TaskViewController: UIViewController {
             case true:
                 UIView.animate(withDuration: 0.65, delay: 0.0, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [.transitionCurlDown], animations: {[unowned self] in
                     self.datePickerHeight.constant = 300
+                    self.locationStackView.isHidden = true
+                    self.locationHeight.constant = 0
                     self.view.layoutIfNeeded()
                 }, completion: nil)
             case false:
@@ -55,6 +57,8 @@ class TaskViewController: UIViewController {
                 } else {
                     UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [], animations: {[unowned self] in
                         self.datePickerHeight.constant = 0
+                        self.locationStackView.isHidden = false
+                        self.locationHeight.constant = 100
                         self.view.layoutIfNeeded()
                     })
                 }
@@ -81,13 +85,11 @@ class TaskViewController: UIViewController {
         registerForKeyboardNotification()  // to scroll content up when show keyboard
         datePicker.isHidden = true
         showDatePicker = false
-        priorityTextField.isEnabled = false
         // Set tag on textField of interest only
         taskNameTexField.tag = TextFieldTag.taskName.rawValue
         dueDateTextField.tag = TextFieldTag.dueDate.rawValue
         // Handle the text fields's user input through delegate callbacks.
         taskNameTexField.delegate = self
-        categoryTextField.delegate = self
         dueDateTextField.delegate = self
         
         // Set up views if editing an existing Task
@@ -95,7 +97,6 @@ class TaskViewController: UIViewController {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task!)
             navigationItem.title = task?.name
             taskNameTexField.text = task?.name
-            priorityTextField.text = "\(task?.priority ?? 1)"
             if let taskDueDate = task?.dueDate as Date? {
                 dueDate = taskDueDate
                 if dueDate != nil { datePicker.date = dueDate! }
@@ -115,6 +116,7 @@ class TaskViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        datePickerHeight.constant = 0 
         updateSplitViewSetting()
     }
     
@@ -127,8 +129,6 @@ class TaskViewController: UIViewController {
     
     private func clearAllFields() {
         taskNameTexField.text = ""
-        priorityTextField.text = "1"
-        categoryTextField.text = ""
         dueDateTextField.text = ""
     }
     
@@ -172,7 +172,6 @@ class TaskViewController: UIViewController {
     @IBAction func save(_ sender: UIBarButtonItem) {
         let name = taskNameTexField.text ?? ""
         let priority = Int16(priorityTextField.text!) ?? 1
-        let category = categoryTextField.text ?? ""
         
         // Set the task to be passed to TaskTableViewController after the unwind segue
         do {
