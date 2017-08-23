@@ -337,11 +337,11 @@ class TaskTableViewController: UITableViewController {
         case "AddTask":
             os_log("Adding a new task.", log: OSLog.default, type: .debug)
             guard let navCon = segue.destination as? UINavigationController,
-                let taskDetailViewController = navCon.topViewController as? TaskViewController  else {
+                let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController  else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             Mixpanel.mainInstance().people.increment(property: "add new task", by: 1)
-            taskDetailViewController.managedContext = coreDataStack.managedContext
+            taskEditTableViewController.managedContext = coreDataStack.managedContext
         case "ShowDetail":
             guard let navCon = segue.destination as? UINavigationController,
                 let taskDetailViewController = navCon.topViewController as? TaskViewController else {

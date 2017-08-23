@@ -77,8 +77,6 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        
         // Maybe don't need anymore since we use static table view
         registerForKeyboardNotification()  // to scroll content up when show keyboard
         datePicker.isHidden = true
@@ -260,28 +258,6 @@ extension TaskViewController: UITextFieldDelegate {
 }
 
 
-// MARK: - UITableViewDelegate 
-extension TaskViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Section 1: Location, Section 3: DatePicker, We hide location when showing DatePicker
-        // standard height = 44,  DatePicker = 220 
-        
-        let section = indexPath.section
-        switch (showDatePicker, section) {
-        case (true, 1):
-            return 0
-        case (false, 1):
-            return 44
-        case (true, 3):
-            return 220
-        case (false, 3):
-            return 0
-        default:
-            return 44
-        }
-    }
-}
 
 // MARK: Helper for find max ranking for each priority
 struct Util {
