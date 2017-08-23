@@ -26,7 +26,7 @@
 		3775C0DA1F4D062E002FE84D /* TaskLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0D91F4D062E002FE84D /* TaskLocation.swift */; };
 		3775C0DC1F4D561C002FE84D /* TaskEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0DB1F4D561C002FE84D /* TaskEditTableViewController.swift */; };
 		378DB25D1F0193C300819B6D /* TaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB25C1F0193C300819B6D /* TaskTableViewController.swift */; };
-		378DB25F1F0194AE00819B6D /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB25E1F0194AE00819B6D /* TaskViewController.swift */; };
+		378DB25F1F0194AE00819B6D /* OLD_TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB25E1F0194AE00819B6D /* OLD_TaskViewController.swift */; };
 		378DB2611F019AE300819B6D /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB2601F019AE300819B6D /* TaskCell.swift */; };
 		3792EE561F4689D100ACAAAE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37814B381F466BA500A43C14 /* NotificationCenter.framework */; };
 		3792EE591F4689D100ACAAAE /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3792EE581F4689D100ACAAAE /* TodayViewController.swift */; };
@@ -152,7 +152,7 @@
 		3775C0DB1F4D561C002FE84D /* TaskEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditTableViewController.swift; sourceTree = "<group>"; };
 		37814B381F466BA500A43C14 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		378DB25C1F0193C300819B6D /* TaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewController.swift; sourceTree = "<group>"; };
-		378DB25E1F0194AE00819B6D /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		378DB25E1F0194AE00819B6D /* OLD_TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OLD_TaskViewController.swift; sourceTree = "<group>"; };
 		378DB2601F019AE300819B6D /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		378DB2771F0297CD00819B6D /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		378DB27C1F02A15500819B6D /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = "../To-Do App/CoreDataStack.swift"; sourceTree = "<group>"; };
@@ -296,7 +296,7 @@
 				37514B311EEF811F00D67A6E /* Photo.swift */,
 				37514B351EEF8BA700D67A6E /* ToDoCategoryViewController.swift */,
 				378DB25C1F0193C300819B6D /* TaskTableViewController.swift */,
-				378DB25E1F0194AE00819B6D /* TaskViewController.swift */,
+				378DB25E1F0194AE00819B6D /* OLD_TaskViewController.swift */,
 				3775C0D51F4D05BF002FE84D /* MapViewController.swift */,
 				3775C0D71F4D05FE002FE84D /* LocationListViewController.swift */,
 				3775C0D91F4D062E002FE84D /* TaskLocation.swift */,
@@ -823,7 +823,7 @@
 				37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */,
 				378DB25D1F0193C300819B6D /* TaskTableViewController.swift in Sources */,
 				379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */,
-				378DB25F1F0194AE00819B6D /* TaskViewController.swift in Sources */,
+				378DB25F1F0194AE00819B6D /* OLD_TaskViewController.swift in Sources */,
 				378DB2611F019AE300819B6D /* TaskCell.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,
 				37514B321EEF811F00D67A6E /* Photo.swift in Sources */,

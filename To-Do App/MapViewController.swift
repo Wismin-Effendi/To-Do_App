@@ -23,7 +23,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchText: UITextField!
 
-    var coreDataStack: CoreDataStack!
+    var managedContext: NSManagedObjectContext!
     var delegate: TaskLocationDelegate?
     var matchingItems: [MKMapItem] = [MKMapItem]()
         
@@ -157,13 +157,16 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     private func saveToCoreData(taskLocation: TaskLocation) {
-        let locationAnnotation = LocationAnnotation(context: coreDataStack.managedContext)
-        locationAnnotation.localUpdate = NSDate()
-        locationAnnotation.identifier = UUID().uuidString
+        let locationAnnotation = LocationAnnotation(context: managedContext)
+        
         locationAnnotation.title = taskLocation.title
         locationAnnotation.annotation = taskLocation
         
-        coreDataStack.saveContext()
+        do {
+            try managedContext.save()
+        } catch {
+            fatalError("Failed to save managedObject: \(error.localizedDescription)")
+        }
     }
 }
 

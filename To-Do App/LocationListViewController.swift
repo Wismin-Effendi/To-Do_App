@@ -19,7 +19,7 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         }
     }
     
-    var coreDataStack: CoreDataStack!
+    var managedContext: NSManagedObjectContext!
     var fetchedResultsController: NSFetchedResultsController<LocationAnnotation>!
     var locationAnnotations = [LocationAnnotation]()
     
@@ -44,7 +44,7 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         let fetchRequest: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
         let titleSort = NSSortDescriptor(key: #keyPath(LocationAnnotation.title), ascending: true)
         fetchRequest.sortDescriptors = [titleSort]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
@@ -60,7 +60,7 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueIdentifier.AddNewLocation {
             let vc = segue.destination as! MapViewController
-            vc.coreDataStack = coreDataStack
+            vc.managedContext = managedContext
             vc.delegate = self 
         }
     }

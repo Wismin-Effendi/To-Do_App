@@ -20,11 +20,11 @@ class TaskEditTableViewController: UITableViewController {
         case dueDate
     }
     
-    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var taskNameTexField: UITextField!
-    @IBOutlet weak var priorityTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var locationSubtitle: UILabel!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -55,10 +55,7 @@ class TaskEditTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Maybe don't need anymore since we use static table view
-        registerForKeyboardNotification()  // to scroll content up when show keyboard
-        datePicker.isHidden = true
+        tableView.separatorStyle = .none
         showDatePicker = false
         // Set tag on textField of interest only
         taskNameTexField.tag = TextFieldTag.taskName.rawValue
@@ -132,26 +129,17 @@ class TaskEditTableViewController: UITableViewController {
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         let name = taskNameTexField.text ?? ""
-        let priority = Int16(priorityTextField.text!) ?? 1
         
         // Set the task to be passed to TaskTableViewController after the unwind segue
+        if task == nil {  // add new Task
+            task = Task(context: managedContext)
+            task!.ranking = 0 // not really used at this time
+        }
+        task!.name = name
+        task!.completed = false
+        task!.dueDate = dueDate as NSDate?
+        
         do {
-            if task == nil {  // add new Task
-                task = Task(context: managedContext)
-                // assign new Ranking for new Task
-                if let priorityMaxRankingDict = priorityMaxRankingDict,
-                    let maxRanking = priorityMaxRankingDict[Int(priority)] {
-                    let nextRanking = maxRanking + 1
-                    task!.ranking = Int32(nextRanking)
-                } else {
-                    task!.ranking = 0  // default first value for ranking
-                }
-            }
-            task!.name = name
-            task!.completed = false
-            task!.priority = priority
-            task!.dueDate = dueDate as NSDate?
-            
             try managedContext.save()
         } catch {
             print(error)
@@ -174,31 +162,6 @@ class TaskEditTableViewController: UITableViewController {
         saveButton.isEnabled = !text.isEmpty
     }
     
-    private func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    
-    
-    func keyboardDidShow(_ notification: Notification) {
-        if let info = notification.userInfo,
-            let kbSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
-            
-            let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
-            UIView.animate(withDuration: 0.5) {[unowned self] in
-                self.scrollView.contentInset = contentInsets
-                self.scrollView.scrollIndicatorInsets = contentInsets
-            }
-        }
-    }
-    
-    func keyboardWillHide(_ notification: Notification) {
-        let contentInsets = UIEdgeInsets.zero
-        UIView.animate(withDuration: 0.33) { [unowned self] in
-            self.scrollView.contentInset = contentInsets
-            self.scrollView.scrollIndicatorInsets = contentInsets
-        }
-    }
     
 
 

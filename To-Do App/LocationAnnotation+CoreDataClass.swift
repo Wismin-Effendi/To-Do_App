@@ -12,4 +12,10 @@ import CoreData
 @objc(LocationAnnotation)
 public class LocationAnnotation: NSManagedObject {
 
+    public func setDefaultsForLocalCreate() {
+        self.localUpdate = NSDate()
+        self.identifier = UUID().uuidString
+        self.needsUpload = true
+        self.pendingDeletion = false
+    }
 }
