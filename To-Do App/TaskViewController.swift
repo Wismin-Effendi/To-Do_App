@@ -29,40 +29,35 @@ class TaskViewController: UIViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
-    @IBOutlet weak var taskStackView: UIStackView!
-    @IBOutlet weak var locationStackView: UIStackView!
-    
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
-    @IBOutlet weak var locationHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
+
     
     var isSplitView = false
     
     var showDatePicker: Bool = false {
         didSet {
-            switch showDatePicker {
-            case true:
-                UIView.animate(withDuration: 0.65, delay: 0.0, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [.transitionCurlDown], animations: {[unowned self] in
-                    self.datePickerHeight.constant = 300
-                    self.locationStackView.isHidden = true
-                    self.locationHeight.constant = 0
-                    self.view.layoutIfNeeded()
-                }, completion: nil)
-            case false:
-                if oldValue == false {
-                    self.datePicker.isHidden = false
-                    self.datePickerHeight.constant = 0
-                    return
-                } else {
-                    UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [], animations: {[unowned self] in
-                        self.datePickerHeight.constant = 0
-                        self.locationStackView.isHidden = false
-                        self.locationHeight.constant = 100
-                        self.view.layoutIfNeeded()
-                    })
-                }
-            }
+            
+            tableView.beginUpdates()
+            tableView.endUpdates()
+//            switch showDatePicker {
+//            case true:
+//                UIView.animate(withDuration: 0.65, delay: 0.0, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [.transitionCurlDown], animations: {[unowned self] in
+//                    // something
+//                    
+//                }, completion: nil)
+//            case false:
+//                if oldValue == false {
+//                    // something
+//                    return
+//                } else {
+//                    UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: [], animations: {[unowned self] in
+//
+//                        // something 
+//                    })
+//                }
+//            }
         }
     }
     
@@ -82,6 +77,9 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.delegate = self
+        
+        // Maybe don't need anymore since we use static table view
         registerForKeyboardNotification()  // to scroll content up when show keyboard
         datePicker.isHidden = true
         showDatePicker = false
@@ -116,7 +114,6 @@ class TaskViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        datePickerHeight.constant = 0 
         updateSplitViewSetting()
     }
     
@@ -229,7 +226,7 @@ class TaskViewController: UIViewController {
     
 }
 
-// MARK: UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension TaskViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing Task Name only
@@ -263,7 +260,30 @@ extension TaskViewController: UITextFieldDelegate {
 }
 
 
-// MARK: Helper for find max ranking for each priority 
+// MARK: - UITableViewDelegate 
+extension TaskViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // Section 1: Location, Section 3: DatePicker, We hide location when showing DatePicker
+        // standard height = 44,  DatePicker = 220 
+        
+        let section = indexPath.section
+        switch (showDatePicker, section) {
+        case (true, 1):
+            return 0
+        case (false, 1):
+            return 44
+        case (true, 3):
+            return 220
+        case (false, 3):
+            return 0
+        default:
+            return 44
+        }
+    }
+}
+
+// MARK: Helper for find max ranking for each priority
 struct Util {
     // specific to implementation of To_Do_App, Task Entity only
     static func getMaxRankingGroupByPriority(moc: NSManagedObjectContext) -> [Int:Int]? {
