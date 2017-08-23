@@ -146,19 +146,6 @@ class TaskViewController: UIViewController {
         dueDateTextField.text = dateFormatter.string(from: date)
     }
     
-    @IBAction func priorityStepperValueChange(_ sender: UIStepper) {
-        priorityTextField.text = Int(sender.value).description
-        // Handle case  for update Priority on existing Task
-        // Need to update Ranking as it's tied to a particular Priority 
-        if task != nil {
-            if let maxRankingGroupByPriority = Util.getMaxRankingGroupByPriority(moc: managedContext),
-                let maxRankingOfThisPriority = maxRankingGroupByPriority[Int(sender.value)] {
-                task?.ranking = Int32(maxRankingOfThisPriority + 1)
-            } else {
-                task?.ranking = 0
-            }
-        }
-    }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         // For SplitView

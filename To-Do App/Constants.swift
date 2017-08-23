@@ -15,6 +15,7 @@ public struct ModelName {
 
 public struct CellIdentifier {
     public static let TaskCell = "TaskCell"
+    public static let LocationName = "LocationName"
 }
 
 public struct TaskCategory {
@@ -30,10 +31,21 @@ public struct TaskCategory {
     static let entertainment = "entertainment"
 }
 
+public struct Constant {
+    public static let toDoCategoryPerRow: CGFloat = 3
+    public static let hardCodedPadding: CGFloat = 30.0
+}
+
+public struct SegueIdentifier {
+    public static let AddNewLocation = "AddNewLocation"
+    public static let LocationList = "LocationList"
+}
 
 extension UserDefaults {
     public struct Keys {
         public static let mixpanelIdentity = "mixpanelIdentity"
     }
 }
+
+
 
