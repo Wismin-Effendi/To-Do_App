@@ -17,10 +17,12 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let timeBasedTaskViewController = viewControllers?[0] as? TaskTableViewController {
+        if  let nc = viewControllers?[0] as? UINavigationController,
+            let timeBasedTaskViewController = nc.topViewController as? TaskTableViewController {
             timeBasedTaskViewController.coreDataStack = coreDataStack
         }
-        if let locationBasedTaskViewController = viewControllers?[1] as? LocationTaskTableViewController {
+        if let nc = viewControllers?[1] as? UINavigationController,
+            let locationBasedTaskViewController = nc.topViewController as? LocationTaskTableViewController {
             locationBasedTaskViewController.coreDataStack = coreDataStack
         }
 

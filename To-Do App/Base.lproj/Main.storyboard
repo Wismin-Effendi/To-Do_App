@@ -133,9 +133,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7er-Ck-VEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4850.3999999999996" y="161.46926536731635"/>
+            <point key="canvasLocation" x="6728.8000000000002" y="161.46926536731635"/>
         </scene>
-        <!--Due Date-->
+        <!--Task Table View Controller-->
         <scene sceneID="X34-dF-bJ0">
             <objects>
                 <tableViewController id="dF4-s0-D9n" customClass="TaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -174,13 +174,13 @@
                             <outlet property="delegate" destination="dF4-s0-D9n" id="qQ0-Zl-Sw0"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Due Date" image="emptyClock" id="4PD-e1-xK1"/>
+                    <navigationItem key="navigationItem" id="RX5-ih-2jr"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4eF-l6-cDr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3494" y="-311"/>
+            <point key="canvasLocation" x="4432.8000000000002" y="-311.69415292353824"/>
         </scene>
-        <!--Location-->
+        <!--Location Task Table View Controller-->
         <scene sceneID="lcZ-Hd-nuR">
             <objects>
                 <tableViewController id="ttc-oR-mM8" customClass="LocationTaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -219,11 +219,11 @@
                             <outlet property="delegate" destination="ttc-oR-mM8" id="pzL-nq-8Xc"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Location" image="emptyClock" id="3WT-hM-cqz"/>
+                    <navigationItem key="navigationItem" id="ZGt-36-oEs"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24x-sd-F7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2415" y="399"/>
+            <point key="canvasLocation" x="3856.8000000000002" y="416.94152923538235"/>
         </scene>
         <!--New Task-->
         <scene sceneID="atj-qc-dbp">
@@ -443,7 +443,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYC-Wl-OrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5532" y="160.56971514242881"/>
+            <point key="canvasLocation" x="7410.3999999999996" y="160.56971514242881"/>
         </scene>
         <!--Location List View Controller-->
         <scene sceneID="TYf-OP-vcr">
@@ -492,7 +492,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PGo-rb-Zly" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6228" y="166.8665667166417"/>
+            <point key="canvasLocation" x="8106.3999999999996" y="166.8665667166417"/>
         </scene>
         <!--Add New Location-->
         <scene sceneID="VB3-El-YJt">
@@ -554,7 +554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uPb-no-2Nt" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6570.3999999999996" y="161.46926536731635"/>
+            <point key="canvasLocation" x="8448.7999999999993" y="161.46926536731635"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="XYI-hM-i0Q">
@@ -567,16 +567,55 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="dF4-s0-D9n" kind="relationship" relationship="viewControllers" id="v4w-8F-NdK"/>
-                        <segue destination="ttc-oR-mM8" kind="relationship" relationship="viewControllers" id="6ab-GL-5oJ"/>
+                        <segue destination="dcu-m5-3Me" kind="relationship" relationship="viewControllers" id="v4w-8F-NdK"/>
+                        <segue destination="t2Q-uf-tIg" kind="relationship" relationship="viewControllers" id="6ab-GL-5oJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VCl-Zi-PlV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1996" y="-304"/>
         </scene>
+        <!--Time-->
+        <scene sceneID="hQw-Sb-Uic">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dcu-m5-3Me" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Time" image="emptyClock" id="4PD-e1-xK1"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cSP-ux-svX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dF4-s0-D9n" kind="relationship" relationship="rootViewController" id="Ib1-hf-VT3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9BO-q4-dbo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3493.5999999999999" y="-311.69415292353824"/>
+        </scene>
+        <!--Location-->
+        <scene sceneID="SB1-Bi-m4M">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t2Q-uf-tIg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Location" image="pointy" id="3WT-hM-cqz"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zTb-Wc-sfW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ttc-oR-mM8" kind="relationship" relationship="rootViewController" id="0Rc-BZ-jnK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sZ0-Dg-tMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2917.5999999999999" y="416.94152923538235"/>
+        </scene>
     </scenes>
     <resources>
         <image name="emptyClock" width="25" height="25"/>
+        <image name="pointy" width="17" height="27"/>
     </resources>
 </document>
