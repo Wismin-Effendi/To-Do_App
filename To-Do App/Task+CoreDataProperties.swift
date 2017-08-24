@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  To-Do App
 //
-//  Created by Wismin Effendi on 8/22/17.
+//  Created by Wismin Effendi on 8/24/17.
 //  Copyright © 2017 iShinobi. All rights reserved.
 //
 
@@ -16,17 +16,18 @@ extension Task {
         return NSFetchRequest<Task>(entityName: "Task")
     }
 
+    @NSManaged public var archieved: Bool
     @NSManaged public var category: String?
     @NSManaged public var completed: Bool
-    @NSManaged public var dueDate: NSDate?
-    @NSManaged public var name: String?
-    @NSManaged public var priority: Int16
-    @NSManaged public var ranking: Int32
     @NSManaged public var completionDate: NSDate?
-    @NSManaged public var archieved: Bool
+    @NSManaged public var dueDate: NSDate?
     @NSManaged public var identifier: String?
+    @NSManaged public var name: String?
     @NSManaged public var needsUpload: Bool
     @NSManaged public var pendingDeletion: Bool
+    @NSManaged public var priority: Int16
+    @NSManaged public var ranking: Int32
+    @NSManaged public var localUpdate: NSDate?
     @NSManaged public var location: LocationAnnotation?
 
 }

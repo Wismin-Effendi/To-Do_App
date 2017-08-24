@@ -44,12 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Case of SplitView controller
         let splitViewController = window?.rootViewController as? UISplitViewController
         let navController = splitViewController?.viewControllers.first as? UINavigationController
-        let taskTableViewController = navController?.topViewController as? TaskTableViewController
+        let tabBarViewController = navController?.topViewController as? TabBarViewController
             
         splitViewController?.delegate = self
         
-        taskTableViewController?.coreDataStack = coreDataStack
-        controller = taskTableViewController
+        tabBarViewController?.coreDataStack = coreDataStack
+        controller = tabBarViewController?.selectedViewController
         
         if let detailNavController = splitViewController?.viewControllers.last as? UINavigationController,
             let taskViewController = detailNavController.topViewController as? TaskViewController {

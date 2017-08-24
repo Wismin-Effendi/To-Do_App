@@ -51,14 +51,16 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     var managedContext: NSManagedObjectContext!
     
     var task: Task?
-    
-    // TaskLocationDelegate
-    var taskLocation = TaskLocation() {
+    var location: LocationAnnotation? {
         didSet {
-            print("We got \(taskLocation.title)")
+            guard let annotation = location?.annotation as? TaskLocation else { return }
+            locationTitle.text = annotation.title
+            locationSubtitle.text = annotation.subtitle
         }
     }
     
+    // TaskLocationDelegate
+    var taskLocation = TaskLocation()     
     var locationIdenfifier = ""
     
     override func viewDidLoad() {
@@ -77,6 +79,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task!)
             navigationItem.title = task?.name
             taskNameTexField.text = task?.name
+            if let annotation = task?.location?.annotation as? TaskLocation {
+                locationTitle.text = annotation.title
+                locationSubtitle.text = annotation.subtitle
+            }
             if let taskDueDate = task?.dueDate as Date? {
                 dueDate = taskDueDate
                 if dueDate != nil { datePicker.date = dueDate! }
@@ -96,10 +102,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     private func updateLocationInformation() {
         guard locationIdenfifier != "" else { return }
-        if let locationAnnotation = CoreDataUtil.locationAnnotation(by: locationIdenfifier, managedContext: managedContext),
-            let annotation = locationAnnotation.annotation as? TaskLocation {
-            locationTitle.text = annotation.title
-            locationSubtitle.text = annotation.subtitle
+        if let locationAnnotation = CoreDataUtil.locationAnnotation(by: locationIdenfifier, managedContext: managedContext) {
+            location = locationAnnotation
         }
     }
     
@@ -144,11 +148,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         // Set the task to be passed to TaskTableViewController after the unwind segue
         if task == nil {  // add new Task
             task = Task(context: managedContext)
+            task?.setDefaultsForLocalCreate()
             task!.ranking = 0 // not really used at this time
         }
         task!.name = name
-        task!.completed = false
         task!.dueDate = dueDate as NSDate?
+        task!.location = location
         
         do {
             try managedContext.save()

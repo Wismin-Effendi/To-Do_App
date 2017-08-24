@@ -48,6 +48,8 @@
 		3792EEB51F478D6F00ACAAAE /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB2771F0297CD00819B6D /* Task+CoreDataProperties.swift */; };
 		3792EEB61F478D9F00ACAAAE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379157251F4349ED00B7C178 /* Constants.swift */; };
 		3792EEBB1F47A55700ACAAAE /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3792EEBA1F47A55700ACAAAE /* Task+CoreDataClass.swift */; };
+		379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953D1F4F0AE30075F30B /* TabBarViewController.swift */; };
+		379B95401F4F0E2F0075F30B /* LocationTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */; };
 		379EF42B1F1C67D80023174A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379EF42A1F1C67D80023174A /* CloudKit.framework */; };
 		379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379EF42C1F1C6B2D0023174A /* Extensions.swift */; };
 		55F1102C2C92233218ED92C5 /* Pods_To_Do_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3358E9BB99EB3ED7FA21585 /* Pods_To_Do_App.framework */; };
@@ -173,6 +175,8 @@
 		3792EEA21F47816900ACAAAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3792EEB01F47889E00ACAAAE /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		3792EEBA1F47A55700ACAAAE /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		379B953D1F4F0AE30075F30B /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTaskTableViewController.swift; sourceTree = "<group>"; };
 		379EF4291F1C67D50023174A /* To-Do App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To-Do App.entitlements"; sourceTree = "<group>"; };
 		379EF42A1F1C67D80023174A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		379EF42C1F1C6B2D0023174A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -354,10 +358,12 @@
 		3775C0E01F4E3EBA002FE84D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				379B953D1F4F0AE30075F30B /* TabBarViewController.swift */,
 				378DB25C1F0193C300819B6D /* TaskTableViewController.swift */,
 				3775C0D71F4D05FE002FE84D /* LocationListViewController.swift */,
 				3775C0D51F4D05BF002FE84D /* MapViewController.swift */,
 				3775C0DB1F4D561C002FE84D /* TaskEditTableViewController.swift */,
+				379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -867,6 +873,7 @@
 				3775C0DA1F4D062E002FE84D /* TaskLocation.swift in Sources */,
 				3775C0D61F4D05BF002FE84D /* MapViewController.swift in Sources */,
 				3753BAC51F47F03A00EBD7CD /* ToDoApp.xcdatamodeld in Sources */,
+				379B95401F4F0E2F0075F30B /* LocationTaskTableViewController.swift in Sources */,
 				37514B361EEF8BA700D67A6E /* ToDoCategoryViewController.swift in Sources */,
 				3775C0DE1F4E3ABC002FE84D /* CoreDateUtil.swift in Sources */,
 				37514B301EEF80AF00D67A6E /* ToDoCategoryCell.swift in Sources */,
@@ -877,6 +884,7 @@
 				378DB2611F019AE300819B6D /* TaskCell.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,
 				37514B321EEF811F00D67A6E /* Photo.swift in Sources */,
+				379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */,
 				3775C0DC1F4D561C002FE84D /* TaskEditTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

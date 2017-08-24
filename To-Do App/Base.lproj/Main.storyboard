@@ -146,13 +146,10 @@
                             <outlet property="delegate" destination="cZu-zG-MDP" id="B3N-A6-Pjt"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="viN-wy-kjo"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Tasks" id="cU2-qE-OyQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="8CE-iP-0XF">
-                            <connections>
-                                <segue destination="Isn-jM-q7G" kind="show" identifier="AddTask" id="1yl-Md-Zqd"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="8CE-iP-0XF"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -161,7 +158,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lZT-ug-ymB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="119.1904047976012"/>
+            <point key="canvasLocation" x="1906" y="-152"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vfC-9k-56H">
@@ -174,7 +171,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="cZu-zG-MDP" kind="relationship" relationship="rootViewController" id="1hM-k8-9a3"/>
+                        <segue destination="klP-i2-rdx" kind="relationship" relationship="rootViewController" id="dAc-gR-dNy"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oto-mT-tOw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -198,6 +195,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7er-Ck-VEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2973" y="162"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="lcZ-Hd-nuR">
+            <objects>
+                <tableViewController id="ttc-oR-mM8" customClass="LocationTaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AeE-lM-cEY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LocationTaskCell" textLabel="FQb-1a-ygt" detailTextLabel="sFO-Ff-c6g" style="IBUITableViewCellStyleSubtitle" id="4ZU-AA-irE">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ZU-AA-irE" id="dL3-im-dVR">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FQb-1a-ygt">
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sFO-Ff-c6g">
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ttc-oR-mM8" id="BT7-l8-nqN"/>
+                            <outlet property="delegate" destination="ttc-oR-mM8" id="pzL-nq-8Xc"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="3WT-hM-cqz"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="24x-sd-F7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2190" y="1001"/>
+        </scene>
+        <!--Task-->
+        <scene sceneID="TTF-Ak-Lma">
+            <objects>
+                <tabBarController id="klP-i2-rdx" customClass="TabBarViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Task" id="3Sp-wF-Wso">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yB3-rL-oUz">
+                            <connections>
+                                <segue destination="Isn-jM-q7G" kind="show" identifier="AddTask" id="M0G-21-bCr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="2fq-Qs-aFH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="cZu-zG-MDP" kind="relationship" relationship="viewControllers" id="oKm-uY-vzd"/>
+                        <segue destination="ttc-oR-mM8" kind="relationship" relationship="viewControllers" id="KeS-IK-wRP"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zfk-sD-mzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1050" y="1062"/>
         </scene>
         <!--New Task-->
         <scene sceneID="atj-qc-dbp">
@@ -532,6 +599,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1yl-Md-Zqd"/>
+        <segue reference="weE-yE-i4b"/>
     </inferredMetricsTieBreakers>
 </document>

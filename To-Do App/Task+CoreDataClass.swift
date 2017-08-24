@@ -16,8 +16,14 @@ public class Task: NSManagedObject {
         self.completed = false
     }
     
-    var descriptions: String {
-        return "\(name!) Priority: \(priority)  Ranking: \(ranking)"
+    public func setDefaultsForLocalCreate() {
+        self.localUpdate = NSDate()
+        self.completed = false
+        self.completionDate = NSDate.init(timeIntervalSinceReferenceDate: 0)
+        self.needsUpload = true
+        self.pendingDeletion = false
+        self.identifier = UUID().uuidString
+        self.archieved = false
     }
     
     

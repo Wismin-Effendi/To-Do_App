@@ -16,6 +16,7 @@
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="localUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="needsUpload" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pendingDeletion" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -24,7 +25,7 @@
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocationAnnotation" inverseName="tasks" inverseEntity="LocationAnnotation" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Task" positionX="-45" positionY="0" width="128" height="225"/>
         <element name="LocationAnnotation" positionX="-45" positionY="72" width="128" height="150"/>
+        <element name="Task" positionX="-45" positionY="0" width="128" height="240"/>
     </elements>
 </model>
