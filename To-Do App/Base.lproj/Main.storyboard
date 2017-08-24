@@ -99,67 +99,6 @@
             </objects>
             <point key="canvasLocation" x="-77" y="746"/>
         </scene>
-        <!--Tasks-->
-        <scene sceneID="iVG-Vj-sxs">
-            <objects>
-                <tableViewController id="cZu-zG-MDP" customClass="TaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zTP-i9-EMT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="redraw" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" textLabel="kbg-uL-fIF" detailTextLabel="4k3-7M-E7L" style="IBUITableViewCellStyleSubtitle" id="O2N-5h-uhJ" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O2N-5h-uhJ" id="dUv-jV-Odl">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kbg-uL-fIF">
-                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <attributedString key="attributedText">
-                                                <fragment content="Title">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="system" size="17"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4k3-7M-E7L">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="Isn-jM-q7G" kind="showDetail" identifier="ShowDetail" id="weE-yE-i4b"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="cZu-zG-MDP" id="b8w-wB-8rG"/>
-                            <outlet property="delegate" destination="cZu-zG-MDP" id="B3N-A6-Pjt"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="viN-wy-kjo"/>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Tasks" id="cU2-qE-OyQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="8CE-iP-0XF"/>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="addBarButton" destination="8CE-iP-0XF" id="SJI-Xw-O4T"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lZT-ug-ymB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1906" y="-152"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="vfC-9k-56H">
             <objects>
@@ -171,7 +110,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="klP-i2-rdx" kind="relationship" relationship="rootViewController" id="dAc-gR-dNy"/>
+                        <segue destination="bqU-Ln-ifg" kind="relationship" relationship="rootViewController" id="2bd-LK-asZ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oto-mT-tOw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -194,9 +133,54 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7er-Ck-VEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2973" y="162"/>
+            <point key="canvasLocation" x="4850.3999999999996" y="161.46926536731635"/>
         </scene>
-        <!--Item-->
+        <!--Due Date-->
+        <scene sceneID="X34-dF-bJ0">
+            <objects>
+                <tableViewController id="dF4-s0-D9n" customClass="TaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="mde-7e-22R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" textLabel="dTf-t7-c3B" detailTextLabel="7qE-cu-e4D" style="IBUITableViewCellStyleSubtitle" id="KcP-Tj-Igb" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KcP-Tj-Igb" id="wxY-No-xhi">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dTf-t7-c3B">
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7qE-cu-e4D">
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dF4-s0-D9n" id="hzn-au-Kcv"/>
+                            <outlet property="delegate" destination="dF4-s0-D9n" id="qQ0-Zl-Sw0"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Due Date" image="emptyClock" id="4PD-e1-xK1"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4eF-l6-cDr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3494" y="-311"/>
+        </scene>
+        <!--Location-->
         <scene sceneID="lcZ-Hd-nuR">
             <objects>
                 <tableViewController id="ttc-oR-mM8" customClass="LocationTaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -205,7 +189,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LocationTaskCell" textLabel="FQb-1a-ygt" detailTextLabel="sFO-Ff-c6g" style="IBUITableViewCellStyleSubtitle" id="4ZU-AA-irE">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LocationTaskCell" textLabel="FQb-1a-ygt" detailTextLabel="sFO-Ff-c6g" style="IBUITableViewCellStyleSubtitle" id="4ZU-AA-irE" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ZU-AA-irE" id="dL3-im-dVR">
@@ -235,36 +219,11 @@
                             <outlet property="delegate" destination="ttc-oR-mM8" id="pzL-nq-8Xc"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="3WT-hM-cqz"/>
+                    <tabBarItem key="tabBarItem" title="Location" image="emptyClock" id="3WT-hM-cqz"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24x-sd-F7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2190" y="1001"/>
-        </scene>
-        <!--Task-->
-        <scene sceneID="TTF-Ak-Lma">
-            <objects>
-                <tabBarController id="klP-i2-rdx" customClass="TabBarViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Task" id="3Sp-wF-Wso">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yB3-rL-oUz">
-                            <connections>
-                                <segue destination="Isn-jM-q7G" kind="show" identifier="AddTask" id="M0G-21-bCr"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="2fq-Qs-aFH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="cZu-zG-MDP" kind="relationship" relationship="viewControllers" id="oKm-uY-vzd"/>
-                        <segue destination="ttc-oR-mM8" kind="relationship" relationship="viewControllers" id="KeS-IK-wRP"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zfk-sD-mzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1050" y="1062"/>
+            <point key="canvasLocation" x="2415" y="399"/>
         </scene>
         <!--New Task-->
         <scene sceneID="atj-qc-dbp">
@@ -484,7 +443,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYC-Wl-OrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3653.5999999999999" y="160.56971514242881"/>
+            <point key="canvasLocation" x="5532" y="160.56971514242881"/>
         </scene>
         <!--Location List View Controller-->
         <scene sceneID="TYf-OP-vcr">
@@ -533,7 +492,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PGo-rb-Zly" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4350" y="167"/>
+            <point key="canvasLocation" x="6228" y="166.8665667166417"/>
         </scene>
         <!--Add New Location-->
         <scene sceneID="VB3-El-YJt">
@@ -595,10 +554,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uPb-no-2Nt" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4693" y="162"/>
+            <point key="canvasLocation" x="6570.3999999999996" y="161.46926536731635"/>
+        </scene>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="XYI-hM-i0Q">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="bqU-Ln-ifg" customClass="TabBarViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Thv-3h-Kt4"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="20U-Qg-KsG">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="dF4-s0-D9n" kind="relationship" relationship="viewControllers" id="v4w-8F-NdK"/>
+                        <segue destination="ttc-oR-mM8" kind="relationship" relationship="viewControllers" id="6ab-GL-5oJ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VCl-Zi-PlV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1996" y="-304"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="weE-yE-i4b"/>
-    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="emptyClock" width="25" height="25"/>
+    </resources>
 </document>

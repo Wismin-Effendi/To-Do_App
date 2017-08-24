@@ -15,6 +15,7 @@ public struct ModelName {
 
 public struct CellIdentifier {
     public static let TaskCell = "TaskCell"
+    public static let LocationTaskCell = "LocationTaskCell"
     public static let LocationName = "LocationName"
 }
 
