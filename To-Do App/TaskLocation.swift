@@ -35,7 +35,7 @@ class TaskLocation: NSObject, NSCoding, MKAnnotation {
     // So that we could save this object as transformable in Core Data
     required init?(coder aDecoder: NSCoder) {
         title = aDecoder.decodeObject(forKey: "title") as? String
-        subtitle = aDecoder.decodeObject(forKey: "subtitle") as! String
+        subtitle = aDecoder.decodeObject(forKey: "subtitle") as? String
         let latitude = aDecoder.decodeObject(forKey: "latitude") as! CLLocationDegrees
         let longitude = aDecoder.decodeObject(forKey: "longitude") as! CLLocationDegrees
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)

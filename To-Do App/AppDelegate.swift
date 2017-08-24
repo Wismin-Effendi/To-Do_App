@@ -9,6 +9,7 @@
 import UIKit
 import ToDoCoreDataCloudKit
 import CoreData
+import MapKit
 import Mixpanel
 
 @UIApplicationMain
@@ -17,10 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
     var controller: UIViewController?
 
+    var locationManager: CLLocationManager?
+    
     lazy var coreDataStack = CoreDataStack.shared(modelName: ModelName.ToDo)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        locationManager = CLLocationManager()
+        locationManager?.requestWhenInUseAuthorization()
         
         // Mixpanel analytics
         Mixpanel.initialize(token: "17c93a8fd533e37f8885e1177f8cf1d5")

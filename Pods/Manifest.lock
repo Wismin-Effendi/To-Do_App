@@ -1,15 +1,18 @@
 PODS:
   - MGSwipeTableCell (1.5.6)
   - Mixpanel-swift (2.2.0)
+  - SwiftDate (4.1.7)
 
 DEPENDENCIES:
   - MGSwipeTableCell
   - Mixpanel-swift
+  - SwiftDate (~> 4.0)
 
 SPEC CHECKSUMS:
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   Mixpanel-swift: 389d347987f56ca185cc639b490df1af7102e39c
+  SwiftDate: '029be76691ee89176da3a46c7df3415b6734bc5b'
 
-PODFILE CHECKSUM: 4f6b6db504a7cb452b04c68d44c4599a6d741576
+PODFILE CHECKSUM: b2de77a547e9a423240c66979bac0d955d8c5d88
 
 COCOAPODS: 1.2.1

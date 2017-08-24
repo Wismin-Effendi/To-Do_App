@@ -44,16 +44,15 @@ class TaskTableViewController: UITableViewController {
     
     private func initializeFetchResultsController() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let prioritySort = NSSortDescriptor(key: #keyPath(Task.priority), ascending: true)
-        let rankingSort = NSSortDescriptor(key: #keyPath(Task.ranking), ascending: true)
+        let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-        fetchRequest.sortDescriptors = [prioritySort, rankingSort, nameSort]
+        fetchRequest.sortDescriptors = [dueDateSort, nameSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                               managedObjectContext: coreDataStack.managedContext,
-                                                              sectionNameKeyPath: #keyPath(Task.priority),
+                                                              sectionNameKeyPath: "dueDateType",
                                                               cacheName: nil)
-        
+    
         fetchedResultsController.delegate = self
     }
 
@@ -97,7 +96,7 @@ class TaskTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionInfo = fetchedResultsController.sections?[section]
-        let headerText = "Priority \(sectionInfo!.name)"
+        let headerText = "\(sectionInfo!.name)"
         return headerText
     }
     
@@ -344,10 +343,10 @@ class TaskTableViewController: UITableViewController {
             taskEditTableViewController.managedContext = coreDataStack.managedContext
         case "ShowDetail":
             guard let navCon = segue.destination as? UINavigationController,
-                let taskDetailViewController = navCon.topViewController as? TaskViewController else {
+                let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            taskDetailViewController.managedContext = coreDataStack.managedContext
+            taskEditTableViewController.managedContext = coreDataStack.managedContext
             guard let selectedTaskCell = sender as? TaskCell else {
                 fatalError("Unexpected sender: \(String(describing: sender))")
             }
@@ -358,7 +357,7 @@ class TaskTableViewController: UITableViewController {
             
             print("We selected Task at IndexPath: \(indexPath)")
             let selectedTask = fetchedResultsController.object(at: indexPath)
-            taskDetailViewController.task = selectedTask
+            taskEditTableViewController.task = selectedTask
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }

@@ -12,7 +12,7 @@ import os.log
 import CoreData
 import Mixpanel
 
-class TaskEditTableViewController: UITableViewController {
+class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
 
     enum TextFieldTag: Int {
         case taskName = 100
@@ -51,7 +51,15 @@ class TaskEditTableViewController: UITableViewController {
     var managedContext: NSManagedObjectContext!
     
     var task: Task?
-    var priorityMaxRankingDict: [Int:Int]?
+    
+    // TaskLocationDelegate
+    var taskLocation = TaskLocation() {
+        didSet {
+            print("We got \(taskLocation.title)")
+        }
+    }
+    
+    var locationIdenfifier = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,19 +86,22 @@ class TaskEditTableViewController: UITableViewController {
         // Enable the Save button only if the text field has a valid Task name
         updateSaveButtonState()
         
-        // Test to print out max ranking by priority
-        if let maxRankByPriority = Util.getMaxRankingGroupByPriority(moc: managedContext) {
-            print("This is maxRankByPriority output: ")
-            print(maxRankByPriority)
-        }
-        // actual assignemnt
-        priorityMaxRankingDict = Util.getMaxRankingGroupByPriority(moc: managedContext)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         updateSplitViewSetting()
+        updateLocationInformation()
     }
     
+    
+    private func updateLocationInformation() {
+        guard locationIdenfifier != "" else { return }
+        if let locationAnnotation = CoreDataUtil.locationAnnotation(by: locationIdenfifier, managedContext: managedContext),
+            let annotation = locationAnnotation.annotation as? TaskLocation {
+            locationTitle.text = annotation.title
+            locationSubtitle.text = annotation.subtitle
+        }
+    }
     
     private func updateSplitViewSetting() {
         isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
@@ -239,15 +250,18 @@ class TaskEditTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == SegueIdentifier.LocationList {
+            let vc = segue.destination as! LocationListViewController
+            vc.managedContext = managedContext
+            vc.delegate = self 
+        }
     }
-    */
+ 
 
 }
 

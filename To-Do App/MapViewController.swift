@@ -14,6 +14,7 @@ import os.log
 import ToDoCoreDataCloudKit
 
 protocol TaskLocationDelegate {
+    var locationIdenfifier: String { get set }
     var taskLocation: TaskLocation { get set }
 }
 
@@ -147,7 +148,9 @@ extension MapViewController: MKMapViewDelegate {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .default) {[unowned self] (action) in
             self.delegate?.taskLocation = taskLocation
-            self.saveToCoreData(taskLocation: taskLocation)
+            let identifier = UUID().uuidString
+            self.delegate?.locationIdenfifier = identifier
+            self.saveToCoreData(identifier: identifier, taskLocation: taskLocation)
             print("We have selected this location: \(taskLocation.coordinate)")
         }
         alertController.addAction(cancelAction)
@@ -156,11 +159,12 @@ extension MapViewController: MKMapViewDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func saveToCoreData(taskLocation: TaskLocation) {
+    private func saveToCoreData(identifier: String, taskLocation: TaskLocation) {
         let locationAnnotation = LocationAnnotation(context: managedContext)
-        
-        locationAnnotation.title = taskLocation.title
+        locationAnnotation.setDefaultsForLocalCreate()
+        locationAnnotation.title = taskLocation.title!
         locationAnnotation.annotation = taskLocation
+        locationAnnotation.identifier = identifier
         
         do {
             try managedContext.save()
