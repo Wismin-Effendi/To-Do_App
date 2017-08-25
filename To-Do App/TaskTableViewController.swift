@@ -20,6 +20,7 @@ class TaskTableViewController: UITableViewController {
     
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
+    var addBarButton: UIBarButtonItem!
     
     var tasks = [Task]()
     
@@ -30,6 +31,8 @@ class TaskTableViewController: UITableViewController {
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         
         initializeFetchResultsController()
+        
+        addBarButton = tabBarController?.navigationItem.rightBarButtonItem
         
         do {
             try fetchedResultsController.performFetch()
@@ -60,7 +63,6 @@ class TaskTableViewController: UITableViewController {
         setEditing(true, animated: true)
     }
     
-    @IBOutlet weak var addBarButton: UIBarButtonItem!
 
     // MARK: - Table view data source
 
@@ -141,11 +143,11 @@ class TaskTableViewController: UITableViewController {
         super.setEditing(editing, animated: animated)
         
         if editing {
-            navigationItem.rightBarButtonItems = [editButtonItem, addBarButton]
+            tabBarController?.navigationItem.rightBarButtonItems = [editButtonItem, addBarButton]
             addBarButton.isEnabled = false
         }
         else {
-            navigationItem.rightBarButtonItems = [addBarButton]
+            tabBarController?.navigationItem.rightBarButtonItems = [addBarButton]
             addBarButton.isEnabled = true 
         }
     }
@@ -169,7 +171,7 @@ class TaskTableViewController: UITableViewController {
         // Need to stop live update during moving cells around
         self.fetchedResultsController.delegate = nil
         
-        // Update other rows on both Source and Destionation
+        // Update other rows on both Source and Destination
         // Case same section
         if sourceIndexPath.section == destinationIndexPath.section {
             handleCellMoveSameSection(source: sourceIndexPath, destination: destinationIndexPath)
@@ -212,41 +214,43 @@ class TaskTableViewController: UITableViewController {
         
         guard source.row != destination.row else { return }  // move in place, nothing to do
         
-        // let lastRowIndex = fetchedResultsController.sections![source.section].numberOfObjects - 1
+        let lastRowIndex = fetchedResultsController.sections![source.section].numberOfObjects - 1
+        let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: source.row, section: source.section))
         
-        var tempArray = [Task]()
-        // Case for move up
-        if source.row > destination.row {
-            print("Case move up same section...")
-            // from dest.row up to  source row - 1 => rank #  + 1
-
-            let startRow = destination.row
-            let endRow = source.row - 1
-            print("startRow: \(startRow) endRow: \(endRow)")
-            for row in startRow...endRow {
-                let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: source.section))
-                print(taskObject.name!)
-                print("original Ranking: \(taskObject.ranking)")
-                taskObject.ranking = Int32(row + 1)
-                print("new Ranking: \(taskObject.ranking)")
-                tempArray.append(taskObject)
-            }
+        // only need to find the row before and after destination.row if exist 
+        // then update the dueDate, save to coreData and let the fetchResultsController do it's work
+        if destination.row == lastRowIndex { // more to the last row
+            let lastObjectInSection = fetchedResultsController.object(at: IndexPath(row: lastRowIndex,
+                                                                                    section: source.section))
+            let dueDateRowBefore = lastObjectInSection.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: nil)
+            taskObject.dueDate = newDueDate as NSDate
+        } else if destination.row == 0 { // more to the first row
+            let firstObjectInSection = fetchedResultsController.object(at: IndexPath(row: 0,
+                                                                                     section: source.section))
+            let dueDateRowAfter = firstObjectInSection.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: nil, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+        } else if source.row > destination.row { // move down
+            let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
+                                                                             section: source.section))
+            let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row + 1,
+                                                                            section: source.section))
+            let dueDateRowBefore = beforeObject.dueDate! as Date
+            let dueDateRowAfter = afterObject.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+        } else { // move up
+            let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row - 1,
+                                                                             section: source.section))
+            let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
+                                                                            section: source.section))
+            let dueDateRowBefore = beforeObject.dueDate! as Date
+            let dueDateRowAfter = afterObject.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
         }
-        // Case move down
-        else {
-            print("Case move up same section...")
-            let startRow = source.row + 1
-            let endRow = destination.row
-            print("startRow: \(startRow) endRow: \(endRow)")
-            for row in startRow...endRow {
-                let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: source.section))
-                print(taskObject.name!)
-                print("original Ranking: \(taskObject.ranking)")
-                taskObject.ranking = Int32(row - 1)
-                print("new Ranking: \(taskObject.ranking)")
-                tempArray.append(taskObject)
-            }
-        }
+        
         do {
             try coreDataStack.managedContext.save()
         } catch {
@@ -333,7 +337,7 @@ class TaskTableViewController: UITableViewController {
         super.prepare(for: segue, sender: sender)
         
         switch (segue.identifier ?? "") {
-        case "AddTask":
+        case SegueIdentifier.AddTask:
             os_log("Adding a new task.", log: OSLog.default, type: .debug)
             guard let navCon = segue.destination as? UINavigationController,
                 let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController  else {
@@ -341,7 +345,7 @@ class TaskTableViewController: UITableViewController {
             }
             Mixpanel.mainInstance().people.increment(property: "add new task", by: 1)
             taskEditTableViewController.managedContext = coreDataStack.managedContext
-        case "ShowDetail":
+        case SegueIdentifier.EditTask:
             guard let navCon = segue.destination as? UINavigationController,
                 let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
@@ -377,7 +381,7 @@ extension TaskTableViewController {
         let text = task.name!
         let attributedString = NSMutableAttributedString(string: text)
         cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
-        let dueDateText = task.dueDate != nil ? "\(task.dueDate!)" : "No due date"
+        let dueDateText = DateUtil.shortDateText(task.dueDate! as Date)
         cell.detailTextLabel?.text = dueDateText
         
         // configure left buttons

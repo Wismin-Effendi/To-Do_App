@@ -15,6 +15,8 @@ class TabBarViewController: UITabBarController {
 
     var coreDataStack: CoreDataStack!
 
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if  let nc = viewControllers?[0] as? UINavigationController,

@@ -21,6 +21,7 @@ class LocationTaskTableViewController: UITableViewController {
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
     
+    var addBarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,8 @@ class LocationTaskTableViewController: UITableViewController {
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         
         initializeFetchResultsController()
+        
+        addBarButton = tabBarController?.navigationItem.rightBarButtonItem
         
         do {
             try fetchedResultsController.performFetch()
@@ -138,19 +141,18 @@ class LocationTaskTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-    
-    @IBOutlet weak var addBarButton: UIBarButtonItem!
+
     
     // hide the Editing button when not in editing mode. Need longPress to initiate to editing Mode
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
         if editing {
-            navigationItem.rightBarButtonItems = [editButtonItem, addBarButton]
+            tabBarController?.navigationItem.rightBarButtonItems = [editButtonItem, addBarButton]
             addBarButton.isEnabled = false
         }
         else {
-            navigationItem.rightBarButtonItems = [addBarButton]
+            tabBarController?.navigationItem.rightBarButtonItems = [addBarButton]
             addBarButton.isEnabled = true
         }
     }
@@ -195,8 +197,8 @@ extension LocationTaskTableViewController {
         let text = task.name!
         let attributedString = NSMutableAttributedString(string: text)
         cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
-        let dueDateText = task.dueDate != nil ? "\(task.dueDate!)" : "No due date"
-        cell.detailTextLabel?.text = dueDateText
+        let dueDateText = DateUtil.shortDateText(task.dueDate! as Date)
+        cell.detailTextLabel?.text = "Due: \(dueDateText)"
         
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green) {[unowned self]

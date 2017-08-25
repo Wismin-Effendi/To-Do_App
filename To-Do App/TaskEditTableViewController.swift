@@ -11,6 +11,7 @@ import ToDoCoreDataCloudKit
 import os.log
 import CoreData
 import Mixpanel
+import SwiftDate
 
 class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
 
@@ -87,6 +88,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
                 dueDate = taskDueDate
                 if dueDate != nil { datePicker.date = dueDate! }
             }
+        } else {
+            dueDate = Date() + 3.hours  // default dueDate for new task.
         }
         
         // Enable the Save button only if the text field has a valid Task name

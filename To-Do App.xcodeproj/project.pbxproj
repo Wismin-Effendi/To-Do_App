@@ -50,6 +50,7 @@
 		3792EEBB1F47A55700ACAAAE /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3792EEBA1F47A55700ACAAAE /* Task+CoreDataClass.swift */; };
 		379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953D1F4F0AE30075F30B /* TabBarViewController.swift */; };
 		379B95401F4F0E2F0075F30B /* LocationTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */; };
+		379B95431F4F66D40075F30B /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95421F4F66D40075F30B /* DateUtil.swift */; };
 		379EF42B1F1C67D80023174A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379EF42A1F1C67D80023174A /* CloudKit.framework */; };
 		379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379EF42C1F1C6B2D0023174A /* Extensions.swift */; };
 		55F1102C2C92233218ED92C5 /* Pods_To_Do_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3358E9BB99EB3ED7FA21585 /* Pods_To_Do_App.framework */; };
@@ -177,6 +178,7 @@
 		3792EEBA1F47A55700ACAAAE /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		379B953D1F4F0AE30075F30B /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTaskTableViewController.swift; sourceTree = "<group>"; };
+		379B95421F4F66D40075F30B /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		379EF4291F1C67D50023174A /* To-Do App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To-Do App.entitlements"; sourceTree = "<group>"; };
 		379EF42A1F1C67D80023174A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		379EF42C1F1C6B2D0023174A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 		3792EE921F47816900ACAAAE /* ToDoCoreDataCloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				379B95411F4F65FF0075F30B /* Utility */,
 				379157251F4349ED00B7C178 /* Constants.swift */,
 				3792EE8A1F477FC100ACAAAE /* CoreData */,
 				3792EEAE1F47817500ACAAAE /* CloudKit */,
@@ -440,6 +443,14 @@
 			children = (
 			);
 			name = CloudKit;
+			sourceTree = "<group>";
+		};
+		379B95411F4F65FF0075F30B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				379B95421F4F66D40075F30B /* DateUtil.swift */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -925,6 +936,7 @@
 				3775C0D31F4CAF72002FE84D /* LocationAnnotation+CoreDataClass.swift in Sources */,
 				3792EEB51F478D6F00ACAAAE /* Task+CoreDataProperties.swift in Sources */,
 				3775C0D41F4CAF72002FE84D /* LocationAnnotation+CoreDataProperties.swift in Sources */,
+				379B95431F4F66D40075F30B /* DateUtil.swift in Sources */,
 				3792EEB21F4789D500ACAAAE /* CoreDataStack.swift in Sources */,
 				3792EEB61F478D9F00ACAAAE /* Constants.swift in Sources */,
 			);

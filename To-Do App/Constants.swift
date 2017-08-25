@@ -59,6 +59,10 @@ public struct Constant {
 }
 
 public struct SegueIdentifier {
+    public static let AddTask = "AddTask"
+    public static let AddTaskFromLocation = "AddTaskFromLocation"
+    public static let EditTask = "EditTask"
+    public static let EditTaskFromLocation = "EditTaskFromLocation"
     public static let AddNewLocation = "AddNewLocation"
     public static let LocationList = "LocationList"
 }
