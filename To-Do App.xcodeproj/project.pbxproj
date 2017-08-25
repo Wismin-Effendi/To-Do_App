@@ -51,6 +51,7 @@
 		379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953D1F4F0AE30075F30B /* TabBarViewController.swift */; };
 		379B95401F4F0E2F0075F30B /* LocationTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */; };
 		379B95431F4F66D40075F30B /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95421F4F66D40075F30B /* DateUtil.swift */; };
+		379B95451F506ACE0075F30B /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95441F506ACE0075F30B /* ArchiveTableViewController.swift */; };
 		379EF42B1F1C67D80023174A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379EF42A1F1C67D80023174A /* CloudKit.framework */; };
 		379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379EF42C1F1C6B2D0023174A /* Extensions.swift */; };
 		55F1102C2C92233218ED92C5 /* Pods_To_Do_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3358E9BB99EB3ED7FA21585 /* Pods_To_Do_App.framework */; };
@@ -179,6 +180,7 @@
 		379B953D1F4F0AE30075F30B /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTaskTableViewController.swift; sourceTree = "<group>"; };
 		379B95421F4F66D40075F30B /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		379B95441F506ACE0075F30B /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
 		379EF4291F1C67D50023174A /* To-Do App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To-Do App.entitlements"; sourceTree = "<group>"; };
 		379EF42A1F1C67D80023174A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		379EF42C1F1C6B2D0023174A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				3775C0D51F4D05BF002FE84D /* MapViewController.swift */,
 				3775C0DB1F4D561C002FE84D /* TaskEditTableViewController.swift */,
 				379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */,
+				379B95441F506ACE0075F30B /* ArchiveTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */,
 				378DB25D1F0193C300819B6D /* TaskTableViewController.swift in Sources */,
 				379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */,
+				379B95451F506ACE0075F30B /* ArchiveTableViewController.swift in Sources */,
 				378DB25F1F0194AE00819B6D /* OLD_TaskViewController.swift in Sources */,
 				378DB2611F019AE300819B6D /* TaskCell.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,

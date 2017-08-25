@@ -38,7 +38,6 @@ class TaskTableViewController: UITableViewController {
         
         initializeFetchResultsController()
         
-        tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
         addBarButton = tabBarController?.navigationItem.rightBarButtonItem
         
         do {
@@ -50,6 +49,11 @@ class TaskTableViewController: UITableViewController {
         // Gesture to enable Editing
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TaskTableViewController.setIsEditing))
         tableView.addGestureRecognizer(longPress)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
     }
     
     private func initializeFetchResultsController() {
@@ -66,6 +70,7 @@ class TaskTableViewController: UITableViewController {
         fetchedResultsController.delegate = self
     }
 
+    
     func setIsEditing() {
         setEditing(true, animated: true)
     }
@@ -243,53 +248,6 @@ class TaskTableViewController: UITableViewController {
             print(error)
         }
     }
-    
-    // MARK: - Action
-    
-    // Do nothing but still needed to unwind
-    @IBAction func unwindToTaskList(_ sender: UIStoryboardSegue) {
-        // we need to call tableView.reloadData() here. Else it won't update until next app restart. 
-        // would be very difficult to figure out where the new Task should be in.
-       tableView.reloadData()
-       os_log("Need to call tableView.reloadData() after we add section headers", log: OSLog.default, type:. debug)
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        switch (segue.identifier ?? "") {
-        case SegueIdentifier.AddTask:
-            os_log("Adding a new task.", log: OSLog.default, type: .debug)
-            guard let navCon = segue.destination as? UINavigationController,
-                let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController  else {
-                fatalError("Unexpected destination: \(segue.destination)")
-            }
-            Mixpanel.mainInstance().people.increment(property: "add new task", by: 1)
-            taskEditTableViewController.managedContext = coreDataStack.managedContext
-        case SegueIdentifier.EditTask:
-            guard let navCon = segue.destination as? UINavigationController,
-                let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController else {
-                fatalError("Unexpected destination: \(segue.destination)")
-            }
-            taskEditTableViewController.managedContext = coreDataStack.managedContext
-            guard let selectedTaskCell = sender as? TaskCell else {
-                fatalError("Unexpected sender: \(String(describing: sender))")
-            }
-            
-            guard let indexPath = tableView.indexPath(for: selectedTaskCell) else {
-                fatalError("The selected cell is not being displayed by the table")
-            }
-            
-            print("We selected Task at IndexPath: \(indexPath)")
-            let selectedTask = fetchedResultsController.object(at: indexPath)
-            taskEditTableViewController.task = selectedTask
-        default:
-            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
-        }
-    }
-
 }
 
 // MARK: - Internal 

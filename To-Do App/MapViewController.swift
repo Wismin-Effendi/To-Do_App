@@ -147,11 +147,15 @@ extension MapViewController: MKMapViewDelegate {
         let alertController = UIAlertController(title: "Choose Location", message: "Choose this location?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .default) {[unowned self] (action) in
+            taskLocation.title = alertController.textFields![0].text
             self.delegate?.taskLocation = taskLocation
             let identifier = UUID().uuidString
             self.delegate?.locationIdenfifier = identifier
             self.saveToCoreData(identifier: identifier, taskLocation: taskLocation)
             print("We have selected this location: \(taskLocation.coordinate)")
+        }
+        alertController.addTextField { (textField) in
+            textField.text = taskLocation.title
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)

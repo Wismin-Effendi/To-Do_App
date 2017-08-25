@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 class TaskLocation: NSObject, NSCoding, MKAnnotation {
-    let title: String?
+    var title: String?
     let subtitle: String?
     let coordinate: CLLocationCoordinate2D
     

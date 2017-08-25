@@ -16,12 +16,14 @@ public struct ModelName {
 public struct CellIdentifier {
     public static let TaskCell = "TaskCell"
     public static let LocationTaskCell = "LocationTaskCell"
+    public static let ArchivedTaskCell = "ArchivedTaskCell"
     public static let LocationName = "LocationName"
 }
 
 public struct NavBarTitle {
     public static let TaskByLocation = "Task by location"
     public static let TaskByDueDate = "Task by due date"
+    public static let ArchivedTask = "Archived Task"
 }
 
 public enum TimeOrder: String {
@@ -64,9 +66,6 @@ public struct Constant {
 }
 
 public struct SegueIdentifier {
-    public static let AddTask = "AddTask"
-    public static let EditTask = "EditTask"
-    public static let EditTaskFromLocation = "EditTaskFromLocation"
     public static let AddNewLocation = "AddNewLocation"
     public static let LocationList = "LocationList"
 }

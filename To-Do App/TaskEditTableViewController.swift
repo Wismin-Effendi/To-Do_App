@@ -88,7 +88,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     }
     
     func refreshUI() {
-        guard taskNameTexField != nil else { return } // skip if called before viewDidLoad 
+        guard taskNameTexField != nil else { return } // skip if called before viewDidLoad
         if task != nil {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task!)
             navigationItem.title = task?.name
@@ -102,6 +102,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
                 if dueDate != nil { datePicker.date = dueDate! }
             }
         } else {
+            navigationItem.title = "New Task"
+            clearAllFields()
             dueDate = Date() + 3.hours  // default dueDate for new task.
         }
     }
@@ -131,8 +133,9 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     }
     
     private func clearAllFields() {
-        taskNameTexField.text = ""
-        // dueDateTextField.text = ""
+        taskNameTexField.text = nil
+        locationTitle.text = nil
+        locationSubtitle.text = nil
     }
     
     

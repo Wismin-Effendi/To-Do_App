@@ -562,9 +562,9 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="bqU-Ln-ifg" customClass="TabBarViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Task" id="Thv-3h-Kt4">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dFL-0P-jMk">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Sg-lF-1f1">
                             <connections>
-                                <segue destination="Isn-jM-q7G" kind="show" identifier="AddTask" id="YVq-Kj-aq1"/>
+                                <action selector="addNewTaskTapped" destination="bqU-Ln-ifg" id="UWx-1Y-Kib"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -573,9 +573,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <outlet property="addBarButton" destination="dFL-0P-jMk" id="USG-Am-p5O"/>
+                        <outlet property="addBarButton" destination="0Sg-lF-1f1" id="Cym-Hx-FWl"/>
                         <segue destination="dcu-m5-3Me" kind="relationship" relationship="viewControllers" id="v4w-8F-NdK"/>
                         <segue destination="t2Q-uf-tIg" kind="relationship" relationship="viewControllers" id="6ab-GL-5oJ"/>
+                        <segue destination="xcw-oU-nh6" kind="relationship" relationship="viewControllers" id="IlT-TU-mx1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VCl-Zi-PlV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -620,12 +621,74 @@
             </objects>
             <point key="canvasLocation" x="3026" y="161"/>
         </scene>
+        <!--Archived Task-->
+        <scene sceneID="tRr-iU-qkn">
+            <objects>
+                <tableViewController id="B9t-fv-9f4" customClass="ArchiveTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="X74-NZ-JnN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArchivedTaskCell" textLabel="tmJ-hq-5np" detailTextLabel="fdB-n5-f8Y" style="IBUITableViewCellStyleSubtitle" id="arb-Ri-MfU" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="arb-Ri-MfU" id="bWq-kT-55z">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tmJ-hq-5np">
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fdB-n5-f8Y">
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="B9t-fv-9f4" id="vbF-Qu-Fdr"/>
+                            <outlet property="delegate" destination="B9t-fv-9f4" id="Oy6-59-j07"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Archived Task" id="xZI-cX-aaa"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NP8-Vb-33J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3095" y="842"/>
+        </scene>
+        <!--Archived-->
+        <scene sceneID="3jn-YA-meg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xcw-oU-nh6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Archived" image="archieve" id="L2Y-kP-jBo"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJS-B1-gKX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="B9t-fv-9f4" kind="relationship" relationship="rootViewController" id="Pc2-RG-Dai"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OKn-5w-0ir" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2273" y="842"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="archieve" width="24" height="24"/>
         <image name="emptyClock" width="25" height="25"/>
         <image name="pointy" width="17" height="27"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="YVq-Kj-aq1"/>
-    </inferredMetricsTieBreakers>
 </document>

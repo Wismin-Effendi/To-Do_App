@@ -8,9 +8,11 @@
 
 import UIKit
 import ToDoCoreDataCloudKit
+import UserNotifications
 import CoreData
 import MapKit
 import Mixpanel
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -28,10 +30,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
         
+        setupMixPanel()
+        
+        setupViewControllers()
+        
+        application.registerForRemoteNotifications()
+                
+        requestAuthorizationForUserNotification()
+        
+        return true
+        
+    }
+    
+    private func requestAuthorizationForUserNotification() {
+        UNUserNotificationCenter.current().requestAuthorization(options:
+        [[.alert, .sound,. badge]]) { (granted, error) in
+            if error != nil {
+                os_log("Error when requesting notification %s", error!.localizedDescription)
+            }
+            if !granted { os_log("Permission for user notification was not granted.") }
+        }
+    }
+    
+    private func setupViewControllers() {
+        // Case of SplitView controller
+        let splitViewController = window?.rootViewController as? UISplitViewController
+        let navController = splitViewController?.viewControllers.first as? UINavigationController
+        let tabBarViewController = navController?.topViewController as? TabBarViewController
+        
+        splitViewController?.delegate = self
+        tabBarViewController?.selectedIndex = 0
+        tabBarViewController?.coreDataStack = coreDataStack
+        controller = tabBarViewController?.selectedViewController
+        
+        if let detailNavController = splitViewController?.viewControllers.last as? UINavigationController,
+            let taskViewController = detailNavController.topViewController as? TaskEditTableViewController {
+            taskViewController.managedContext = coreDataStack.managedContext
+            tabBarViewController?.detailViewController = taskViewController
+            if  let nc = tabBarViewController?.viewControllers?[0] as? UINavigationController,
+                let timeBasedTaskViewController = nc.topViewController as? TaskTableViewController {
+                timeBasedTaskViewController.coreDataStack = coreDataStack
+                timeBasedTaskViewController.delegate = taskViewController
+            }
+            if let nc = tabBarViewController?.viewControllers?[1] as? UINavigationController,
+                let locationBasedTaskViewController = nc.topViewController as? LocationTaskTableViewController {
+                locationBasedTaskViewController.coreDataStack = coreDataStack
+                locationBasedTaskViewController.delegate = taskViewController
+            }
+        }
+    }
+    
+    private func setupMixPanel() {
         // Mixpanel analytics
         Mixpanel.initialize(token: "17c93a8fd533e37f8885e1177f8cf1d5")
         let mixpanel = Mixpanel.mainInstance()
-        // maybe better to use iCloud user identifier, but what if user not logged in. 
+        // maybe better to use iCloud user identifier, but what if user not logged in.
         // for our purpose tracking one device as one user might be okay for now.
         let newUUIDString = UUID().uuidString
         let mixpanelIdentity = UserDefaults.standard.string(forKey: UserDefaults.Keys.mixpanelIdentity) ?? newUUIDString
@@ -40,27 +93,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         mixpanel.identify(distinctId: mixpanelIdentity)
         mixpanel.people.setOnce(properties: ["add new task": 0 , "completed task" : 0])
-        
-        // Case of SplitView controller
-        let splitViewController = window?.rootViewController as? UISplitViewController
-        let navController = splitViewController?.viewControllers.first as? UINavigationController
-        let tabBarViewController = navController?.topViewController as? TabBarViewController
-            
-        splitViewController?.delegate = self
-        
-        tabBarViewController?.coreDataStack = coreDataStack
-        controller = tabBarViewController?.selectedViewController
-        
-        if let detailNavController = splitViewController?.viewControllers.last as? UINavigationController,
-            let taskViewController = detailNavController.topViewController as? TaskEditTableViewController {
-            taskViewController.managedContext = coreDataStack.managedContext
-            tabBarViewController?.detailViewController = taskViewController
-        }
-        
-        application.registerForRemoteNotifications()
-        
-        return true
-        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
