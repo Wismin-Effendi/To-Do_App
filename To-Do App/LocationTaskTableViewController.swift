@@ -157,31 +157,85 @@ class LocationTaskTableViewController: UITableViewController {
         }
     }
     
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        os_log("Source indexPath: %@", log: OSLog.default, type: OSLogType.debug, sourceIndexPath as CVarArg)
+        os_log("Destination indexPath: %@", log: OSLog.default, type: OSLogType.debug, destinationIndexPath as CVarArg)
+        
+        guard sourceIndexPath != destinationIndexPath else { return }   // same, nothing to move
+        
+        // Need to stop live update during moving cells around
+        self.fetchedResultsController.delegate = nil
+        
+        handleLocationCellMove(source: sourceIndexPath, destination: destinationIndexPath)
+        
+        // Now we could re-initiate fetchResultsController
+        initializeFetchResultsController()
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Fetching error: \(error), \(error.userInfo)")
+        }
+        // reload tableView
+        tableView.reloadData()
     }
-    */
-
+    
+    private func handleLocationCellMove(source: IndexPath, destination: IndexPath) {
+        
+        let lastRowIndex = fetchedResultsController.sections![destination.section].numberOfObjects - 1
+        let taskObject: Task = fetchedResultsController.object(at: source)
+        let movingLocation = destination.section != source.section
+        
+        // only need to find the row before and after destination.row if exist
+        // then update the dueDate, save to coreData and let the fetchResultsController do it's work
+        if destination.row >= lastRowIndex { // more to the last row
+            let lastObjectInSection = fetchedResultsController.object(at: IndexPath(row: lastRowIndex,
+                                                                                    section: destination.section))
+            let dueDateRowBefore = lastObjectInSection.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: nil)
+            taskObject.dueDate = newDueDate as NSDate
+            if movingLocation { taskObject.location = lastObjectInSection.location }
+        } else if destination.row == 0 { // more to the first row
+            let firstObjectInSection = fetchedResultsController.object(at: IndexPath(row: 0,
+                                                                                     section: destination.section))
+            let dueDateRowAfter = firstObjectInSection.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: nil, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+            if movingLocation { taskObject.location = firstObjectInSection.location }
+        } else if source.row > destination.row { // move down
+            let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
+                                                                             section: destination.section))
+            let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row + 1,
+                                                                            section: destination.section))
+            let dueDateRowBefore = beforeObject.dueDate! as Date
+            let dueDateRowAfter = afterObject.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+            if movingLocation { taskObject.location = beforeObject.location }
+        } else { // move up
+            let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row - 1,
+                                                                             section: destination.section))
+            let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
+                                                                            section: destination.section))
+            let dueDateRowBefore = beforeObject.dueDate! as Date
+            let dueDateRowAfter = afterObject.dueDate! as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+            if movingLocation { taskObject.location = beforeObject.location }
+        }
+        
+        do {
+            try coreDataStack.managedContext.save()
+        } catch {
+            print(error)
+        }
+    }
 }
 
 

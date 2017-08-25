@@ -166,37 +166,14 @@ class TaskTableViewController: UITableViewController {
         
         guard sourceIndexPath != destinationIndexPath else { return }   // same, nothing to move
         
-        let taskToMove = fetchedResultsController.object(at: sourceIndexPath)
-        
         // Need to stop live update during moving cells around
         self.fetchedResultsController.delegate = nil
         
-        // Update other rows on both Source and Destination
-        // Case same section
-        if sourceIndexPath.section == destinationIndexPath.section {
-            handleCellMoveSameSection(source: sourceIndexPath, destination: destinationIndexPath)
-        }
-        // Different section
-        else {
-            handleCellMoveDifferentSection(source: sourceIndexPath, destination: destinationIndexPath)
-        }
-        
-        // Update moved task
-        let newRanking = Int32(destinationIndexPath.row)
-        print("New ranking for Moved Cell: \(newRanking)")
-        let newPriority = Int16(destinationIndexPath.section + 1) // priority start from 1, section start from 0
-        print("New priority for Moved Cell: \(newPriority)")
-        taskToMove.priority = newPriority
-        taskToMove.ranking = newRanking
-        
-        do {
-            try coreDataStack.managedContext.save()
-        } catch {
-            print(error)
-        }
+        handleCellMove(source: sourceIndexPath, destination: destinationIndexPath)
         
         // Now we could re-initiate fetchResultsController 
         initializeFetchResultsController()
+        
         do {
             try fetchedResultsController.performFetch()
         } catch let error as NSError {
@@ -206,119 +183,51 @@ class TaskTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    // Helper for  tableView(_:moveRowAt:to)
-    private func handleCellMoveSameSection(source: IndexPath, destination: IndexPath) {
-        guard source.section == destination.section else {
-            fatalError("Call handle cell move same section but sections differs!")
-        }
+    private func handleCellMove(source: IndexPath, destination: IndexPath) {
         
-        guard source.row != destination.row else { return }  // move in place, nothing to do
+        let lastRowIndex = fetchedResultsController.sections![destination.section].numberOfObjects - 1
+        let taskObject: Task = fetchedResultsController.object(at: source)
         
-        let lastRowIndex = fetchedResultsController.sections![source.section].numberOfObjects - 1
-        let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: source.row, section: source.section))
-        
-        // only need to find the row before and after destination.row if exist 
+        // only need to find the row before and after destination.row if exist
         // then update the dueDate, save to coreData and let the fetchResultsController do it's work
-        if destination.row == lastRowIndex { // more to the last row
+        if destination.row >= lastRowIndex { // more to the last row
             let lastObjectInSection = fetchedResultsController.object(at: IndexPath(row: lastRowIndex,
-                                                                                    section: source.section))
+                                                                                    section: destination.section))
             let dueDateRowBefore = lastObjectInSection.dueDate! as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: nil)
             taskObject.dueDate = newDueDate as NSDate
         } else if destination.row == 0 { // more to the first row
             let firstObjectInSection = fetchedResultsController.object(at: IndexPath(row: 0,
-                                                                                     section: source.section))
+                                                                                     section: destination.section))
             let dueDateRowAfter = firstObjectInSection.dueDate! as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: nil, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
         } else if source.row > destination.row { // move down
             let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
-                                                                             section: source.section))
+                                                                             section: destination.section))
             let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row + 1,
-                                                                            section: source.section))
+                                                                            section: destination.section))
             let dueDateRowBefore = beforeObject.dueDate! as Date
             let dueDateRowAfter = afterObject.dueDate! as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
         } else { // move up
             let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row - 1,
-                                                                             section: source.section))
+                                                                             section: destination.section))
             let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
-                                                                            section: source.section))
+                                                                            section: destination.section))
             let dueDateRowBefore = beforeObject.dueDate! as Date
             let dueDateRowAfter = afterObject.dueDate! as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
         }
-        
-        do {
-            try coreDataStack.managedContext.save()
-        } catch {
-            print(error)
-        }
-    }
-    
-    private func handleCellMoveDifferentSection(source: IndexPath, destination: IndexPath) {
-        guard source.section != destination.section else {
-            fatalError("Call handel cell move different section but actually same sections!")
-        }
-        
-        // Handling on Source section 
-        handleSourceSectionForMoveToOtherSection(source: source)
-        
-        // Handling on Destination section
-        let destinationLastRowIndex = fetchedResultsController.sections![destination.section].numberOfObjects - 1
-        
-        guard destination.row <= destinationLastRowIndex else {
-            // insert after last row at destination, nothing to do for other cells
-            return
-        }
-        let destinationStartRow = destination.row
-        let destinationEndRow = destinationLastRowIndex
-        
-        guard destinationStartRow <= destinationEndRow else {
-            print("Move diff section: we got \(destinationStartRow) > \(destinationEndRow)")
-            return
-        }
-        print("Move diff section: increment rank from \(destinationStartRow) up to \(destinationEndRow)")
-        var tempArray = [Task]()
-        for row in destinationStartRow...destinationEndRow {
-            let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: destination.section))
-            taskObject.ranking = Int32(row + 1)
-            tempArray.append(taskObject)
-        }
-        
-        do {
-            try coreDataStack.managedContext.save()
-        } catch {
-            print(error)
-        }
-    }
-    
 
-    private func handleSourceSectionForMoveToOtherSection(source: IndexPath) {
-        // Handling on Source section
-        let sourceLastRowIndex = fetchedResultsController.sections![source.section].numberOfObjects - 1
-        let sourceStartRow = source.row + 1
-        let sourceEndRow = sourceLastRowIndex
-        
-        // Prevent crash due to move from last row
-        guard sourceEndRow >= sourceStartRow else { return }
-        var tempArray = [Task]()
-        for row in sourceStartRow...sourceEndRow {
-            let taskObject: Task = fetchedResultsController.object(at: IndexPath(row: row, section: source.section))
-            taskObject.ranking = Int32(row - 1)
-            tempArray.append(taskObject)
-        }
-        
         do {
             try coreDataStack.managedContext.save()
         } catch {
             print(error)
         }
     }
-    
-    
     
     // MARK: - Action
     
@@ -332,7 +241,6 @@ class TaskTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -408,9 +316,6 @@ extension TaskTableViewController {
         return attributedString
     }
 }
-
-
-
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension TaskTableViewController: NSFetchedResultsControllerDelegate {
