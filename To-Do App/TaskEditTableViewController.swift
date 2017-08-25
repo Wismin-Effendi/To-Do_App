@@ -118,7 +118,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     private func clearAllFields() {
         taskNameTexField.text = ""
-        dueDateTextField.text = ""
+        // dueDateTextField.text = ""
     }
     
     

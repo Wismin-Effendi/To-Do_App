@@ -52,8 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         controller = tabBarViewController?.selectedViewController
         
         if let detailNavController = splitViewController?.viewControllers.last as? UINavigationController,
-            let taskViewController = detailNavController.topViewController as? TaskViewController {
-            
+            let taskViewController = detailNavController.topViewController as? TaskEditTableViewController {
             taskViewController.managedContext = coreDataStack.managedContext
         }
         

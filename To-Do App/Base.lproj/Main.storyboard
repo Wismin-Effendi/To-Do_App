@@ -498,7 +498,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PGo-rb-Zly" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8106.3999999999996" y="166.8665667166417"/>
+            <point key="canvasLocation" x="8374" y="161"/>
         </scene>
         <!--Add New Location-->
         <scene sceneID="VB3-El-YJt">
@@ -560,7 +560,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uPb-no-2Nt" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8448.7999999999993" y="161.46926536731635"/>
+            <point key="canvasLocation" x="9206" y="161"/>
         </scene>
         <!--Task-->
         <scene sceneID="XYI-hM-i0Q">
@@ -632,6 +632,6 @@
         <image name="pointy" width="17" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YVq-Kj-aq1"/>
+        <segue reference="YAr-Qi-Hed"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,6 +19,11 @@ public struct CellIdentifier {
     public static let LocationName = "LocationName"
 }
 
+public struct NavBarTitle {
+    public static let TaskByLocation = "Task by location"
+    public static let TaskByDueDate = "Task by due date"
+}
+
 public enum TimeOrder: String {
     case today = "Today"
     case tomorrow = "Tomorrow"

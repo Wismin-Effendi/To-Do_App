@@ -32,6 +32,7 @@ class TaskTableViewController: UITableViewController {
         
         initializeFetchResultsController()
         
+        tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
         addBarButton = tabBarController?.navigationItem.rightBarButtonItem
         
         do {

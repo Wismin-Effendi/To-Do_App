@@ -30,6 +30,7 @@ class LocationTaskTableViewController: UITableViewController {
         
         initializeFetchResultsController()
         
+        tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
         addBarButton = tabBarController?.navigationItem.rightBarButtonItem
         
         do {
