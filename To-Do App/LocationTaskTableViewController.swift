@@ -21,7 +21,9 @@ class LocationTaskTableViewController: UITableViewController {
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
     
-    var addBarButton: UIBarButtonItem!
+    weak var delegate: TaskSelectionDelegate!
+    
+    weak var addBarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,6 +13,10 @@ import CoreData
 import MGSwipeTableCell
 import Mixpanel
 
+protocol TaskSelectionDelegate: class {
+    func taskSelected(task: Task?, managedContext: NSManagedObjectContext)
+}
+
 class TaskTableViewController: UITableViewController {
 
     // MARK: - Properties
@@ -21,6 +25,8 @@ class TaskTableViewController: UITableViewController {
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
     var addBarButton: UIBarButtonItem!
+    
+    weak var delegate: TaskSelectionDelegate!
     
     var tasks = [Task]()
     
@@ -108,6 +114,14 @@ class TaskTableViewController: UITableViewController {
         print("We are in row selected")
         // save any pending edit on detail view 
         self.coreDataStack.saveContext()
+        
+        let managedContext = coreDataStack.managedContext
+        let selectedTask = fetchedResultsController.object(at: indexPath)
+        self.delegate?.taskSelected(task: selectedTask, managedContext: managedContext)
+        
+        if let detailViewController = self.delegate as? TaskEditTableViewController {
+            splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+        }
         
     }
     

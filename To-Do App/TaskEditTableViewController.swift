@@ -13,7 +13,7 @@ import CoreData
 import Mixpanel
 import SwiftDate
 
-class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
+class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, TaskSelectionDelegate {
 
     enum TextFieldTag: Int {
         case taskName = 100
@@ -51,7 +51,11 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     var managedContext: NSManagedObjectContext!
     
-    var task: Task?
+    var task: Task? {
+        didSet {
+            self.refreshUI()
+        }
+    }
     var location: LocationAnnotation? {
         didSet {
             guard let annotation = location?.annotation as? TaskLocation else { return }
@@ -76,6 +80,15 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         dueDateTextField.delegate = self
         
         // Set up views if editing an existing Task
+        refreshUI()
+        
+        // Enable the Save button only if the text field has a valid Task name
+        updateSaveButtonState()
+        
+    }
+    
+    func refreshUI() {
+        guard taskNameTexField != nil else { return } // skip if called before viewDidLoad 
         if task != nil {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task!)
             navigationItem.title = task?.name
@@ -91,10 +104,11 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         } else {
             dueDate = Date() + 3.hours  // default dueDate for new task.
         }
-        
-        // Enable the Save button only if the text field has a valid Task name
-        updateSaveButtonState()
-        
+    }
+    
+    func taskSelected(task: Task?, managedContext: NSManagedObjectContext) {
+        self.task = task
+        self.managedContext = managedContext
     }
     
     override func viewWillAppear(_ animated: Bool) {

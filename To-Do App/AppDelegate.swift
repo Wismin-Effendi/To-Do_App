@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         if let detailNavController = splitViewController?.viewControllers.last as? UINavigationController,
             let taskViewController = detailNavController.topViewController as? TaskEditTableViewController {
             taskViewController.managedContext = coreDataStack.managedContext
+            tabBarViewController?.detailViewController = taskViewController
         }
         
         application.registerForRemoteNotifications()

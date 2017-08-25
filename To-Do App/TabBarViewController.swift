@@ -17,15 +17,19 @@ class TabBarViewController: UITabBarController {
 
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
+    weak var detailViewController: TaskSelectionDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if  let nc = viewControllers?[0] as? UINavigationController,
             let timeBasedTaskViewController = nc.topViewController as? TaskTableViewController {
             timeBasedTaskViewController.coreDataStack = coreDataStack
+            timeBasedTaskViewController.delegate = detailViewController
         }
         if let nc = viewControllers?[1] as? UINavigationController,
             let locationBasedTaskViewController = nc.topViewController as? LocationTaskTableViewController {
             locationBasedTaskViewController.coreDataStack = coreDataStack
+            locationBasedTaskViewController.delegate = detailViewController
         }
 
         // Do any additional setup after loading the view.
