@@ -236,6 +236,42 @@ class LocationTaskTableViewController: UITableViewController {
             print(error)
         }
     }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+        case SegueIdentifier.AddTask:
+            os_log("Adding a new task.", log: OSLog.default, type: .debug)
+            guard let navCon = segue.destination as? UINavigationController,
+                let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController  else {
+                    fatalError("Unexpected destination: \(segue.destination)")
+            }
+            Mixpanel.mainInstance().people.increment(property: "add new task", by: 1)
+            taskEditTableViewController.managedContext = coreDataStack.managedContext
+        case SegueIdentifier.EditTaskFromLocation:
+            guard let navCon = segue.destination as? UINavigationController,
+                let taskEditTableViewController = navCon.topViewController as? TaskEditTableViewController else {
+                    fatalError("Unexpected destination: \(segue.destination)")
+            }
+            taskEditTableViewController.managedContext = coreDataStack.managedContext
+            guard let selectedTaskCell = sender as? TaskCell else {
+                fatalError("Unexpected sender: \(String(describing: sender))")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedTaskCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            print("We selected Task at IndexPath: \(indexPath)")
+            let selectedTask = fetchedResultsController.object(at: indexPath)
+            taskEditTableViewController.task = selectedTask
+        default:
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
+        }
+    }
 }
 
 
