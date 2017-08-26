@@ -171,7 +171,7 @@ class TaskViewController: UIViewController {
             task!.name = name
             task!.completed = false 
             task!.priority = priority
-            task!.dueDate = dueDate as NSDate?
+            task!.dueDate = dueDate! as NSDate
 
             try managedContext.save()
         } catch {

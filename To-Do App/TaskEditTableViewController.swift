@@ -168,11 +168,11 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
         // Set the task to be passed to TaskTableViewController after the unwind segue
         if task == nil {  // add new Task
             task = Task(context: managedContext)
-            task?.setDefaultsForLocalCreate()
+            task!.setDefaultsForLocalCreate()
             task!.ranking = 0 // not really used at this time
         }
         task!.name = name
-        task!.dueDate = dueDate as NSDate?
+        task!.dueDate = (dueDate as NSDate?)!
         task!.location = location
         
         do {
