@@ -52,14 +52,18 @@ class LocationTaskTableViewController: UITableViewController {
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
         
         // select the first navigationItem
-        if let split = self.splitViewController,
-            let section = fetchedResultsController.sections,
-            section.count > 0 {
+        if let split = self.splitViewController {
             let nc = split.viewControllers.last as! UINavigationController
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
+            if let sections = fetchedResultsController.sections,
+                sections.count > 0 {
+                self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
+            } else {
+                self.detailViewController.task = nil
+            }
+            
             self.delegate.isArchivedView = false
-            self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
         }
     }
 

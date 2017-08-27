@@ -127,17 +127,18 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
         
         // Set up views if editing an existing Task
         if isArchivedView {
+            print("is archive view..")
             setLabelsForArchiveView()
         } else {
             refreshUI()
             // Enable the Save button only if the text field has a valid Task name
             updateSaveButtonState()
         }
-        
     }
     
     private func setLabelsForArchiveView() {
         guard let task = task else { return }
+        print("We are inside the archive label assignment....")
         taskNameLabel.text = task.name
         locationTitleLabel.text = task.location?.title
         if let annotation = task.location?.annotation as? TaskLocation {
@@ -149,6 +150,22 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     }
     
     func refreshUI() {
+        if isArchivedView {
+            setLabelsForArchiveView()
+            hideNavBarButtons()
+        } else {
+            nonArchiveRefreshUI()
+            // Enable the Save button only if the text field has a valid Task name
+            updateSaveButtonState()
+        }
+    }
+    
+    func hideNavBarButtons() {
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.rightBarButtonItem = nil
+    }
+    
+    func nonArchiveRefreshUI() {
         guard taskNameTexField != nil else { return } // skip if called before viewDidLoad
         if task != nil {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task!)
@@ -197,6 +214,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
         taskNameTexField.text = nil
         locationTitle.text = nil
         locationSubtitle.text = nil
+        reminder.isOn = false
+        reminderSwitchState(reminder)
     }
     
     
@@ -261,6 +280,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     
     // MARK: Private Methods
     fileprivate func updateSaveButtonState() {
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = saveButton
         // Disable the Save button if the text field is empty
         let text = taskNameTexField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
