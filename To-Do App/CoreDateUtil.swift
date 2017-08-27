@@ -24,5 +24,12 @@ class CoreDataUtil {
         }
     }
     
+    static func cloneAsActiveTask(task: Task, managedContext: NSManagedObjectContext) {
+        let newTask = Task(context: managedContext)
+        newTask.setDefaultsForLocalCreate()
+        newTask.name = task.name
+        newTask.location = task.location
+    }
+    
 }
 

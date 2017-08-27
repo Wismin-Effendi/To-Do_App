@@ -9,6 +9,7 @@ target 'To-Do App' do
   pod 'MGSwipeTableCell'
   pod 'Mixpanel-swift'
   pod 'SwiftDate', '~> 4.0'
+  pod 'ChameleonFramework/Swift'
 
   target 'To-Do AppTests' do
     inherit! :search_paths

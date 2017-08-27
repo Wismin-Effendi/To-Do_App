@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0099411CE412B8BCB2D63107 /* Pods_To_Do_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79890C53A77AE37967FE0961 /* Pods_To_Do_AppTests.framework */; };
-		371F4BB31F4E773D00BFCF93 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371F4BB21F4E773D00BFCF93 /* SwiftDate.framework */; };
 		37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514AFE1EEF736F00D67A6E /* AppDelegate.swift */; };
 		37514B041EEF736F00D67A6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B021EEF736F00D67A6E /* Main.storyboard */; };
 		37514B0C1EEF736F00D67A6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B0A1EEF736F00D67A6E /* LaunchScreen.storyboard */; };
@@ -243,7 +242,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				371F4BB31F4E773D00BFCF93 /* SwiftDate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,7 +559,6 @@
 				3792EE8D1F47816800ACAAAE /* Frameworks */,
 				3792EE8E1F47816800ACAAAE /* Headers */,
 				3792EE8F1F47816800ACAAAE /* Resources */,
-				371F4BB41F4E7A0700BFCF93 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -756,21 +753,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-To-Do AppTests/Pods-To-Do AppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		371F4BB41F4E7A0700BFCF93 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"/Users/wismin-effendi/Developer/Carthage_workdir/SwiftDate/Carthage/Build/iOS/SwiftDate.framework",
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/${FRAMEWORKS_FOLDER_PATH)/SwiftDate.framwork",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		454B148A7695CFDEF9D79A6E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

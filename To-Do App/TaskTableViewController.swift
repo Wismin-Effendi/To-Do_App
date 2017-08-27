@@ -15,6 +15,7 @@ import Mixpanel
 
 protocol TaskSelectionDelegate: class {
     func taskSelected(task: Task?, managedContext: NSManagedObjectContext)
+    var isArchivedView: Bool { get set }
 }
 
 class TaskTableViewController: UITableViewController {
@@ -27,6 +28,8 @@ class TaskTableViewController: UITableViewController {
     var addBarButton: UIBarButtonItem!
     
     weak var delegate: TaskSelectionDelegate!
+    
+    weak var detailViewController: TaskEditTableViewController!
     
     var tasks = [Task]()
     
@@ -54,6 +57,17 @@ class TaskTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
+        
+        // select the first navigationItem
+        if let split = self.splitViewController,
+            let section = fetchedResultsController.sections,
+            section.count > 0 {
+            let nc = split.viewControllers.last as! UINavigationController
+            self.detailViewController = nc.topViewController as? TaskEditTableViewController
+            
+            self.delegate.isArchivedView = false
+            self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
+        }
     }
     
     private func initializeFetchResultsController() {
@@ -272,16 +286,20 @@ extension TaskTableViewController {
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green, callback: {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
-                task.completed = true
-                Mixpanel.mainInstance().people.increment(property: "completed task", by: 1)
-                self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                return true
+            task.completed = true
+            task.completionDate = NSDate()
+            Mixpanel.mainInstance().people.increment(property: "completed task", by: 1)
+            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            return true
         }), MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "Archive Cell Icon"), backgroundColor: .darkGray, callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
+            task.archived = true
+            if !task.completed {
                 task.completed = true
-                task.archived = true
-                self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                return true
+                task.completionDate = NSDate()
+            }
+            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            return true
         })]
         cell.leftSwipeSettings.transition = .static
     }

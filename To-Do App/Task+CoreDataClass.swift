@@ -24,6 +24,7 @@ public class Task: NSManagedObject {
         self.pendingDeletion = false
         self.identifier = UUID().uuidString
         self.archived = false
+        self.dueDate = (Date() + 3.hours) as NSDate
     }
     
     

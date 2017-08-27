@@ -17,8 +17,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
 
     enum TextFieldTag: Int {
         case taskName = 100
-        case category
         case dueDate
+        case reminderDate
     }
     
     
@@ -26,15 +26,46 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var locationTitle: UILabel!
     @IBOutlet weak var locationSubtitle: UILabel!
+    @IBOutlet weak var reminder: UISwitch!
+    @IBOutlet weak var reminderDateTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var dueDatePicker: UIDatePicker!
+    @IBOutlet weak var reminderDatePicker: UIDatePicker!
+    @IBOutlet weak var taskNameLabel: UILabel!
+    @IBOutlet weak var locationTitleLabel: UILabel!
+    @IBOutlet weak var locationSubtitleLabel: UILabel!
+    @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var completionDateLabel: UILabel!
+    
+    var managedContext: NSManagedObjectContext!
     
     var isSplitView = false
     
-    var showDatePicker: Bool = false {
+    var isArchivedView = false {
+        didSet {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+    
+    var showDueDatePicker: Bool = false {
+        didSet {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+    
+    var showReminderDate: Bool = false {
+        didSet {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+
+    var showReminderDatePicker: Bool = false {
         didSet {
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -44,16 +75,24 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     var dueDate: Date? {
         didSet {
             if let dueDate = dueDate {
-                setDueDateTextField(dueDate)
+                dueDateTextField.text = formatDateText(dueDate)
             }
         }
     }
     
-    var managedContext: NSManagedObjectContext!
+    var reminderDate: Date? {
+        didSet {
+            if let reminderDate = reminderDate {
+                reminderDateTextField.text = formatDateText(reminderDate)
+            }
+        }
+    }
     
     var task: Task? {
         didSet {
-            self.refreshUI()
+            UIView.animate(withDuration: 0.6) { 
+                self.refreshUI()
+            }
         }
     }
     var location: LocationAnnotation? {
@@ -71,20 +110,42 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
-        showDatePicker = false
+        showReminderDate = reminder.isOn
+        showDueDatePicker = false
+        showReminderDatePicker = false
         // Set tag on textField of interest only
         taskNameTexField.tag = TextFieldTag.taskName.rawValue
         dueDateTextField.tag = TextFieldTag.dueDate.rawValue
+        reminderDateTextField.tag = TextFieldTag.reminderDate.rawValue
+        
         // Handle the text fields's user input through delegate callbacks.
         taskNameTexField.delegate = self
         dueDateTextField.delegate = self
+        reminderDateTextField.delegate = self
+        
+        
         
         // Set up views if editing an existing Task
-        refreshUI()
+        if isArchivedView {
+            setLabelsForArchiveView()
+        } else {
+            refreshUI()
+            // Enable the Save button only if the text field has a valid Task name
+            updateSaveButtonState()
+        }
         
-        // Enable the Save button only if the text field has a valid Task name
-        updateSaveButtonState()
-        
+    }
+    
+    private func setLabelsForArchiveView() {
+        guard let task = task else { return }
+        taskNameLabel.text = task.name
+        locationTitleLabel.text = task.location?.title
+        if let annotation = task.location?.annotation as? TaskLocation {
+            locationTitleLabel.text = annotation.title
+            locationSubtitleLabel.text = annotation.subtitle
+        }
+        dueDateLabel.text =  formatDateText(task.dueDate as Date)
+        completionDateLabel.text = formatDateText(task.completionDate! as Date)
     }
     
     func refreshUI() {
@@ -99,7 +160,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
             }
             if let taskDueDate = task?.dueDate as Date? {
                 dueDate = taskDueDate
-                if dueDate != nil { datePicker.date = dueDate! }
+                if dueDate != nil { dueDatePicker.date = dueDate! }
             }
         } else {
             navigationItem.title = "New Task"
@@ -141,15 +202,23 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     
     // MARK: Action
     
-    @IBAction func datePickerValueChange(_ sender: UIDatePicker) {
+    @IBAction func dueDatePickerValueChange(_ sender: UIDatePicker) {
         dueDate = sender.date
     }
     
-    fileprivate func setDueDateTextField(_ date: Date) {
+    @IBAction func reminderSwitchState(_ sender: UISwitch) {
+        showReminderDate = sender.isOn
+    }
+    
+    @IBAction func reminderDatePickerValueChange(_ sender: UIDatePicker) {
+        reminderDate = sender.date
+    }
+    
+    fileprivate func formatDateText(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
         dateFormatter.dateStyle = .short
-        dueDateTextField.text = dateFormatter.string(from: date)
+        return dateFormatter.string(from: date)
     }
     
     
@@ -165,7 +234,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     @IBAction func save(_ sender: UIBarButtonItem) {
         let name = taskNameTexField.text ?? ""
         
-        // Set the task to be passed to TaskTableViewController after the unwind segue
         if task == nil {  // add new Task
             task = Task(context: managedContext)
             task!.setDefaultsForLocalCreate()
@@ -227,17 +295,22 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     // MARK: - Table view delegate 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Section 1: Location, Section 3: DatePicker, only show one at anytime.
-        
+        // Section 1: Location, Section 3: due DatePicker, only show one at anytime.
+        // section 0 - 3 should be hidden for archive task view
         let section = indexPath.section
-        switch (showDatePicker, section) {
-        case (true, 1):
-            return 0
-        case (false, 3):
-            return 0
+        let row = indexPath.row
+        guard !isArchivedView else {
+            print("****** we are in archived view *****")
+            return (section < 4) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
+        }
+        
+        switch(showDueDatePicker, showReminderDatePicker, section, row) {
+        case (false, _, 2, 1): return 0
+        case (_, false, 3, 2): return 0
         default:
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
+        
     }
     
     /*
@@ -309,11 +382,19 @@ extension TaskEditTableViewController: UITextFieldDelegate {
         // Special treatment for dueDateTextField only
         if textField.tag == TextFieldTag.dueDate.rawValue {
             self.view.endEditing(true)  // hide the keyboard
-            showDatePicker = !showDatePicker
-            dueDate = datePicker.date
+            showReminderDatePicker = false
+            showDueDatePicker = !showDueDatePicker
+            dueDate = dueDatePicker.date
+            return false
+        } else if textField.tag == TextFieldTag.reminderDate.rawValue  {
+            self.view.endEditing(true) // hide the keyboard
+            showDueDatePicker = false
+            showReminderDatePicker = !showReminderDatePicker
+            reminderDate = reminderDatePicker.date
             return false
         } else {
-            showDatePicker = false
+            showDueDatePicker = false
+            showReminderDatePicker = false
             return true
         }
     }

@@ -23,6 +23,8 @@ class LocationTaskTableViewController: UITableViewController {
     
     weak var delegate: TaskSelectionDelegate!
     
+    weak var detailViewController: TaskEditTableViewController!
+    
     weak var addBarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -48,6 +50,17 @@ class LocationTaskTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
+        
+        // select the first navigationItem
+        if let split = self.splitViewController,
+            let section = fetchedResultsController.sections,
+            section.count > 0 {
+            let nc = split.viewControllers.last as! UINavigationController
+            self.detailViewController = nc.topViewController as? TaskEditTableViewController
+            
+            self.delegate.isArchivedView = false
+            self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
+        }
     }
 
     private func initializeFetchResultsController() {
@@ -280,8 +293,11 @@ extension LocationTaskTableViewController {
             return true
         }), MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "Archive Cell Icon"), backgroundColor: .darkGray, callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
-            task.completed = true
             task.archived = true
+            if !task.completed {
+                task.completed = true
+                task.completionDate = NSDate()
+            }
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             return true
         })]

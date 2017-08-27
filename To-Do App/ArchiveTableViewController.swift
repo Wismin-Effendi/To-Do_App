@@ -19,7 +19,7 @@ class ArchiveTableViewController: UITableViewController {
     
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
-    
+    weak var detailViewController: TaskEditTableViewController!
     weak var delegate: TaskSelectionDelegate!
     
     override func viewDidLoad() {
@@ -43,6 +43,16 @@ class ArchiveTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
+        // select the first navigationItem
+        if let split = self.splitViewController,
+            let section = fetchedResultsController.sections,
+            section.count > 0 {
+            let nc = split.viewControllers.last as! UINavigationController
+            self.detailViewController = nc.topViewController as? TaskEditTableViewController
+            
+            self.delegate.isArchivedView = true
+            self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
+        }
     }
     
     private func initializeFetchResultsController() {
@@ -112,60 +122,14 @@ class ArchiveTableViewController: UITableViewController {
         
         let managedContext = coreDataStack.managedContext
         let selectedTask = fetchedResultsController.object(at: indexPath)
+        self.delegate?.isArchivedView = true
         self.delegate?.taskSelected(task: selectedTask, managedContext: managedContext)
         
         if let detailViewController = self.delegate as? TaskEditTableViewController {
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
     }
-    
-    
-        /*
-         // Override to support conditional editing of the table view.
-         override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-         // Return false if you do not want the specified item to be editable.
-         return true
-         }
-         */
-        
-        /*
-         // Override to support editing the table view.
-         override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-         if editingStyle == .delete {
-         // Delete the row from the data source
-         tableView.deleteRows(at: [indexPath], with: .fade)
-         } else if editingStyle == .insert {
-         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-         }
-         }
-         */
-        
-        /*
-         // Override to support rearranging the table view.
-         override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-         
-         }
-         */
-        
-        /*
-         // Override to support conditional rearranging of the table view.
-         override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-         // Return false if you do not want the item to be re-orderable.
-         return true
-         }
-         */
-        
-        /*
-         // MARK: - Navigation
-         
-         // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destinationViewController.
-         // Pass the selected object to the new view controller.
-         }
-         */
-        
-    }
+}
 
 
 // MARK: - Internal
@@ -179,16 +143,16 @@ extension ArchiveTableViewController {
         let task = fetchedResultsController.object(at: indexPath)
         let text = task.name
         let attributedString = NSMutableAttributedString(string: text)
-        cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
-        let dueDateText = DateUtil.shortDateText(task.dueDate as Date)
-        cell.detailTextLabel?.text = "Due: \(dueDateText)"
+        cell.textLabel?.attributedText = noStrikethrough(attributedString)
+        // cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
+        let completionDateText = DateUtil.shortDateText(task.completionDate! as Date)
+        cell.detailTextLabel?.text = "Completion date: \(completionDateText)"
         
         // configure left buttons
-        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green) {[unowned self]
+        cell.leftButtons = [MGSwipeButton(title: "Activate", icon: #imageLiteral(resourceName: "cellClockIcon"), backgroundColor: UIColor.blue) {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
-            task.completed = true
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            CoreDataUtil.cloneAsActiveTask(task: task, managedContext: self.coreDataStack.managedContext)
             return true
             }]
         cell.leftSwipeSettings.transition = .static
@@ -208,7 +172,7 @@ extension ArchiveTableViewController {
 }
 
     
-// MARK: - NSFetchedResultsControllerDelegate
+// MARK: - NSFetchdResultsControllerDelegate
 extension ArchiveTableViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
