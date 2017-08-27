@@ -426,6 +426,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzs-fJ-3H7">
                                                     <rect key="frame" x="286" y="7" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="reminderSwitchState:" destination="7Gj-C5-Brd" eventType="valueChanged" id="xoN-Cb-TY6"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -464,11 +467,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="dI2-Yz-v2d">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="dI2-Yz-v2d">
                                                     <rect key="frame" x="28" y="0.0" width="320" height="199"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="525469212.09822798">
                                                         <!--2017-08-26 19:40:12 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="reminderDatePickerValueChange:" destination="7Gj-C5-Brd" eventType="valueChanged" id="eAU-Wz-DoQ"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>

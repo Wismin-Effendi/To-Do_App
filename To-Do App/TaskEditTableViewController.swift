@@ -304,9 +304,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
             return (section < 4) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
         }
         
-        switch(showDueDatePicker, showReminderDatePicker, section, row) {
-        case (false, _, 2, 1): return 0
-        case (_, false, 3, 2): return 0
+        switch(showDueDatePicker, showReminderDate, showReminderDatePicker, section, row) {
+        case (false, _, _, 2, 1): return 0
+        case (_, false, _, 3, 1): fallthrough
+        case (_, false, _, 3, 2): return 0
+        case (_, true, false, 3, 2): return 0
+        case (_, _, _, 4, _): return 0
         default:
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
