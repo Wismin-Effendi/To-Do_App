@@ -16,5 +16,6 @@ public class LocationAnnotation: NSManagedObject {
         self.localUpdate = NSDate()
         self.needsUpload = true
         self.pendingDeletion = false
+        self.archived = false 
     }
 }

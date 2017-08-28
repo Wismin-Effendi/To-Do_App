@@ -2,7 +2,7 @@
 //  LocationAnnotation+CoreDataProperties.swift
 //  To-Do App
 //
-//  Created by Wismin Effendi on 8/25/17.
+//  Created by Wismin Effendi on 8/28/17.
 //  Copyright © 2017 iShinobi. All rights reserved.
 //
 
@@ -17,12 +17,12 @@ extension LocationAnnotation {
     }
 
     @NSManaged public var annotation: NSObject
+    @NSManaged public var archived: Bool
     @NSManaged public var identifier: String
     @NSManaged public var localUpdate: NSDate
     @NSManaged public var needsUpload: Bool
     @NSManaged public var pendingDeletion: Bool
     @NSManaged public var title: String
-    @NSManaged public var archived: Bool
     @NSManaged public var tasks: NSSet?
 
 }

@@ -27,6 +27,7 @@ public class Task: NSManagedObject {
         self.dueDate = (Date() + 3.hours) as NSDate
         self.reminder = false
         self.reminderDate = dueDate
+        self.name = "Rename this new Task"
     }
     
     
