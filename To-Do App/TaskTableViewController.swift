@@ -13,8 +13,9 @@ import CoreData
 import MGSwipeTableCell
 import Mixpanel
 
-protocol TaskSelectionDelegate: class {
+protocol TaskDetailViewDelegate: class {
     func taskSelected(task: Task?, managedContext: NSManagedObjectContext)
+    func addTask(managedContext: NSManagedObjectContext)
     var isArchivedView: Bool { get set }
 }
 
@@ -27,7 +28,7 @@ class TaskTableViewController: UITableViewController {
     var fetchedResultsController: NSFetchedResultsController<Task>!
     var addBarButton: UIBarButtonItem!
     
-    weak var delegate: TaskSelectionDelegate!
+    weak var delegate: TaskDetailViewDelegate!
     
     weak var detailViewController: TaskEditTableViewController!
     

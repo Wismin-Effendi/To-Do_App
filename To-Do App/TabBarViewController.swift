@@ -18,7 +18,7 @@ class TabBarViewController: UITabBarController {
 
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
-    weak var detailViewController: TaskSelectionDelegate!
+    weak var detailViewController: TaskDetailViewDelegate!
     
     
     @IBAction func addNewTaskTapped() {

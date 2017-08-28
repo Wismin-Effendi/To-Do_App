@@ -68,9 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             taskViewController.managedContext = coreDataStack.managedContext
             tabBarViewController?.detailViewController = taskViewController
             if  let nc = tabBarViewController?.viewControllers?[0] as? UINavigationController,
-                let timeBasedTaskViewController = nc.topViewController as? TaskTableViewController {
-                timeBasedTaskViewController.coreDataStack = coreDataStack
-                timeBasedTaskViewController.delegate = taskViewController
+                let dueDateTaskViewController = nc.topViewController as? DueDateTaskTableViewController {
+                dueDateTaskViewController.coreDataStack = coreDataStack
+                dueDateTaskViewController.delegate = taskViewController
             }
             if let nc = tabBarViewController?.viewControllers?[1] as? UINavigationController,
                 let locationBasedTaskViewController = nc.topViewController as? LocationTaskTableViewController {

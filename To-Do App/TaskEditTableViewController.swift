@@ -13,7 +13,8 @@ import CoreData
 import Mixpanel
 import SwiftDate
 
-class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, TaskSelectionDelegate {
+
+class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
 
     enum TextFieldTag: Int {
         case taskName = 100
@@ -161,8 +162,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     }
     
     func hideNavBarButtons() {
-        navigationItem.leftBarButtonItem = nil
-        navigationItem.rightBarButtonItem = nil
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func nonArchiveRefreshUI() {
@@ -186,10 +187,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
         }
     }
     
-    func taskSelected(task: Task?, managedContext: NSManagedObjectContext) {
-        self.task = task
-        self.managedContext = managedContext
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         updateSplitViewSetting()
@@ -270,8 +267,13 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
         
         if !isSplitView {
             self.navigationController?.navigationController?.popToRootViewController(animated: true)
+        } else {
+            // access MasterView and select first row again
+            askMasterViewToSelectFirstRow()
         }
     }
+    
+    
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         updateSplitViewSetting()
@@ -280,14 +282,32 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
     
     // MARK: Private Methods
     fileprivate func updateSaveButtonState() {
-        navigationItem.leftBarButtonItem = cancelButton
-        navigationItem.rightBarButtonItem = saveButton
+        navigationItem.leftBarButtonItem?.isEnabled = true
+        navigationItem.rightBarButtonItem?.isEnabled = true
         // Disable the Save button if the text field is empty
         let text = taskNameTexField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
     }
     
-    
+    fileprivate func askMasterViewToSelectFirstRow() {
+        guard let split = self.splitViewController,
+            let nc = split.viewControllers.first as? UINavigationController,
+            let tabBarViewController = nc.topViewController as? TabBarViewController else { return }
+        
+        switch tabBarViewController.selectedIndex {
+        case 0:
+            if  let nc = tabBarViewController.viewControllers?[0] as? UINavigationController,
+                let dueDateTaskViewController = nc.topViewController as? DueDateTaskTableViewController {
+                dueDateTaskViewController.selectFirstItemIfExist(archivedView: false)
+            }
+        case 1:
+            if let nc = tabBarViewController.viewControllers?[1] as? UINavigationController,
+                let locationBasedTaskViewController = nc.topViewController as? LocationTaskTableViewController {
+                locationBasedTaskViewController.selectFirstItemIfExist(archivedView: false)
+            }
+        default: break
+        }
+    }
 
 
     // MARK: - Table view data source
@@ -383,8 +403,17 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate, 
             vc.delegate = self 
         }
     }
- 
+}
 
+extension TaskEditTableViewController: TaskDetailViewDelegate {
+    func taskSelected(task: Task?, managedContext: NSManagedObjectContext) {
+        self.task = task
+        self.managedContext = managedContext
+    }
+    
+    func addTask(managedContext: NSManagedObjectContext) {
+        
+    }
 }
 
 

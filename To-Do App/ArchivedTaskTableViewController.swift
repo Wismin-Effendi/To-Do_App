@@ -20,20 +20,25 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.ArchivedTask
+        addBarButton.isEnabled = false 
+        
         // select the first navigationItem
+        selectFirstItemIfExist(archivedView: true)
+    }
+    
+    func selectFirstItemIfExist(archivedView: Bool) {
         if let split = self.splitViewController {
             let nc = split.viewControllers.last as! UINavigationController
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
             if let section = fetchedResultsController.sections,
                 section.count > 0 {
-            self.delegate.isArchivedView = true
-            self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
+                self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
             } else {
                 self.detailViewController.task = nil
             }
             
-            self.delegate.isArchivedView = true
+            self.delegate.isArchivedView = archivedView
         }
     }
     
@@ -76,6 +81,27 @@ class ArchivedTaskTableViewController: TaskTableViewController {
         if let detailViewController = self.delegate as? TaskEditTableViewController {
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
+    }
+    
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            
+            let taskToDelete = fetchedResultsController.object(at: indexPath)
+            coreDataStack.managedContext.delete(taskToDelete)
+            
+            do {
+                try coreDataStack.managedContext.save()
+            } catch {
+                print(error)
+            }
+            
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+        
+        selectFirstItemIfExist(archivedView: true)
     }
 }
 

@@ -24,20 +24,25 @@ class DueDateTaskTableViewController: TaskTableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
+        addBarButton.isEnabled = true 
         
         // select the first navigationItem
+        selectFirstItemIfExist(archivedView: false)
+    }
+    
+    func selectFirstItemIfExist(archivedView: Bool) {
         if let split = self.splitViewController {
             let nc = split.viewControllers.last as! UINavigationController
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
-            if let sections = fetchedResultsController.sections,
-                sections.count > 0 {
+            if let section = fetchedResultsController.sections,
+                section.count > 0 {
                 self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
             } else {
                 self.detailViewController.task = nil
             }
             
-            self.delegate.isArchivedView = false
+            self.delegate.isArchivedView = archivedView
         }
     }
 
