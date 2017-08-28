@@ -61,71 +61,147 @@ class DueDateTaskTableViewController: TaskTableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionInfo = fetchedResultsController.sections?[section]
+        let headerText = "\(sectionInfo!.name)"
+        return headerText
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    // Override row selection, we want to automatically save the editing / new task into coredata
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("We are in row selected")
+        // save any pending edit on detail view
+        self.coreDataStack.saveContext()
+        
+        let managedContext = coreDataStack.managedContext
+        let selectedTask = fetchedResultsController.object(at: indexPath)
+        self.delegate?.taskSelected(task: selectedTask, managedContext: managedContext)
+        
+        if let detailViewController = self.delegate as? TaskEditTableViewController {
+            splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+        }
+        
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
-
-    /*
+    
+    
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            let taskToDelete = fetchedResultsController.object(at: indexPath)
+            coreDataStack.managedContext.delete(taskToDelete)
+            
+            do {
+                try coreDataStack.managedContext.save()
+            } catch {
+                print(error)
+            }
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    
+    // hide the Editing button when not in editing mode. Need longPress to initiate to editing Mode
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            tabBarController?.navigationItem.rightBarButtonItems = [editButtonItem, addBarButton]
+            addBarButton.isEnabled = false
+        }
+        else {
+            tabBarController?.navigationItem.rightBarButtonItems = [addBarButton]
+            addBarButton.isEnabled = true
+        }
     }
-    */
-
-    /*
+    
+    
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        os_log("Source indexPath: %@", log: OSLog.default, type: OSLogType.debug, sourceIndexPath as CVarArg)
+        
+        os_log("Destination indexPath: %@", log: OSLog.default, type: OSLogType.debug, destinationIndexPath as CVarArg)
+        
+        guard sourceIndexPath != destinationIndexPath else { return }   // same, nothing to move
+        
+        // Need to stop live update during moving cells around
+        self.fetchedResultsController.delegate = nil
+        
+        handleCellMove(source: sourceIndexPath, destination: destinationIndexPath)
+        
+        // Now we could re-initiate fetchResultsController
+        initializeFetchResultsController()
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Fetching error: \(error), \(error.userInfo)")
+        }
+        // reload tableView
+        tableView.reloadData()
     }
-    */
-
+    
+    private func handleCellMove(source: IndexPath, destination: IndexPath) {
+        
+        let lastRowIndex = fetchedResultsController.sections![destination.section].numberOfObjects - 1
+        let taskObject: Task = fetchedResultsController.object(at: source)
+        
+        // only need to find the row before and after destination.row if exist
+        // then update the dueDate, save to coreData and let the fetchResultsController do it's work
+        if destination.row >= lastRowIndex { // more to the last row
+            let lastObjectInSection = fetchedResultsController.object(at: IndexPath(row: lastRowIndex,
+                                                                                    section: destination.section))
+            let dueDateRowBefore = lastObjectInSection.dueDate as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: nil)
+            taskObject.dueDate = newDueDate as NSDate
+        } else if destination.row == 0 { // more to the first row
+            let firstObjectInSection = fetchedResultsController.object(at: IndexPath(row: 0,
+                                                                                     section: destination.section))
+            let dueDateRowAfter = firstObjectInSection.dueDate as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: nil, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+        } else if source.row > destination.row { // move down
+            let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
+                                                                             section: destination.section))
+            let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row + 1,
+                                                                            section: destination.section))
+            let dueDateRowBefore = beforeObject.dueDate as Date
+            let dueDateRowAfter = afterObject.dueDate as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+        } else { // move up
+            let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row - 1,
+                                                                             section: destination.section))
+            let afterObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
+                                                                            section: destination.section))
+            let dueDateRowBefore = beforeObject.dueDate as Date
+            let dueDateRowAfter = afterObject.dueDate as Date
+            let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
+            taskObject.dueDate = newDueDate as NSDate
+        }
+        
+        do {
+            try coreDataStack.managedContext.save()
+        } catch {
+            print(error)
+        }
+    }
 }
