@@ -78,9 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 locationBasedTaskViewController.delegate = taskViewController
             }
             if let nc = tabBarViewController?.viewControllers?[2] as? UINavigationController,
-                let archivedTableViewController = nc.topViewController as? ArchiveTableViewController {
-                archivedTableViewController.coreDataStack = coreDataStack
-                archivedTableViewController.delegate = taskViewController
+                let archivedTaskTableViewController = nc.topViewController as? ArchivedTaskTableViewController {
+                archivedTaskTableViewController.coreDataStack = coreDataStack
+                archivedTaskTableViewController.delegate = taskViewController
             }
 
         }

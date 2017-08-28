@@ -21,7 +21,7 @@ protocol TaskSelectionDelegate: class {
 class TaskTableViewController: UITableViewController {
 
     // MARK: - Properties
-    fileprivate let cellIdentifier = CellIdentifier.TaskCell
+    var cellIdentifier: String { return CellIdentifier.DueDateTaskCell }
     
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
@@ -54,36 +54,19 @@ class TaskTableViewController: UITableViewController {
         tableView.addGestureRecognizer(longPress)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
+
+    // generic should be overriden by subclass
+    func initializeFetchResultsController() {
         
-        // select the first navigationItem
-        if let split = self.splitViewController,
-            let section = fetchedResultsController.sections,
-            section.count > 0 {
-            let nc = split.viewControllers.last as! UINavigationController
-            self.detailViewController = nc.topViewController as? TaskEditTableViewController
-            
-            self.delegate.isArchivedView = false
-            self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
-        }
-    }
-    
-    private func initializeFetchResultsController() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let notInArchivedStatePredicate = NSPredicate(format: "%K == false", #keyPath(Task.archived))
-        fetchRequest.predicate = notInArchivedStatePredicate
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         fetchRequest.sortDescriptors = [dueDateSort, nameSort]
         
-        
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                               managedObjectContext: coreDataStack.managedContext,
-                                                              sectionNameKeyPath: "dueDateType",
+                                                              sectionNameKeyPath: nil,
                                                               cacheName: nil)
-    
         fetchedResultsController.delegate = self
     }
 
@@ -304,13 +287,13 @@ extension TaskTableViewController {
         cell.leftSwipeSettings.transition = .static
     }
     
-    private func addThickStrikethrough(_ attributedString: NSMutableAttributedString) -> NSAttributedString {
+    func addThickStrikethrough(_ attributedString: NSMutableAttributedString) -> NSAttributedString {
         attributedString.addAttribute(NSBaselineOffsetAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
         attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.styleThick.rawValue, range: NSMakeRange(0, attributedString.length))
         return attributedString
     }
     
-    private func noStrikethrough(_ attributedString: NSMutableAttributedString) -> NSAttributedString {
+    func noStrikethrough(_ attributedString: NSMutableAttributedString) -> NSAttributedString {
         attributedString.addAttribute(NSBaselineOffsetAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
         attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
         return attributedString

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0099411CE412B8BCB2D63107 /* Pods_To_Do_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79890C53A77AE37967FE0961 /* Pods_To_Do_AppTests.framework */; };
+		370FEACD1F539D6F0096AAA5 /* DueDateTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370FEACC1F539D6F0096AAA5 /* DueDateTaskTableViewController.swift */; };
 		37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514AFE1EEF736F00D67A6E /* AppDelegate.swift */; };
 		37514B041EEF736F00D67A6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B021EEF736F00D67A6E /* Main.storyboard */; };
 		37514B0C1EEF736F00D67A6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B0A1EEF736F00D67A6E /* LaunchScreen.storyboard */; };
@@ -50,7 +51,7 @@
 		379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953D1F4F0AE30075F30B /* TabBarViewController.swift */; };
 		379B95401F4F0E2F0075F30B /* LocationTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */; };
 		379B95431F4F66D40075F30B /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95421F4F66D40075F30B /* DateUtil.swift */; };
-		379B95451F506ACE0075F30B /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95441F506ACE0075F30B /* ArchiveTableViewController.swift */; };
+		379B95451F506ACE0075F30B /* ArchivedTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95441F506ACE0075F30B /* ArchivedTaskTableViewController.swift */; };
 		379EF42B1F1C67D80023174A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379EF42A1F1C67D80023174A /* CloudKit.framework */; };
 		379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379EF42C1F1C6B2D0023174A /* Extensions.swift */; };
 		55F1102C2C92233218ED92C5 /* Pods_To_Do_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3358E9BB99EB3ED7FA21585 /* Pods_To_Do_App.framework */; };
@@ -130,6 +131,7 @@
 /* Begin PBXFileReference section */
 		07DAE1A95F4FB874AD51EB3C /* Pods-To-Do AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To-Do AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-To-Do AppUITests/Pods-To-Do AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		24E1FC8F2A27ADE1619D45D1 /* Pods-To-Do App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To-Do App.release.xcconfig"; path = "Pods/Target Support Files/Pods-To-Do App/Pods-To-Do App.release.xcconfig"; sourceTree = "<group>"; };
+		370FEACC1F539D6F0096AAA5 /* DueDateTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DueDateTaskTableViewController.swift; sourceTree = "<group>"; };
 		371F4BB21F4E773D00BFCF93 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = ../../../Carthage_workdir/SwiftDate/Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		371F4BB51F4E7C0500BFCF93 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftDate.framework; sourceTree = "<group>"; };
 		37514AFB1EEF736F00D67A6E /* To-Do App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-Do App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +181,7 @@
 		379B953D1F4F0AE30075F30B /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTaskTableViewController.swift; sourceTree = "<group>"; };
 		379B95421F4F66D40075F30B /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
-		379B95441F506ACE0075F30B /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
+		379B95441F506ACE0075F30B /* ArchivedTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchivedTaskTableViewController.swift; sourceTree = "<group>"; };
 		379EF4291F1C67D50023174A /* To-Do App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To-Do App.entitlements"; sourceTree = "<group>"; };
 		379EF42A1F1C67D80023174A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		379EF42C1F1C6B2D0023174A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -366,7 +368,8 @@
 				3775C0D51F4D05BF002FE84D /* MapViewController.swift */,
 				3775C0DB1F4D561C002FE84D /* TaskEditTableViewController.swift */,
 				379B953F1F4F0E2F0075F30B /* LocationTaskTableViewController.swift */,
-				379B95441F506ACE0075F30B /* ArchiveTableViewController.swift */,
+				379B95441F506ACE0075F30B /* ArchivedTaskTableViewController.swift */,
+				370FEACC1F539D6F0096AAA5 /* DueDateTaskTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -876,13 +879,14 @@
 				37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */,
 				378DB25D1F0193C300819B6D /* TaskTableViewController.swift in Sources */,
 				379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */,
-				379B95451F506ACE0075F30B /* ArchiveTableViewController.swift in Sources */,
+				379B95451F506ACE0075F30B /* ArchivedTaskTableViewController.swift in Sources */,
 				378DB25F1F0194AE00819B6D /* OLD_TaskViewController.swift in Sources */,
 				378DB2611F019AE300819B6D /* TaskCell.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,
 				37514B321EEF811F00D67A6E /* Photo.swift in Sources */,
 				379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */,
 				3775C0DC1F4D561C002FE84D /* TaskEditTableViewController.swift in Sources */,
+				370FEACD1F539D6F0096AAA5 /* DueDateTaskTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
