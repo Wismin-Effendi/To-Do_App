@@ -35,14 +35,13 @@ class DueDateTaskTableViewController: TaskTableViewController {
             let nc = split.viewControllers.last as! UINavigationController
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
+            self.delegate.isArchivedView = archivedView
             if let section = fetchedResultsController.sections,
                 section.count > 0 {
                 self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
             } else {
                 self.detailViewController.task = nil
             }
-            
-            self.delegate.isArchivedView = archivedView
         }
     }
 
@@ -116,6 +115,8 @@ class DueDateTaskTableViewController: TaskTableViewController {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
+        
+        selectFirstItemIfExist(archivedView: false)
     }
     
     

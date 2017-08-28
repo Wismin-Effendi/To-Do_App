@@ -45,12 +45,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     var isSplitView = false
     
-    var isArchivedView = false {
-        didSet {
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-    }
+    var isArchivedView = false
     
     var showDueDatePicker: Bool = false {
         didSet {
@@ -91,9 +86,9 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     var task: Task? {
         didSet {
-            UIView.animate(withDuration: 0.6) { 
-                self.refreshUI()
-            }
+            tableView.beginUpdates()
+            self.refreshUI()
+            tableView.endUpdates()
         }
     }
     var location: LocationAnnotation? {
@@ -124,8 +119,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         dueDateTextField.delegate = self
         reminderDateTextField.delegate = self
         
-        
-        
         // Set up views if editing an existing Task
         if isArchivedView {
             print("is archive view..")
@@ -138,8 +131,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     private func setLabelsForArchiveView() {
-        guard let task = task else { return }
+        guard let task = task else {
+            navigationItem.title = "No Data"
+            return
+        }
         print("We are inside the archive label assignment....")
+        navigationItem.title = task.name
         taskNameLabel.text = task.name
         locationTitleLabel.text = task.location?.title
         if let annotation = task.location?.annotation as? TaskLocation {
@@ -181,9 +178,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
                 if dueDate != nil { dueDatePicker.date = dueDate! }
             }
         } else {
-            navigationItem.title = "New Task"
-            clearAllFields()
-            dueDate = Date() + 3.hours  // default dueDate for new task.
+            navigationItem.title = "No Data"
         }
     }
     
@@ -205,14 +200,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
         cancelButton.title = isSplitView ? "Clear All" : "Cancel"
         // also the cancel and save button has dependency on isSplitView value.
-    }
-    
-    private func clearAllFields() {
-        taskNameTexField.text = nil
-        locationTitle.text = nil
-        locationSubtitle.text = nil
-        reminder.isOn = false
-        reminderSwitchState(reminder)
     }
     
     
@@ -336,6 +323,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     // MARK: - Table view delegate 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard task != nil else { return 0 }   // hide all rows if no data
         // Section 1: Location, Section 3: due DatePicker, only show one at anytime.
         // section 0 - 3 should be hidden for archive task view
         let section = indexPath.section
@@ -412,7 +400,17 @@ extension TaskEditTableViewController: TaskDetailViewDelegate {
     }
     
     func addTask(managedContext: NSManagedObjectContext) {
-        
+        navigationItem.title = "New Task"
+        clearAllFields()
+        dueDate = Date() + 3.hours  // default dueDate for new task.
+    }
+    
+    fileprivate func clearAllFields() {
+        taskNameTexField.text = nil
+        locationTitle.text = nil
+        locationSubtitle.text = nil
+        reminder.isOn = false
+        reminderSwitchState(reminder)
     }
 }
 

@@ -23,7 +23,7 @@ class TabBarViewController: UITabBarController {
     
     @IBAction func addNewTaskTapped() {
         let managedContext = coreDataStack.managedContext
-        self.detailViewController?.taskSelected(task: nil, managedContext: managedContext)
+        self.detailViewController?.addTask(managedContext: managedContext)
         
         if let detailViewController = self.delegate as? TaskEditTableViewController {
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)

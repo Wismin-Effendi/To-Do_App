@@ -31,14 +31,17 @@ class ArchivedTaskTableViewController: TaskTableViewController {
             let nc = split.viewControllers.last as! UINavigationController
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
+            self.delegate.isArchivedView = archivedView
             if let section = fetchedResultsController.sections,
                 section.count > 0 {
                 self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
             } else {
                 self.detailViewController.task = nil
             }
-            
-            self.delegate.isArchivedView = archivedView
+        }
+        
+        if let detailViewController = self.delegate as? TaskEditTableViewController {
+            splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
     }
     
