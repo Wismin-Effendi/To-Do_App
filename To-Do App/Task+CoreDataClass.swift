@@ -25,6 +25,8 @@ public class Task: NSManagedObject {
         self.identifier = UUID().uuidString
         self.archived = false
         self.dueDate = (Date() + 3.hours) as NSDate
+        self.reminder = false
+        self.reminderDate = dueDate
     }
     
     

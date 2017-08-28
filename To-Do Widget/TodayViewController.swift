@@ -42,10 +42,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func readFromCoreData() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let prioritySort = NSSortDescriptor(key: #keyPath(Task.priority), ascending: true)
-        let rankingSort = NSSortDescriptor(key: #keyPath(Task.ranking), ascending: true)
+        let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-        fetchRequest.sortDescriptors = [prioritySort, rankingSort, nameSort]
+        fetchRequest.sortDescriptors = [dueDateSort, nameSort]
         do {
             let results = try coreDataStack.managedContext.fetch(fetchRequest)
             print(results.count)

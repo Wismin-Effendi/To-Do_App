@@ -153,8 +153,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             hideNavBarButtons()
         } else {
             nonArchiveRefreshUI()
-            // Enable the Save button only if the text field has a valid Task name
-            updateSaveButtonState()
         }
     }
     
@@ -165,21 +163,28 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     func nonArchiveRefreshUI() {
         guard taskNameTexField != nil else { return } // skip if called before viewDidLoad
-        if task != nil {
-            os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task!)
-            navigationItem.title = task?.name
-            taskNameTexField.text = task?.name
-            if let annotation = task?.location?.annotation as? TaskLocation {
+        if let task = task {
+            os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task)
+            navigationItem.title = task.name 
+            taskNameTexField.text = task.name
+            if let annotation = task.location?.annotation as? TaskLocation {
                 locationTitle.text = annotation.title
                 locationSubtitle.text = annotation.subtitle
             }
-            if let taskDueDate = task?.dueDate as Date? {
-                dueDate = taskDueDate
-                if dueDate != nil { dueDatePicker.date = dueDate! }
+            let taskDueDate = task.dueDate as Date
+            dueDatePicker.date = taskDueDate
+            
+            reminder.isOn = task.reminder
+            reminderSwitchState(reminder)
+            if let reminderDate = task.reminderDate as Date? {
+                reminderDatePicker.date = reminderDate
             }
+            
         } else {
             navigationItem.title = "No Data"
         }
+        // Enable the Save button only if the text field has a valid Task name
+        updateSaveButtonState()
     }
     
     
@@ -198,7 +203,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     private func updateSplitViewSetting() {
         isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
-        cancelButton.title = isSplitView ? "Clear All" : "Cancel"
+        cancelButton.title = isSplitView ? "" : "Cancel"
         // also the cancel and save button has dependency on isSplitView value.
     }
     
@@ -226,22 +231,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        // For SplitView
-        if isSplitView { // clear all button
-            clearAllFields()
-        } else {  // cancel button
-            self.navigationController?.navigationController?.popToRootViewController(animated: true)
-        }
+        guard !isSplitView else { return }
+        self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         let name = taskNameTexField.text ?? ""
-        
-        if task == nil {  // add new Task
-            task = Task(context: managedContext)
-            task!.setDefaultsForLocalCreate()
-            task!.ranking = 0 // not really used at this time
-        }
         task!.name = name
         task!.dueDate = (dueDate as NSDate?)!
         task!.location = location
@@ -400,20 +395,11 @@ extension TaskEditTableViewController: TaskDetailViewDelegate {
     }
     
     func addTask(managedContext: NSManagedObjectContext) {
-        navigationItem.title = "New Task"
-        clearAllFields()
-        dueDate = Date() + 3.hours  // default dueDate for new task.
-    }
-    
-    fileprivate func clearAllFields() {
-        taskNameTexField.text = nil
-        locationTitle.text = nil
-        locationSubtitle.text = nil
-        reminder.isOn = false
-        reminderSwitchState(reminder)
+        self.task = Task(context: managedContext)
+        task?.setDefaultsForLocalCreate()
+        nonArchiveRefreshUI()
     }
 }
-
 
 // MARK: - UITextFieldDelegate
 extension TaskEditTableViewController: UITextFieldDelegate {

@@ -12,7 +12,6 @@
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES">
         <attribute name="archived" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -21,12 +20,12 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="needsUpload" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pendingDeletion" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="priority" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="ranking" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminder" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminderDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocationAnnotation" inverseName="tasks" inverseEntity="LocationAnnotation" syncable="YES"/>
     </entity>
     <elements>
         <element name="LocationAnnotation" positionX="-45" positionY="72" width="128" height="165"/>
-        <element name="Task" positionX="-45" positionY="0" width="128" height="240"/>
+        <element name="Task" positionX="-45" positionY="0" width="128" height="225"/>
     </elements>
 </model>
