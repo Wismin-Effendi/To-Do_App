@@ -32,6 +32,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var editLocationButton: UIButton!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var reminderDatePicker: UIDatePicker!
@@ -101,7 +102,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     // TaskLocationDelegate
     var taskLocation = TaskLocation()     
-    var locationIdenfifier = ""
+    var locationIdenfifier = "" {
+        didSet {
+            print("we have new locationIdentifier")
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -290,30 +296,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         default: break
         }
     }
-
-
-    // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
     
     // MARK: - Table view delegate 
     
@@ -323,58 +305,24 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         // section 0 - 3 should be hidden for archive task view
         let section = indexPath.section
         let row = indexPath.row
+        let noLocationData = (locationIdenfifier == "")
         guard !isArchivedView else {
             print("****** we are in archived view *****")
             return (section < 4) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
         }
         
-        switch(showDueDatePicker, showReminderDate, showReminderDatePicker, section, row) {
-        case (false, _, _, 2, 1): return 0
-        case (_, false, _, 3, 1): fallthrough
-        case (_, false, _, 3, 2): return 0
-        case (_, true, false, 3, 2): return 0
-        case (_, _, _, 4, _): return 0
+        switch(showDueDatePicker, showReminderDate, showReminderDatePicker, noLocationData, section, row) {
+        case (false, _, _, _, 2, 1): return 0
+        case (_, false, _, _, 3, 1): fallthrough
+        case (_, false, _, _, 3, 2): return 0
+        case (_, true, false, _, 3, 2): return 0
+        case (_, _, _, true, 1, 1): return 0  
+        case (_, _, _, _, 4, _): return 0
         default:
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
         
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
@@ -407,11 +355,13 @@ extension TaskEditTableViewController: UITextFieldDelegate {
         // Disable the Save button while editing Task Name only
         if textField.tag == TextFieldTag.taskName.rawValue {
             saveButton?.isEnabled = false
+            editLocationButton?.isEnabled = false
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState()
+        editLocationButton.isEnabled = saveButton.isEnabled
         navigationItem.title = taskNameTexField.text
     }
     

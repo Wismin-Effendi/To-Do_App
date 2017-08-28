@@ -249,7 +249,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OsY-sT-Pz2">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OsY-sT-Pz2">
                                                     <rect key="frame" x="72.5" y="8.5" width="284.5" height="30"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -637,6 +637,7 @@
                         <outlet property="dueDateLabel" destination="1oV-Zd-Lwn" id="nCq-zQ-86a"/>
                         <outlet property="dueDatePicker" destination="GcZ-kC-fm2" id="2Hh-eH-yvS"/>
                         <outlet property="dueDateTextField" destination="SzI-qA-O1f" id="miq-XM-JWa"/>
+                        <outlet property="editLocationButton" destination="u0H-Lg-XkP" id="s6g-lp-jtF"/>
                         <outlet property="locationSubtitle" destination="3aa-GD-qeg" id="rZ1-Vn-Dwq"/>
                         <outlet property="locationSubtitleLabel" destination="IA7-gP-PrY" id="lJN-fd-jRo"/>
                         <outlet property="locationTitle" destination="0h8-Fr-m9i" id="7r1-gn-DOx"/>
