@@ -12,6 +12,7 @@ import os.log
 import CoreData
 import Mixpanel
 import SwiftDate
+import UserNotifications
 
 
 class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
@@ -108,6 +109,9 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             tableView.reloadData()
         }
     }
+    
+    // App Delegate 
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -242,15 +246,25 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
+        guard let task = task else { return }
         let name = taskNameTexField.text ?? ""
-        task!.name = name
-        task!.dueDate = (dueDate as NSDate?)!
-        task!.location = location
+        task.name = name
+        task.dueDate = (dueDate as NSDate?)!
+        task.location = location
         
         do {
             try managedContext.save()
         } catch {
             print(error)
+        }
+        
+        let identifier = task.identifier
+        if task.reminder {
+            let reminderDate = task.reminderDate! as Date
+            appDelegate?.scheduleNotification(at: reminderDate, identifier: identifier, title: "Ez ToDo Reminder", body: task.name)
+        } else {
+            // cancel any pending notification by identifier
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
         }
         
         if !isSplitView {

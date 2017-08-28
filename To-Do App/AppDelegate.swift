@@ -36,13 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         application.registerForRemoteNotifications()
                 
-        requestAuthorizationForUserNotification()
+        setupUserNotification()
         
         return true
         
     }
     
-    private func requestAuthorizationForUserNotification() {
+    private func setupUserNotification() {
+        
         UNUserNotificationCenter.current().requestAuthorization(options:
         [[.alert, .sound,. badge]]) { (granted, error) in
             if error != nil {
@@ -50,6 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
             if !granted { os_log("Permission for user notification was not granted.") }
         }
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        let viewAction = UNNotificationAction(identifier: "ViewTaskAction", title: "View Tasks", options: [])
+        let snoozeAction = UNNotificationAction(identifier: "SnoozeTasksAction", title: "Snooze", options: [])
+        let category = UNNotificationCategory(identifier: "OverdueTasksCategory", actions: [viewAction, snoozeAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
     }
     
     private func setupViewControllers() {
@@ -135,6 +143,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return true
     }
 
+}
+
+// MARK: - LocalNotification 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    // for foreground notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier == "ViewTaskAction" {
+            print("Tapped view task.")
+            // Need to open the app
+        } else if response.actionIdentifier == "SnoozeTasksAction" {
+            print("Tapped snooze.")
+            // Need to reschedule the notification 
+            let identifier = response.notification.request.identifier
+            let content = response.notification.request.content
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: (15*30), repeats: false)
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if let error = error {
+                    print("Uh oh! We had an error: \(error)         ")
+                }
+            }
+        }
+        completionHandler()
+    }
+    
+    func scheduleNotification(at date: Date, identifier: String, title: String, body: String) {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents(in: .current, from: date)
+        let newComponents = DateComponents(calendar: calendar, timeZone: .current, era: components.era, year: components.year, month: components.month, day: components.day, hour: components.hour, minute: components.minute, second: components.second)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: newComponents, repeats: false)
+        
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default()
+        
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
+            }
+        }
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("we received open app from URL.. Not sure what to do here....")
+        return true 
+    }
 }
 
 // MARK: - Remote Notification 
