@@ -22,24 +22,25 @@ public class LocationAnnotation: NSManagedObject, CloudKitConvertible {
 }
 
 extension LocationAnnotation {
-        convenience init(using cloudKitRecord: CKRecord, context: NSManagedObjectContext) {
+    
+    public convenience init(using cloudKitRecord: CKRecord, context: NSManagedObjectContext) {
         self.init(context: context)
         update(using: cloudKitRecord)
     }
     
-    func setDefaultValuesForLocalCreation() {
+    public func setDefaultValuesForLocalCreation() {
         self.localUpdate = NSDate()
         self.pendingDeletion = false
         self.needsUpload = true
     }
     
-    func setForLocalDeletion() {
+    public func setForLocalDeletion() {
         self.needsUpload = true
         self.pendingDeletion = true
         self.localUpdate = NSDate()
     }
     
-    func update(using cloudKitRecord: CKRecord) {
+    public func update(using cloudKitRecord: CKRecord) {
         self.title = cloudKitRecord[ckLocationAnnotation.title] as! String
         self.needsUpload = false
         self.pendingDeletion = false
@@ -52,14 +53,14 @@ extension LocationAnnotation {
         try! self.managedObjectContext?.save()
     }
     
-    func updateCKMetadata(from ckRecord: CKRecord) {
+    public func updateCKMetadata(from ckRecord: CKRecord) {
         self.ckMetadata = CloudKitHelper.encodeMetadata(of: ckRecord)
         self.needsUpload = false
         
         try! self.managedObjectContext?.save()
     }
     
-    func managedObjectToNewCKRecord() -> CKRecord {
+    public func managedObjectToNewCKRecord() -> CKRecord {
         guard ckMetadata == nil else {
             fatalError("CKMetaData exist, this should is not a new CKRecord")
         }
@@ -76,7 +77,7 @@ extension LocationAnnotation {
         return ckRecord
     }
     
-    func managedObjectToUpdatedCKRecord() -> CKRecord {
+    public func managedObjectToUpdatedCKRecord() -> CKRecord {
         guard let ckMetadata = self.ckMetadata else {
             fatalError("CKMetaData is required to update CKRecord")
         }
@@ -90,7 +91,7 @@ extension LocationAnnotation {
         return ckRecord
     }
     
-    func getCKRecordID() -> CKRecordID {
+    public func getCKRecordID() -> CKRecordID {
         let ckRecordID: CKRecordID
         if let ckMetadata = self.ckMetadata  {
             let ckRecord = CloudKitHelper.decodeMetadata(from: ckMetadata as! NSData)

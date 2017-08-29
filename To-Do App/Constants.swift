@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 public protocol CloudKitConvertible {
     var identifier: String { get }
@@ -68,6 +69,7 @@ public enum TimeOrder: String {
 public struct Constant {
     public static let toDoCategoryPerRow: CGFloat = 3
     public static let hardCodedPadding: CGFloat = 30.0
+    public static let geofenceRadius: CLLocationDistance = 100 
 }
 
 public struct SegueIdentifier {

@@ -31,24 +31,24 @@ public class Task: NSManagedObject, CloudKitConvertible {
         self.title = "Rename this new Task"
     }
     
-    func setDefaultValuesForLocalChange() {
+    public func setDefaultValuesForLocalChange() {
         self.localUpdate = NSDate()
         self.needsUpload = true 
         self.pendingDeletion = false 
     }
 
-    func setDefaultValuesForCompletion() {
+    public func setDefaultValuesForCompletion() {
         setDefaultValuesForLocalChange()
         self.completionDate = NSDate()
     }
     
-    func setForLocalDeletion() {
+    public func setForLocalDeletion() {
         self.needsUpload = false 
         self.pendingDeletion = true 
         self.localUpdate = NSDate()
     }
 
-    func setDefaultValuesForRemoteModify() {
+    public func setDefaultValuesForRemoteModify() {
         self.needsUpload = false 
         self.pendingDeletion = false 
         self.archived = false 
@@ -134,7 +134,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
 
 extension Task {
 
-        convenience init(using cloudKitRecord: CKRecord, managedObjectContext: NSManagedObjectContext) {
+    public convenience init(using cloudKitRecord: CKRecord, managedObjectContext: NSManagedObjectContext) {
         self.init(context: managedObjectContext)
         self.setDefaultValuesForRemoteModify()
         self.identifier = cloudKitRecord[ckTask.identifier] as! String 
@@ -143,7 +143,7 @@ extension Task {
         update(using: cloudKitRecord)
     }
     
-    func update(using cloudKitRecord: CKRecord) {
+    public func update(using cloudKitRecord: CKRecord) {
         self.archived = cloudKitRecord[ckTask.archived] as! Bool
         self.dueDate = (cloudKitRecord[ckTask.dueDate] as! NSDate)
         self.completed = cloudKitRecord[ckTask.completed] as! Bool
@@ -155,12 +155,12 @@ extension Task {
         self.ckMetadata = CloudKitHelper.encodeMetadata(of: cloudKitRecord)
     }
 
-    func updateCKMetadata(from ckRecord: CKRecord) {
+    public func updateCKMetadata(from ckRecord: CKRecord) {
         self.setDefaultValuesForRemoteModify()
         self.ckMetadata = CloudKitHelper.encodeMetadata(of: ckRecord)
     }
     
-    func managedObjectToNewCKRecord() -> CKRecord {
+    public func managedObjectToNewCKRecord() -> CKRecord {
         guard ckMetadata == nil else {
             fatalError("CKMetaData exist, this should is not a new CKRecord")
         }
@@ -182,7 +182,7 @@ extension Task {
         return ckRecord
     }
     
-    func managedObjectToUpdatedCKRecord() -> CKRecord {
+    public func managedObjectToUpdatedCKRecord() -> CKRecord {
         guard let ckMetadata = self.ckMetadata else {
             fatalError("CKMetadata is required to update CKRecord")
         }
@@ -201,7 +201,7 @@ extension Task {
         return ckRecord
     }
     
-    func getCKRecordID() -> CKRecordID {
+    public func getCKRecordID() -> CKRecordID {
         guard let ckMetadata = self.ckMetadata else {
             fatalError("CKMetaData is required to update CKRecord")
         }

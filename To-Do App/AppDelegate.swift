@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var controller: UIViewController?
 
     var locationManager: CLLocationManager?
-    
     lazy var coreDataStack = CoreDataStack.shared(modelName: ModelName.ToDo)
-
+    let cloudKitHelper: CloudKitHelper = CloudKitHelper.sharedInstance
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -31,15 +31,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         locationManager?.requestWhenInUseAuthorization()
         
         setupMixPanel()
-        
         setupViewControllers()
-        
+        setupCloudKit()
         application.registerForRemoteNotifications()
-                
         setupUserNotification()
         
         return true
         
+    }
+    
+    // MARK: - Private
+    private func setupCloudKit() {
+        // Zones compliance
+        cloudKitHelper.setCustomZonesCompliance()
+        
+        // Fetch subscriptions
+        cloudKitHelper.createDBSubscription()
     }
     
     private func setupUserNotification() {
@@ -79,16 +86,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 let dueDateTaskViewController = nc.topViewController as? DueDateTaskTableViewController {
                 dueDateTaskViewController.coreDataStack = coreDataStack
                 dueDateTaskViewController.delegate = taskViewController
+                dueDateTaskViewController.cloudKitHelper = cloudKitHelper
             }
             if let nc = tabBarViewController?.viewControllers?[1] as? UINavigationController,
                 let locationBasedTaskViewController = nc.topViewController as? LocationTaskTableViewController {
                 locationBasedTaskViewController.coreDataStack = coreDataStack
                 locationBasedTaskViewController.delegate = taskViewController
+                locationBasedTaskViewController.cloudKitHelper = cloudKitHelper
             }
             if let nc = tabBarViewController?.viewControllers?[2] as? UINavigationController,
                 let archivedTaskTableViewController = nc.topViewController as? ArchivedTaskTableViewController {
                 archivedTaskTableViewController.coreDataStack = coreDataStack
                 archivedTaskTableViewController.delegate = taskViewController
+                archivedTaskTableViewController.cloudKitHelper = cloudKitHelper
             }
 
         }
@@ -201,6 +211,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("we received open app from URL.. Not sure what to do here....")
         return true
     }
+
 }
 
 // MARK: - Remote Notification 
@@ -220,5 +231,8 @@ extension AppDelegate {
         print("Received push")
         completionHandler(.newData)
     }
+
 }
+
+
 

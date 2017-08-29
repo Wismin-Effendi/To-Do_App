@@ -28,6 +28,8 @@ class TaskTableViewController: UITableViewController {
     var fetchedResultsController: NSFetchedResultsController<Task>!
     var addBarButton: UIBarButtonItem!
     
+    var cloudKitHelper: CloudKitHelper!
+    
     weak var delegate: TaskDetailViewDelegate!
     
     weak var detailViewController: TaskEditTableViewController!
@@ -37,24 +39,33 @@ class TaskTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
-        
         initializeFetchResultsController()
-        
         addBarButton = tabBarController?.navigationItem.rightBarButtonItem
-        
         do {
             try fetchedResultsController.performFetch()
         } catch let error as NSError {
             print("Fetching error: \(error), \(error.userInfo)")
         }
         
+        setupRefreshControl()
+        
         // Gesture to enable Editing
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TaskTableViewController.setIsEditing))
         tableView.addGestureRecognizer(longPress)
     }
     
+    func saveToCloudKit() {
+        cloudKitHelper.savingToCloudKitOnly()
+        refreshControl?.endRefreshing()
+    }
+    
+    private func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Saving to iCloud")
+        refreshControl!.addTarget(self, action: #selector(TaskTableViewController.saveToCloudKit), for: .valueChanged)
+        tableView.addSubview(refreshControl!)
+    }
 
     // generic should be overriden by subclass
     func initializeFetchResultsController() {

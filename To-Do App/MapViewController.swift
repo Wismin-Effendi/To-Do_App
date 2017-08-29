@@ -12,6 +12,7 @@ import CoreData
 import MapKit
 import os.log
 import ToDoCoreDataCloudKit
+import ChameleonFramework
 
 protocol TaskLocationDelegate {
     var locationIdenfifier: String { get set }
@@ -129,7 +130,7 @@ extension MapViewController: MKMapViewDelegate {
         } else {
             view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             if annotation.title! == "My Location" {
-                view.pinTintColor = MKPinAnnotationView.purplePinColor()
+                view.pinTintColor = UIColor.flatGreen()
             }
             view.canShowCallout = true
             view.animatesDrop = true

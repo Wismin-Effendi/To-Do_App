@@ -14,14 +14,12 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
 
     var taskLocation = TaskLocation() {
         didSet {
-            print("We got \(taskLocation.title)")
             delegate?.taskLocation = taskLocation
         }
     }
     
     var locationIdenfifier = "overrideMe" {
         didSet {
-            print("We got location identifier \(locationIdenfifier)")
             delegate?.locationIdenfifier = locationIdenfifier
         }
     }
@@ -84,7 +82,6 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionInfo = fetchedResultsController.sections?[section] else {
-            print("What ... ??")
             return 0
         }
         print("Number of rows: \(sectionInfo.numberOfObjects)")

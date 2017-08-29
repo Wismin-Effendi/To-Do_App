@@ -20,6 +20,15 @@ class LocationTaskTableViewController: TaskTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        syncToCloudKit()
+    }
+    
+    func syncToCloudKit() {
+        cloudKitHelper.syncToCloudKit {
+            DispatchQueue.main.async {[unowned self] in
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
