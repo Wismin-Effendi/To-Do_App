@@ -8,10 +8,11 @@
 
 import Foundation
 import CoreData
+import CloudKit
 import SwiftDate
 
 @objc(Task)
-public class Task: NSManagedObject {
+public class Task: NSManagedObject, CloudKitConvertible {
     func setDefaultsForNewTask() {
         self.completed = false
     }
@@ -27,9 +28,32 @@ public class Task: NSManagedObject {
         self.dueDate = (Date() + 3.hours) as NSDate
         self.reminder = false
         self.reminderDate = dueDate
-        self.name = "Rename this new Task"
+        self.title = "Rename this new Task"
     }
     
+    func setDefaultValuesForLocalChange() {
+        self.localUpdate = NSDate()
+        self.needsUpload = true 
+        self.pendingDeletion = false 
+    }
+
+    func setDefaultValuesForCompletion() {
+        setDefaultValuesForLocalChange()
+        self.completionDate = NSDate()
+    }
+    
+    func setForLocalDeletion() {
+        self.needsUpload = false 
+        self.pendingDeletion = true 
+        self.localUpdate = NSDate()
+    }
+
+    func setDefaultValuesForRemoteModify() {
+        self.needsUpload = false 
+        self.pendingDeletion = false 
+        self.archived = false 
+        self.localUpdate = NSDate() 
+    }
     
     private func isDateIn(_ referenceDate: Date, component: Calendar.Component, input date: Date) -> Bool {
         return date.isIn(date: referenceDate, granularity: component)
@@ -105,4 +129,83 @@ public class Task: NSManagedObject {
         }
     }
     
+}
+
+
+extension Task {
+
+        convenience init(using cloudKitRecord: CKRecord, managedObjectContext: NSManagedObjectContext) {
+        self.init(context: managedObjectContext)
+        self.setDefaultValuesForRemoteModify()
+        self.identifier = cloudKitRecord[ckTask.identifier] as! String 
+        let ckReference = cloudKitRecord[ckTask.location] as! CKReference
+        self.location = CoreDataHelper.sharedInstance.coreDataLocationAnnotationFrom(ckReference: ckReference, managedObjectContext: managedObjectContext)
+        update(using: cloudKitRecord)
+    }
+    
+    func update(using cloudKitRecord: CKRecord) {
+        self.archived = cloudKitRecord[ckTask.archived] as! Bool
+        self.dueDate = (cloudKitRecord[ckTask.dueDate] as! NSDate)
+        self.completed = cloudKitRecord[ckTask.completed] as! Bool
+        self.completionDate = (cloudKitRecord[ckTask.completionDate] as! NSDate)
+        self.reminder = cloudKitRecord[ckTask.reminder] as! Bool
+        self.reminderDate = (cloudKitRecord[ckTask.reminderDate] as! NSDate)
+        self.title = cloudKitRecord[ckTask.title] as! String
+        self.localUpdate = (cloudKitRecord[ckTask.localUpdate] as! NSDate)
+        self.ckMetadata = CloudKitHelper.encodeMetadata(of: cloudKitRecord)
+    }
+
+    func updateCKMetadata(from ckRecord: CKRecord) {
+        self.setDefaultValuesForRemoteModify()
+        self.ckMetadata = CloudKitHelper.encodeMetadata(of: ckRecord)
+    }
+    
+    func managedObjectToNewCKRecord() -> CKRecord {
+        guard ckMetadata == nil else {
+            fatalError("CKMetaData exist, this should is not a new CKRecord")
+        }
+        
+        let recordZoneID = CKRecordZoneID(zoneName: CloudKitZone.Todododo.rawValue, ownerName: CKCurrentUserDefaultName)
+        let recordName = EntityName.Task + "." +  self.identifier
+        let recordID = CKRecordID(recordName: recordName, zoneID: recordZoneID)
+        let ckRecord = CKRecord(recordType: RecordType.Task.rawValue, recordID: recordID)
+        ckRecord[ckTask.title] = self.title as CKRecordValue
+        ckRecord[ckTask.dueDate] = self.dueDate 
+        ckRecord[ckTask.archived] = self.archived as CKRecordValue
+        ckRecord[ckTask.localUpdate] = self.localUpdate
+        ckRecord[ckTask.identifier] = self.identifier as CKRecordValue
+        ckRecord[ckTask.reminderDate] = self.reminderDate
+        ckRecord[ckTask.reminder] = self.reminder as CKRecordValue
+        ckRecord[ckTask.completionDate] = self.completionDate
+        ckRecord[ckTask.completed] = self.completed as CKRecordValue
+        ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: self.location!)
+        return ckRecord
+    }
+    
+    func managedObjectToUpdatedCKRecord() -> CKRecord {
+        guard let ckMetadata = self.ckMetadata else {
+            fatalError("CKMetadata is required to update CKRecord")
+        }
+        
+        let ckRecord = CloudKitHelper.decodeMetadata(from: ckMetadata as! NSData)
+        ckRecord[ckTask.title] = self.title as CKRecordValue
+        ckRecord[ckTask.localUpdate] = self.localUpdate
+        ckRecord[ckTask.identifier] = self.identifier as CKRecordValue
+        ckRecord[ckTask.reminderDate] = self.reminderDate
+        ckRecord[ckTask.dueDate] = self.dueDate
+        ckRecord[ckTask.archived] = self.archived as CKRecordValue
+        ckRecord[ckTask.reminder] = self.reminder as CKRecordValue
+        ckRecord[ckTask.completionDate] = self.completionDate
+        ckRecord[ckTask.completed] = self.completed as CKRecordValue
+        ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: self.location!)
+        return ckRecord
+    }
+    
+    func getCKRecordID() -> CKRecordID {
+        guard let ckMetadata = self.ckMetadata else {
+            fatalError("CKMetaData is required to update CKRecord")
+        }
+        let ckRecord = CloudKitHelper.decodeMetadata(from: ckMetadata as! NSData)
+        return ckRecord.recordID
+    }
 }

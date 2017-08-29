@@ -22,11 +22,12 @@ extension Task {
     @NSManaged public var dueDate: NSDate
     @NSManaged public var identifier: String
     @NSManaged public var localUpdate: NSDate
-    @NSManaged public var name: String
+    @NSManaged public var title: String
     @NSManaged public var needsUpload: Bool
     @NSManaged public var pendingDeletion: Bool
     @NSManaged public var reminder: Bool
     @NSManaged public var reminderDate: NSDate?
+    @NSManaged public var ckMetadata: NSObject?
     @NSManaged public var location: LocationAnnotation?
 
 }

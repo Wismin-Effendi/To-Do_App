@@ -146,8 +146,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             return
         }
         print("We are inside the archive label assignment....")
-        navigationItem.title = task.name
-        taskNameLabel.text = task.name
+        navigationItem.title = task.title
+        taskNameLabel.text = task.title
         locationTitleLabel.text = task.location?.title
         if let annotation = task.location?.annotation as? TaskLocation {
             locationTitleLabel.text = annotation.title
@@ -175,8 +175,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         guard taskNameTexField != nil else { return } // skip if called before viewDidLoad
         if let task = task {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task)
-            navigationItem.title = task.name 
-            taskNameTexField.text = task.name
+            navigationItem.title = task.title 
+            taskNameTexField.text = task.title
             if let annotation = task.location?.annotation as? TaskLocation {
                 locationTitle.text = annotation.title
                 locationSubtitle.text = annotation.subtitle
@@ -247,8 +247,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         guard let task = task else { return }
-        let name = taskNameTexField.text ?? ""
-        task.name = name
+        let title = taskNameTexField.text ?? ""
+        task.title = title
         task.dueDate = (dueDate as NSDate?)!
         task.location = location
         
@@ -261,7 +261,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         let identifier = task.identifier
         if task.reminder {
             let reminderDate = task.reminderDate! as Date
-            appDelegate?.scheduleNotification(at: reminderDate, identifier: identifier, title: "Ez ToDo Reminder", body: task.name)
+            appDelegate?.scheduleNotification(at: reminderDate, identifier: identifier, title: "ToDo Reminder", body: task.title)
         } else {
             // cancel any pending notification by identifier
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])

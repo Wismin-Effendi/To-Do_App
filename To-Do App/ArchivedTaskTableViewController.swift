@@ -49,8 +49,8 @@ class ArchivedTaskTableViewController: TaskTableViewController {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         let archivedPredicate = NSPredicate(format: "%K == YES", #keyPath(Task.archived))
         let completionDateSort = NSSortDescriptor(key: #keyPath(Task.completionDate), ascending: false)
-        let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-        fetchRequest.sortDescriptors = [completionDateSort, nameSort]
+        let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
+        fetchRequest.sortDescriptors = [completionDateSort, titleSort]
         fetchRequest.predicate = archivedPredicate
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -117,7 +117,7 @@ extension ArchivedTaskTableViewController {
         }
         
         let task = fetchedResultsController.object(at: indexPath)
-        let text = task.name
+        let text = task.title
         let attributedString = NSMutableAttributedString(string: text)
         cell.textLabel?.attributedText = noStrikethrough(attributedString)
         let completionDateText = DateUtil.shortDateText(task.completionDate! as Date)

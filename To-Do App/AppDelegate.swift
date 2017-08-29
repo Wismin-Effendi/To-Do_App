@@ -199,7 +199,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print("we received open app from URL.. Not sure what to do here....")
-        return true 
+        return true
     }
 }
 

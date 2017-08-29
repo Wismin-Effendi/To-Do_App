@@ -57,8 +57,8 @@ class LocationTaskTableViewController: TaskTableViewController {
         fetchRequest.predicate = notInArchivedStatePredicate
         let locationTitleSort = NSSortDescriptor(key: #keyPath(Task.location.title), ascending: true, selector: #selector(NSString.localizedCompare(_:)))
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
-        let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-        fetchRequest.sortDescriptors = [locationTitleSort, dueDateSort, nameSort]
+        let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
+        fetchRequest.sortDescriptors = [locationTitleSort, dueDateSort, titleSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                               managedObjectContext: coreDataStack.managedContext,

@@ -50,8 +50,8 @@ class DueDateTaskTableViewController: TaskTableViewController {
         let notInArchivedStatePredicate = NSPredicate(format: "%K == false", #keyPath(Task.archived))
         fetchRequest.predicate = notInArchivedStatePredicate
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
-        let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-        fetchRequest.sortDescriptors = [dueDateSort, nameSort]
+        let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
+        fetchRequest.sortDescriptors = [dueDateSort, titleSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                               managedObjectContext: coreDataStack.managedContext,

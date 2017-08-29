@@ -8,6 +8,11 @@
 
 import Foundation
 
+public protocol CloudKitConvertible {
+    var identifier: String { get }
+    var pendingDeletion: Bool { get set }
+    var needsUpload: Bool { get set }
+}
 
 public struct ModelName {
     public static let ToDo = "ToDoApp"
@@ -73,6 +78,8 @@ public struct SegueIdentifier {
 extension UserDefaults {
     public struct Keys {
         public static let mixpanelIdentity = "mixpanelIdentity"
+        public static let TodododoZoneID = "TodododoZoneID"
+        public static let lastSync = "lastSync"
     }
 }
 

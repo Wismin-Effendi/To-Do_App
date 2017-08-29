@@ -16,13 +16,14 @@ extension LocationAnnotation {
         return NSFetchRequest<LocationAnnotation>(entityName: "LocationAnnotation")
     }
 
-    @NSManaged public var annotation: NSObject
+    @NSManaged public var annotation: NSObject?
     @NSManaged public var archived: Bool
     @NSManaged public var identifier: String
     @NSManaged public var localUpdate: NSDate
     @NSManaged public var needsUpload: Bool
     @NSManaged public var pendingDeletion: Bool
     @NSManaged public var title: String
+    @NSManaged public var ckMetadata: NSObject?
     @NSManaged public var tasks: NSSet?
 
 }

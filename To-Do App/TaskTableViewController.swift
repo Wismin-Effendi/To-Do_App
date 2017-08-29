@@ -61,8 +61,8 @@ class TaskTableViewController: UITableViewController {
         
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
-        let nameSort = NSSortDescriptor(key: #keyPath(Task.name), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-        fetchRequest.sortDescriptors = [dueDateSort, nameSort]
+        let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
+        fetchRequest.sortDescriptors = [dueDateSort, titleSort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                               managedObjectContext: coreDataStack.managedContext,
@@ -116,7 +116,7 @@ extension TaskTableViewController {
         }
         
         let task = fetchedResultsController.object(at: indexPath)
-        let text = task.name
+        let text = task.title
         let attributedString = NSMutableAttributedString(string: text)
         cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
         let dueDateText = DateUtil.shortDateText(task.dueDate as Date)
