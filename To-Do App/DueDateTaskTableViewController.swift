@@ -19,20 +19,8 @@ class DueDateTaskTableViewController: TaskTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        showFonts()
     }
     
-    func showFonts() {
-        for family: String in UIFont.familyNames
-        {
-            print("\(family)")
-            for names: String in UIFont.fontNames(forFamilyName: family)
-            {
-                print("== \(names)")
-            }
-        }
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate

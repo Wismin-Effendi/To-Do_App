@@ -98,6 +98,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             guard let annotation = location?.annotation as? TaskLocation else { return }
             locationTitle.text = annotation.title
             locationSubtitle.text = annotation.subtitle
+            print("\(annotation.title)  at \(annotation.subtitle) of \(annotation)")
+            os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
         }
     }
     
@@ -249,6 +251,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         task.title = title
         task.dueDate = (dueDate as NSDate?)!
         task.location = location
+        task.reminder = reminder.isOn
+        task.reminderDate = reminderDate as? NSDate
         
         do {
             try managedContext.save()
@@ -317,7 +321,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         // section 0 - 3 should be hidden for archive task view
         let section = indexPath.section
         let row = indexPath.row
-        let noLocationData = (locationIdenfifier == "")
+        let noLocationData = (location == nil)
         guard !isArchivedView else {
             print("****** we are in archived view *****")
             return (section < 4) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
