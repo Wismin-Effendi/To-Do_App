@@ -344,6 +344,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         if indexPath.section > 0 {
             updateSaveButtonState()
             navigationItem.title = taskNameTexField.text
+            editLocationButton.isEnabled = saveButton.isEnabled
         }
     }
     

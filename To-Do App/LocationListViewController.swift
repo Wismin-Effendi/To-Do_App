@@ -9,6 +9,7 @@
 import UIKit
 import ToDoCoreDataCloudKit
 import CoreData
+import MGSwipeTableCell
 
 class LocationListViewController: UITableViewController, TaskLocationDelegate {
 
@@ -43,10 +44,15 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         tableView.tableFooterView = UIView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        try! self.managedContext.save()
+    }
     
     // MARK: - Helper 
     private func initializeFetchResultsController() {
         let fetchRequest: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
+        let notInArchivedStatePredicate = NSPredicate(format: "%K == false", #keyPath(LocationAnnotation.archived))
+        fetchRequest.predicate = notInArchivedStatePredicate
         let titleSort = NSSortDescriptor(key: #keyPath(LocationAnnotation.title), ascending: true)
         fetchRequest.sortDescriptors = [titleSort]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -91,17 +97,26 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.LocationName, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.LocationName, for: indexPath) as! LocationCell
         
         configure(cell: cell, for: indexPath)
         return cell
     }
     
-    fileprivate func configure(cell: UITableViewCell, for indexPath: IndexPath) {
+    fileprivate func configure(cell: MGSwipeTableCell, for indexPath: IndexPath) {
+        guard let cell = cell as? LocationCell else { return }
+        
         let locationAnnotation = fetchedResultsController.object(at: indexPath)
         let taskLocation = locationAnnotation.annotation as! TaskLocation
         cell.textLabel?.text = taskLocation.title
         cell.detailTextLabel?.text = taskLocation.subtitle
+        // configure left buttons
+        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "Archive Cell Icon"), backgroundColor: .darkGray, callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
+            guard (sender as? LocationCell) != nil else { return false }
+            locationAnnotation.archived = true
+            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            return true
+        })]
     }
  
     // MARK: - Table view delegate 
@@ -132,8 +147,8 @@ extension LocationListViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .automatic)
         case .update:
-            let cell = tableView.cellForRow(at: indexPath!)
-            configure(cell: cell!, for: indexPath!)
+            let cell = tableView.cellForRow(at: indexPath!) as! MGSwipeTableCell
+            configure(cell: cell, for: indexPath!)
         case .move:
             tableView.deleteRows(at: [indexPath!], with: .automatic)
             tableView.insertRows(at: [newIndexPath!], with: .automatic)

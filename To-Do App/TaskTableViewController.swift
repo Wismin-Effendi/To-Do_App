@@ -102,6 +102,32 @@ class TaskTableViewController: UITableViewController {
         return taskCount < Constant.MaxFreeVersionTask
     }
     
+    func segueToInAppPurchase() {
+        guard !UpgradeManager.sharedInstance.hasUpgraded() else {
+            productHasUpgradeAction()
+            return
+        }
+        let alertController = UIAlertController(title: "Please Upgrade",
+                                                message: "Free Version has limit of 20 tasks.",
+                                                preferredStyle: .alert)
+        
+        let upgradeAction = UIAlertAction(title: "Upgrade",
+                                          style: .default,
+                                          handler: { (action) in
+                                            self.performSegue(withIdentifier: "ShowUpgradeViewController", sender: nil)
+        })
+        
+        let laterAction = UIAlertAction(title: "Later",
+                                        style: .cancel,
+                                        handler: nil)
+        
+        alertController.addAction(upgradeAction)
+        alertController.addAction(laterAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
+    
 
     // MARK: - Table view data source
 

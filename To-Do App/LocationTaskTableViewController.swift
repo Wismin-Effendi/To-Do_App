@@ -86,17 +86,18 @@ class LocationTaskTableViewController: TaskTableViewController {
     }
   
     func addNewTaskTapped() {
+        // save any pending edit on detail view
+        self.coreDataStack.saveContext()
         
-        if withinFreeVersionLimit() {
+        if isFullVersion || withinFreeVersionLimit() {
             let managedContext = coreDataStack.managedContext
             self.detailViewController?.addTask(managedContext: managedContext)
             
             if let detailViewController = self.detailViewController {
-                print("We are inside here...")
                 splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
             }
         } else {
-            // show pop up
+            self.segueToInAppPurchase()
         }
     }
     

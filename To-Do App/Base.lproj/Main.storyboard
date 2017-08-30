@@ -106,6 +106,9 @@
                     <navigationItem key="navigationItem" title="Task by Due Date" id="RX5-ih-2jr">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="PjS-xa-s8d"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="qL6-Vv-WU3" kind="presentation" identifier="ShowUpgradeViewController" id="Chc-xw-RgH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4eF-l6-cDr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -153,6 +156,9 @@
                     <navigationItem key="navigationItem" title="Task by Location" id="ZGt-36-oEs">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mbD-NT-cpW"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="qL6-Vv-WU3" kind="presentation" identifier="ShowUpgradeViewController" id="eOD-zq-1gJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24x-sd-F7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -596,7 +602,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationName" textLabel="CEB-cd-DQo" detailTextLabel="1ed-5W-Uom" style="IBUITableViewCellStyleSubtitle" id="NLM-rT-35O">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationName" textLabel="CEB-cd-DQo" detailTextLabel="1ed-5W-Uom" style="IBUITableViewCellStyleSubtitle" id="NLM-rT-35O" customClass="LocationCell" customModule="To_Do_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NLM-rT-35O" id="rXR-K4-mnb">
@@ -920,4 +926,7 @@
         <image name="emptyClock" width="25" height="25"/>
         <image name="pointy" width="17" height="27"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Chc-xw-RgH"/>
+    </inferredMetricsTieBreakers>
 </document>

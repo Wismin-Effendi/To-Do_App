@@ -36,7 +36,7 @@
                   moduleName = "To-Do App"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/CloudKitHelper.swift"
-                  timestampString = "525815873.400376"
+                  timestampString = "525822073.790951"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "498"
@@ -51,60 +51,12 @@
                   moduleName = "ToDoCoreDataCloudKit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/CloudKitHelper.swift"
-                  timestampString = "525815874.408443"
+                  timestampString = "525822074.838425"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "498"
                   endingLineNumber = "498"
-                  offsetFromSymbolStart = "1042">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "To-Do App/DueDateTaskTableViewController.swift"
-            timestampString = "525814614.45122"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "addNewTaskTapped()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "To_Do_App.DueDateTaskTableViewController.addNewTaskTapped () -&gt; ()"
-                  moduleName = "To-Do App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/DueDateTaskTableViewController.swift"
-                  timestampString = "525815873.407342"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "914">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "To_Do_App.DueDateTaskTableViewController.addNewTaskTapped () -&gt; ()"
-                  moduleName = "To-Do App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/DueDateTaskTableViewController.swift"
-                  timestampString = "525815873.410102"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "1022">
+                  offsetFromSymbolStart = "1043">
                </Location>
             </Locations>
          </BreakpointContent>

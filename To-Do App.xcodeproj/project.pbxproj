@@ -16,6 +16,7 @@
 		373F9CBA1F54FCFF00D6B26C /* CoreDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0DD1F4E3ABC002FE84D /* CoreDataUtil.swift */; };
 		373F9CBB1F54FD0B00D6B26C /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373F9CAC1F54999200D6B26C /* CoreDataHelper.swift */; };
 		373F9CBC1F55087200D6B26C /* Predicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373F9CB21F54B46500D6B26C /* Predicates.swift */; };
+		37415B221F576323004EB13D /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37415B211F576323004EB13D /* LocationCell.swift */; };
 		37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37514AFE1EEF736F00D67A6E /* AppDelegate.swift */; };
 		37514B041EEF736F00D67A6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B021EEF736F00D67A6E /* Main.storyboard */; };
 		37514B0C1EEF736F00D67A6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37514B0A1EEF736F00D67A6E /* LaunchScreen.storyboard */; };
@@ -168,6 +169,7 @@
 		373F9CB21F54B46500D6B26C /* Predicates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Predicates.swift; path = "../To-Do App/Predicates.swift"; sourceTree = "<group>"; };
 		373F9CB41F54B76800D6B26C /* ChangeToken+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChangeToken+CoreDataClass.swift"; sourceTree = "<group>"; };
 		373F9CB51F54B76800D6B26C /* ChangeToken+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChangeToken+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		37415B211F576323004EB13D /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		37514AFB1EEF736F00D67A6E /* To-Do App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-Do App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37514AFE1EEF736F00D67A6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37514B031EEF736F00D67A6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 			children = (
 				3775C0D91F4D062E002FE84D /* TaskLocation.swift */,
 				378DB2601F019AE300819B6D /* TaskCell.swift */,
+				37415B211F576323004EB13D /* LocationCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -970,6 +973,7 @@
 				3781756B1F55265C00DCDA80 /* GlobalEnums_and_Strutcs.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,
 				378175691F55228600DCDA80 /* CloudKitHelper.swift in Sources */,
+				37415B221F576323004EB13D /* LocationCell.swift in Sources */,
 				379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */,
 				3775C0DC1F4D561C002FE84D /* TaskEditTableViewController.swift in Sources */,
 				370FEACD1F539D6F0096AAA5 /* DueDateTaskTableViewController.swift in Sources */,

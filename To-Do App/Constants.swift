@@ -67,7 +67,7 @@ public enum TimeOrder: String {
 }
 
 public struct Constant {
-    public static let MaxFreeVersionTask: Int = 20 
+    public static let MaxFreeVersionTask: Int = 20
     public static let toDoCategoryPerRow: CGFloat = 3
     public static let hardCodedPadding: CGFloat = 30.0
     public static let geofenceRadius: CLLocationDistance = 100
@@ -76,6 +76,7 @@ public struct Constant {
 public struct SegueIdentifier {
     public static let AddNewLocation = "AddNewLocation"
     public static let LocationList = "LocationList"
+    public static let ShowUpgradeViewController = "ShowUpgradeViewController"
 }
 
 extension UserDefaults {
