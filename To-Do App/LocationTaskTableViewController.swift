@@ -15,7 +15,7 @@ import ToDoCoreDataCloudKit
 
 class LocationTaskTableViewController: TaskTableViewController {
     
-    @IBOutlet weak var addBarButton: UIBarButtonItem!
+    var addBarButton: UIBarButtonItem!
     
     // MARK: - Properties
     override var cellIdentifier: String { return CellIdentifier.LocationTaskCell }
@@ -25,6 +25,9 @@ class LocationTaskTableViewController: TaskTableViewController {
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             self.syncToCloudKit()
         }
+        
+        addBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
+        tabBarController?.navigationItem.rightBarButtonItem = addBarButton
     }
     
     func syncToCloudKit() {
@@ -82,7 +85,7 @@ class LocationTaskTableViewController: TaskTableViewController {
         // Dispose of any resources that can be recreated.
     }
   
-    @IBAction func addNewTaskTapped() {
+    func addNewTaskTapped() {
         
         if withinFreeVersionLimit() {
             let managedContext = coreDataStack.managedContext

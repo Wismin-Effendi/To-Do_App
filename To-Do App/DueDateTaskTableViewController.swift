@@ -15,7 +15,7 @@ import ToDoCoreDataCloudKit
 
 class DueDateTaskTableViewController: TaskTableViewController {
     
-    @IBOutlet weak var addBarButton: UIBarButtonItem!
+    var addBarButton: UIBarButtonItem!
 
     override var cellIdentifier: String { return CellIdentifier.DueDateTaskCell }
 
@@ -26,7 +26,8 @@ class DueDateTaskTableViewController: TaskTableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
-        addBarButton.isEnabled = true 
+        addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(DueDateTaskTableViewController.addNewTaskTapped))
+        tabBarController?.navigationItem.rightBarButtonItem = addBarButton
         
         // select the first navigationItem
         selectFirstItemIfExist(archivedView: false)
@@ -67,9 +68,10 @@ class DueDateTaskTableViewController: TaskTableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func addNewTaskTapped() {
-        
+    func addNewTaskTapped() {
+        print("*** we are in add new task tapped ***")
         if withinFreeVersionLimit() {
+            print("... and here too ...")
             let managedContext = coreDataStack.managedContext
             self.detailViewController?.addTask(managedContext: managedContext)
             

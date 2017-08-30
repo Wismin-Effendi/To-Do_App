@@ -12,7 +12,6 @@ import CoreData
 import MapKit
 import os.log
 import ToDoCoreDataCloudKit
-import ChameleonFramework
 
 protocol TaskLocationDelegate {
     var locationIdenfifier: String { get set }
