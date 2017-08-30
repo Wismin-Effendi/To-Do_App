@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         UNUserNotificationCenter.current().requestAuthorization(options:
         [[.alert, .sound,. badge]]) { (granted, error) in
             if error != nil {
-                os_log("Error when requesting notification %s", error!.localizedDescription)
+                os_log("Error when requesting notification %@", error!.localizedDescription)
             }
             if !granted { os_log("Permission for user notification was not granted.") }
         }

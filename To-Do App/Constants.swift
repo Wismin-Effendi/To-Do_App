@@ -67,9 +67,10 @@ public enum TimeOrder: String {
 }
 
 public struct Constant {
+    public static let MaxFreeVersionTask: Int = 20 
     public static let toDoCategoryPerRow: CGFloat = 3
     public static let hardCodedPadding: CGFloat = 30.0
-    public static let geofenceRadius: CLLocationDistance = 100 
+    public static let geofenceRadius: CLLocationDistance = 100
 }
 
 public struct SegueIdentifier {

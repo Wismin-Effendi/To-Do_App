@@ -80,6 +80,8 @@
 		379B95451F506ACE0075F30B /* ArchivedTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95441F506ACE0075F30B /* ArchivedTaskTableViewController.swift */; };
 		379EF42B1F1C67D80023174A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379EF42A1F1C67D80023174A /* CloudKit.framework */; };
 		379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379EF42C1F1C6B2D0023174A /* Extensions.swift */; };
+		37C16E481F5704F400008C61 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C16E471F5704F400008C61 /* UpgradeViewController.swift */; };
+		37C16E4A1F57050200008C61 /* UpgradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C16E491F57050200008C61 /* UpgradeManager.swift */; };
 		55F1102C2C92233218ED92C5 /* Pods_To_Do_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3358E9BB99EB3ED7FA21585 /* Pods_To_Do_App.framework */; };
 		8F7A74E0BE51A29D955D792B /* Pods_To_Do_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 947B804DBC50E287176165B7 /* Pods_To_Do_AppUITests.framework */; };
 /* End PBXBuildFile section */
@@ -234,6 +236,8 @@
 		37B2D2211F448C8700B68869 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		37B2D2221F448D2400B68869 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Main.strings; sourceTree = "<group>"; };
 		37B2D2231F448D2400B68869 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		37C16E471F5704F400008C61 /* UpgradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
+		37C16E491F57050200008C61 /* UpgradeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeManager.swift; sourceTree = "<group>"; };
 		4685092E52387AFD666FE503 /* Pods-To-Do AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To-Do AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-To-Do AppUITests/Pods-To-Do AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6FD9AA2C211D6488524D26AF /* Pods-To-Do AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To-Do AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-To-Do AppTests/Pods-To-Do AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		79890C53A77AE37967FE0961 /* Pods_To_Do_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_To_Do_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -390,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				379EF42C1F1C6B2D0023174A /* Extensions.swift */,
+				37C16E491F57050200008C61 /* UpgradeManager.swift */,
 				3781756D1F5634F900DCDA80 /* StyleManager.swift */,
 			);
 			name = Utilities;
@@ -398,6 +403,7 @@
 		3775C0E01F4E3EBA002FE84D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				37C16E471F5704F400008C61 /* UpgradeViewController.swift */,
 				379B953D1F4F0AE30075F30B /* TabBarViewController.swift */,
 				378DB25C1F0193C300819B6D /* TaskTableViewController.swift */,
 				3775C0D71F4D05FE002FE84D /* LocationListViewController.swift */,
@@ -953,7 +959,9 @@
 				3775C0D61F4D05BF002FE84D /* MapViewController.swift in Sources */,
 				3753BAC51F47F03A00EBD7CD /* ToDoApp.xcdatamodeld in Sources */,
 				379B95401F4F0E2F0075F30B /* LocationTaskTableViewController.swift in Sources */,
+				37C16E481F5704F400008C61 /* UpgradeViewController.swift in Sources */,
 				37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */,
+				37C16E4A1F57050200008C61 /* UpgradeManager.swift in Sources */,
 				378DB25D1F0193C300819B6D /* TaskTableViewController.swift in Sources */,
 				379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */,
 				379B95451F506ACE0075F30B /* ArchivedTaskTableViewController.swift in Sources */,
@@ -1206,7 +1214,7 @@
 				DEVELOPMENT_TEAM = WZFHSP6QD4;
 				INFOPLIST_FILE = "To-Do App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.ToDo;
+				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.Todododo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1222,7 +1230,7 @@
 				DEVELOPMENT_TEAM = WZFHSP6QD4;
 				INFOPLIST_FILE = "To-Do App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.ToDo;
+				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.Todododo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1297,7 +1305,7 @@
 				DEVELOPMENT_TEAM = WZFHSP6QD4;
 				INFOPLIST_FILE = "To-Do Widget/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.ToDo.ToDoWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.Todododo.ToDoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1311,7 +1319,7 @@
 				DEVELOPMENT_TEAM = WZFHSP6QD4;
 				INFOPLIST_FILE = "To-Do Widget/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.ToDo.ToDoWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.Todododo.ToDoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;

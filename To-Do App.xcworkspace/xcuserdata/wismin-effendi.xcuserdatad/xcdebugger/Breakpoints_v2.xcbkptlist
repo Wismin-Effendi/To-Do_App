@@ -36,7 +36,7 @@
                   moduleName = "To-Do App"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/CloudKitHelper.swift"
-                  timestampString = "525758755.340571"
+                  timestampString = "525805312.564331"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "498"
@@ -51,7 +51,7 @@
                   moduleName = "ToDoCoreDataCloudKit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/CloudKitHelper.swift"
-                  timestampString = "525758756.285674"
+                  timestampString = "525805313.590898"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "498"
@@ -59,22 +59,6 @@
                   offsetFromSymbolStart = "1043">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "To-Do App/LocationTaskTableViewController.swift"
-            timestampString = "525739680.946899"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "selectFirstItemIfExist(archivedView:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

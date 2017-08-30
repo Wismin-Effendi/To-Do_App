@@ -20,7 +20,6 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.ArchivedTask
-        addBarButton.isEnabled = false 
         
         // select the first navigationItem
         selectFirstItemIfExist(archivedView: true)

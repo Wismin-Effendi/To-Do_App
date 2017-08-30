@@ -91,6 +91,10 @@ public class CoreDataUtil {
         }
     }
     
+    public static func getTaskCount(predicate: NSPredicate, moc: NSManagedObjectContext) -> Int {
+        return getTasks(predicate: predicate, moc: moc).count
+    }
+    
     public static func getTask(identifier: String, moc: NSManagedObjectContext) -> Task? {
         let predicate = NSPredicate(format: "%K == %@", #keyPath(Task.identifier), identifier)
         return getTasks(predicate: predicate, moc: moc).first
@@ -120,6 +124,8 @@ public class CoreDataUtil {
         deleteLocationAnnotation(predicate: predicate, moc: moc)
     }
     
+    
+    // TODO: - We should not allow deletion on location annotation, instead we archived them.
     public static func deleteLocationAnnotation(predicate: NSPredicate, moc: NSManagedObjectContext) {
         let locationAnnotationFetch: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
         locationAnnotationFetch.predicate = predicate
@@ -149,6 +155,9 @@ public class CoreDataUtil {
         deleteTask(predicate: predicate, moc: moc)
     }
     
+    
+    // TODO: - need to use pendingDeletion flag instead of instance object deletion
+    // Check the iShoppingList on how to do this
     public static func deleteTask(predicate: NSPredicate, moc: NSManagedObjectContext) {
         let taskFetch: NSFetchRequest<Task> = Task.fetchRequest()
         taskFetch.predicate = predicate

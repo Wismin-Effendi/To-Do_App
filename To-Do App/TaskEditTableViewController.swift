@@ -249,10 +249,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         guard let task = task else { return }
         let title = taskNameTexField.text ?? ""
         task.title = title
-        task.dueDate = (dueDate as NSDate?)!
+        task.dueDate = (dueDate! as NSDate)
         task.location = location
         task.reminder = reminder.isOn
-        task.reminderDate = reminderDate as? NSDate
+        task.reminderDate = (reminderDate! as NSDate)
         
         do {
             try managedContext.save()

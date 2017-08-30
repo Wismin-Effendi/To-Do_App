@@ -26,4 +26,7 @@ public class Predicates {
     public static let DeletedTask = NSPredicate(format: "%K == YES", #keyPath(Task.pendingDeletion))
  
     public static let LocationAnnotationNotPendingDeletion = NSPredicate(format: "%K == NO", #keyPath(LocationAnnotation.pendingDeletion))
+    
+    public static let TaskNotPendingDeletion = NSPredicate(format: "%K == NO", #keyPath(Task.pendingDeletion))
+
 }

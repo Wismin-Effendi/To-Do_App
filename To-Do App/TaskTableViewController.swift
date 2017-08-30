@@ -27,7 +27,8 @@ class TaskTableViewController: UITableViewController {
     
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
-    var addBarButton: UIBarButtonItem!
+    
+    var isFullVersion = UpgradeManager.sharedInstance.hasUpgraded()
     
     var cloudKitHelper: CloudKitHelper!
     
@@ -42,7 +43,6 @@ class TaskTableViewController: UITableViewController {
         super.viewDidLoad()
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         initializeFetchResultsController()
-        addBarButton = tabBarController?.navigationItem.rightBarButtonItem
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
         tableView.tableFooterView = UIView()
         
@@ -93,6 +93,12 @@ class TaskTableViewController: UITableViewController {
     
     func setIsEditing() {
         setEditing(true, animated: true)
+    }
+    
+    
+    func withinFreeVersionLimit() -> Bool {
+        let taskCount = CoreDataUtil.getTaskCount(predicate: Predicates.TaskNotPendingDeletion, moc: coreDataStack.managedContext)
+        return taskCount < Constant.MaxFreeVersionTask
     }
     
 
@@ -226,5 +232,14 @@ extension TaskTableViewController: NSFetchedResultsControllerDelegate {
             tableView.deleteSections(indexSet, with: .automatic)
         default: break
         }
+    }
+}
+
+
+extension TaskTableViewController: ProductUpgraded {
+    
+    func productHasUpgradeAction() {
+        guard UpgradeManager.sharedInstance.hasUpgraded() else { return }
+        navigationController?.popViewController(animated: true)
     }
 }

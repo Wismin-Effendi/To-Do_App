@@ -14,6 +14,8 @@ import Mixpanel
 import ToDoCoreDataCloudKit
 
 class DueDateTaskTableViewController: TaskTableViewController {
+    
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
 
     override var cellIdentifier: String { return CellIdentifier.DueDateTaskCell }
 
@@ -65,7 +67,21 @@ class DueDateTaskTableViewController: TaskTableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func addNewTaskTapped() {
+        
+        if withinFreeVersionLimit() {
+            let managedContext = coreDataStack.managedContext
+            self.detailViewController?.addTask(managedContext: managedContext)
+            
+            if let detailViewController = self.detailViewController {
+                print("We are inside here...")
+                splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+            }
+        } else {
+            // show pop up
+        }
+    }
+    
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

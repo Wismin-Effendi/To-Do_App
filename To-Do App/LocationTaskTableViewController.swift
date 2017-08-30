@@ -14,7 +14,9 @@ import Mixpanel
 import ToDoCoreDataCloudKit
 
 class LocationTaskTableViewController: TaskTableViewController {
-
+    
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
+    
     // MARK: - Properties
     override var cellIdentifier: String { return CellIdentifier.LocationTaskCell }
     
@@ -80,6 +82,20 @@ class LocationTaskTableViewController: TaskTableViewController {
         // Dispose of any resources that can be recreated.
     }
   
+    @IBAction func addNewTaskTapped() {
+        
+        if withinFreeVersionLimit() {
+            let managedContext = coreDataStack.managedContext
+            self.detailViewController?.addTask(managedContext: managedContext)
+            
+            if let detailViewController = self.detailViewController {
+                print("We are inside here...")
+                splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+            }
+        } else {
+            // show pop up
+        }
+    }
     
     // MARK: - UITableViewDelegate
     
