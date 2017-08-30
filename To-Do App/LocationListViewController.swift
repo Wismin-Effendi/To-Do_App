@@ -36,12 +36,11 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        
-        tableView.tableFooterView = UIView()
         initializeFetchResultsController()
-        
         self.navigationItem.title = "Choose Location"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(addNewLocation))
+        
+        tableView.tableFooterView = UIView()
     }
     
     
