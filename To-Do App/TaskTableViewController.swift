@@ -44,6 +44,8 @@ class TaskTableViewController: UITableViewController {
         initializeFetchResultsController()
         addBarButton = tabBarController?.navigationItem.rightBarButtonItem
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
+        tableView.tableFooterView = UIView()
+        
         do {
             try fetchedResultsController.performFetch()
         } catch let error as NSError {
@@ -125,9 +127,8 @@ class TaskTableViewController: UITableViewController {
     
     // MARK: - Tableview delegate 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.flatPowderBlueColorDark()
+        view.tintColor = UIColor.flatWhiteColorDark()
     }
-    
 }
 
 // MARK: - Internal 
@@ -145,7 +146,7 @@ extension TaskTableViewController {
         let dueDateText = DateUtil.shortDateText(task.dueDate as Date)
         cell.detailTextLabel?.text = dueDateText
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        cell.backgroundColor = UIColor.flatPowderBlue()
+        cell.backgroundColor = UIColor.flatWhite()
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green, callback: {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in

@@ -52,11 +52,11 @@ final class StyleManager {
     }
     
     static func backgroudTheme() -> UIColor {
-        return FlatPowderBlue()
+        return FlatWhite()
     }
     
     static func positiveTheme() -> UIColor {
-        return FlatPowderBlue()
+        return FlatWhite()
     }
     
     static func negativeTheme() -> UIColor {
