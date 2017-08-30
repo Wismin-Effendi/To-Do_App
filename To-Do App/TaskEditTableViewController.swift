@@ -115,6 +115,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        editLocationButton.backgroundColor = UIColor.clear
+        editLocationButton.tintColor = UIColor.flatSkyBlue()
         tableView.separatorStyle = .none
         showReminderDate = reminder.isOn
         showDueDatePicker = false
@@ -182,12 +184,14 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
                 locationSubtitle.text = annotation.subtitle
             }
             let taskDueDate = task.dueDate as Date
-            dueDatePicker.date = taskDueDate
+            self.dueDate = taskDueDate
+            self.dueDatePicker.date = taskDueDate
             
             reminder.isOn = task.reminder
             reminderSwitchState(reminder)
             if let reminderDate = task.reminderDate as Date? {
-                reminderDatePicker.date = reminderDate
+                self.reminderDate = reminderDate
+                self.reminderDatePicker.date = reminderDate
             }
             
         } else {
@@ -336,6 +340,14 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
         
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section > 0 {
+            updateSaveButtonState()
+            editLocationButton.isEnabled = saveButton.isEnabled
+            navigationItem.title = taskNameTexField.text
+        }
     }
     
     // MARK: - Navigation

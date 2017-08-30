@@ -25,8 +25,11 @@ class TabBarViewController: UITabBarController {
         let managedContext = coreDataStack.managedContext
         self.detailViewController?.addTask(managedContext: managedContext)
         
-        if let detailViewController = self.delegate as? TaskEditTableViewController {
+        if let detailViewController = self.detailViewController as? TaskEditTableViewController {
+            print("We are inside here...")
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
     }
+    
+    
 }

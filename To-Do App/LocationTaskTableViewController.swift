@@ -20,7 +20,9 @@ class LocationTaskTableViewController: TaskTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        syncToCloudKit()
+        DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
+            self.syncToCloudKit()
+        }
     }
     
     func syncToCloudKit() {
@@ -42,7 +44,7 @@ class LocationTaskTableViewController: TaskTableViewController {
     }
     
     func selectFirstItemIfExist(archivedView: Bool) {
-        if let split = self.splitViewController {
+        if let split = self.splitViewController, split.viewControllers.count == 2 {
             let nc = split.viewControllers.last as! UINavigationController
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
@@ -53,10 +55,6 @@ class LocationTaskTableViewController: TaskTableViewController {
             } else {
                 self.detailViewController.task = nil
             }
-        }
-        
-        if let detailViewController = self.delegate as? TaskEditTableViewController {
-            splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
     }
 

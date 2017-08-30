@@ -20,7 +20,7 @@ class CoreDataHelper {
     
     func insertOrUpdateManagedObject(using ckRecord: CKRecord, managedObjectContext: NSManagedObjectContext) {
         switch ckRecord.recordType {
-        case EntityName.Task:
+        case EntityName.LocationAnnotation:
             if let locationIdentifier = ckRecord[ckLocationAnnotation.identifier] as? String,
                 let locationAnnotation = CoreDataUtil.getALocationAnnotationOf(locationIdentifier: locationIdentifier, moc: managedObjectContext) {
                 locationAnnotation.update(using: ckRecord)

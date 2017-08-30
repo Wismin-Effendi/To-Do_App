@@ -12,6 +12,7 @@ import ToDoCoreDataCloudKit
 import CoreData
 import MGSwipeTableCell
 import Mixpanel
+import ChameleonFramework
 
 protocol TaskDetailViewDelegate: class {
     func taskSelected(task: Task?, managedContext: NSManagedObjectContext)
@@ -42,6 +43,7 @@ class TaskTableViewController: UITableViewController {
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         initializeFetchResultsController()
         addBarButton = tabBarController?.navigationItem.rightBarButtonItem
+        tableView.separatorColor = UIColor.flatNavyBlueColorDark()
         do {
             try fetchedResultsController.performFetch()
         } catch let error as NSError {
@@ -56,8 +58,12 @@ class TaskTableViewController: UITableViewController {
     }
     
     func saveToCloudKit() {
-        cloudKitHelper.savingToCloudKitOnly()
-        refreshControl?.endRefreshing()
+        DispatchQueue.global(qos: .userInitiated).async {[unowned self] in 
+            self.cloudKitHelper.savingToCloudKitOnly()
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
+        }
     }
     
     private func setupRefreshControl() {
@@ -116,6 +122,12 @@ class TaskTableViewController: UITableViewController {
 
         return cell
     }
+    
+    // MARK: - Tableview delegate 
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.flatPowderBlueColorDark()
+    }
+    
 }
 
 // MARK: - Internal 
@@ -132,7 +144,8 @@ extension TaskTableViewController {
         cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
         let dueDateText = DateUtil.shortDateText(task.dueDate as Date)
         cell.detailTextLabel?.text = dueDateText
-        
+        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        cell.backgroundColor = UIColor.flatPowderBlue()
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green, callback: {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
@@ -166,6 +179,8 @@ extension TaskTableViewController {
         attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
         return attributedString
     }
+    
+    
 }
 
 // MARK: - NSFetchedResultsControllerDelegate

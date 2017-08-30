@@ -41,9 +41,10 @@ class CloudKitHelper {
     let sharedSubscriptionID = "shared-changes"
     
     let zoneKeyPrefix = "token4Zone-"
-    let createdZoneGroup = DispatchGroup()
-    
     let zoneID: CKRecordZoneID = CloudKitZone.Todododo.recordZoneID()
+    
+    var iCloudAvailable = false
+    var setupCloudKitHasRun = false
     
     var fetchAllZonesOperations: CKFetchRecordZonesOperation!
     var modifyRecordZonesOperation: CKModifyRecordZonesOperation!
@@ -72,6 +73,49 @@ class CloudKitHelper {
     
     private init() {
         managedObjectContext = CoreDataStack.shared(modelName: ModelName.ToDo).managedContext
+    }
+    
+    
+    func setupCloudKit() {
+        dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
+        // Check iCloud account status
+        checkCKAccountStatus()
+        
+        if iCloudAvailable {
+            // Zones compliance
+            setCustomZonesCompliance()
+            // Sync first time 
+            syncToCloudKit {
+                os_log("First time sync after app start up")
+            }
+            // Create subscriptions
+            createDBSubscription()
+        }
+        setupCloudKitHasRun = true
+    }
+    
+    //MARK: - Check iCloud account status
+    // It's okay to block and wait for result since we should be running this is GlobalQueue.
+    func checkCKAccountStatus() {
+        let group = DispatchGroup()
+        group.enter()
+        container.accountStatus {[unowned self] (accountStatus, error) in
+            if error != nil  {
+                os_log("Error checking CKAccountStatus: %s", error.debugDescription)
+            }
+            
+            switch accountStatus {
+            case .available: self.iCloudAvailable = true
+            default: self.iCloudAvailable = false
+            }
+            group.leave()
+        }
+        
+        let result = group.wait(timeout: DispatchTime.now() + 3)
+        switch result {
+        case .timedOut: self.iCloudAvailable = false
+        case .success: break
+        }
     }
     
     //MARK: - Modify custom zone to match CloudKitZones enums
@@ -114,12 +158,15 @@ class CloudKitHelper {
         }
         
         func fetchAndProcessRecordZones() {
+            let group = DispatchGroup()
+            
             var existingZoneIDs = [CKRecordZoneID]()
+            group.enter()
             fetchAllZonesOperations = CKFetchRecordZonesOperation.fetchAllRecordZonesOperation()
             fetchAllZonesOperations.fetchRecordZonesCompletionBlock = {[unowned self] recordZoneDict, error in
                 
                 guard error == nil else {
-                    os_log("Error occured during fetch record zones operation: %s", error!.localizedDescription)
+                    os_log("Error occured during fetch record zones operation: %s", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: self.setCustomZonesCompliance)
                     return
@@ -128,13 +175,23 @@ class CloudKitHelper {
                 existingZoneIDs = Array(recordZoneDict!.keys)
                 os_log("Existing zones: %@", existingZoneIDs.map { $0.zoneName } )
                 (recordZonesToSave, recordZoneIDsToDelete) = processServerRecordZone(existingZoneIDs: existingZoneIDs)
+                group.leave()
             }
             privateDB.add(fetchAllZonesOperations)
+            
+            let result = group.wait(timeout: DispatchTime.now() + 3)
+            switch result {
+            case .timedOut:
+                os_log("Timed out during fetch all zones operation")
+            default: break
+            }
         }
 
         
         // 3. run modifyRecordZone operation to create and delete zone for compliance
         func modifyRecordZones(recordZonesToSave: [CKRecordZone]?, recordZoneIDsToDelete: [CKRecordZoneID]?) {
+            let group = DispatchGroup()
+            group.enter()
             modifyRecordZonesOperation = CKModifyRecordZonesOperation(recordZonesToSave: recordZonesToSave, recordZoneIDsToDelete: recordZoneIDsToDelete)
             modifyRecordZonesOperation.addDependency(fetchAllZonesOperations)
             if isRetryOperation { isRetryOperation = false } // need to reset the flag eventhough we don't use it here
@@ -143,7 +200,7 @@ class CloudKitHelper {
                 os_log("--CKModifyRecordZonesOperation.modifyRecordZonesOperation")
 
                 guard error == nil else {
-                    os_log("Error occured during modify record zones operation: %s", error!.localizedDescription)
+                    os_log("Error occured during modify record zones operation: %s", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: self.setCustomZonesCompliance)
                     return
@@ -160,8 +217,15 @@ class CloudKitHelper {
                 
                 self.createdCustomZone = true
                 self.isRetryOperation = false
+                group.leave()
             }
             privateDB.add(modifyRecordZonesOperation)
+            let result = group.wait(timeout: DispatchTime.now() + 3)
+            switch result {
+            case .timedOut:
+                os_log("Timed out during modify record zone operation")
+            default: break
+            }
         }
         
         fetchAndProcessRecordZones()
@@ -185,7 +249,7 @@ class CloudKitHelper {
             }
             createPrivateDBSubscriptionOperation.modifySubscriptionsCompletionBlock = {[unowned self] (subscriptions, deletedIDs, error) in
                 guard error == nil else {
-                    os_log("Error occured during modify record zones operation: %s", error!.localizedDescription)
+                    os_log("Error occured during modify record zones operation: %s", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: WrapperCreateDBSubscription)
                     return
@@ -206,7 +270,7 @@ class CloudKitHelper {
             createSharedDBSubscriptionOperation.addDependency(createPrivateDBSubscriptionOperation)
             createSharedDBSubscriptionOperation.modifySubscriptionsCompletionBlock = {[unowned self] (subscriptions, deletedIDs, error) in
                 guard error == nil else {
-                    os_log("Error occured during modify record zones operation: %s", error!.localizedDescription)
+                    os_log("Error occured during modify record zones operation: %s", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: self.createDBSubscription)
                     return
@@ -221,21 +285,26 @@ class CloudKitHelper {
     
     // MARK: - Fetch from CloudKit and Save to CloudKit
     func syncToCloudKit(fetchCompletion: @escaping () -> Void) {
+        guard iCloudAvailable else { return }
+        dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         needToFetchBeforeSave = true
         fetchOfflineServerChanges(completion: fetchCompletion)
         saveLocalChangesToCloudKit()
     }
     
     func savingToCloudKitOnly() {
+        guard iCloudAvailable else {
+            setupCloudKit()
+            return
+        }
+        dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         needToFetchBeforeSave = false
         saveLocalChangesToCloudKit()
     }
     
     private func fetchOfflineServerChanges(completion: @escaping () -> Void) {
         print(self.createdCustomZone)
-        createdZoneGroup.notify(queue: DispatchQueue.global()) { [unowned self] in
-            self.fetchChanges(in: .private, completion: completion)
-        }
+        fetchChanges(in: .private, completion: completion)
     }
     
     func createDatabaseSubscriptionOperation(subscriptionID: String) -> CKModifySubscriptionsOperation {
@@ -271,9 +340,12 @@ class CloudKitHelper {
     
     func fetchDatabaseChanges(database: CKDatabase, databaseTokenKey: String, completion: @escaping () -> Void) {
         
+        dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         print("we are in fetch DB change for")
-        
-     //   let group = DispatchGroup()
+        guard iCloudAvailable else {
+            os_log("Attempt to fetch DB changes but iCloud not available")
+            return
+        }
         
         var changedZoneIDs = [CKRecordZoneID]()
         
@@ -283,7 +355,7 @@ class CloudKitHelper {
         }()
         
         if let changeToken = changeToken {
-            print(changeToken)
+            print("We have the following change token: \(changeToken)")
         } else {
             print("Change token is nil")
         }
@@ -293,7 +365,7 @@ class CloudKitHelper {
             let fetchDatabaseChangesOperation = CKFetchDatabaseChangesOperation(previousServerChangeToken: changeToken)
             
             if !subscribedToPrivateChanges && !isRetryOperation {
-                fetchDatabaseChangesOperation.addDependency(createPrivateDBSubscriptionOperation)
+                fetchDatabaseChangesOperation.addDependency(modifyRecordZonesOperation)
             }
             
             if !isRetryOperation {
@@ -347,14 +419,11 @@ class CloudKitHelper {
                     os_log("We are done with fetch zone changes....")
                     completion()
                 }
-                
             }
             print("are we here...?")
             database.add(fetchDatabaseChangesOperation)
         }
         WrapperFetchDatabaseChangesOperation()
-        
-
     }
     
     
@@ -373,7 +442,8 @@ class CloudKitHelper {
                 guard let data = UserDefaults.standard.data(forKey: zoneKey) else { return nil }
                 return NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken
             }()
-        
+            // just at test 
+            // options.previousServerChangeToken = nil
             optionsByRecordZoneID[zoneID] = options
         }
         
@@ -521,6 +591,8 @@ class CloudKitHelper {
 
 
     private func saveLocalChangesToCloudKit() {
+        let group = DispatchGroup()
+        
         let recordsToSave = coreDataHelper.getRecordsToModify(managedObjectContext: managedObjectContext)
         let recordIDsToDelete = coreDataHelper.getRecordIDsForDeletion(managedObjectContext: managedObjectContext)
         
@@ -546,10 +618,19 @@ class CloudKitHelper {
                 }
                 self.coreDataHelper.postSuccessfyModifyOnCloudKit(modifiedCKRecords: modifiedCKRecords!, managedObjectContext: self.managedObjectContext)
                 self.coreDataHelper.postSuccessfulDeletionOnCloudKit(managedObjectContext: self.managedObjectContext)
+                group.leave()
             }
             privateDB.add(saveToCloudKitOperation)
         }
+        group.enter()
         WrapperSaveToCloudKitOperation()
+        let result = group.wait(timeout: DispatchTime.now() + 2)
+        switch result {
+        case .timedOut:
+            os_log("Timed out save local change to iCloud")
+        default:
+            break
+        }
     }
 }
 

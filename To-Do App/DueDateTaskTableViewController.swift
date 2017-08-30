@@ -19,6 +19,18 @@ class DueDateTaskTableViewController: TaskTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        showFonts()
+    }
+    
+    func showFonts() {
+        for family: String in UIFont.familyNames
+        {
+            print("\(family)")
+            for names: String in UIFont.fontNames(forFamilyName: family)
+            {
+                print("== \(names)")
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -31,13 +43,13 @@ class DueDateTaskTableViewController: TaskTableViewController {
     }
     
     func selectFirstItemIfExist(archivedView: Bool) {
-        if let split = self.splitViewController {
+        if let split = self.splitViewController, split.viewControllers.count == 2 {
             let nc = split.viewControllers.last as! UINavigationController
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
             self.delegate.isArchivedView = archivedView
-            if let section = fetchedResultsController.sections,
-                section.count > 0 {
+            if let sections = fetchedResultsController.sections,
+                sections.count > 0 {
                 self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
             } else {
                 self.detailViewController.task = nil

@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        configureTheme()
         
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
@@ -35,18 +36,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         setupCloudKit()
         application.registerForRemoteNotifications()
         setupUserNotification()
-        
         return true
         
     }
     
     // MARK: - Private
     private func setupCloudKit() {
-        // Zones compliance
-        cloudKitHelper.setCustomZonesCompliance()
-        
-        // Fetch subscriptions
-        cloudKitHelper.createDBSubscription()
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.utility).async { [unowned self] in
+            self.cloudKitHelper.setupCloudKit()
+            if !self.cloudKitHelper.iCloudAvailable {
+                self.controller?.showAlertWarning(message: "Sync feature require iCloud account")
+            }
+        }
     }
     
     private func setupUserNotification() {
@@ -100,7 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 archivedTaskTableViewController.delegate = taskViewController
                 archivedTaskTableViewController.cloudKitHelper = cloudKitHelper
             }
-
         }
     }
     
@@ -132,6 +132,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        DispatchQueue.global(qos: .utility).async {
+            self.cloudKitHelper.syncToCloudKit {
+                os_log("Sync to iCloud before going to background")
+            }
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -231,7 +236,14 @@ extension AppDelegate {
         print("Received push")
         completionHandler(.newData)
     }
+}
 
+// MARK: - Theme 
+extension AppDelegate {
+    
+    func configureTheme() {
+        StyleManager.setUpTheme()
+    }
 }
 
 

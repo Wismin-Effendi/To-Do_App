@@ -47,7 +47,7 @@ extension LocationAnnotation {
         self.archived = cloudKitRecord[ckLocationAnnotation.archived] as! Bool
         self.identifier = cloudKitRecord[ckLocationAnnotation.identifier] as! String
         self.localUpdate = (cloudKitRecord[ckLocationAnnotation.localUpdate] as! NSDate)
-        self.annotation = cloudKitRecord[ckLocationAnnotation.annotation] as! LocationAnnotation
+        self.annotation =  NSKeyedUnarchiver.unarchiveObject(with: cloudKitRecord[ckLocationAnnotation.annotation] as! Data) as! TaskLocation
         self.ckMetadata = CloudKitHelper.encodeMetadata(of: cloudKitRecord)
      
         try! self.managedObjectContext?.save()
@@ -72,7 +72,9 @@ extension LocationAnnotation {
         ckRecord[ckLocationAnnotation.title] = self.title as CKRecordValue
         ckRecord[ckLocationAnnotation.identifier] = self.identifier as CKRecordValue
         ckRecord[ckLocationAnnotation.localUpdate] = self.localUpdate
-        ckRecord[ckLocationAnnotation.annotation] = self.annotation as? CKRecordValue
+        ckRecord[ckLocationAnnotation.archived] = self.archived as CKRecordValue
+        let annotationData = NSKeyedArchiver.archivedData(withRootObject: self.annotation!)
+        ckRecord[ckLocationAnnotation.annotation] = annotationData as CKRecordValue
         
         return ckRecord
     }
