@@ -151,10 +151,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         navigationItem.title = task.title
         taskNameLabel.text = task.title
         locationTitleLabel.text = task.location?.title
-        if let annotation = task.location?.annotation as? TaskLocation {
-            locationTitleLabel.text = annotation.title
-            locationSubtitleLabel.text = annotation.subtitle
-        }
+        location = task.location
         dueDateLabel.text =  formatDateText(task.dueDate as Date)
         completionDateLabel.text = formatDateText(task.completionDate! as Date)
     }
@@ -179,10 +176,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task)
             navigationItem.title = task.title 
             taskNameTexField.text = task.title
-            if let annotation = task.location?.annotation as? TaskLocation {
-                locationTitle.text = annotation.title
-                locationSubtitle.text = annotation.subtitle
-            }
+            location = task.location
             let taskDueDate = task.dueDate as Date
             self.dueDate = taskDueDate
             self.dueDatePicker.date = taskDueDate
@@ -345,7 +339,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section > 0 {
             updateSaveButtonState()
-            editLocationButton.isEnabled = saveButton.isEnabled
             navigationItem.title = taskNameTexField.text
         }
     }

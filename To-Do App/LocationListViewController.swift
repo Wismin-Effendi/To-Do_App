@@ -111,6 +111,10 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         locationIdenfifier = locationAnnotation.identifier
         navigationController?.popViewController(animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52
+    }
 }
 
 
