@@ -33,20 +33,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         setupMixPanel()
         setupViewControllers()
-        setupCloudKit()
-        application.registerForRemoteNotifications()
+        checkThenRunCloudKitSetup(application)
         setupUserNotification()
         return true
         
     }
     
     // MARK: - Private
+    private func checkThenRunCloudKitSetup(_ application: UIApplication) {
+        self.cloudKitHelper.checkCKAccountStatus {[unowned self] (accountStatus) in
+            switch accountStatus {
+            case .available:
+                self.setupCloudKit()
+                DispatchQueue.main.async {
+                    print("We have valid iCloud account....")
+                    application.registerForRemoteNotifications()
+                }
+            default:
+               self.controller?.showAlertWarning(message: "Sync feature require iCloud account")
+            }
+        }
+    }
     private func setupCloudKit() {
         DispatchQueue.global(qos: DispatchQoS.QoSClass.utility).async { [unowned self] in
             self.cloudKitHelper.setupCloudKit()
-            if !self.cloudKitHelper.iCloudAvailable {
-                self.controller?.showAlertWarning(message: "Sync feature require iCloud account")
-            }
         }
     }
     
@@ -227,7 +237,10 @@ extension AppDelegate {
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Remote notification registration failed")
+        // Skip Code=3010 "remote notifications are not supported in the simulator"
+        guard (error as NSError).code != 3010  else { return }
+        
+        print("Remote notification registration failed: \(error)")
         controller?.showAlertWarning(message: "Please login to iCloud for remote data sync.")
     }
     

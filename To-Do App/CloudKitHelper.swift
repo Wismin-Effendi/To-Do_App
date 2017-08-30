@@ -79,7 +79,7 @@ class CloudKitHelper {
     func setupCloudKit() {
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         // Check iCloud account status
-        checkCKAccountStatus()
+        checkCKAccountStatus(completion: nil)
         
         if iCloudAvailable {
             // Zones compliance
@@ -96,7 +96,7 @@ class CloudKitHelper {
     
     //MARK: - Check iCloud account status
     // It's okay to block and wait for result since we should be running this is GlobalQueue.
-    func checkCKAccountStatus() {
+    func checkCKAccountStatus(completion: ((CKAccountStatus) -> ())? )  {
         let group = DispatchGroup()
         group.enter()
         container.accountStatus {[unowned self] (accountStatus, error) in
@@ -108,6 +108,7 @@ class CloudKitHelper {
             case .available: self.iCloudAvailable = true
             default: self.iCloudAvailable = false
             }
+            completion?(accountStatus)
             group.leave()
         }
         

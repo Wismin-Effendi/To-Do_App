@@ -91,11 +91,9 @@ class TaskTableViewController: UITableViewController {
         fetchedResultsController.delegate = self
     }
 
-    
     func setIsEditing() {
         setEditing(true, animated: true)
     }
-    
     
     func withinFreeVersionLimit() -> Bool {
         let taskCount = CoreDataUtil.getTaskCount(predicate: Predicates.TaskNotPendingDeletion, moc: coreDataStack.managedContext)
@@ -126,8 +124,6 @@ class TaskTableViewController: UITableViewController {
         
         present(alertController, animated: true, completion: nil)
     }
-
-    
 
     // MARK: - Table view data source
 
