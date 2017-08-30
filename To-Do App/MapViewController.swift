@@ -183,7 +183,7 @@ extension MapViewController: MKMapViewDelegate {
 // MARK: - LocationManager Delegate 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        os_log("Error getting user location: %s", error.localizedDescription)
+        os_log("Error getting user location: %@", error.localizedDescription)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

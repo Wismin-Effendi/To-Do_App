@@ -101,7 +101,7 @@ class CloudKitHelper {
         group.enter()
         container.accountStatus {[unowned self] (accountStatus, error) in
             if error != nil  {
-                os_log("Error checking CKAccountStatus: %s", error.debugDescription)
+                os_log("Error checking CKAccountStatus: %@", error.debugDescription)
             }
             
             switch accountStatus {
@@ -166,7 +166,7 @@ class CloudKitHelper {
             fetchAllZonesOperations.fetchRecordZonesCompletionBlock = {[unowned self] recordZoneDict, error in
                 
                 guard error == nil else {
-                    os_log("Error occured during fetch record zones operation: %s", error.debugDescription)
+                    os_log("Error occured during fetch record zones operation: %@", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: self.setCustomZonesCompliance)
                     return
@@ -200,7 +200,7 @@ class CloudKitHelper {
                 os_log("--CKModifyRecordZonesOperation.modifyRecordZonesOperation")
 
                 guard error == nil else {
-                    os_log("Error occured during modify record zones operation: %s", error.debugDescription)
+                    os_log("Error occured during modify record zones operation: %@", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: self.setCustomZonesCompliance)
                     return
@@ -249,7 +249,7 @@ class CloudKitHelper {
             }
             createPrivateDBSubscriptionOperation.modifySubscriptionsCompletionBlock = {[unowned self] (subscriptions, deletedIDs, error) in
                 guard error == nil else {
-                    os_log("Error occured during modify record zones operation: %s", error.debugDescription)
+                    os_log("Error occured during modify record zones operation: %@", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: WrapperCreateDBSubscription)
                     return
@@ -270,7 +270,7 @@ class CloudKitHelper {
             createSharedDBSubscriptionOperation.addDependency(createPrivateDBSubscriptionOperation)
             createSharedDBSubscriptionOperation.modifySubscriptionsCompletionBlock = {[unowned self] (subscriptions, deletedIDs, error) in
                 guard error == nil else {
-                    os_log("Error occured during modify record zones operation: %s", error.debugDescription)
+                    os_log("Error occured during modify record zones operation: %@", error.debugDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: self.createDBSubscription)
                     return
@@ -396,7 +396,7 @@ class CloudKitHelper {
             
             fetchDatabaseChangesOperation.fetchDatabaseChangesCompletionBlock = {[unowned self] (token, moreComing, error) in
                 guard error == nil else {
-                    os_log("Error occured during fetch database changes operations: %s", error!.localizedDescription)
+                    os_log("Error occured during fetch database changes operations: %@", error!.localizedDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: WrapperFetchDatabaseChangesOperation)
                     completion()
@@ -526,7 +526,7 @@ class CloudKitHelper {
             
             fetchRecordZoneChangesOperation.fetchRecordZoneChangesCompletionBlock = { (error) in
                 guard error == nil else {
-                    os_log("Error fetching zone changes for %s database: %s", databaseTokenKey, error!.localizedDescription)
+                    os_log("Error fetching zone changes for %@ database: %@", databaseTokenKey, error!.localizedDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: WrapperFetchRecordZoneChangesOperation)
                     return
@@ -611,7 +611,7 @@ class CloudKitHelper {
             saveToCloudKitOperation.savePolicy = .changedKeys
             saveToCloudKitOperation.modifyRecordsCompletionBlock = {[unowned self] (modifiedCKRecords, deletedRecordIDs, error) in
                 guard error == nil else {
-                    os_log("Error occured during save local change to CloudKit: %s", error!.localizedDescription)
+                    os_log("Error occured during save local change to CloudKit: %@", error!.localizedDescription)
                     
                     self.handlingCKOperationError(of: error!, retryableFunction: WrapperSaveToCloudKitOperation)
                     return
