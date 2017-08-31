@@ -87,13 +87,8 @@ class ArchivedTaskTableViewController: TaskTableViewController {
             // Delete the row from the data source
             
             let taskToDelete = fetchedResultsController.object(at: indexPath)
-            coreDataStack.managedContext.delete(taskToDelete)
-            
-            do {
-                try coreDataStack.managedContext.save()
-            } catch {
-                print(error)
-            }
+            taskToDelete.setForLocalDeletion()
+            coreDataStack.saveContext()
             
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

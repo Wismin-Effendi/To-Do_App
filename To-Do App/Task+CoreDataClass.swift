@@ -43,7 +43,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
         self.completionDate = NSDate()
     }
     
-    public func setDefaultsForLocalDeletion() {
+    public func setForLocalDeletion() {
         self.needsUpload = false 
         self.pendingDeletion = true 
         self.localUpdate = NSDate()
