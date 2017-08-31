@@ -29,8 +29,8 @@
 "Archived Task" =  "Tâche archivée";
 "Rename this new Task" =  "Renommez cette nouvelle tâche";
 "Dismiss" =  "Rejeter";
-"Sync feature require iCloud account" = "";
-"Please login to iCloud for remote data sync." = "S'il vous plaît connectez-vous à iCloud pour la synchronisation des données à distance";
+"Sync feature require iCloud account" = "Fonctionnalité de synchronisation nécessitent compte icloud";
+"Please login to iCloud for remote data sync." = "S'il vous plaît connectez-vous à iCloud pour la synchronisation de données";
 "Error:" = "Erreur:";
 "Ok" = "Bien";
 "Warning:" = "Attention";
