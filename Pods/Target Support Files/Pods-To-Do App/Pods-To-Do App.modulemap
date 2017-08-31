@@ -1,6 +1,0 @@
-framework module Pods_To_Do_App {
-  umbrella header "Pods-To-Do App-umbrella.h"
-
-  export *
-  module * { export * }
-}
