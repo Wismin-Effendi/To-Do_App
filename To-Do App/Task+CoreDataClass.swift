@@ -65,7 +65,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
         let dueDate = self.dueDate as Date
         
         if isDateIn(now, component: .day, input: dueDate) {
-            return TimeOrder.today.rawValue
+            return NSLocalizedString(TimeOrder.today.rawValue, comment: "")
         } else if dueDate > now {
             return futureDateType(dueDate)
         } else {
