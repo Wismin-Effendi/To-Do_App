@@ -25,6 +25,7 @@
 		3753BAC51F47F03A00EBD7CD /* ToDoApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37514B051EEF736F00D67A6E /* ToDoApp.xcdatamodeld */; };
 		3753BB071F4860C500EBD7CD /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3753BB061F4860C500EBD7CD /* assets.xcassets */; };
 		3753BB081F4860C500EBD7CD /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3753BB061F4860C500EBD7CD /* assets.xcassets */; };
+		376C8FB71F5859850014A7ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 376C8FB91F5859850014A7ED /* Localizable.strings */; };
 		3775C0D31F4CAF72002FE84D /* LocationAnnotation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0D11F4CAF72002FE84D /* LocationAnnotation+CoreDataClass.swift */; };
 		3775C0D41F4CAF72002FE84D /* LocationAnnotation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0D21F4CAF72002FE84D /* LocationAnnotation+CoreDataProperties.swift */; };
 		3775C0D61F4D05BF002FE84D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0D51F4D05BF002FE84D /* MapViewController.swift */; };
@@ -196,6 +197,10 @@
 		376C8FB21F5833A70014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		376C8FB31F5833A70014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		376C8FB41F5833A70014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainInterface.strings; sourceTree = "<group>"; };
+		376C8FB81F5859850014A7ED /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		376C8FBA1F58598B0014A7ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		376C8FBB1F58598D0014A7ED /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		376C8FBC1F58598E0014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3775C0D11F4CAF72002FE84D /* LocationAnnotation+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationAnnotation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3775C0D21F4CAF72002FE84D /* LocationAnnotation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationAnnotation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3775C0D51F4D05BF002FE84D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -433,6 +438,7 @@
 		378175901F5640FA00DCDA80 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				376C8FB91F5859850014A7ED /* Localizable.strings */,
 				378175911F56412900DCDA80 /* OpenSans-Bold.ttf */,
 				378175921F56412900DCDA80 /* OpenSans-BoldItalic.ttf */,
 				378175931F56412900DCDA80 /* OpenSans-ExtraBold.ttf */,
@@ -757,6 +763,8 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				fr,
 			);
 			mainGroup = 37514AF21EEF736F00D67A6E;
 			productRefGroup = 37514AFC1EEF736F00D67A6E /* Products */;
@@ -781,6 +789,7 @@
 				37514B0C1EEF736F00D67A6E /* LaunchScreen.storyboard in Resources */,
 				378175A91F56412900DCDA80 /* OpenSans-Regular.ttf in Resources */,
 				378175A31F56412900DCDA80 /* OpenSans-Italic.ttf in Resources */,
+				376C8FB71F5859850014A7ED /* Localizable.strings in Resources */,
 				378175AD1F56412900DCDA80 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				378175A11F56412900DCDA80 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				378175AB1F56412900DCDA80 /* OpenSans-SemiBold.ttf in Resources */,
@@ -1225,6 +1234,17 @@
 				376C8FB31F5833A70014A7ED /* fr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		376C8FB91F5859850014A7ED /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				376C8FB81F5859850014A7ED /* de */,
+				376C8FBA1F58598B0014A7ED /* en */,
+				376C8FBB1F58598D0014A7ED /* es */,
+				376C8FBC1F58598E0014A7ED /* fr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		3792EE5A1F4689D100ACAAAE /* MainInterface.storyboard */ = {

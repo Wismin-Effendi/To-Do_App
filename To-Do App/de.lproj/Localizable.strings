@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Todododo
+
+  Created by Wismin Effendi on 8/31/17.
+  Copyright © 2017 iShinobi. All rights reserved.
+*/
+"Today" = "Heute";
+"Tomorrow" = "Morgen";
+"Yesterday" = "Gestern";
+"Two days ago" = "Vor 2 Tagen";
+"Two days from now" = "Zwei Tage ab jetzt";
+"Future days in this week" = "Zukünftige Tage in dieser Woche";
+"Next Week" = "Nächste Woche";
+"Two weeks from now" = "Zwei Wochen ab sofort";
+"Previous days in this week" = "Vorige Tage in dieser Woche";
+"Last Week" = "Letzte Woche";
+"Two weeks ago" = "Vor zwei Wochen";
+"Sometime in the future" = "Irgendwann in der Zukunft";
+"Sometime in the past" = "Irgendwann in der Vergangenheit";

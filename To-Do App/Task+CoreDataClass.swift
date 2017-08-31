@@ -94,17 +94,17 @@ public class Task: NSManagedObject, CloudKitConvertible {
         let twoWeeksFromNow = nextWeek + 1.week
         
         if isDateIn(tomorrow, component: .day, input: inputDate) {
-            return TimeOrder.tomorrow.rawValue
+            return NSLocalizedString(TimeOrder.tomorrow.rawValue, comment:"")
         } else if isDateIn(twoDaysFromNow, component: .day, input: inputDate) {
-            return TimeOrder.twoDaysFromNow.rawValue
+            return NSLocalizedString(TimeOrder.twoDaysFromNow.rawValue, comment:"")
         } else if isDateIn(now, component: .weekOfYear, input: inputDate) {
-            return TimeOrder.futureDaysInThisWeek.rawValue
+            return NSLocalizedString(TimeOrder.futureDaysInThisWeek.rawValue, comment:"")
         } else if isDateIn(nextWeek, component: .weekOfYear, input: inputDate) {
-            return TimeOrder.nextWeek.rawValue
+            return NSLocalizedString(TimeOrder.nextWeek.rawValue, comment:"")
         } else if isDateIn(twoWeeksFromNow, component: .weekOfYear, input: inputDate) {
-            return TimeOrder.twoWeeksFromNow.rawValue
+            return NSLocalizedString(TimeOrder.twoWeeksFromNow.rawValue, comment:"")
         } else {
-            return TimeOrder.sometimeInTheFuture.rawValue
+            return NSLocalizedString(TimeOrder.sometimeInTheFuture.rawValue, comment:"")
         }
     }
     
