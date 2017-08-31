@@ -10,6 +10,7 @@ import UIKit
 import ToDoCoreDataCloudKit
 import UserNotifications
 import CoreData
+import CloudKit
 import MapKit
 import Mixpanel
 import os.log
@@ -33,21 +34,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         setupMixPanel()
         setupViewControllers()
+        // CloudKit stuff
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCKAccountChange(notification:)), name: NSNotification.Name.CKAccountChanged, object: nil)
         checkThenRunCloudKitSetup(application)
+        
         setupUserNotification()
         return true
         
     }
     
     // MARK: - Private
-    private func checkThenRunCloudKitSetup(_ application: UIApplication) {
+    @objc func handleCKAccountChange(notification: NSNotification) {
+        checkThenRunCloudKitSetup()
+    }
+    
+    private func checkThenRunCloudKitSetup(_ application: UIApplication? = nil) {
         self.cloudKitHelper.checkCKAccountStatus {[unowned self] (accountStatus) in
             switch accountStatus {
             case .available:
                 self.setupCloudKit()
                 DispatchQueue.main.async {
                     print("We have valid iCloud account....")
-                    application.registerForRemoteNotifications()
+                    application?.registerForRemoteNotifications()
                 }
             default:
                self.controller?.showAlertWarning(message: "Sync feature require iCloud account")
@@ -211,7 +219,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         content.title = title
         content.body = body
         content.sound = UNNotificationSound.default()
-        
+        content.categoryIdentifier = "OverdueTasksCategory"
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
@@ -246,8 +254,18 @@ extension AppDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        print("Received push")
-        completionHandler(.newData)
+        os_log("Receive notification")
+        
+        let dict = userInfo as! [String: NSObject]
+        
+        guard let notification: CKDatabaseNotification = CKNotification(fromRemoteNotificationDictionary: dict) as?
+            CKDatabaseNotification else { return }
+        
+        cloudKitHelper.fetchChanges(in: notification.databaseScope) {
+            os_log("inside completion handler for fetch changes")
+            completionHandler(.newData)
+        }
+        
     }
 }
 
