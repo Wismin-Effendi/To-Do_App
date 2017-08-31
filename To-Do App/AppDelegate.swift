@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     application?.registerForRemoteNotifications()
                 }
             default:
-               self.controller?.showAlertWarning(message: "Sync feature require iCloud account")
+                self.controller?.showAlertWarning(message: NSLocalizedString("Sync feature require iCloud account", comment:""))
             }
         }
     }
@@ -80,9 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         UNUserNotificationCenter.current().delegate = self
         
-        let viewAction = UNNotificationAction(identifier: "ViewTaskAction", title: "View Tasks", options: [])
         let snoozeAction = UNNotificationAction(identifier: "SnoozeTasksAction", title: "Snooze", options: [])
-        let category = UNNotificationCategory(identifier: "OverdueTasksCategory", actions: [viewAction, snoozeAction], intentIdentifiers: [], options: [])
+        let category = UNNotificationCategory(identifier: "OverdueTasksCategory", actions: [snoozeAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
     
@@ -249,7 +248,7 @@ extension AppDelegate {
         guard (error as NSError).code != 3010  else { return }
         
         print("Remote notification registration failed: \(error)")
-        controller?.showAlertWarning(message: "Please login to iCloud for remote data sync.")
+        controller?.showAlertWarning(message: NSLocalizedString("Please login to iCloud for remote data sync.", comment: ""))
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

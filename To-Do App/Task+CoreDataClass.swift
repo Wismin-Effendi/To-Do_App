@@ -28,7 +28,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
         self.dueDate = (Date() + 3.hours) as NSDate
         self.reminder = false
         self.reminderDate = dueDate
-        self.title = "Rename this new Task"
+        self.title = NSLocalizedString("Rename this new Task", comment:"")
     }
     
     public func setDefaultsForLocalChange() {
@@ -78,7 +78,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
         let completionDate = self.completionDate! as Date
         
         if isDateIn(now, component: .day, input: completionDate) {
-            return TimeOrder.today.rawValue
+            return NSLocalizedString(TimeOrder.today.rawValue, comment:"")
         } else if completionDate > now {
             return futureDateType(completionDate)
         } else {
@@ -116,17 +116,17 @@ public class Task: NSManagedObject, CloudKitConvertible {
         let twoWeeksAgo = lastWeek - 1.week
         
         if isDateIn(yesterday, component: .day, input: inputDate) {
-            return TimeOrder.yesterday.rawValue
+            return NSLocalizedString(TimeOrder.yesterday.rawValue, comment:"")
         } else if isDateIn(twoDaysAgo, component: .day, input: inputDate) {
-            return TimeOrder.twoDaysAgo.rawValue
+            return NSLocalizedString(TimeOrder.twoDaysAgo.rawValue, comment:"")
         } else if isDateIn(now, component: .weekOfYear, input: inputDate) {
-            return TimeOrder.previousDaysInThisWeek.rawValue
+            return NSLocalizedString(TimeOrder.previousDaysInThisWeek.rawValue, comment:"")
         } else if isDateIn(lastWeek, component: .weekOfYear, input: inputDate) {
-            return TimeOrder.lastWeek.rawValue
+            return NSLocalizedString(TimeOrder.lastWeek.rawValue, comment:"")
         } else if isDateIn(twoWeeksAgo, component: .weekOfYear, input: inputDate) {
-            return TimeOrder.twoWeeksAgo.rawValue
+            return NSLocalizedString(TimeOrder.twoWeeksAgo.rawValue, comment:"")
         } else {
-            return TimeOrder.sometimeInThePast.rawValue
+            return NSLocalizedString(TimeOrder.sometimeInThePast.rawValue, comment:"")
         }
     }
     

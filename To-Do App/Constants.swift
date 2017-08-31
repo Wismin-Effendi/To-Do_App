@@ -27,9 +27,9 @@ public struct CellIdentifier {
 }
 
 public struct NavBarTitle {
-    public static let TaskByLocation = "Task by location"
-    public static let TaskByDueDate = "Task by due date"
-    public static let ArchivedTask = "Archived Task"
+    public static let TaskByLocation = NSLocalizedString("Task by location", comment:"NavBar title")
+    public static let TaskByDueDate = NSLocalizedString("Task by due date", comment: "NavBar title")
+    public static let ArchivedTask = NSLocalizedString("Archived Task", comment: "NavBar title")
 }
 
 public enum TimeOrder: String {

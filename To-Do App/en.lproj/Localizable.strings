@@ -18,3 +18,16 @@
 "Two weeks ago" = "Two weeks ago";
 "Sometime in the future" = "Sometime in the future";
 "Sometime in the past" = "Sometime in the past";
+"Choose Location" =  "Choose Location";
+"Choose this location?" =  "Choose this location?";
+"Cancel" =  "Cancel";
+"OK" =  "OK";
+"location found" =  "location found";
+"locations found" =  "locations found";
+"Task by location" =  "Task by location";
+"Task by due date" =  "Task by due date";
+"Archived Task" =  "Archived Task";
+"Rename this new Task" =  "Rename this new Task";
+"Dismiss" =  "Dismiss";
+"Sync feature require iCloud account" = "Sync feature require iCloud account";
+"Please login to iCloud for remote data sync." = "Please login to iCloud for remote data sync.";

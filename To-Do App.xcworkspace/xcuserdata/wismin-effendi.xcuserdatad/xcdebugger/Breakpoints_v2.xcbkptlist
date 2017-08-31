@@ -27,38 +27,6 @@
             endingLineNumber = "499"
             landmarkName = "WrapperFetchRecordZoneChangesOperation()"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Todododo.CloudKitHelper.(fetchZoneChanges (database : __ObjC.CKDatabase, databaseTokenKey : Swift.String, zoneIDs : Swift.Array&lt;__ObjC.CKRecordZoneID&gt;, completion : () -&gt; ()) -&gt; ()).((WrapperFetchRecordZoneChangesOperation #1) () -&gt; ()).(closure #4)"
-                  moduleName = "Todododo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/CloudKitHelper.swift"
-                  timestampString = "525845446.821001"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "499"
-                  endingLineNumber = "499"
-                  offsetFromSymbolStart = "1043">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ToDoCoreDataCloudKit.CloudKitHelper.(fetchZoneChanges (database : __ObjC.CKDatabase, databaseTokenKey : Swift.String, zoneIDs : Swift.Array&lt;__ObjC.CKRecordZoneID&gt;, completion : () -&gt; ()) -&gt; ()).((WrapperFetchRecordZoneChangesOperation #1) () -&gt; ()).(closure #4)"
-                  moduleName = "ToDoCoreDataCloudKit"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wismin-effendi/Developer/CareerFoundry/Final%20Project/To-Do%20App/To-Do%20App/CloudKitHelper.swift"
-                  timestampString = "525845450.356516"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "499"
-                  endingLineNumber = "499"
-                  offsetFromSymbolStart = "1043">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

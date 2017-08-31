@@ -86,9 +86,9 @@ extension MapViewController {
                 let number = response!.mapItems.count
                 let title: String!
                 if number == 1 {
-                    title = "\(number) location found"
+                    title = "\(number) \(NSLocalizedString("location found", comment:""))"
                 } else {
-                    title = "\(number) locations found"
+                    title = "\(number) \(NSLocalizedString("locations found", comment:""))"
                 }
                 strongSelf.showAlert(title: title, message: "")
                 
@@ -108,7 +108,7 @@ extension MapViewController {
     
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        let dismissAction = UIAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .default, handler: nil)
         alertController.addAction(dismissAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -140,9 +140,9 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func showOptionToChoose(taskLocation: TaskLocation) {
-        let alertController = UIAlertController(title: "Choose Location", message: "Choose this location?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .default) {[unowned self] (action) in
+        let alertController = UIAlertController(title: NSLocalizedString("Choose Location", comment:"Alert title"), message: NSLocalizedString("Choose this location?", comment:""), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel",comment:"Cancel button"), style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment:"OK button"), style: .default) {[unowned self] (action) in
             taskLocation.title = alertController.textFields![0].text
             self.delegate?.taskLocation = taskLocation
             let identifier = UUID().uuidString
