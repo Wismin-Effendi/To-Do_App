@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0830"
-   version = "1.3">
+   wasCreatedForAppExtension = "YES"
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,10 +15,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3792EE541F4689D100ACAAAE"
+               BuildableName = "To-Do Widget.appex"
+               BlueprintName = "To-Do Widget"
+               ReferencedContainer = "container:Todododo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "37514AFA1EEF736F00D67A6E"
-               BuildableName = "To-Do App.app"
-               BlueprintName = "To-Do App"
-               ReferencedContainer = "container:To-Do App.xcodeproj">
+               BuildableName = "Todododo.app"
+               BlueprintName = "Todododo"
+               ReferencedContainer = "container:Todododo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,30 +47,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "37514B111EEF736F00D67A6E"
-               BuildableName = "To-Do AppTests.xctest"
-               BlueprintName = "To-Do AppTests"
-               ReferencedContainer = "container:To-Do App.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "37514B1C1EEF736F00D67A6E"
-               BuildableName = "To-Do AppUITests.xctest"
-               BlueprintName = "To-Do AppUITests"
-               ReferencedContainer = "container:To-Do App.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "3792EE731F477F8600ACAAAE"
                BuildableName = "To-Do CoreData-CloudKitTests.xctest"
                BlueprintName = "To-Do CoreData-CloudKitTests"
-               ReferencedContainer = "container:To-Do App.xcodeproj">
+               ReferencedContainer = "container:Todododo.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -65,17 +60,17 @@
                BlueprintIdentifier = "3792EE981F47816900ACAAAE"
                BuildableName = "ToDoCoreDataCloudKitTests.xctest"
                BlueprintName = "ToDoCoreDataCloudKitTests"
-               ReferencedContainer = "container:To-Do App.xcodeproj">
+               ReferencedContainer = "container:Todododo.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "37514AFA1EEF736F00D67A6E"
-            BuildableName = "To-Do App.app"
-            BlueprintName = "To-Do App"
-            ReferencedContainer = "container:To-Do App.xcodeproj">
+            BlueprintIdentifier = "3792EE541F4689D100ACAAAE"
+            BuildableName = "To-Do Widget.appex"
+            BlueprintName = "To-Do Widget"
+            ReferencedContainer = "container:Todododo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,24 +78,35 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "37514AFA1EEF736F00D67A6E"
-            BuildableName = "To-Do App.app"
-            BlueprintName = "To-Do App"
-            ReferencedContainer = "container:To-Do App.xcodeproj">
+            BlueprintIdentifier = "3792EE541F4689D100ACAAAE"
+            BuildableName = "To-Do Widget.appex"
+            BlueprintName = "To-Do Widget"
+            ReferencedContainer = "container:Todododo.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3792EE541F4689D100ACAAAE"
+            BuildableName = "To-Do Widget.appex"
+            BlueprintName = "To-Do Widget"
+            ReferencedContainer = "container:Todododo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -109,15 +115,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "37514AFA1EEF736F00D67A6E"
-            BuildableName = "To-Do App.app"
-            BlueprintName = "To-Do App"
-            ReferencedContainer = "container:To-Do App.xcodeproj">
+            BuildableName = "Todododo.app"
+            BlueprintName = "Todododo"
+            ReferencedContainer = "container:Todododo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

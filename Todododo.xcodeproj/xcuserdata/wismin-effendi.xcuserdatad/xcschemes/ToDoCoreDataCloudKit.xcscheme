@@ -17,7 +17,7 @@
                BlueprintIdentifier = "3792EE901F47816800ACAAAE"
                BuildableName = "ToDoCoreDataCloudKit.framework"
                BlueprintName = "ToDoCoreDataCloudKit"
-               ReferencedContainer = "container:To-Do App.xcodeproj">
+               ReferencedContainer = "container:Todododo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,7 +48,7 @@
             BlueprintIdentifier = "3792EE901F47816800ACAAAE"
             BuildableName = "ToDoCoreDataCloudKit.framework"
             BlueprintName = "ToDoCoreDataCloudKit"
-            ReferencedContainer = "container:To-Do App.xcodeproj">
+            ReferencedContainer = "container:Todododo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,7 +66,7 @@
             BlueprintIdentifier = "3792EE901F47816800ACAAAE"
             BuildableName = "ToDoCoreDataCloudKit.framework"
             BlueprintName = "ToDoCoreDataCloudKit"
-            ReferencedContainer = "container:To-Do App.xcodeproj">
+            ReferencedContainer = "container:Todododo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

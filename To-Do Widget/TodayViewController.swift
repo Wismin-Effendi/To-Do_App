@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftDate
 import NotificationCenter
 import ToDoCoreDataCloudKit
 
@@ -16,6 +17,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var tableView: UITableView!
     
     let coreDataStack = CoreDataStack.shared(modelName: ModelName.ToDo)
+    
+    var todayTasks = [Task]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +45,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func readFromCoreData() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+       // let todayPredicate = NSPredicate(format: "%K ", <#T##args: CVarArg...##CVarArg#>)
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         fetchRequest.sortDescriptors = [dueDateSort, titleSort]

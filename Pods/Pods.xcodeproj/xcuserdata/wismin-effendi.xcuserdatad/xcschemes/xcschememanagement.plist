@@ -19,17 +19,32 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-To-Do App.xcscheme</key>
+		<key>Pods-To-Do Widget.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-To-Do AppTests.xcscheme</key>
+		<key>Pods-ToDoCoreDataCloudKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-To-Do AppUITests.xcscheme</key>
+		<key>Pods-ToDoCoreDataCloudKitTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Todododo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-TodododoTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-TodododoUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,17 +57,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>10DFA290DB96E9F9A121F1DC6022D4D7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>57A7500660B8FD491CEDA26D06C30C8A</key>
+		<key>2FB859F354C2A96C2D66009645603CDB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4375FAA0EC954FA24DF095EB2D5E257D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4C3BAF4ED02802B57D82279B212FCC36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6B4312A9CFDE4D173C7C728A98272CC7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,12 +87,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AAEFDA8F0F7C8C138974E362118C8D0A</key>
+		<key>92416D73A487633981AD106B044F9FDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DB6F0046330CE5BCBABA15F893D43B5E</key>
+		<key>98D367A20A06FAC5508ED70C6498594B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9A26783D56CE40175C6E0E1F133F167</key>
 		<dict>
 			<key>primary</key>
 			<true/>

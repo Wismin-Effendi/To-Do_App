@@ -1,24 +1,51 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'To-Do App' do
+target 'To-Do Widget' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for To-Do App
+  # Pods for To-Do Widget
+  pod 'SwiftDate', '~> 4.0'
+
+end
+
+target 'ToDoCoreDataCloudKit' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'SwiftDate', '~> 4.0'
+  
+  # Pods for ToDoCoreDataCloudKit
+
+  target 'ToDoCoreDataCloudKitTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'Todododo' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Todododo
   pod 'MGSwipeTableCell'
   pod 'Mixpanel-swift'
   pod 'SwiftDate', '~> 4.0'
   pod 'ChameleonFramework/Swift'
 
-  target 'To-Do AppTests' do
+  target 'TodododoTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'SwiftDate', '~> 4.0'
+
   end
 
-  target 'To-Do AppUITests' do
+  target 'TodododoUITests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'SwiftDate', '~> 4.0'
+
   end
 
 end

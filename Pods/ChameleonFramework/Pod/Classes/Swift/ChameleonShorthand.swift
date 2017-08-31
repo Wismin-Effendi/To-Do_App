@@ -108,6 +108,8 @@ Generates and creates an array of 5 color objects in the HSB colorspace from the
 */
 public func ColorSchemeOf(colorSchemeType:ColorScheme, color:UIColor, isFlatScheme:Bool) -> [UIColor] {
     return NSArray(ofColorsWith: colorSchemeType, using: color, withFlatScheme: isFlatScheme) as! [UIColor]
+    
+
 }
 
 /**
@@ -139,59 +141,58 @@ public func ClearColor() -> UIColor {
     return UIColor.clear
 }
 
-
 // MARK: - Light Shades Shorthand
 
 public func FlatBlack() -> UIColor {
-	return UIColor.flatBlack() 
+	return UIColor.flatBlack()
 }
 
 public func FlatBlue() -> UIColor {
-	return UIColor.flatBlue() 
+	return UIColor.flatBlue()
 }
 
 public func FlatBrown() -> UIColor {
-	return UIColor.flatBrown() 
+	return UIColor.flatBrown()
 }
 
 public func FlatCoffee() -> UIColor {
-	return UIColor.flatCoffee() 
+	return UIColor.flatCoffee()
 }
 
 public func FlatForestGreen() -> UIColor {
-	return UIColor.flatForestGreen() 
+	return UIColor.flatForestGreen()
 }
 
 public func FlatGray() -> UIColor {
-	return UIColor.flatGray() 
+	return UIColor.flatGray()
 }
 
 public func FlatGreen() -> UIColor {
-	return UIColor.flatGreen() 
+	return UIColor.flatGreen()
 }
 
 public func FlatLime() -> UIColor {
-	return UIColor.flatLime() 
+	return UIColor.flatLime()
 }
 
 public func FlatMagenta() -> UIColor {
-	return UIColor.flatMagenta() 
+	return UIColor.flatMagenta()
 }
 
 public func FlatMaroon() -> UIColor {
-	return UIColor.flatMaroon() 
+	return UIColor.flatMaroon()
 }
 
 public func FlatMint() -> UIColor {
-	return UIColor.flatMint() 
+	return UIColor.flatMint()
 }
 
 public func FlatNavyBlue() -> UIColor {
-	return UIColor.flatNavyBlue() 
+	return UIColor.flatNavyBlue()
 }
 
 public func FlatOrange() -> UIColor {
-	return UIColor.flatOrange() 
+	return UIColor.flatOrange()
 }
 
 public func FlatPink() -> UIColor {
@@ -199,39 +200,39 @@ public func FlatPink() -> UIColor {
 }
 
 public func FlatPlum() -> UIColor {
-	return UIColor.flatPlum() 
+	return UIColor.flatPlum()
 }
 
 public func FlatPowderBlue() -> UIColor {
-	return UIColor.flatPowderBlue() 
+	return UIColor.flatPowderBlue()
 }
 
 public func FlatPurple() -> UIColor {
-	return UIColor.flatPurple() 
+	return UIColor.flatPurple()
 }
 
 public func FlatRed() -> UIColor {
-	return UIColor.flatRed() 
+	return UIColor.flatRed()
 }
 
 public func FlatSand() -> UIColor {
-	return UIColor.flatSand() 
+	return UIColor.flatSand()
 }
 
 public func FlatSkyBlue() -> UIColor {
-	return UIColor.flatSkyBlue() 
+	return UIColor.flatSkyBlue()
 }
 
 public func FlatTeal() -> UIColor {
-	return UIColor.flatTeal() 
+	return UIColor.flatTeal()
 }
 
 public func FlatWatermelon() -> UIColor {
-	return UIColor.flatWatermelon() 
+	return UIColor.flatWatermelon()
 }
 
 public func FlatWhite() -> UIColor {
-	return UIColor.flatWhite() 
+	return UIColor.flatWhite()
 }
 
 public func FlatYellow() -> UIColor {
