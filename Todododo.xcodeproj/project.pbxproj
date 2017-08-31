@@ -193,9 +193,6 @@
 		376C8FAC1F5833750014A7ED /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		376C8FAD1F58337A0014A7ED /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		376C8FAE1F58337A0014A7ED /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainInterface.strings; sourceTree = "<group>"; };
-		376C8FAF1F58338B0014A7ED /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Main.strings; sourceTree = "<group>"; };
-		376C8FB01F58338C0014A7ED /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		376C8FB11F58338C0014A7ED /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		376C8FB21F5833A70014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		376C8FB31F5833A70014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		376C8FB41F5833A70014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainInterface.strings; sourceTree = "<group>"; };
@@ -1214,7 +1211,6 @@
 				37514B031EEF736F00D67A6E /* Base */,
 				376C8FA91F5833660014A7ED /* de */,
 				376C8FAC1F5833750014A7ED /* es */,
-				376C8FAF1F58338B0014A7ED /* id */,
 				376C8FB21F5833A70014A7ED /* fr */,
 			);
 			name = Main.storyboard;
@@ -1226,7 +1222,6 @@
 				37514B0B1EEF736F00D67A6E /* Base */,
 				376C8FAA1F5833670014A7ED /* de */,
 				376C8FAD1F58337A0014A7ED /* es */,
-				376C8FB01F58338C0014A7ED /* id */,
 				376C8FB31F5833A70014A7ED /* fr */,
 			);
 			name = LaunchScreen.storyboard;
@@ -1238,7 +1233,6 @@
 				3792EE5B1F4689D100ACAAAE /* Base */,
 				376C8FAB1F5833670014A7ED /* de */,
 				376C8FAE1F58337A0014A7ED /* es */,
-				376C8FB11F58338C0014A7ED /* id */,
 				376C8FB41F5833A70014A7ED /* fr */,
 			);
 			name = MainInterface.storyboard;
