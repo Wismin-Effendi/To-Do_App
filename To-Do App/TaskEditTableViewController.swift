@@ -98,7 +98,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             guard let annotation = location?.annotation as? TaskLocation else { return }
             locationTitle.text = annotation.title
             locationSubtitle.text = annotation.subtitle
-            print("\(annotation.title)  at \(annotation.subtitle) of \(annotation)")
             os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
         }
     }

@@ -30,8 +30,6 @@
 		3775C0D61F4D05BF002FE84D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0D51F4D05BF002FE84D /* MapViewController.swift */; };
 		3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0D71F4D05FE002FE84D /* LocationListViewController.swift */; };
 		3775C0DC1F4D561C002FE84D /* TaskEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0DB1F4D561C002FE84D /* TaskEditTableViewController.swift */; };
-		378175691F55228600DCDA80 /* CloudKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373F9CAE1F5499C800D6B26C /* CloudKitHelper.swift */; };
-		3781756A1F5522A300DCDA80 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373F9CAC1F54999200D6B26C /* CoreDataHelper.swift */; };
 		3781756B1F55265C00DCDA80 /* GlobalEnums_and_Strutcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373F9CB01F549A6B00D6B26C /* GlobalEnums_and_Strutcs.swift */; };
 		3781756C1F55FF6200DCDA80 /* TaskLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775C0D91F4D062E002FE84D /* TaskLocation.swift */; };
 		3781756E1F5634F900DCDA80 /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3781756D1F5634F900DCDA80 /* StyleManager.swift */; };
@@ -1094,7 +1092,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3781756A1F5522A300DCDA80 /* CoreDataHelper.swift in Sources */,
 				3775C0D61F4D05BF002FE84D /* MapViewController.swift in Sources */,
 				3753BAC51F47F03A00EBD7CD /* ToDoApp.xcdatamodeld in Sources */,
 				379B95401F4F0E2F0075F30B /* LocationTaskTableViewController.swift in Sources */,
@@ -1108,7 +1105,6 @@
 				3781756E1F5634F900DCDA80 /* StyleManager.swift in Sources */,
 				3781756B1F55265C00DCDA80 /* GlobalEnums_and_Strutcs.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,
-				378175691F55228600DCDA80 /* CloudKitHelper.swift in Sources */,
 				37415B221F576323004EB13D /* LocationCell.swift in Sources */,
 				379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */,
 				3775C0DC1F4D561C002FE84D /* TaskEditTableViewController.swift in Sources */,
@@ -1258,6 +1254,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1310,6 +1307,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1337,6 +1335,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1472,6 +1471,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D4CA7C22DD5E5AA7ECE13B98 /* Pods-ToDoCoreDataCloudKit.debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1501,6 +1501,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96317FB0C47046AAA0CD18B6 /* Pods-ToDoCoreDataCloudKit.release.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

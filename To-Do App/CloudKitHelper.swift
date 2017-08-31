@@ -10,7 +10,6 @@ import Foundation
 import CoreData
 import CloudKit
 import os.log
-import ToDoCoreDataCloudKit
 
 
 enum CloudKitUserDefaults: String {
@@ -30,7 +29,7 @@ enum ServerChangeToken: String {
 }
 
 
-class CloudKitHelper {
+public class CloudKitHelper {
 // Initializing Container 
     
     let coreDataHelper = CoreDataHelper.sharedInstance
@@ -67,7 +66,7 @@ class CloudKitHelper {
     var fetchRecordZoneOperation: CKFetchRecordZonesOperation?
     
     // Singleton
-    static var sharedInstance = CloudKitHelper()
+    public static var sharedInstance = CloudKitHelper()
 
     let managedObjectContext: NSManagedObjectContext
     
@@ -76,7 +75,7 @@ class CloudKitHelper {
     }
     
     
-    func setupCloudKit() {
+    public func setupCloudKit() {
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         // Check iCloud account status
         checkCKAccountStatus(completion: nil)
@@ -96,7 +95,7 @@ class CloudKitHelper {
     
     //MARK: - Check iCloud account status
     // It's okay to block and wait for result since we should be running this is GlobalQueue.
-    func checkCKAccountStatus(completion: ((CKAccountStatus) -> ())? )  {
+    public func checkCKAccountStatus(completion: ((CKAccountStatus) -> ())? )  {
         let group = DispatchGroup()
         group.enter()
         container.accountStatus {[unowned self] (accountStatus, error) in
@@ -123,7 +122,7 @@ class CloudKitHelper {
     //
     
     // main function
-    func setCustomZonesCompliance() {
+    public func setCustomZonesCompliance() {
         // The following should run in strict order, use DispatchGroup and Wait to sync the process
         // 1. run fetch allZone (see helper func above)
         // 2. create zonesToCreate and zonesToDelete
@@ -237,7 +236,7 @@ class CloudKitHelper {
     
     // MARK: - Subcribing to Change Notification
     // create subscription if not exists
-    func createDBSubscription() {
+    public func createDBSubscription() {
         subscribedToPrivateChanges = false
         subscribedToSharedChanges = false
 
@@ -285,7 +284,7 @@ class CloudKitHelper {
     
     
     // MARK: - Fetch from CloudKit and Save to CloudKit
-    func syncToCloudKit(fetchCompletion: @escaping () -> Void) {
+    public func syncToCloudKit(fetchCompletion: @escaping () -> Void) {
         guard iCloudAvailable else { return }
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         needToFetchBeforeSave = true
@@ -293,7 +292,7 @@ class CloudKitHelper {
         saveLocalChangesToCloudKit()
     }
     
-    func savingToCloudKitOnly() {
+    public func savingToCloudKitOnly() {
         guard iCloudAvailable else {
             setupCloudKit()
             return
@@ -308,7 +307,7 @@ class CloudKitHelper {
         fetchChanges(in: .private, completion: completion)
     }
     
-    func createDatabaseSubscriptionOperation(subscriptionID: String) -> CKModifySubscriptionsOperation {
+    public func createDatabaseSubscriptionOperation(subscriptionID: String) -> CKModifySubscriptionsOperation {
         let subscription = CKDatabaseSubscription.init(subscriptionID: subscriptionID)
         
         let notificationInfo = CKNotificationInfo()
@@ -326,7 +325,7 @@ class CloudKitHelper {
     
     
     
-    func fetchChanges(in databaseScope: CKDatabaseScope, completion: @escaping () -> Void) {
+    public func fetchChanges(in databaseScope: CKDatabaseScope, completion: @escaping () -> Void) {
     
         switch databaseScope {
         case .private:
@@ -339,7 +338,7 @@ class CloudKitHelper {
         
     }
     
-    func fetchDatabaseChanges(database: CKDatabase, databaseTokenKey: String, completion: @escaping () -> Void) {
+    public func fetchDatabaseChanges(database: CKDatabase, databaseTokenKey: String, completion: @escaping () -> Void) {
         
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         print("we are in fetch DB change for")
@@ -428,7 +427,7 @@ class CloudKitHelper {
     }
     
     
-    func fetchZoneChanges(database: CKDatabase, databaseTokenKey: String, zoneIDs: [CKRecordZoneID],
+    public func fetchZoneChanges(database: CKDatabase, databaseTokenKey: String, zoneIDs: [CKRecordZoneID],
                           completion: @escaping () -> Void) {
         
         // Look up the previous change token for each zone 
@@ -542,7 +541,7 @@ class CloudKitHelper {
 
     // MARK: - General helper
     
-    static func encodeMetadata(of cloudKitRecord: CKRecord) -> NSData {
+    public static func encodeMetadata(of cloudKitRecord: CKRecord) -> NSData {
         let data = NSMutableData()
         let coder = NSKeyedArchiver.init(forWritingWith: data)
         coder.requiresSecureCoding = true
@@ -552,7 +551,7 @@ class CloudKitHelper {
         return data
     }
     
-    static func decodeMetadata(from data: NSData) -> CKRecord {
+    public static func decodeMetadata(from data: NSData) -> CKRecord {
         // setup the CKRecord with its metadata only
         let coder = NSKeyedUnarchiver(forReadingWith: data as Data)
         coder.requiresSecureCoding = true

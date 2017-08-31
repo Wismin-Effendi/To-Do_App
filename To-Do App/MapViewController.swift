@@ -93,10 +93,6 @@ extension MapViewController {
                 strongSelf.showAlert(title: title, message: "")
                 
                 for item in response!.mapItems {
-                    print("Name = \(item.name)")
-                    print("Phone = \(item.phoneNumber)")
-                    print("Address = \(item.placemark)")
-                    
                     strongSelf.matchingItems.append(item as MKMapItem)
                     print("Matching items = \(strongSelf.matchingItems.count)")
                     

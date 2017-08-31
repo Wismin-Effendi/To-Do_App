@@ -10,15 +10,14 @@ import Foundation
 import os.log
 import CoreData
 import CloudKit
-import ToDoCoreDataCloudKit
 
-class CoreDataHelper {
+public class CoreDataHelper {
         
-    static let sharedInstance = CoreDataHelper()
+    public static let sharedInstance = CoreDataHelper()
     
     private init() {}
     
-    func insertOrUpdateManagedObject(using ckRecord: CKRecord, managedObjectContext: NSManagedObjectContext) {
+    public func insertOrUpdateManagedObject(using ckRecord: CKRecord, managedObjectContext: NSManagedObjectContext) {
         switch ckRecord.recordType {
         case EntityName.LocationAnnotation:
             if let locationIdentifier = ckRecord[ckLocationAnnotation.identifier] as? String,
@@ -39,7 +38,7 @@ class CoreDataHelper {
         }
     }
     
-    func splitIntoComponents(recordName: String) -> (entityName: String, identifier: String) {
+    public func splitIntoComponents(recordName: String) -> (entityName: String, identifier: String) {
         guard let dotIndex = recordName.characters.index(of: ".") else {
             fatalError("ERROR - RecordID.recordName should contain entity prefix")
         }
@@ -49,7 +48,7 @@ class CoreDataHelper {
         return (entityName: entityName, identifier: identifier)
     }
     
-    func deleteManagedObject(using ckRecordID: CKRecordID, managedObjectContext: NSManagedObjectContext) {
+    public func deleteManagedObject(using ckRecordID: CKRecordID, managedObjectContext: NSManagedObjectContext) {
         let (entityName, identifier) = splitIntoComponents(recordName: ckRecordID.recordName)
         switch entityName {
         case EntityName.LocationAnnotation:
@@ -61,12 +60,12 @@ class CoreDataHelper {
         }
     }
     
-    func ckReferenceOf(locationAnnotation: LocationAnnotation) -> CKReference {
+    public func ckReferenceOf(locationAnnotation: LocationAnnotation) -> CKReference {
         let recordID = locationAnnotation.getCKRecordID()
         return CKReference(recordID: recordID, action: .deleteSelf)
     }
     
-    func coreDataLocationAnnotationFrom(ckReference: CKReference, managedObjectContext: NSManagedObjectContext) -> LocationAnnotation {
+    public func coreDataLocationAnnotationFrom(ckReference: CKReference, managedObjectContext: NSManagedObjectContext) -> LocationAnnotation {
         let ckRecordID = ckReference.recordID
         let (entityName, identifier) = splitIntoComponents(recordName: ckRecordID.recordName)
         guard entityName == EntityName.LocationAnnotation else { fatalError("This parent ref should be LocationAnnotation") }
@@ -79,7 +78,7 @@ class CoreDataHelper {
     // MARK: - Helper to upload new/update to CloudKit
     // including deletion
     
-    func getRecordIDsForDeletion(managedObjectContext: NSManagedObjectContext) -> [CKRecordID]? {
+    public func getRecordIDsForDeletion(managedObjectContext: NSManagedObjectContext) -> [CKRecordID]? {
         // gather the recordIDs for deletion
         let deletedLocationAnnotations = CoreDataUtil.getLocationAnnotationsOf(predicate: Predicates.DeletedLocationAnnotation, moc: managedObjectContext)
         let deletedLocationAnnotationRecordIDs = deletedLocationAnnotations.map { $0.getCKRecordID() }
@@ -91,13 +90,13 @@ class CoreDataHelper {
         return deletedRecords == [] ? nil : deletedRecords
     }
     
-    func postSuccessfulDeletionOnCloudKit(managedObjectContext: NSManagedObjectContext) {
+    public func postSuccessfulDeletionOnCloudKit(managedObjectContext: NSManagedObjectContext) {
         // here we delete from core data permanently
         CoreDataUtil.batchDeleteTaskPendingDeletion(managedObjectContext: managedObjectContext)
         CoreDataUtil.batchDeleteLocationAnnotationPendingDeletion(managedObjectContext: managedObjectContext)
     }
     
-    func getRecordsToModify(managedObjectContext: NSManagedObjectContext) -> [CKRecord]? {
+    public func getRecordsToModify(managedObjectContext: NSManagedObjectContext) -> [CKRecord]? {
         // update / modify
         // Create New Records
         let newLocationAnnotations = CoreDataUtil.getLocationAnnotationsOf(predicate: Predicates.NewLocationAnnotation, moc: managedObjectContext)
@@ -116,7 +115,7 @@ class CoreDataHelper {
         return newAndUpdatedRecords == [] ? nil : newAndUpdatedRecords
     }
     
-    func postSuccessfyModifyOnCloudKit(modifiedCKRecords: [CKRecord], managedObjectContext: NSManagedObjectContext) {
+    public func postSuccessfyModifyOnCloudKit(modifiedCKRecords: [CKRecord], managedObjectContext: NSManagedObjectContext) {
         //  update metadata and modify needsUpload flag
         let modifiedLocationAnnotationCKRecords = modifiedCKRecords.filter { $0.recordType == RecordType.LocationAnnotation.rawValue }
         let modifiedTaskCKRecords = modifiedCKRecords.filter { $0.recordType == RecordType.Task.rawValue }

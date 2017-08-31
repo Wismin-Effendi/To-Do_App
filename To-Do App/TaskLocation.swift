@@ -42,7 +42,6 @@ public class TaskLocation: NSObject, NSCoding, MKAnnotation {
     }
     
     public func encode(with aCoder: NSCoder) {
-        print("Try to save the following to core data: Title: \(title),  Lat: \(coordinate.latitude),  Lon: \(coordinate.longitude)")
         aCoder.encode(title, forKey: "title")
         aCoder.encode(subtitle, forKey: "subtitle")
         aCoder.encode(coordinate.latitude as NSNumber, forKey: "latitude")
