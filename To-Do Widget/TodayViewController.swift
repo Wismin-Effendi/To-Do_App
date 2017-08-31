@@ -45,19 +45,29 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func readFromCoreData() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-       // let todayPredicate = NSPredicate(format: "%K ", <#T##args: CVarArg...##CVarArg#>)
+        let todayPredicate = predicateForToday()
+        fetchRequest.predicate = todayPredicate
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         fetchRequest.sortDescriptors = [dueDateSort, titleSort]
         do {
             let results = try coreDataStack.managedContext.fetch(fetchRequest)
+            todayTasks = results
             print(results.count)
             for result in results {
+                print("Output from today Widget: ")
                 print(result)
             }
         } catch let error as NSError {
             print("Error... \(error.debugDescription)")
         }
+    }
+    
+    private func predicateForToday() -> NSPredicate {
+        let now = Date()
+        let startOfDay = now.startOfDay as NSDate
+        let endOfDay = now.endOfDay as NSDate
+        return NSPredicate(format: "dueDate >= %@ AND dueDate <= %@ ", startOfDay, endOfDay)
     }
     
 }
@@ -66,12 +76,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return todayTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WidgetTableViewCell", for: indexPath) as! WidgetTableViewCell
-        print("We are here....")
+        cell.title.text = todayTasks[indexPath.row].title
         return cell
     }
     
