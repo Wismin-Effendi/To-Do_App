@@ -5,16 +5,16 @@
   Created by Wismin Effendi on 8/31/17.
   Copyright © 2017 iShinobi. All rights reserved.
 */
-"Today" = "  ";
-"Tomorrow" = "  ";
-"Yesterday" = "  ";
-"Two days ago" = "  ";
-"Two days from now" = "  ";
-"Future days in this week" = "  ";
-"Next Week" = "  ";
-"Two weeks from now" = "  ";
-"Previous days in this week" = "  ";
-"Last Week" = "  ";
-"Two weeks ago" = "  ";
-"Sometime in the future" = "  ";
-"Sometime in the past" = "  ";
+"Today" = "Aujourd'hui";
+"Tomorrow" = "Demain";
+"Yesterday" = "Hier";
+"Two days ago" = "Il ya deux jours";
+"Two days from now" = "Deux jours à partir de maintenant";
+"Future days in this week" = "Prochains jours dans cette semaine";
+"Next Week" = "La semaine prochaine";
+"Two weeks from now" = "Deux semaines à partir de maintenant";
+"Previous days in this week" = "Jours précédents dans cette semaine";
+"Last Week" = "La semaine dernière";
+"Two weeks ago" = "Il ya deux semaines";
+"Sometime in the future" = "Parfois dans le futur";
+"Sometime in the past" = "Parfois dans le passé";
