@@ -184,13 +184,13 @@ extension TaskTableViewController {
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "check"), backgroundColor: .green, callback: {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
-            task.completed = true
-            task.completionDate = NSDate()
+            task.setDefaultsForCompletion()
             Mixpanel.mainInstance().people.increment(property: "completed task", by: 1)
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             return true
         }), MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "Archive Cell Icon"), backgroundColor: .darkGray, callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
+            task.setDefaultsForLocalChange()
             task.archived = true
             if !task.completed {
                 task.completed = true

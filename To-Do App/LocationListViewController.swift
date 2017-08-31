@@ -113,7 +113,9 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "Archive Cell Icon"), backgroundColor: .darkGray, callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? LocationCell) != nil else { return false }
+            locationAnnotation.setDefaultsForLocalUpdate()
             locationAnnotation.archived = true
+            try! self.managedContext.save()
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             return true
         })]

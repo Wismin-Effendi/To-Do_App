@@ -212,6 +212,7 @@ class LocationTaskTableViewController: TaskTableViewController {
             let dueDateRowBefore = lastObjectInSection.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: nil)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true
             if movingLocation { taskObject.location = lastObjectInSection.location }
         } else if destination.row == 0 { // more to the first row
             let firstObjectInSection = fetchedResultsController.object(at: IndexPath(row: 0,
@@ -219,6 +220,7 @@ class LocationTaskTableViewController: TaskTableViewController {
             let dueDateRowAfter = firstObjectInSection.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: nil, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true
             if movingLocation { taskObject.location = firstObjectInSection.location }
         } else if source.row > destination.row { // move down
             let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
@@ -229,6 +231,7 @@ class LocationTaskTableViewController: TaskTableViewController {
             let dueDateRowAfter = afterObject.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true
             if movingLocation { taskObject.location = beforeObject.location }
         } else { // move up
             let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row - 1,
@@ -239,6 +242,7 @@ class LocationTaskTableViewController: TaskTableViewController {
             let dueDateRowAfter = afterObject.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true 
             if movingLocation { taskObject.location = beforeObject.location }
         }
         

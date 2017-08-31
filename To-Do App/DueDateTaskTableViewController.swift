@@ -196,12 +196,14 @@ class DueDateTaskTableViewController: TaskTableViewController {
             let dueDateRowBefore = lastObjectInSection.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: nil)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true
         } else if destination.row == 0 { // more to the first row
             let firstObjectInSection = fetchedResultsController.object(at: IndexPath(row: 0,
                                                                                      section: destination.section))
             let dueDateRowAfter = firstObjectInSection.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: nil, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true
         } else if source.row > destination.row { // move down
             let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row,
                                                                              section: destination.section))
@@ -211,6 +213,7 @@ class DueDateTaskTableViewController: TaskTableViewController {
             let dueDateRowAfter = afterObject.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true
         } else { // move up
             let beforeObject = fetchedResultsController.object(at: IndexPath(row: destination.row - 1,
                                                                              section: destination.section))
@@ -220,6 +223,7 @@ class DueDateTaskTableViewController: TaskTableViewController {
             let dueDateRowAfter = afterObject.dueDate as Date
             let newDueDate = DateUtil.getDueDateAfterMove(dueDateRowBefore: dueDateRowBefore, dueDateRowAfter: dueDateRowAfter)
             taskObject.dueDate = newDueDate as NSDate
+            taskObject.needsUpload = true
         }
         
         do {

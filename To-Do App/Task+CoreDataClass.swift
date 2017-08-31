@@ -31,24 +31,25 @@ public class Task: NSManagedObject, CloudKitConvertible {
         self.title = "Rename this new Task"
     }
     
-    public func setDefaultValuesForLocalChange() {
+    public func setDefaultsForLocalChange() {
         self.localUpdate = NSDate()
         self.needsUpload = true 
         self.pendingDeletion = false 
     }
 
-    public func setDefaultValuesForCompletion() {
-        setDefaultValuesForLocalChange()
+    public func setDefaultsForCompletion() {
+        setDefaultsForLocalChange()
+        self.completed = true 
         self.completionDate = NSDate()
     }
     
-    public func setForLocalDeletion() {
+    public func setDefaultsForLocalDeletion() {
         self.needsUpload = false 
         self.pendingDeletion = true 
         self.localUpdate = NSDate()
     }
 
-    public func setDefaultValuesForRemoteModify() {
+    public func setDefaultsForRemoteModify() {
         self.needsUpload = false 
         self.pendingDeletion = false 
         self.archived = false 
@@ -136,7 +137,7 @@ extension Task {
 
     public convenience init(using cloudKitRecord: CKRecord, managedObjectContext: NSManagedObjectContext) {
         self.init(context: managedObjectContext)
-        self.setDefaultValuesForRemoteModify()
+        self.setDefaultsForRemoteModify()
         self.identifier = cloudKitRecord[ckTask.identifier] as! String 
         let ckReference = cloudKitRecord[ckTask.location] as! CKReference
         self.location = CoreDataHelper.sharedInstance.coreDataLocationAnnotationFrom(ckReference: ckReference, managedObjectContext: managedObjectContext)
@@ -156,7 +157,7 @@ extension Task {
     }
 
     public func updateCKMetadata(from ckRecord: CKRecord) {
-        self.setDefaultValuesForRemoteModify()
+        self.setDefaultsForRemoteModify()
         self.ckMetadata = CloudKitHelper.encodeMetadata(of: ckRecord)
     }
     
@@ -178,7 +179,11 @@ extension Task {
         ckRecord[ckTask.reminder] = self.reminder as CKRecordValue
         ckRecord[ckTask.completionDate] = self.completionDate
         ckRecord[ckTask.completed] = self.completed as CKRecordValue
-        ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: self.location!)
+        if let locationAnnotation = self.location {
+            ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: locationAnnotation)
+        } else {
+            ckRecord[ckTask.location] = nil
+        }
         return ckRecord
     }
     
@@ -197,7 +202,11 @@ extension Task {
         ckRecord[ckTask.reminder] = self.reminder as CKRecordValue
         ckRecord[ckTask.completionDate] = self.completionDate
         ckRecord[ckTask.completed] = self.completed as CKRecordValue
-        ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: self.location!)
+        if let locationAnnotation = self.location {
+            ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: locationAnnotation)
+        } else {
+            ckRecord[ckTask.location] = nil
+        }
         return ckRecord
     }
     

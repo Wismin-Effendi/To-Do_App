@@ -31,8 +31,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var reminder: UISwitch!
     @IBOutlet weak var reminderDateTextField: UITextField!
     
-    @IBOutlet weak var saveButton: UIBarButtonItem!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    var saveButton: UIBarButtonItem!
+    var cancelButton: UIBarButtonItem!
     @IBOutlet weak var editLocationButton: UIButton!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
@@ -117,21 +117,21 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isSplitView = (self.splitViewController?.viewControllers.count == 2)
+        
+        setupNavigationBarItems()
+        
         editLocationButton.backgroundColor = UIColor.clear
         editLocationButton.tintColor = UIColor.flatSkyBlue()
+        
         tableView.separatorStyle = .none
+
         showReminderDate = reminder.isOn
         showDueDatePicker = false
         showReminderDatePicker = false
-        // Set tag on textField of interest only
-        taskNameTexField.tag = TextFieldTag.taskName.rawValue
-        dueDateTextField.tag = TextFieldTag.dueDate.rawValue
-        reminderDateTextField.tag = TextFieldTag.reminderDate.rawValue
         
-        // Handle the text fields's user input through delegate callbacks.
-        taskNameTexField.delegate = self
-        dueDateTextField.delegate = self
-        reminderDateTextField.delegate = self
+        setTagOnTextField()
+        setTextFieldDelegate()
         
         // Set up views if editing an existing Task
         if isArchivedView {
@@ -142,6 +142,40 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             // Enable the Save button only if the text field has a valid Task name
             updateSaveButtonState()
         }
+    }
+    
+    private func setupNavigationBarItems() {
+        
+        self.saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(TaskEditTableViewController.save(_:)))
+        self.cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(TaskEditTableViewController.cancel(_:)))
+        
+        switch (isSplitView, isArchivedView) {
+        case (true, false) :
+            self.navigationItem.rightBarButtonItem = saveButton
+        case (true, true):
+            break
+        case (false, false):
+            self.navigationItem.rightBarButtonItem = saveButton
+            self.navigationItem.leftBarButtonItem = cancelButton
+        case (false, true):
+            self.cancelButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(TaskEditTableViewController.cancel(_:)))
+            self.navigationItem.rightBarButtonItem = cancelButton
+        }
+
+    }
+    
+    private func setTagOnTextField() {
+        // Set tag on textField of interest only
+        taskNameTexField.tag = TextFieldTag.taskName.rawValue
+        dueDateTextField.tag = TextFieldTag.dueDate.rawValue
+        reminderDateTextField.tag = TextFieldTag.reminderDate.rawValue
+    }
+    
+    private func setTextFieldDelegate() {
+        // Handle the text fields's user input through delegate callbacks.
+        taskNameTexField.delegate = self
+        dueDateTextField.delegate = self
+        reminderDateTextField.delegate = self
     }
     
     private func setLabelsForArchiveView() {
@@ -161,14 +195,13 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     func refreshUI() {
         if isArchivedView {
             setLabelsForArchiveView()
-            hideNavBarButtons()
+            hideSaveBarButtons()
         } else {
             nonArchiveRefreshUI()
         }
     }
     
-    func hideNavBarButtons() {
-        navigationItem.leftBarButtonItem?.isEnabled = false
+    func hideSaveBarButtons() {
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
@@ -247,13 +280,13 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         guard let task = task else { return }
+        task.setDefaultsForLocalChange()
         let title = taskNameTexField.text ?? ""
         task.title = title
         task.dueDate = (dueDate! as NSDate)
         task.location = location
         task.reminder = reminder.isOn
         task.reminderDate = (reminderDate! as NSDate)
-        
         do {
             try managedContext.save()
         } catch {

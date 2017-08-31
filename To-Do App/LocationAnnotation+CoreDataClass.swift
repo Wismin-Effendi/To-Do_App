@@ -13,12 +13,6 @@ import CloudKit
 @objc(LocationAnnotation)
 public class LocationAnnotation: NSManagedObject, CloudKitConvertible {
 
-    public func setDefaultsForLocalCreate() {
-        self.localUpdate = NSDate()
-        self.needsUpload = true
-        self.pendingDeletion = false
-        self.archived = false 
-    }
 }
 
 extension LocationAnnotation {
@@ -28,15 +22,27 @@ extension LocationAnnotation {
         update(using: cloudKitRecord)
     }
     
-    public func setDefaultValuesForLocalCreation() {
+    public func setDefaultsForLocalCreate() {
         self.localUpdate = NSDate()
-        self.pendingDeletion = false
         self.needsUpload = true
+        self.pendingDeletion = false
+        self.archived = false
     }
     
-    public func setForLocalDeletion() {
+    public func setDefaultsForLocalDeletion() {
         self.needsUpload = true
         self.pendingDeletion = true
+        self.localUpdate = NSDate()
+    }
+    
+    public func setDefaultsForLocalUpdate() {
+        self.needsUpload = true
+        self.localUpdate = NSDate()
+    }
+    
+    public func setDefaultsForRemoteModify() {
+        self.needsUpload = false
+        self.pendingDeletion = false
         self.localUpdate = NSDate()
     }
     
@@ -54,8 +60,8 @@ extension LocationAnnotation {
     }
     
     public func updateCKMetadata(from ckRecord: CKRecord) {
+        self.setDefaultsForRemoteModify()
         self.ckMetadata = CloudKitHelper.encodeMetadata(of: ckRecord)
-        self.needsUpload = false
         
         try! self.managedObjectContext?.save()
     }

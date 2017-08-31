@@ -33,7 +33,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6WW-b4-55a" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bsG-aO-nf5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bsG-aO-nf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -51,7 +51,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Isn-jM-q7G" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Mmu-ml-EcY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mmu-ml-EcY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -558,20 +558,8 @@
                             <outlet property="delegate" destination="7Gj-C5-Brd" id="qXb-LF-fOV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="New Task" id="MbY-mZ-47F">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="PsS-Gl-Xz4">
-                            <connections>
-                                <action selector="cancel:" destination="7Gj-C5-Brd" id="bgF-Lx-31Q"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="IrO-cA-Xan">
-                            <connections>
-                                <action selector="save:" destination="7Gj-C5-Brd" id="Ap8-yK-ubO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New Task" id="MbY-mZ-47F"/>
                     <connections>
-                        <outlet property="cancelButton" destination="PsS-Gl-Xz4" id="sfj-gD-e1b"/>
                         <outlet property="completionDateLabel" destination="Q9n-mn-4CE" id="iKq-A2-FuL"/>
                         <outlet property="dueDateLabel" destination="1oV-Zd-Lwn" id="nCq-zQ-86a"/>
                         <outlet property="dueDatePicker" destination="GcZ-kC-fm2" id="2Hh-eH-yvS"/>
@@ -584,7 +572,6 @@
                         <outlet property="reminder" destination="rzs-fJ-3H7" id="0AR-g8-zUz"/>
                         <outlet property="reminderDatePicker" destination="dI2-Yz-v2d" id="nQr-xt-Vn3"/>
                         <outlet property="reminderDateTextField" destination="ys0-IP-Z6o" id="IwF-cB-C2l"/>
-                        <outlet property="saveButton" destination="IrO-cA-Xan" id="SFy-vJ-mXn"/>
                         <outlet property="taskNameLabel" destination="IKX-3d-5ab" id="DCJ-Mx-l8a"/>
                         <outlet property="taskNameTexField" destination="OsY-sT-Pz2" id="DrQ-TP-aNq"/>
                     </connections>
@@ -731,7 +718,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dcu-m5-3Me" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Time" image="emptyClock" id="4PD-e1-xK1"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cSP-ux-svX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cSP-ux-svX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -750,7 +737,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t2Q-uf-tIg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Location" image="pointy" id="3WT-hM-cqz"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zTb-Wc-sfW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zTb-Wc-sfW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -814,7 +801,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xcw-oU-nh6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Archived" image="archive" id="L2Y-kP-jBo"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JJS-B1-gKX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJS-B1-gKX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -907,7 +894,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qL6-Vv-WU3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iRi-08-iOh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iRi-08-iOh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
