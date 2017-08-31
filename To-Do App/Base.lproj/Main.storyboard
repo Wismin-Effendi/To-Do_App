@@ -67,13 +67,13 @@
         <!--Task by Due Date-->
         <scene sceneID="X34-dF-bJ0">
             <objects>
-                <tableViewController id="dF4-s0-D9n" customClass="DueDateTaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="dF4-s0-D9n" customClass="DueDateTaskTableViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" id="mde-7e-22R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DueDateTaskCell" textLabel="dTf-t7-c3B" detailTextLabel="7qE-cu-e4D" style="IBUITableViewCellStyleSubtitle" id="KcP-Tj-Igb" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DueDateTaskCell" textLabel="dTf-t7-c3B" detailTextLabel="7qE-cu-e4D" style="IBUITableViewCellStyleSubtitle" id="KcP-Tj-Igb" customClass="TaskCell" customModule="Todododo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KcP-Tj-Igb" id="wxY-No-xhi">
@@ -117,13 +117,13 @@
         <!--Task by Location-->
         <scene sceneID="lcZ-Hd-nuR">
             <objects>
-                <tableViewController id="ttc-oR-mM8" customClass="LocationTaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ttc-oR-mM8" customClass="LocationTaskTableViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" id="AeE-lM-cEY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LocationTaskCell" textLabel="FQb-1a-ygt" detailTextLabel="sFO-Ff-c6g" style="IBUITableViewCellStyleSubtitle" id="4ZU-AA-irE" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LocationTaskCell" textLabel="FQb-1a-ygt" detailTextLabel="sFO-Ff-c6g" style="IBUITableViewCellStyleSubtitle" id="4ZU-AA-irE" customClass="TaskCell" customModule="Todododo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ZU-AA-irE" id="dL3-im-dVR">
@@ -167,7 +167,7 @@
         <!--New Task-->
         <scene sceneID="atj-qc-dbp">
             <objects>
-                <tableViewController id="7Gj-C5-Brd" customClass="TaskEditTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="7Gj-C5-Brd" customClass="TaskEditTableViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qhq-Id-er3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -583,13 +583,13 @@
         <!--Location List View Controller-->
         <scene sceneID="TYf-OP-vcr">
             <objects>
-                <tableViewController id="0FD-Fz-JXM" customClass="LocationListViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="0FD-Fz-JXM" customClass="LocationListViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" id="piO-P6-5Hs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationName" textLabel="CEB-cd-DQo" detailTextLabel="1ed-5W-Uom" style="IBUITableViewCellStyleSubtitle" id="NLM-rT-35O" customClass="LocationCell" customModule="To_Do_App" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationName" textLabel="CEB-cd-DQo" detailTextLabel="1ed-5W-Uom" style="IBUITableViewCellStyleSubtitle" id="NLM-rT-35O" customClass="LocationCell" customModule="Todododo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NLM-rT-35O" id="rXR-K4-mnb">
@@ -632,7 +632,7 @@
         <!--Add New Location-->
         <scene sceneID="VB3-El-YJt">
             <objects>
-                <viewController id="hTK-ck-0BS" customClass="MapViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hTK-ck-0BS" customClass="MapViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nlJ-ts-Br9"/>
                         <viewControllerLayoutGuide type="bottom" id="WnH-iY-jl1"/>
@@ -641,15 +641,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dK7-la-C7I">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="Item" id="pyc-Z1-XsX"/>
-                                    <barButtonItem title="Item" id="tRd-bH-RsL"/>
-                                </items>
-                            </toolbar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="naR-uL-wDu">
-                                <rect key="frame" x="0.0" y="108" width="375" height="515"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                             </mapView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Business or Landmark or Address" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="xTW-EV-MbK">
                                 <rect key="frame" x="16" y="72" width="343" height="30"/>
@@ -664,12 +657,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="naR-uL-wDu" firstAttribute="top" secondItem="xTW-EV-MbK" secondAttribute="bottom" constant="6" id="1co-NU-4CF"/>
-                            <constraint firstItem="naR-uL-wDu" firstAttribute="leading" secondItem="dK7-la-C7I" secondAttribute="leading" id="6pR-gZ-0kg"/>
-                            <constraint firstItem="naR-uL-wDu" firstAttribute="trailing" secondItem="dK7-la-C7I" secondAttribute="trailing" id="JXb-1u-BQx"/>
+                            <constraint firstItem="WnH-iY-jl1" firstAttribute="top" secondItem="naR-uL-wDu" secondAttribute="bottom" id="Ok5-AC-3C8"/>
                             <constraint firstItem="xTW-EV-MbK" firstAttribute="top" secondItem="nlJ-ts-Br9" secondAttribute="bottom" constant="8" symbolic="YES" id="UQ6-wR-cQD"/>
-                            <constraint firstItem="dK7-la-C7I" firstAttribute="top" secondItem="naR-uL-wDu" secondAttribute="bottom" id="Vda-ZJ-wbW"/>
                             <constraint firstItem="naR-uL-wDu" firstAttribute="leading" secondItem="hzA-TP-KM8" secondAttribute="leading" id="WjN-gp-S0Z"/>
-                            <constraint firstItem="dK7-la-C7I" firstAttribute="bottom" secondItem="WnH-iY-jl1" secondAttribute="top" id="bAn-Cd-tgo"/>
                             <constraint firstItem="xTW-EV-MbK" firstAttribute="centerX" secondItem="naR-uL-wDu" secondAttribute="centerX" id="kKf-Yz-y1Y"/>
                             <constraint firstAttribute="trailing" secondItem="naR-uL-wDu" secondAttribute="trailing" id="qqF-6F-nIX"/>
                             <constraint firstItem="xTW-EV-MbK" firstAttribute="leading" secondItem="hzA-TP-KM8" secondAttribute="leadingMargin" id="uQH-8j-TbX"/>
@@ -694,7 +684,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="XYI-hM-i0Q">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="bqU-Ln-ifg" customClass="TabBarViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="bqU-Ln-ifg" customClass="TabBarViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Thv-3h-Kt4"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="20U-Qg-KsG">
@@ -753,13 +743,13 @@
         <!--Archived Task-->
         <scene sceneID="tRr-iU-qkn">
             <objects>
-                <tableViewController id="B9t-fv-9f4" customClass="ArchivedTaskTableViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="B9t-fv-9f4" customClass="ArchivedTaskTableViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" id="X74-NZ-JnN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArchivedTaskCell" textLabel="tmJ-hq-5np" detailTextLabel="fdB-n5-f8Y" style="IBUITableViewCellStyleSubtitle" id="arb-Ri-MfU" customClass="TaskCell" customModule="To_Do_App" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArchivedTaskCell" textLabel="tmJ-hq-5np" detailTextLabel="fdB-n5-f8Y" style="IBUITableViewCellStyleSubtitle" id="arb-Ri-MfU" customClass="TaskCell" customModule="Todododo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="arb-Ri-MfU" id="bWq-kT-55z">
@@ -817,7 +807,7 @@
         <!--Upgrade-->
         <scene sceneID="zve-Gh-XCh">
             <objects>
-                <viewController id="KvC-Z2-Tm4" customClass="UpgradeViewController" customModule="To_Do_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KvC-Z2-Tm4" customClass="UpgradeViewController" customModule="Todododo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7GQ-8y-3BF"/>
                         <viewControllerLayoutGuide type="bottom" id="zrK-fb-91P"/>
