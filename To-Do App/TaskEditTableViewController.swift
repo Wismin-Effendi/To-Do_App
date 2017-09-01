@@ -119,7 +119,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         isSplitView = (self.splitViewController?.viewControllers.count == 2)
-        
+        view.backgroundColor = UIColor.flatGrayColorDark()
         editLocationButton.backgroundColor = UIColor.clear
         editLocationButton.tintColor = UIColor.flatSkyBlue()
         
@@ -383,6 +383,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             navigationItem.title = taskNameTexField.text
             editLocationButton.isEnabled = saveButton.isEnabled
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.flatWhite()
     }
     
     // MARK: - Navigation
