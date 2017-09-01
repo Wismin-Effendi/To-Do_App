@@ -25,7 +25,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         tableView.dataSource = self
-        tableView.delegate = self 
+        tableView.delegate = self
+        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +36,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .expanded {
+            preferredContentSize = CGSize(width: 0, height: 280)
+        } else {
+            preferredContentSize = maxSize
+        }
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
@@ -49,11 +58,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func readFromCoreData() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        
-        
-        
         let todayPredicate =  predicateForToday()
-        fetchRequest.predicate = todayPredicate
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [todayPredicate, predicateNotCompleted()])
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         fetchRequest.sortDescriptors = [dueDateSort, titleSort]
