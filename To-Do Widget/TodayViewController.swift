@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import os.log
 import SwiftDate
 import NotificationCenter
 import ToDoCoreDataCloudKit
@@ -23,9 +24,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
-        readFromCoreData()
         tableView.dataSource = self
         tableView.delegate = self 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        readFromCoreData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,7 +39,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
-        
+        readFromCoreData()
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
@@ -45,21 +49,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func readFromCoreData() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let todayPredicate = predicateForToday()
+        
+        
+        
+        let todayPredicate =  predicateForToday()
         fetchRequest.predicate = todayPredicate
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         fetchRequest.sortDescriptors = [dueDateSort, titleSort]
         do {
-            let results = try coreDataStack.managedContext.fetch(fetchRequest)
-            todayTasks = results
-            print(results.count)
-            for result in results {
-                print("Output from today Widget: ")
-                print(result)
-            }
+            todayTasks = try coreDataStack.managedContext.fetch(fetchRequest)
         } catch let error as NSError {
-            print("Error... \(error.debugDescription)")
+            os_log("Error when fetch from coreData from Widget: %@", error.debugDescription)
         }
     }
     
@@ -70,6 +71,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return NSPredicate(format: "dueDate >= %@ AND dueDate <= %@ ", startOfDay, endOfDay)
     }
     
+    private func predicateNotCompleted() -> NSPredicate {
+        return NSPredicate(format: "%K == NO", #keyPath(Task.completed))
+    }
+    
+    @IBAction func openAppButtonTapped(_ sender: UIButton) {
+        let url: URL? = URL(string: "Todododo:")!
+        if let appurl = url {
+            self.extensionContext!.open(appurl, completionHandler: nil)
+        }
+    }
 }
 
 // MARK: - TableView Datasource and Delegate
@@ -81,13 +92,11 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WidgetTableViewCell", for: indexPath) as! WidgetTableViewCell
-        cell.title.text = todayTasks[indexPath.row].title
+        let task = todayTasks[indexPath.row]
+        cell.task = task 
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 59
-    }
 }
 
 

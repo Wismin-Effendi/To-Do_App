@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3kU-3P-aOK" id="xCh-1Q-jb9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="58.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDk-vH-x2g">
@@ -40,6 +40,23 @@
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kY4-3q-qEf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxP-Ay-wz2">
+                                                                        <rect key="frame" x="280" y="13" width="32" height="32"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="32" id="H8P-sK-bE3"/>
+                                                                            <constraint firstAttribute="width" constant="32" id="lVZ-Hg-sM1"/>
+                                                                        </constraints>
+                                                                        <state key="normal" title="Button" image="right-arrow-orange"/>
+                                                                        <connections>
+                                                                            <action selector="openAppButtonTapped:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Yd6-4H-oq6"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="jxP-Ay-wz2" secondAttribute="trailing" constant="8" id="s31-VL-WZf"/>
+                                                                    <constraint firstItem="jxP-Ay-wz2" firstAttribute="centerY" secondItem="kY4-3q-qEf" secondAttribute="centerY" id="vTa-g8-yaC"/>
+                                                                </constraints>
                                                             </view>
                                                             <blurEffect style="light"/>
                                                         </visualEffectView>
@@ -51,11 +68,11 @@
                                                             </constraints>
                                                             <state key="normal" image="checked"/>
                                                             <connections>
-                                                                <action selector="doneButtonTapped:" destination="3kU-3P-aOK" eventType="touchUpInside" id="huG-aA-6QQ"/>
+                                                                <action selector="taskCompleted:" destination="3kU-3P-aOK" eventType="touchUpInside" id="U8N-Om-wV2"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some text here." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHK-ff-X7T">
-                                                            <rect key="frame" x="56" y="18" width="256" height="21"/>
+                                                            <rect key="frame" x="56" y="18" width="216" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -70,8 +87,8 @@
                                                         <constraint firstItem="Qd7-BB-bB6" firstAttribute="centerY" secondItem="CDk-vH-x2g" secondAttribute="centerY" id="RBn-rg-8MP"/>
                                                         <constraint firstItem="RHK-ff-X7T" firstAttribute="leading" secondItem="Qd7-BB-bB6" secondAttribute="trailing" constant="8" id="go1-zp-oFJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="6VS-2P-mAl" secondAttribute="trailing" id="h4x-iD-ggC"/>
-                                                        <constraint firstAttribute="trailing" secondItem="RHK-ff-X7T" secondAttribute="trailing" constant="8" id="jAN-Oq-XIE"/>
                                                         <constraint firstItem="Qd7-BB-bB6" firstAttribute="leading" secondItem="CDk-vH-x2g" secondAttribute="leading" constant="8" id="moc-y2-2EQ"/>
+                                                        <constraint firstItem="jxP-Ay-wz2" firstAttribute="leading" secondItem="RHK-ff-X7T" secondAttribute="trailing" constant="8" id="o2R-c2-qrn"/>
                                                         <constraint firstAttribute="bottom" secondItem="6VS-2P-mAl" secondAttribute="bottom" id="tVd-10-Afq"/>
                                                     </constraints>
                                                 </view>
@@ -86,9 +103,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="statusButton" destination="Qd7-BB-bB6" id="7Jr-YZ-hVj"/>
-                                            <outlet property="title" destination="RHK-ff-X7T" id="KzJ-r2-Oek"/>
-                                            <outlet property="visualEffectView" destination="6VS-2P-mAl" id="Mjp-hf-up1"/>
+                                            <outlet property="statusButton" destination="Qd7-BB-bB6" id="k9n-YA-8JA"/>
+                                            <outlet property="title" destination="RHK-ff-X7T" id="Egx-Fz-FOG"/>
+                                            <outlet property="visualEffectView" destination="6VS-2P-mAl" id="FHo-Rh-hIR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -113,10 +130,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-565" y="-13"/>
+            <point key="canvasLocation" x="-565.21739130434787" y="-13.043478260869566"/>
         </scene>
     </scenes>
     <resources>
         <image name="checked" width="30" height="26"/>
+        <image name="right-arrow-orange" width="32" height="32"/>
     </resources>
 </document>

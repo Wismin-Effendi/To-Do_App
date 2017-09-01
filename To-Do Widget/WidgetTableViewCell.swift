@@ -1,12 +1,15 @@
 //
 //  WidgetTableViewCell.swift
-//  To-Do App
+//  Todododo
 //
-//  Created by Wismin Effendi on 8/18/17.
+//  Created by Wismin Effendi on 8/31/17.
 //  Copyright © 2017 iShinobi. All rights reserved.
 //
 
 import UIKit
+import os.log
+import CoreData
+import ToDoCoreDataCloudKit
 
 class WidgetTableViewCell: UITableViewCell {
     
@@ -14,26 +17,41 @@ class WidgetTableViewCell: UITableViewCell {
     @IBOutlet weak var statusButton: UIButton!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     
-    var completed: Bool = false
+    var task: Task! {
+        didSet {
+            title.text = task.title
+            completed = task.completed
+        }
+    }
+    
+    var completed: Bool!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         visualEffectView.effect = UIVibrancyEffect.widgetPrimary()
         statusButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
-        title.text = "This is a title"
     }
-
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-
+        
     }
-
-    @IBAction func doneButtonTapped(_ sender: UIButton) {
-        completed = !completed
-        // Configure the view for the selected state
-        let image = completed ? #imageLiteral(resourceName: "checked") : #imageLiteral(resourceName: "unchecked")
-        statusButton.setImage(image, for: .normal)
+    
+    @IBAction func taskCompleted(_ sender: UIButton) {
+        completed = true
+        task.completed = true
+        do {
+            if let managedContext = task.managedObjectContext,
+                managedContext.hasChanges {
+                try managedContext.save()
+            }
+        } catch {
+            os_log("Error during save completed task in Widget: %@", error.localizedDescription)
+        }
+        
+        statusButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
     }
+    
 }

@@ -22,10 +22,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>ninja.pragprog.ToDo</string>
+			<string>ninja.pragprog.Todododo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ToDo</string>
+				<string>Todododo</string>
 			</array>
 		</dict>
 	</array>
