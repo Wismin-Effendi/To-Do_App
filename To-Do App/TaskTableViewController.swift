@@ -41,6 +41,7 @@ class TaskTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateFromWidget()
         self.detailViewController = (tabBarController as? TabBarViewController)?.detailViewController as! TaskEditTableViewController
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         initializeFetchResultsController()
@@ -59,9 +60,21 @@ class TaskTableViewController: UITableViewController {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TaskTableViewController.setIsEditing))
         tableView.addGestureRecognizer(longPress)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
+
+    private func updateFromWidget() {
+        // check if there are any completed task from Today Extension
+        // update the main managedObjectContext accordingly
+        
+        guard let userDefault = UserDefaults(suiteName: UserDefaults.appGroup),
+            let completedFromTodayExtension = userDefault.array(forKey: UserDefaults.Keys.completedInTodayExtension) as! [String]?
+            else { return }
+        
+        print("The identifiers we got:... \(completedFromTodayExtension)")
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = coreDataStack.managedContext
+        CoreDataUtil.updateTaskCompletionFor(identifiers: completedFromTodayExtension, moc: childContext)
+        userDefault.set(nil, forKey: UserDefaults.Keys.completedInTodayExtension)
+        userDefault.synchronize()
     }
     
     func saveToCloudKit() {
@@ -74,6 +87,10 @@ class TaskTableViewController: UITableViewController {
     }
     
     func syncToCloudKit() {
+        if coreDataStack.managedContext.hasChanges {
+            try? coreDataStack.managedContext.save()
+        }
+        
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             self.cloudKitHelper.syncToCloudKit {
                 DispatchQueue.main.async {[unowned self] in
@@ -116,7 +133,10 @@ class TaskTableViewController: UITableViewController {
     }
     
     func withinFreeVersionLimit() -> Bool {
-        let taskCount = CoreDataUtil.getTaskCount(predicate: Predicates.TaskNotPendingDeletion, moc: coreDataStack.managedContext)
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = coreDataStack.managedContext
+        let taskCount = CoreDataUtil.getTaskCount(predicate: Predicates.TaskNotPendingDeletion, moc: childContext)
+        print("Number of task: \(taskCount)")
         return taskCount < Constant.MaxFreeVersionTask
     }
     
@@ -252,8 +272,9 @@ extension TaskTableViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .automatic)
         case .update:
-            let cell = tableView.cellForRow(at: indexPath!) as! TaskCell
-            configure(cell: cell, for: indexPath!)
+            if let cell = tableView.cellForRow(at: indexPath!) as? TaskCell {
+                configure(cell: cell, for: indexPath!)
+            }
         case .move:
             tableView.deleteRows(at: [indexPath!], with: .automatic)
             tableView.insertRows(at: [newIndexPath!], with: .automatic)

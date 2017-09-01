@@ -91,6 +91,8 @@ public class CoreDataUtil {
         }
     }
     
+    
+    
     public static func getTaskCount(predicate: NSPredicate, moc: NSManagedObjectContext) -> Int {
         return getTasks(predicate: predicate, moc: moc).count
     }
@@ -111,6 +113,24 @@ public class CoreDataUtil {
             } else { return [] }
         } catch let error as NSError {
             fatalError("Failed to fetch grocery items by identifier. \(error.localizedDescription)")
+        }
+    }
+    
+    public static func getTasks(identifiers: [String], moc: NSManagedObjectContext) -> [Task] {
+        let predicate = NSPredicate(format: "%K IN %@", #keyPath(Task.identifier), identifiers)
+        return getTasks(predicate: predicate, moc: moc)
+    }
+    
+    public static func updateTaskCompletionFor(identifiers: [String], moc: NSManagedObjectContext) {
+        let tasks = getTasks(identifiers: identifiers, moc: moc)
+        for task in tasks {
+            task.setDefaultsForCompletion()
+            print("Task that got updated: \(task)")
+            os_log("We are supposed to be here....")
+        }
+        try! moc.save()
+        DispatchQueue.main.async {
+            try! moc.parent?.save()
         }
     }
     

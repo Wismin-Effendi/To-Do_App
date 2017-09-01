@@ -28,5 +28,11 @@ public class Predicates {
     public static let LocationAnnotationNotPendingDeletion = NSPredicate(format: "%K == NO", #keyPath(LocationAnnotation.pendingDeletion))
     
     public static let TaskNotPendingDeletion = NSPredicate(format: "%K == NO", #keyPath(Task.pendingDeletion))
-
+    public static let TaskNotInArchived = NSPredicate(format: "%K == NO", #keyPath(Task.archived))
+    public static let TaskInArchived = NSPredicate(format: "%K == YES", #keyPath(Task.archived))
+    
+    public static let TaskNotInArchivedAndNotPendingDeletion = NSCompoundPredicate(andPredicateWithSubpredicates:
+        [Predicates.TaskNotInArchived, Predicates.TaskNotPendingDeletion])
+    public static let TaskInArchivedAndNotPendingDeletion = NSCompoundPredicate(andPredicateWithSubpredicates:
+        [Predicates.TaskInArchived, Predicates.TaskNotPendingDeletion])
 }

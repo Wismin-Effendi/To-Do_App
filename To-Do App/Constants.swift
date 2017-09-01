@@ -68,9 +68,8 @@ public enum TimeOrder: String {
 
 public struct Constant {
     public static let MaxFreeVersionTask: Int = 20
-    public static let toDoCategoryPerRow: CGFloat = 3
-    public static let hardCodedPadding: CGFloat = 30.0
-    public static let geofenceRadius: CLLocationDistance = 100
+    public static let NumRetryForError4097: Int = 5
+    public static let DelayForRetryError4097: Double = 6
 }
 
 public struct SegueIdentifier {
@@ -85,7 +84,10 @@ extension UserDefaults {
         public static let TodododoZoneID = "TodododoZoneID"
         public static let lastSync = "lastSync"
         public static let nonCKError4097RetryToken = "nonCKError4097RetryToken"
+        public static let completedInTodayExtension = "completedInTodayExtension"
     }
+    
+    public static let appGroup = "group.ninja.pragprog.todo"
 }
 
 

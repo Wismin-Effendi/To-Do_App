@@ -26,6 +26,7 @@ class WidgetTableViewCell: UITableViewCell {
     }
     
     var completed: Bool!
+    var completedTasks = [String]() // save the task identifier
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,15 +43,13 @@ class WidgetTableViewCell: UITableViewCell {
     
     @IBAction func taskCompleted(_ sender: UIButton) {
         completed = true
-        task.setDefaultsForCompletion()
-        do {
-            if let managedContext = task.managedObjectContext,
-                managedContext.hasChanges {
-                try managedContext.save()
-            }
-        } catch {
-            os_log("Error during save completed task in Widget: %@", error.localizedDescription)
-        }
+        // Instead of saving to CoreData directly, save the changes to UserDefaults in app group.
+        guard let userDefault = UserDefaults(suiteName: UserDefaults.appGroup) else { return }
+        let currentCompletedTasks = userDefault.array(forKey: UserDefaults.Keys.completedInTodayExtension) as! [String]?
+        completedTasks = (currentCompletedTasks != nil) ? currentCompletedTasks! : completedTasks
+        completedTasks.append(task.identifier)
+        userDefault.set(completedTasks, forKey: UserDefaults.Keys.completedInTodayExtension)
+        userDefault.synchronize()
         statusButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
     }
     

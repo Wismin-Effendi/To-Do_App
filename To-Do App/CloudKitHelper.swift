@@ -285,7 +285,7 @@ public class CloudKitHelper {
     // MARK: - Fetch from CloudKit and Save to CloudKit
     public func syncToCloudKit(fetchCompletion: @escaping () -> Void) {
         guard iCloudAvailable else { return }
-        UserDefaults.standard.set(2, forKey: UserDefaults.Keys.nonCKError4097RetryToken)
+        UserDefaults.standard.set(Constant.NumRetryForError4097, forKey: UserDefaults.Keys.nonCKError4097RetryToken)
         UserDefaults.standard.synchronize()
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         needToFetchBeforeSave = true
@@ -465,7 +465,6 @@ public class CloudKitHelper {
             }
             
             fetchRecordZoneChangesOperation.recordWithIDWasDeletedBlock = {[unowned self] (recordID, someString) in
-                print("What is this? ", someString)
                 print("Record deleted:", recordID)
                 // write this record deletion to memory
                 self.coreDataHelper.deleteManagedObject(using: recordID, managedObjectContext: self.managedObjectContext)
@@ -572,7 +571,7 @@ public class CloudKitHelper {
     }
     
     private func retryCKOperation(f: @escaping () -> Void) {
-        let delayTime = DispatchTime.now() + 3
+        let delayTime = DispatchTime.now() + Constant.DelayForRetryError4097
         DispatchQueue.global().asyncAfter(deadline: delayTime, execute: f)
     }
     

@@ -21,16 +21,16 @@ class LocationTaskTableViewController: TaskTableViewController {
     override var cellIdentifier: String { return CellIdentifier.LocationTaskCell }
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
-        addBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
-        tabBarController?.navigationItem.rightBarButtonItem = addBarButton
+        super.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
-        addBarButton.isEnabled = true 
+        addBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
+        tabBarController?.navigationItem.rightBarButtonItem = addBarButton
+        addBarButton.isEnabled = true
         
         // select the first navigationItem
         selectFirstItemIfExist(archivedView: false)
@@ -53,8 +53,7 @@ class LocationTaskTableViewController: TaskTableViewController {
 
     override func initializeFetchResultsController() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let notInArchivedStatePredicate = NSPredicate(format: "%K == false", #keyPath(Task.archived))
-        fetchRequest.predicate = notInArchivedStatePredicate
+        fetchRequest.predicate = Predicates.TaskNotInArchivedAndNotPendingDeletion
         let locationTitleSort = NSSortDescriptor(key: #keyPath(Task.location.title), ascending: true, selector: #selector(NSString.localizedCompare(_:)))
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
@@ -78,8 +77,9 @@ class LocationTaskTableViewController: TaskTableViewController {
         self.coreDataStack.saveContext()
         
         if isFullVersion || withinFreeVersionLimit() {
-            let managedContext = coreDataStack.managedContext
-            self.detailViewController?.addTask(managedContext: managedContext)
+            let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            childContext.parent = coreDataStack.managedContext
+            self.detailViewController?.addTask(managedContext: childContext)
             
             if let detailViewController = self.detailViewController {
                 splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)

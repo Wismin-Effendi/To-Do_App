@@ -14,15 +14,22 @@ import MGSwipeTableCell
 
 class ArchivedTaskTableViewController: TaskTableViewController {
     
+    var settingsButton: UIBarButtonItem!
+    
     // MARK: - Properties
     override var cellIdentifier: String { return CellIdentifier.ArchivedTaskCell }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.ArchivedTask
-        
+        settingsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "settings-white"), style: .plain, target: self, action: #selector(ArchivedTaskTableViewController.settingTapped))
+        tabBarController?.navigationItem.rightBarButtonItem = settingsButton
         // select the first navigationItem
         selectFirstItemIfExist(archivedView: true)
+    }
+    
+    @objc func settingTapped(_ sender: UIBarButtonItem) {
+        // need to segue to new page that show settings
     }
     
     func selectFirstItemIfExist(archivedView: Bool) {
@@ -42,11 +49,10 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     
     override func initializeFetchResultsController() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let archivedPredicate = NSPredicate(format: "%K == YES", #keyPath(Task.archived))
         let completionDateSort = NSSortDescriptor(key: #keyPath(Task.completionDate), ascending: false)
         let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         fetchRequest.sortDescriptors = [completionDateSort, titleSort]
-        fetchRequest.predicate = archivedPredicate
+        fetchRequest.predicate = Predicates.TaskInArchivedAndNotPendingDeletion
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                               managedObjectContext: coreDataStack.managedContext,

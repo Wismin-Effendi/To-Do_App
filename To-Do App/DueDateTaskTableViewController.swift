@@ -50,8 +50,7 @@ class DueDateTaskTableViewController: TaskTableViewController {
 
     override func initializeFetchResultsController() {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let notInArchivedStatePredicate = NSPredicate(format: "%K == false", #keyPath(Task.archived))
-        fetchRequest.predicate = notInArchivedStatePredicate
+        fetchRequest.predicate = Predicates.TaskNotInArchivedAndNotPendingDeletion
         let dueDateSort = NSSortDescriptor(key: #keyPath(Task.dueDate), ascending: true)
         let titleSort = NSSortDescriptor(key: #keyPath(Task.title), ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
         fetchRequest.sortDescriptors = [dueDateSort, titleSort]
@@ -73,8 +72,9 @@ class DueDateTaskTableViewController: TaskTableViewController {
         self.coreDataStack.saveContext()
         
         if isFullVersion || withinFreeVersionLimit() {
-            let managedContext = coreDataStack.managedContext
-            self.detailViewController?.addTask(managedContext: managedContext)
+            let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            childContext.parent = coreDataStack.managedContext
+            self.detailViewController?.addTask(managedContext: childContext)
             
             if let detailViewController = self.detailViewController {
                 splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
