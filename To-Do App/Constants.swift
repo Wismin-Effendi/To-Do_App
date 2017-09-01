@@ -84,6 +84,7 @@ extension UserDefaults {
         public static let mixpanelIdentity = "mixpanelIdentity"
         public static let TodododoZoneID = "TodododoZoneID"
         public static let lastSync = "lastSync"
+        public static let nonCKError4097RetryToken = "nonCKError4097RetryToken"
     }
 }
 

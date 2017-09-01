@@ -28,7 +28,6 @@ enum ServerChangeToken: String {
     case ZoneChangeToken
 }
 
-
 public class CloudKitHelper {
 // Initializing Container 
     
@@ -286,6 +285,8 @@ public class CloudKitHelper {
     // MARK: - Fetch from CloudKit and Save to CloudKit
     public func syncToCloudKit(fetchCompletion: @escaping () -> Void) {
         guard iCloudAvailable else { return }
+        UserDefaults.standard.set(2, forKey: UserDefaults.Keys.nonCKError4097RetryToken)
+        UserDefaults.standard.synchronize()
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         needToFetchBeforeSave = true
         fetchOfflineServerChanges(completion: fetchCompletion)
@@ -510,10 +511,10 @@ public class CloudKitHelper {
                 
                 
                 DispatchQueue.main.async {
-                    try! self.managedObjectContext.save()
+                    if self.managedObjectContext.hasChanges {
+                        try! self.managedObjectContext.save()
+                    }
                 }
-                
-                
                 
                 // Write this new zone change token to disk
                 guard let changeToken: CKServerChangeToken = changeToken else { return }
@@ -570,6 +571,11 @@ public class CloudKitHelper {
         }
     }
     
+    private func retryCKOperation(f: @escaping () -> Void) {
+        let delayTime = DispatchTime.now() + 3
+        DispatchQueue.global().asyncAfter(deadline: delayTime, execute: f)
+    }
+    
     private func handlingCKOperationError(of error: Error, retryableFunction: @escaping () -> Void) {
         isRetryOperation = true
         if let error = error as? CKError {
@@ -583,6 +589,15 @@ public class CloudKitHelper {
                 retryCKOperation(of: error, f: retryableFunction)
             } else {
                 os_log("We got neither fatal nor retryable CKError: %@", cloudKitError.description)
+            }
+        } else if (error as NSError).code == 4097 {
+            let retryTokenCount = UserDefaults.standard.integer(forKey: UserDefaults.Keys.nonCKError4097RetryToken)
+            if retryTokenCount > 0 {
+                UserDefaults.standard.set(retryTokenCount - 1, forKey: UserDefaults.Keys.nonCKError4097RetryToken)
+                UserDefaults.standard.synchronize()
+                os_log("We retry for 4097 non CKError")
+                isRetryOperation = true
+                retryCKOperation(f: retryableFunction)
             }
         }
     }

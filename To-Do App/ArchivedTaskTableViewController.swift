@@ -117,7 +117,7 @@ extension ArchivedTaskTableViewController {
         cell.detailTextLabel?.text = "Completion date: \(completionDateText)"
         
         // configure left buttons
-        cell.leftButtons = [MGSwipeButton(title: "Activate", icon: #imageLiteral(resourceName: "cellClockIcon"), backgroundColor: UIColor.blue) {[unowned self]
+        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "cellClockIcon"), backgroundColor: UIColor.blue) {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
             CoreDataUtil.cloneAsActiveTask(task: task, managedContext: self.coreDataStack.managedContext)

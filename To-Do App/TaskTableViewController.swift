@@ -60,6 +60,10 @@ class TaskTableViewController: UITableViewController {
         tableView.addGestureRecognizer(longPress)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     func saveToCloudKit() {
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in 
             self.cloudKitHelper.savingToCloudKitOnly()
@@ -69,10 +73,26 @@ class TaskTableViewController: UITableViewController {
         }
     }
     
+    func syncToCloudKit() {
+        DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
+            self.cloudKitHelper.syncToCloudKit {
+                DispatchQueue.main.async {[unowned self] in
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        let delayTime = DispatchTime.now() + 1
+        DispatchQueue.global().asyncAfter(deadline: delayTime) {[unowned self] in
+            DispatchQueue.main.async {[unowned self] in
+                self.refreshControl?.endRefreshing()
+            }
+        }
+    }
+    
     private func setupRefreshControl() {
         refreshControl = UIRefreshControl()
-        refreshControl!.attributedTitle = NSAttributedString(string: "Saving to iCloud")
-        refreshControl!.addTarget(self, action: #selector(TaskTableViewController.saveToCloudKit), for: .valueChanged)
+        refreshControl!.attributedTitle = NSAttributedString(string: "Sync to iCloud")
+        refreshControl!.addTarget(self, action: #selector(TaskTableViewController.syncToCloudKit), for: .valueChanged)
         tableView.addSubview(refreshControl!)
     }
 

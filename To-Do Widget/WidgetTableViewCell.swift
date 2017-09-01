@@ -42,7 +42,7 @@ class WidgetTableViewCell: UITableViewCell {
     
     @IBAction func taskCompleted(_ sender: UIButton) {
         completed = true
-        task.completed = true
+        task.setDefaultsForCompletion()
         do {
             if let managedContext = task.managedObjectContext,
                 managedContext.hasChanges {

@@ -21,21 +21,9 @@ class LocationTaskTableViewController: TaskTableViewController {
     override var cellIdentifier: String { return CellIdentifier.LocationTaskCell }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
-            self.syncToCloudKit()
-        }
-        
+        super.viewDidLoad()        
         addBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
         tabBarController?.navigationItem.rightBarButtonItem = addBarButton
-    }
-    
-    func syncToCloudKit() {
-        cloudKitHelper.syncToCloudKit {
-            DispatchQueue.main.async {[unowned self] in
-                self.tableView.reloadData()
-            }
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
