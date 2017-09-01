@@ -32,6 +32,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var reminderDateTextField: UITextField!
     
     var saveButton: UIBarButtonItem!
+    var saveButtonWidth: CGFloat!
     var cancelButton: UIBarButtonItem!
     @IBOutlet weak var editLocationButton: UIButton!
     
@@ -42,6 +43,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var locationSubtitleLabel: UILabel!
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var completionDateLabel: UILabel!
+    
     
     var managedContext: NSManagedObjectContext!
     
@@ -118,8 +120,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         super.viewDidLoad()
         isSplitView = (self.splitViewController?.viewControllers.count == 2)
         
-        setupNavigationBarItems()
-        
         editLocationButton.backgroundColor = UIColor.clear
         editLocationButton.tintColor = UIColor.flatSkyBlue()
         
@@ -131,7 +131,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         
         setTagOnTextField()
         setTextFieldDelegate()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setupNavigationBarItems()
         // Set up views if editing an existing Task
         if isArchivedView {
             print("is archive view..")
@@ -151,14 +154,17 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         switch (isSplitView, isArchivedView) {
         case (true, false) :
             self.navigationItem.rightBarButtonItem = saveButton
+            self.navigationItem.leftBarButtonItem = nil
         case (true, true):
-            break
+            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.leftBarButtonItem = nil
         case (false, false):
             self.navigationItem.rightBarButtonItem = saveButton
             self.navigationItem.leftBarButtonItem = cancelButton
         case (false, true):
             self.cancelButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(TaskEditTableViewController.cancel(_:)))
             self.navigationItem.rightBarButtonItem = cancelButton
+            self.navigationItem.leftBarButtonItem = nil
         }
 
     }
@@ -245,8 +251,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     private func updateSplitViewSetting() {
         isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
-        cancelButton.title = isSplitView ? "" : "Cancel"
-        // also the cancel and save button has dependency on isSplitView value.
+        setupNavigationBarItems()
     }
     
     
@@ -319,11 +324,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     // MARK: Private Methods
     fileprivate func updateSaveButtonState() {
-        navigationItem.leftBarButtonItem?.isEnabled = true
-        navigationItem.rightBarButtonItem?.isEnabled = true
         // Disable the Save button if the text field is empty
         let text = taskNameTexField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
+        saveButton.tintColor = saveButton.isEnabled ? UIColor.white : UIColor.clear
     }
     
     fileprivate func askMasterViewToSelectFirstRow() {
