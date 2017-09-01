@@ -119,7 +119,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         isSplitView = (self.splitViewController?.viewControllers.count == 2)
-        view.backgroundColor = UIColor.flatGrayColorDark()
         editLocationButton.backgroundColor = UIColor.clear
         editLocationButton.tintColor = UIColor.flatSkyBlue()
         
