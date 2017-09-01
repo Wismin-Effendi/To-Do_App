@@ -21,6 +21,7 @@ class WidgetTableViewCell: UITableViewCell {
         didSet {
             title.text = task.title
             completed = task.completed
+            statusButton.isEnabled = true
         }
     }
     
@@ -31,8 +32,8 @@ class WidgetTableViewCell: UITableViewCell {
         // Initialization code
         visualEffectView.effect = UIVibrancyEffect.widgetPrimary()
         statusButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+        statusButton.isEnabled = false
     }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -50,7 +51,6 @@ class WidgetTableViewCell: UITableViewCell {
         } catch {
             os_log("Error during save completed task in Widget: %@", error.localizedDescription)
         }
-        
         statusButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
     }
     

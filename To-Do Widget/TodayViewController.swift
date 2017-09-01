@@ -30,7 +30,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        readFromCoreData()
+        try? readFromCoreData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,7 +48,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
-        readFromCoreData()
+        do {
+            try readFromCoreData()
+        } catch {
+            completionHandler(NCUpdateResult.failed)
+            return
+        }
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
@@ -56,7 +61,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.newData)
     }
     
-    func readFromCoreData() {
+    func readFromCoreData() throws {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         let todayPredicate =  predicateForToday()
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [todayPredicate, predicateNotCompleted()])
@@ -67,6 +72,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             todayTasks = try coreDataStack.managedContext.fetch(fetchRequest)
         } catch let error as NSError {
             os_log("Error when fetch from coreData from Widget: %@", error.debugDescription)
+            throw error
         }
     }
     

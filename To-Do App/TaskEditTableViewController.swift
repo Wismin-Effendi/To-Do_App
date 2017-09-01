@@ -287,7 +287,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         task.reminder = reminder.isOn
         task.reminderDate = (reminderDate! as NSDate)
         do {
-            try managedContext.save()
+            try managedContext.save()   // this is childContext
+            try managedContext.parent?.save()  // this is the main managedObjectContext
         } catch {
             print(error)
         }
