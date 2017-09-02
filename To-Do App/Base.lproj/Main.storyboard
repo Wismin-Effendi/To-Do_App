@@ -31,7 +31,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vfC-9k-56H">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6WW-b4-55a" sceneMemberID="viewController">
+                <navigationController id="6WW-b4-55a" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bsG-aO-nf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -49,7 +49,7 @@
         <!--Navigation Controller-->
         <scene sceneID="hAR-Bf-QJI">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Isn-jM-q7G" sceneMemberID="viewController">
+                <navigationController id="Isn-jM-q7G" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mmu-ml-EcY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -705,7 +705,7 @@
         <!--Time-->
         <scene sceneID="hQw-Sb-Uic">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dcu-m5-3Me" sceneMemberID="viewController">
+                <navigationController id="dcu-m5-3Me" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Time" image="emptyClock" id="4PD-e1-xK1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cSP-ux-svX">
@@ -724,7 +724,7 @@
         <!--Location-->
         <scene sceneID="SB1-Bi-m4M">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t2Q-uf-tIg" sceneMemberID="viewController">
+                <navigationController id="t2Q-uf-tIg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Location" image="pointy" id="3WT-hM-cqz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zTb-Wc-sfW">
@@ -788,7 +788,7 @@
         <!--Archived-->
         <scene sceneID="3jn-YA-meg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xcw-oU-nh6" sceneMemberID="viewController">
+                <navigationController id="xcw-oU-nh6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Archived" image="archive" id="L2Y-kP-jBo"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJS-B1-gKX">
@@ -882,7 +882,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SZN-Tc-qgK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qL6-Vv-WU3" sceneMemberID="viewController">
+                <navigationController id="qL6-Vv-WU3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iRi-08-iOh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
