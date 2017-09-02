@@ -29,7 +29,7 @@ class LocationTaskTableViewController: TaskTableViewController {
         super.viewDidAppear(animated)
     
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
-        addBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "addItem"), style: .plain, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
+        addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
         tabBarController?.navigationItem.rightBarButtonItem = addBarButton
         addBarButton.isEnabled = true
         
