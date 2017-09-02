@@ -47,7 +47,7 @@
                                                                             <constraint firstAttribute="height" constant="32" id="H8P-sK-bE3"/>
                                                                             <constraint firstAttribute="width" constant="32" id="lVZ-Hg-sM1"/>
                                                                         </constraints>
-                                                                        <state key="normal" title="Button" image="right-arrow-orange"/>
+                                                                        <state key="normal" title="Button" image="openApp"/>
                                                                         <connections>
                                                                             <action selector="openAppButtonTapped:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Yd6-4H-oq6"/>
                                                                         </connections>
@@ -134,7 +134,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="checked" width="30" height="26"/>
-        <image name="right-arrow-orange" width="32" height="32"/>
+        <image name="checked" width="32" height="32"/>
+        <image name="openApp" width="32" height="32"/>
     </resources>
 </document>

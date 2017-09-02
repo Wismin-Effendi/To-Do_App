@@ -32,7 +32,7 @@ class WidgetTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         visualEffectView.effect = UIVibrancyEffect.widgetPrimary()
-        statusButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+        statusButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         statusButton.isEnabled = false
     }
     
@@ -50,7 +50,7 @@ class WidgetTableViewCell: UITableViewCell {
         completedTasks.append(task.identifier)
         userDefault.set(completedTasks, forKey: UserDefaults.Keys.completedInTodayExtension)
         userDefault.synchronize()
-        statusButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+        statusButton.setImage(#imageLiteral(resourceName: "checked-custom"), for: .normal)
     }
     
 }
