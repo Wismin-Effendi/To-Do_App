@@ -74,7 +74,7 @@ class TaskTableViewController: UITableViewController {
         childContext.parent = coreDataStack.managedContext
         CoreDataUtil.updateTaskCompletionFor(identifiers: completedFromTodayExtension, moc: childContext)
         userDefault.set(nil, forKey: UserDefaults.Keys.completedInTodayExtension)
-        userDefault.synchronize()
+         userDefault.synchronize()
     }
     
     func saveToCloudKit() {
