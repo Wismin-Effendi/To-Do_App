@@ -26,7 +26,7 @@ class DueDateTaskTableViewController: TaskTableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
-        addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(DueDateTaskTableViewController.addNewTaskTapped))
+        addBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "addItem"), style: .plain, target: self, action: #selector(DueDateTaskTableViewController.addNewTaskTapped))
         tabBarController?.navigationItem.rightBarButtonItem = addBarButton
         
         // select the first navigationItem

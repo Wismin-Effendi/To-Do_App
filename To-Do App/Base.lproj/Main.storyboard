@@ -33,7 +33,7 @@
             <objects>
                 <navigationController id="6WW-b4-55a" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bsG-aO-nf5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bsG-aO-nf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -51,7 +51,7 @@
             <objects>
                 <navigationController id="Isn-jM-q7G" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mmu-ml-EcY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Mmu-ml-EcY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -706,9 +706,9 @@
         <scene sceneID="hQw-Sb-Uic">
             <objects>
                 <navigationController id="dcu-m5-3Me" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Time" image="emptyClock" id="4PD-e1-xK1"/>
+                    <tabBarItem key="tabBarItem" title="Time" image="clock" selectedImage="clock-fill" id="4PD-e1-xK1"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cSP-ux-svX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cSP-ux-svX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -725,9 +725,9 @@
         <scene sceneID="SB1-Bi-m4M">
             <objects>
                 <navigationController id="t2Q-uf-tIg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Location" image="pointy" id="3WT-hM-cqz"/>
+                    <tabBarItem key="tabBarItem" title="Location" image="location" selectedImage="location-fill" id="3WT-hM-cqz"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zTb-Wc-sfW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zTb-Wc-sfW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -789,9 +789,9 @@
         <scene sceneID="3jn-YA-meg">
             <objects>
                 <navigationController id="xcw-oU-nh6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Archived" image="archive" id="L2Y-kP-jBo"/>
+                    <tabBarItem key="tabBarItem" title="Archived" image="archive" selectedImage="archive-fill" id="L2Y-kP-jBo"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJS-B1-gKX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JJS-B1-gKX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -884,7 +884,7 @@
             <objects>
                 <navigationController id="qL6-Vv-WU3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iRi-08-iOh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iRi-08-iOh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -899,9 +899,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="archive" width="24" height="24"/>
-        <image name="emptyClock" width="25" height="25"/>
-        <image name="pointy" width="17" height="27"/>
+        <image name="archive" width="32" height="32"/>
+        <image name="archive-fill" width="32" height="32"/>
+        <image name="clock" width="32" height="32"/>
+        <image name="clock-fill" width="32" height="32"/>
+        <image name="location" width="32" height="32"/>
+        <image name="location-fill" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Chc-xw-RgH"/>

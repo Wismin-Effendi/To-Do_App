@@ -22,7 +22,7 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.ArchivedTask
-        settingsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "settings-white"), style: .plain, target: self, action: #selector(ArchivedTaskTableViewController.settingTapped))
+        settingsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(ArchivedTaskTableViewController.settingTapped))
         tabBarController?.navigationItem.rightBarButtonItem = settingsButton
         // select the first navigationItem
         selectFirstItemIfExist(archivedView: true)
@@ -123,7 +123,7 @@ extension ArchivedTaskTableViewController {
         cell.detailTextLabel?.text = "Completion date: \(completionDateText)"
         cell.backgroundColor = UIColor.flatGray()
         // configure left buttons
-        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "cellClockIcon"), backgroundColor: UIColor.blue) {[unowned self]
+        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "clock-custom"), backgroundColor: .white) {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
             CoreDataUtil.cloneAsActiveTask(task: task, managedContext: self.coreDataStack.managedContext)

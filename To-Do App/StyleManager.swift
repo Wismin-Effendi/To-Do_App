@@ -39,6 +39,14 @@ final class StyleManager {
         return FlatOrange()
     }
     
+    static func tabBarTheme() -> UIColor  {
+        return FlatOrange()
+    }
+    
+    static func tabBarTint() -> UIColor {
+        return FlatMint()
+    }
+    
     static func titleTextTheme() -> UIColor {
         return FlatWhite()
     }

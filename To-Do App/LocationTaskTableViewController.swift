@@ -13,6 +13,7 @@ import MGSwipeTableCell
 import Mixpanel
 import ToDoCoreDataCloudKit
 
+
 class LocationTaskTableViewController: TaskTableViewController {
     
     var addBarButton: UIBarButtonItem!
@@ -26,9 +27,9 @@ class LocationTaskTableViewController: TaskTableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+    
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
-        addBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
+        addBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "addItem"), style: .plain, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
         tabBarController?.navigationItem.rightBarButtonItem = addBarButton
         addBarButton.isEnabled = true
         
