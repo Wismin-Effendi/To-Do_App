@@ -1,0 +1,46 @@
+{
+    "notices": [
+        {
+            "name": "SwiftDate",
+            "url": "https://github.com/malcommac/SwiftDate",
+            "copyright": "Copyright (c) 2015 daniele margutti <me@danielemargutti.com>",
+            "license": "MIT License"
+        },
+        {
+            "name": "ChameleonFramework",
+            "url": "https://github.com/ViccAlexander/Chameleon",
+            "copyright": "Copyright (c) 2014-2015 Vicc Alexander",
+            "license": "MIT License"
+        },
+        {
+            "name": "MGSwipeTableCell",
+            "url": "https://github.com/MortimerGoro/MGSwipeTableCell",
+            "copyright": "Copyright (c) 2016 Imanol Fernandez @MortimerGoro",
+            "license": "MIT License"
+        },
+        {
+            "name": "Mixpanel-swift",
+            "url": "https://mixpanel.com",
+            "copyright": "Copyright 2016 Mixpanel, Inc.",
+            "license": "Apache Software License 2.0"
+        },
+        {
+            "name": "LicensesKit",
+            "url": "https://github.com/mattwyskiel/LicensesKit",
+            "copyright": "Copyright 2015 Matthew Wyskiel. All rights reserved.",
+            "license": "Apache Software License 2.0"
+        },
+        {
+            "name": "StringBuilder",
+            "url": "https://github.com/mattwyskiel/StringBuilder",
+            "copyright": "Copyright 2015 Matthew Wyskiel. All rights reserved.",
+            "license": "Apache Software License 2.0"
+        },
+        {
+            "name": "Icons",
+            "url": "https://www.flaticon.com/authors/smashicons",
+            "copyright": "Designed by Smashicons from Flaticon (CC 3.0 BY)",
+            "license": "Creative Commons Attribution-NoDerivs 3.0 Unported"
+        }
+    ]
+}

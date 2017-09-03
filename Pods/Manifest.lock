@@ -2,22 +2,28 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
+  - LicensesKit (1.2.3):
+    - StringBuilder (= 1.1.2)
   - MGSwipeTableCell (1.5.6)
   - Mixpanel-swift (2.2.0)
+  - StringBuilder (1.1.2)
   - SwiftDate (4.1.7)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift
+  - LicensesKit
   - MGSwipeTableCell
   - Mixpanel-swift
   - SwiftDate (~> 4.0)
 
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  LicensesKit: 247eb6eea3f1a82ffd4d6b0550e4e84778496d12
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   Mixpanel-swift: 389d347987f56ca185cc639b490df1af7102e39c
+  StringBuilder: 15abc8106929431ff7149dd94b47062699e962b7
   SwiftDate: '029be76691ee89176da3a46c7df3415b6734bc5b'
 
-PODFILE CHECKSUM: bda5c78dca7e6db851ee8b41437550aac9956940
+PODFILE CHECKSUM: d586c1a5518ddb445776a7344ac80132a7308df1
 
 COCOAPODS: 1.2.1

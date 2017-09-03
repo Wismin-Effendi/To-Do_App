@@ -33,6 +33,7 @@ target 'Todododo' do
   pod 'Mixpanel-swift'
   pod 'SwiftDate', '~> 4.0'
   pod 'ChameleonFramework/Swift'
+  pod 'LicensesKit'
 
   target 'TodododoTests' do
     inherit! :search_paths
@@ -48,4 +49,9 @@ target 'Todododo' do
 
   end
 
+end
+
+post_install do | installer |
+  require 'fileutils'
+  FileUtils.cp_r('Pods/Target Support Files/Pods-Todododo/Pods-Todododo-acknowledgements.plist', 'Settings.bundle/Acknowledgements.plist', :remove_destination => true)
 end

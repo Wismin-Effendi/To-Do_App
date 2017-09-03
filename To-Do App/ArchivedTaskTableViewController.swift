@@ -30,6 +30,7 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     
     @objc func settingTapped(_ sender: UIBarButtonItem) {
         // need to segue to new page that show settings
+        performSegue(withIdentifier: "SettingsViewController", sender: nil)
     }
     
     func selectFirstItemIfExist(archivedView: Bool) {

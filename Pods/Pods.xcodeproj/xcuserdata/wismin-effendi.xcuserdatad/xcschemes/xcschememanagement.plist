@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>LicensesKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MGSwipeTableCell.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -49,6 +54,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>StringBuilder.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftDate.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,12 +77,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4375FAA0EC954FA24DF095EB2D5E257D</key>
+		<key>3935ADBFC7699D0E5423E6A59D503DE5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>4C3BAF4ED02802B57D82279B212FCC36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5E3A5BA9D617BAC37F67B17AFC051C5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,6 +118,11 @@
 			<true/>
 		</dict>
 		<key>E8CCBFF8B4E68F3C656B105AF29633B8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EDEEF386981D76D8E6EF8FD514D53253</key>
 		<dict>
 			<key>primary</key>
 			<true/>
