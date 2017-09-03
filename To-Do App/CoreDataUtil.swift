@@ -14,15 +14,20 @@ import os.log
 public class CoreDataUtil {
     
     public static func locationAnnotation(by identifier: String, managedContext: NSManagedObjectContext) -> LocationAnnotation? {
-        let fetchRequest: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(LocationAnnotation.identifier), identifier)
-        fetchRequest.fetchLimit = 1
-        do {
-            let results = try managedContext.fetch(fetchRequest)
-            return results.first
-        } catch {
-            fatalError("Failed to fetch location annotation from core Data. \(error.localizedDescription)")
+        
+        var result: LocationAnnotation? = nil
+        managedContext.performAndWait {
+            let fetchRequest: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(LocationAnnotation.identifier), identifier)
+            fetchRequest.fetchLimit = 1
+            do {
+                let results = try managedContext.fetch(fetchRequest)
+                result = results.first
+            } catch {
+                fatalError("Failed to fetch location annotation from core Data. \(error.localizedDescription)")
+            }
         }
+        return result
     }
     
     public static func cloneAsActiveTask(task: Task, managedContext: NSManagedObjectContext) {
@@ -57,14 +62,18 @@ public class CoreDataUtil {
     }
     
     public static func getIDsOfEntities<E>(entity: E, predicate: NSPredicate, moc: NSManagedObjectContext) -> [String] where E: NSManagedObject, E: CloudKitConvertible {
-        let entityFetch: NSFetchRequest<NSFetchRequestResult> = E.fetchRequest()
-        entityFetch.predicate = predicate
-        do {
-            let results = (try moc.fetch(entityFetch)) as! [E]
-            return results.map { $0.identifier }
-        } catch let error as NSError {
-            fatalError("Failed to retrieved all Identifier of Task for \(predicate) \(error.localizedDescription)")
+        var entityIDs = [String]()
+        moc.performAndWait {
+            let entityFetch: NSFetchRequest<NSFetchRequestResult> = E.fetchRequest()
+            entityFetch.predicate = predicate
+            do {
+                let results = (try moc.fetch(entityFetch)) as! [E]
+                entityIDs = results.map { $0.identifier }
+            } catch let error as NSError {
+                fatalError("Failed to retrieved all Identifier of Task for \(predicate) \(error.localizedDescription)")
+            }
         }
+        return entityIDs
     }
     
     public static func getALocationAnnotationOf(locationIdentifier: String, moc: NSManagedObjectContext) -> LocationAnnotation? {
@@ -78,17 +87,18 @@ public class CoreDataUtil {
     }
     
     public static func getLocationAnnotationsOf(predicate: NSPredicate, moc: NSManagedObjectContext) -> [LocationAnnotation] {
-        let locationAnnotationFetch: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
-        locationAnnotationFetch.predicate = predicate
-        
-        do {
-            let results = try moc.fetch(locationAnnotationFetch)
-            if results.count > 0 {
-                return results
-            } else { return [] }
-        } catch let error as NSError {
-            fatalError("Failed to fetch shopping lists. \(error.localizedDescription)")
+        var results = [LocationAnnotation]()
+        moc.performAndWait {
+            let locationAnnotationFetch: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
+            locationAnnotationFetch.predicate = predicate
+            
+            do {
+                results = try moc.fetch(locationAnnotationFetch)
+            } catch let error as NSError {
+                fatalError("Failed to fetch shopping lists. \(error.localizedDescription)")
+            }
         }
+        return results
     }
     
     
@@ -103,17 +113,18 @@ public class CoreDataUtil {
     }
     
     public static func getTasks(predicate: NSPredicate, moc: NSManagedObjectContext) -> [Task] {
-        let taskFetch: NSFetchRequest<Task> = Task.fetchRequest()
-        taskFetch.predicate = predicate
-        
-        do {
-            let results = try moc.fetch(taskFetch)
-            if results.count > 0 {
-                return results
-            } else { return [] }
-        } catch let error as NSError {
-            fatalError("Failed to fetch grocery items by identifier. \(error.localizedDescription)")
+        var results = [Task]()
+        moc.performAndWait {
+            let taskFetch: NSFetchRequest<Task> = Task.fetchRequest()
+            taskFetch.predicate = predicate
+            
+            do {
+                results = try moc.fetch(taskFetch)
+            } catch let error as NSError {
+                fatalError("Failed to fetch grocery items by identifier. \(error.localizedDescription)")
+            }
         }
+        return results
     }
     
     public static func getTasks(identifiers: [String], moc: NSManagedObjectContext) -> [Task] {
@@ -122,15 +133,17 @@ public class CoreDataUtil {
     }
     
     public static func updateTaskCompletionFor(identifiers: [String], moc: NSManagedObjectContext) {
-        let tasks = getTasks(identifiers: identifiers, moc: moc)
-        for task in tasks {
-            task.setDefaultsForCompletion()
-            print("Task that got updated: \(task)")
-            os_log("We are supposed to be here....")
-        }
-        try! moc.save()
-        DispatchQueue.main.async {
-            try! moc.parent?.save()
+        moc.perform {
+            let tasks = getTasks(identifiers: identifiers, moc: moc)
+            for task in tasks {
+                task.setDefaultsForCompletion()
+                print("Task that got updated: \(task)")
+                os_log("We are supposed to be here....")
+            }
+            try! moc.save()
+            DispatchQueue.main.async {
+                try! moc.parent?.save()
+            }
         }
     }
     
@@ -145,18 +158,19 @@ public class CoreDataUtil {
     }
     
     
-    // TODO: - We should not allow deletion on location annotation, instead we archived them.
     public static func deleteLocationAnnotation(predicate: NSPredicate, moc: NSManagedObjectContext) {
-        let locationAnnotationFetch: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
-        locationAnnotationFetch.predicate = predicate
-        do {
-            let results = try moc.fetch(locationAnnotationFetch)
-            for result in results {
-                moc.delete(result)
-                try moc.save()
+        moc.perform {
+            let locationAnnotationFetch: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
+            locationAnnotationFetch.predicate = predicate
+            do {
+                let results = try moc.fetch(locationAnnotationFetch)
+                for result in results {
+                    moc.delete(result)
+                    try moc.save()
+                }
+            } catch let error as NSError {
+                fatalError("Failed to delete from locationAnnotation. \(error.localizedDescription)")
             }
-        } catch let error as NSError {
-            fatalError("Failed to delete from locationAnnotation. \(error.localizedDescription)")
         }
     }
     
@@ -175,23 +189,22 @@ public class CoreDataUtil {
         deleteTask(predicate: predicate, moc: moc)
     }
     
-    
-    // TODO: - need to use pendingDeletion flag instead of instance object deletion
-    // Check the iShoppingList on how to do this
     public static func deleteTask(predicate: NSPredicate, moc: NSManagedObjectContext) {
-        let taskFetch: NSFetchRequest<Task> = Task.fetchRequest()
-        taskFetch.predicate = predicate
-        do {
-            let results = try moc.fetch(taskFetch)
-            for result in results {
-                if let locationAnnotation = result.location {
-                    locationAnnotation.removeFromTasks(result)
+        moc.perform {
+            let taskFetch: NSFetchRequest<Task> = Task.fetchRequest()
+            taskFetch.predicate = predicate
+            do {
+                let results = try moc.fetch(taskFetch)
+                for result in results {
+                    if let locationAnnotation = result.location {
+                        locationAnnotation.removeFromTasks(result)
+                    }
+                    moc.delete(result)
+                    try moc.save()
                 }
-                moc.delete(result)
-                try moc.save()
+            } catch let error as NSError {
+                fatalError("Failed to delete from task. \(error.localizedDescription)")
             }
-        } catch let error as NSError {
-            fatalError("Failed to delete from task. \(error.localizedDescription)")
         }
     }
     
@@ -238,13 +251,15 @@ public class CoreDataUtil {
     }
     
     public static func createOneSampleLocationAnnotation(title: String, moc: NSManagedObjectContext) {
-        let item = LocationAnnotation(context: moc)
-        item.title = title
-        item.identifier = UUID().uuidString
-        do {
-            try moc.save()
-        } catch let error as NSError {
-            fatalError("Failed to create sample LocationAnnotation item. \(error.localizedDescription)")
+        moc.perform {
+            let item = LocationAnnotation(context: moc)
+            item.title = title
+            item.identifier = UUID().uuidString
+            do {
+                try moc.save()
+            } catch let error as NSError {
+                fatalError("Failed to create sample LocationAnnotation item. \(error.localizedDescription)")
+            }
         }
     }
 
@@ -298,40 +313,46 @@ public class CoreDataUtil {
     
     
     public static func createNewLocationAnnotationRecord(from cloudKitRecord: CKRecord, moc: NSManagedObjectContext,
-                                                   completion: (NSError?) -> ()) {
-        _ = LocationAnnotation(using: cloudKitRecord, context: moc)
-        do {
-            try moc.save()
-        } catch let error as NSError {
-            os_log("Failed to create shopping list record. %@", error.localizedDescription)
-            completion(error)
+                                                   completion: @escaping (NSError?) -> ()) {
+        moc.perform {
+            _ = LocationAnnotation(using: cloudKitRecord, context: moc)
+            do {
+                try moc.save()
+            } catch let error as NSError {
+                os_log("Failed to create shopping list record. %@", error.localizedDescription)
+                completion(error)
+            }
+            completion(nil)
         }
-        completion(nil)
     }
     
     public static func updateCoreDataLocationAnnotationRecord(_ locationAnnotation: LocationAnnotation, using cloudKitRecord: CKRecord,
-                                                        moc: NSManagedObjectContext, completion: (NSError?) -> ()) {
-        locationAnnotation.update(using: cloudKitRecord)
-        do {
-            try moc.save()
-        } catch let error as NSError {
-            os_log("Failed to update shopping list record. %@", error.localizedDescription)
-            completion(error)
+                                                        moc: NSManagedObjectContext, completion: @escaping (NSError?) -> ()) {
+        moc.perform {
+            locationAnnotation.update(using: cloudKitRecord)
+            do {
+                try moc.save()
+            } catch let error as NSError {
+                os_log("Failed to update shopping list record. %@", error.localizedDescription)
+                completion(error)
+            }
+            completion(nil)
         }
-        completion(nil)
     }
     
     
     public static func updateCoreDataTaskRecord(_ task: Task, using cloudKitRecord: CKRecord,
-                                                       moc: NSManagedObjectContext, completion: (NSError?) -> ()) {
-        task.update(using: cloudKitRecord)
-        do {
-            try moc.save()
-        } catch let error as NSError {
-            os_log("Failed to update grocery item record. %@", error.localizedDescription)
-            completion(error)
+                                                       moc: NSManagedObjectContext, completion: @escaping (NSError?) -> ()) {
+        moc.perform {
+            task.update(using: cloudKitRecord)
+            do {
+                try moc.save()
+            } catch let error as NSError {
+                os_log("Failed to update grocery item record. %@", error.localizedDescription)
+                completion(error)
+            }
+            completion(nil)
         }
-        completion(nil)
     }
     
     public static func getPreviousServerChangeToken(moc: NSManagedObjectContext) -> CKServerChangeToken?  {
@@ -346,41 +367,44 @@ public class CoreDataUtil {
     }
     
     public static func deletePreviousServerChangeToken(moc: NSManagedObjectContext) {
-        let changeTokenFetch: NSFetchRequest<ChangeToken> = ChangeToken.fetchRequest()
-        changeTokenFetch.fetchLimit = 1
-        do {
-            let results = try moc.fetch(changeTokenFetch)
-            if results.count == 0 { return }
-            else if results.count == 1 {
-                let changeToken = results.first!
-                moc.delete(changeToken)
-                try moc.save()
-            } else {
-                fatalError("ChangeToken should only has one entry")
+        moc.perform {
+            let changeTokenFetch: NSFetchRequest<ChangeToken> = ChangeToken.fetchRequest()
+            changeTokenFetch.fetchLimit = 1
+            do {
+                let results = try moc.fetch(changeTokenFetch)
+                if results.count == 0 { return }
+                else if results.count == 1 {
+                    let changeToken = results.first!
+                    moc.delete(changeToken)
+                    try moc.save()
+                } else {
+                    fatalError("ChangeToken should only has one entry")
+                }
+            } catch let error as NSError {
+                fatalError("Failed to retrieve from ChangeToken. \(error.localizedDescription)")
             }
-        } catch let error as NSError {
-            fatalError("Failed to retrieve from ChangeToken. \(error.localizedDescription)")
         }
     }
     
     public static func setPreviousServerChangeToken(previousServerChangeToken: CKServerChangeToken, moc: NSManagedObjectContext) {
-        
-        let changeTokenFetch: NSFetchRequest<ChangeToken> = ChangeToken.fetchRequest()
-        changeTokenFetch.fetchLimit = 1
-        
-        let changeToken: ChangeToken
-        do {
-            let results = try moc.fetch(changeTokenFetch)
-            if results.count > 0 {
-                changeToken = results.first!
-                changeToken.previousServerChangeToken = previousServerChangeToken
-            } else {
-                changeToken = ChangeToken(context: moc)
-                changeToken.previousServerChangeToken = previousServerChangeToken
+        moc.perform {
+            let changeTokenFetch: NSFetchRequest<ChangeToken> = ChangeToken.fetchRequest()
+            changeTokenFetch.fetchLimit = 1
+            
+            let changeToken: ChangeToken
+            do {
+                let results = try moc.fetch(changeTokenFetch)
+                if results.count > 0 {
+                    changeToken = results.first!
+                    changeToken.previousServerChangeToken = previousServerChangeToken
+                } else {
+                    changeToken = ChangeToken(context: moc)
+                    changeToken.previousServerChangeToken = previousServerChangeToken
+                }
+                try moc.save()
+            } catch let error as NSError {
+                fatalError("Failed to create from ChangeToken. \(error.localizedDescription)")
             }
-            try moc.save()
-        } catch let error as NSError {
-            fatalError("Failed to create from ChangeToken. \(error.localizedDescription)")
         }
     }
 }
