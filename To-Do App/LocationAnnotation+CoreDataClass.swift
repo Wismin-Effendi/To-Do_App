@@ -68,7 +68,7 @@ extension LocationAnnotation {
     
     public func managedObjectToNewCKRecord() -> CKRecord {
         guard ckMetadata == nil else {
-            fatalError("CKMetaData exist, this should is not a new CKRecord")
+            fatalError("CKMetaData exist, this should not be a new CKRecord")
         }
         
         let recordZoneID = CKRecordZoneID(zoneName: CloudKitZone.Todododo.rawValue, ownerName: CKCurrentUserDefaultName)
@@ -94,8 +94,10 @@ extension LocationAnnotation {
         ckRecord[ckLocationAnnotation.title] = self.title as CKRecordValue
         ckRecord[ckLocationAnnotation.identifier] = self.identifier as CKRecordValue
         ckRecord[ckLocationAnnotation.localUpdate] = self.localUpdate
-        ckRecord[ckLocationAnnotation.annotation] = self.annotation as? CKRecordValue
-
+        ckRecord[ckLocationAnnotation.archived] = self.archived as CKRecordValue
+        let annotationData = NSKeyedArchiver.archivedData(withRootObject: self.annotation!)
+        ckRecord[ckLocationAnnotation.annotation] = annotationData as CKRecordValue
+        
         return ckRecord
     }
     
