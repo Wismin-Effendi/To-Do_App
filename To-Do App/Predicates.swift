@@ -39,8 +39,9 @@ public class Predicates {
     public static let ArchivedLocationAnnotation = NSPredicate(format: "%K == YES", #keyPath(LocationAnnotation.archived))
     public static let UnusedLocationAnnotation = NSPredicate(format: "tasks.@count == 0")
     public static let NotDeletedLocationAnnotation = NSPredicate(format: "%K == NO", #keyPath(LocationAnnotation.pendingDeletion))
+    public static let NotNeedsUploadLocationAnnotation = NSPredicate(format: "%K == NO", #keyPath(LocationAnnotation.needsUpload))
     public static let UnusedArchivedNotPendingDeletionLocationAnnotation = NSCompoundPredicate(andPredicateWithSubpredicates:
-        [Predicates.NotDeletedLocationAnnotation, Predicates.ArchivedLocationAnnotation, Predicates.UnusedLocationAnnotation])
+        [Predicates.NotNeedsUploadLocationAnnotation, Predicates.NotDeletedLocationAnnotation, Predicates.ArchivedLocationAnnotation, Predicates.UnusedLocationAnnotation])
     
     
 }
