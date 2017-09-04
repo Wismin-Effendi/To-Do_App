@@ -19,4 +19,19 @@ class TabBarViewController: UITabBarController {
     
     weak var detailViewController: TaskDetailViewDelegate!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.delegate = self
+    }
+}
+
+extension TabBarViewController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        let customTabBarAnimator = CustomTabBarAnimator()
+        customTabBarAnimator.tabBarController = self
+        
+        return customTabBarAnimator
+    }
 }

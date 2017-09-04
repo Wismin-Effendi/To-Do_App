@@ -84,6 +84,7 @@
 		37C16E4A1F57050200008C61 /* UpgradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C16E491F57050200008C61 /* UpgradeManager.swift */; };
 		37E72D3D1F5BBCC0001E3D6C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E72D3C1F5BBCC0001E3D6C /* SettingsViewController.swift */; };
 		37E72D3F1F5BC30C001E3D6C /* licenses.json in Resources */ = {isa = PBXBuildFile; fileRef = 37E72D3E1F5BC30C001E3D6C /* licenses.json */; };
+		37E72D421F5CE7EA001E3D6C /* CustomTabBarAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E72D411F5CE7EA001E3D6C /* CustomTabBarAnimator.swift */; };
 		63CC915C37CE47D12F5F2893 /* Pods_Todododo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B06EAEDD8AD500902BB28A /* Pods_Todododo.framework */; };
 		740F21CCD2C11BEBC1966138 /* Pods_ToDoCoreDataCloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6DF59B21FA12B496D8F24D /* Pods_ToDoCoreDataCloudKit.framework */; };
 		8EC15FFD3F1F218AA226E1C9 /* Pods_TodododoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF7719B602FC2C2B2076FE /* Pods_TodododoUITests.framework */; };
@@ -254,6 +255,7 @@
 		37C16E491F57050200008C61 /* UpgradeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeManager.swift; sourceTree = "<group>"; };
 		37E72D3C1F5BBCC0001E3D6C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		37E72D3E1F5BC30C001E3D6C /* licenses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = licenses.json; sourceTree = "<group>"; };
+		37E72D411F5CE7EA001E3D6C /* CustomTabBarAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarAnimator.swift; sourceTree = "<group>"; };
 		3FF1CED171A647A0FB49C8EE /* Pods-TodododoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodododoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodododoUITests/Pods-TodododoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4153C11E96D8E28518C5B2E8 /* Pods-ToDoCoreDataCloudKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoCoreDataCloudKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoCoreDataCloudKitTests/Pods-ToDoCoreDataCloudKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		50B06EAEDD8AD500902BB28A /* Pods_Todododo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todododo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -374,6 +376,7 @@
 		37514AFD1EEF736F00D67A6E /* To-Do App */ = {
 			isa = PBXGroup;
 			children = (
+				37E72D401F5CE792001E3D6C /* customTransitions */,
 				378175901F5640FA00DCDA80 /* Resources */,
 				3775C0E11F4E3F09002FE84D /* Model */,
 				3775C0E01F4E3EBA002FE84D /* Controller */,
@@ -541,6 +544,14 @@
 				379B95421F4F66D40075F30B /* DateUtil.swift */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		37E72D401F5CE792001E3D6C /* customTransitions */ = {
+			isa = PBXGroup;
+			children = (
+				37E72D411F5CE7EA001E3D6C /* CustomTabBarAnimator.swift */,
+			);
+			name = customTransitions;
 			sourceTree = "<group>";
 		};
 		CABC72885C02C8984D025A79 /* Pods */ = {
@@ -1124,6 +1135,7 @@
 				3781756E1F5634F900DCDA80 /* StyleManager.swift in Sources */,
 				3781756B1F55265C00DCDA80 /* GlobalEnums_and_Strutcs.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,
+				37E72D421F5CE7EA001E3D6C /* CustomTabBarAnimator.swift in Sources */,
 				37415B221F576323004EB13D /* LocationCell.swift in Sources */,
 				379B953E1F4F0AE30075F30B /* TabBarViewController.swift in Sources */,
 				3775C0DC1F4D561C002FE84D /* TaskEditTableViewController.swift in Sources */,
