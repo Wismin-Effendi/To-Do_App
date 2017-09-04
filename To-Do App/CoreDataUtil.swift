@@ -95,13 +95,38 @@ public class CoreDataUtil {
             do {
                 results = try moc.fetch(locationAnnotationFetch)
             } catch let error as NSError {
-                fatalError("Failed to fetch shopping lists. \(error.localizedDescription)")
+                fatalError("Failed to fetch location annotation. \(error.localizedDescription)")
             }
         }
         return results
     }
     
-    
+    public static func deleteUnusedArchivedLocations(moc: NSManagedObjectContext) {
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = moc
+        childContext.perform {
+            let locationAnnotationFetch: NSFetchRequest<LocationAnnotation> = LocationAnnotation.fetchRequest()
+            let predicate = Predicates.UnusedArchivedNotPendingDeletionLocationAnnotation
+            let sortDescriptor = NSSortDescriptor(key: #keyPath(LocationAnnotation.localUpdate), ascending: true)
+            locationAnnotationFetch.predicate = predicate
+            locationAnnotationFetch.sortDescriptors = [sortDescriptor]
+            
+            let results: [LocationAnnotation]
+            do {
+                results = try childContext.fetch(locationAnnotationFetch)
+            } catch let error as NSError {
+                fatalError("Failed to fetch location annotation. \(error.localizedDescription)")
+            }
+            
+            for locAnno in results {
+                locAnno.pendingDeletion = true
+            }
+            try! childContext.save()
+            DispatchQueue.main.async {
+                try! moc.save()
+            }
+        }
+    }
     
     public static func getTaskCount(predicate: NSPredicate, moc: NSManagedObjectContext) -> Int {
         return getTasks(predicate: predicate, moc: moc).count

@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Override point for customization after application launch.
         configureTheme()
         setupConfigurationUserDefaults()
+        performAchivingAndDeletionInBackground()
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
         
@@ -95,8 +96,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             userDefaults.set(true, forKey: UserDefaults.Keys.archivePastCompletion)
         }
         
-        if userDefaults.object(forKey: UserDefaults.Keys.deleteUnusedArchivedLocationss) == nil {
-            userDefaults.set(true, forKey: UserDefaults.Keys.deleteUnusedArchivedLocationss)
+        if userDefaults.object(forKey: UserDefaults.Keys.deleteUnusedArchivedLocations) == nil {
+            userDefaults.set(true, forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
+        }
+    }
+    
+    private func performAchivingAndDeletionInBackground() {
+        DispatchQueue.global(qos: .background).async {[unowned self] in
+            CoreDataUtil.deleteUnusedArchivedLocations(moc: self.coreDataStack.storeContainer.newBackgroundContext())
         }
     }
     

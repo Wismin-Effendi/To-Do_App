@@ -111,7 +111,7 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         cell.textLabel?.text = taskLocation.title
         cell.detailTextLabel?.text = taskLocation.subtitle
         // configure left buttons
-        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "Archive Cell Icon"), backgroundColor: .darkGray, callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
+        cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "archive-custom"), backgroundColor: .darkGray, callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? LocationCell) != nil else { return false }
             locationAnnotation.setDefaultsForLocalUpdate()
             locationAnnotation.archived = true

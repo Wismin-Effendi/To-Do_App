@@ -28,17 +28,21 @@ class SettingsViewController: UITableViewController {
     private func configureUI() {
         configureDueHourStepper()
         configureArchivePastCompletionSwitch()
-        configureDeleteUnusedArchiveLocatinSwitch()
+        configureDeleteUnusedArchiveLocationSwitch()
     }
     
     private func configureArchivePastCompletionSwitch() {
         let switchValue = userDefaults.bool(forKey: UserDefaults.Keys.archivePastCompletion)
         archivePastCompletionSwitch.isOn = switchValue
+        archivePastCompletionSwitch.tintColor = UIColor.flatSkyBlue()
+        archivePastCompletionSwitch.onTintColor = UIColor.flatSkyBlue()
     }
     
-    private func configureDeleteUnusedArchiveLocatinSwitch() {
+    private func configureDeleteUnusedArchiveLocationSwitch() {
         let switchValue = userDefaults.bool(forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
         deleteUnusedArchivedLocationsSwitch.isOn = switchValue
+        deleteUnusedArchivedLocationsSwitch.tintColor = UIColor.flatSkyBlue()
+        deleteUnusedArchivedLocationsSwitch.onTintColor = UIColor.flatSkyBlue()
     }
 
     private func configureDueHourStepper() {
@@ -55,7 +59,6 @@ class SettingsViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     @IBAction func dueHourStepperChanged(_ sender: UIStepper) {
         dueHourFromNowLabel.text = String(dueHourFromNowStepper.value)
