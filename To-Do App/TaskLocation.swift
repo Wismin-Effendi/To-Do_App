@@ -3,7 +3,7 @@
 //  PlayLocationService
 //
 //  Created by Wismin Effendi on 8/20/17.
-//  Copyright © 2017 iShinobi. All rights reserved.
+//  Copyright © 2017 Wismin Effendi. All rights reserved.
 //
 
 import Foundation

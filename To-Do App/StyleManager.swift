@@ -3,7 +3,7 @@
 //  To-Do App
 //
 //  Created by Wismin Effendi on 8/29/17.
-//  Copyright © 2017 iShinobi. All rights reserved.
+//  Copyright © 2017 Wismin Effendi. All rights reserved.
 //
 
 import Foundation

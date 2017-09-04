@@ -3,7 +3,7 @@
 //  To-Do App
 //
 //  Created by Wismin Effendi on 6/26/17.
-//  Copyright © 2017 iShinobi. All rights reserved.
+//  Copyright © 2017 Wismin Effendi. All rights reserved.
 //
 
 import UIKit
@@ -152,7 +152,7 @@ class TaskTableViewController: UITableViewController {
         let upgradeAction = UIAlertAction(title: "Upgrade",
                                           style: .default,
                                           handler: { (action) in
-                                            self.performSegue(withIdentifier: "ShowUpgradeViewController", sender: nil)
+                                            self.performSegue(withIdentifier: SegueIdentifier.ShowUpgradeViewController, sender: nil)
         })
         
         let laterAction = UIAlertAction(title: "Later",
@@ -163,6 +163,13 @@ class TaskTableViewController: UITableViewController {
         alertController.addAction(laterAction)
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SegueIdentifier.ShowUpgradeViewController {
+            let upgradeNavCon = segue.destination as! UINavigationController
+            upgradeNavCon.transitioningDelegate = self
+        }
     }
 
     // MARK: - Table view data source
@@ -305,5 +312,18 @@ extension TaskTableViewController: ProductUpgraded {
     func productHasUpgradeAction() {
         guard UpgradeManager.sharedInstance.hasUpgraded() else { return }
         navigationController?.popViewController(animated: true)
+    }
+}
+
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension TaskTableViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomPresentAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomDismissAnimator()
     }
 }
