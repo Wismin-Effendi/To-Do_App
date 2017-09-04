@@ -15,6 +15,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var dueHourFromNowStepper: UIStepper!
     @IBOutlet weak var archivePastCompletionSwitch: UISwitch!
     @IBOutlet weak var deleteUnusedArchivedLocationsSwitch: UISwitch!
+    @IBOutlet weak var showLicenseButton: UIButton!
     
     let userDefaults = UserDefaults.standard
 
@@ -29,6 +30,12 @@ class SettingsViewController: UITableViewController {
         configureDueHourStepper()
         configureArchivePastCompletionSwitch()
         configureDeleteUnusedArchiveLocationSwitch()
+        configureShowLicenseButton()
+    }
+    
+    private func configureShowLicenseButton() {
+        showLicenseButton.tintColor = UIColor.flatSkyBlue()
+        showLicenseButton.backgroundColor = UIColor.clear
     }
     
     private func configureArchivePastCompletionSwitch() {
@@ -76,7 +83,7 @@ class SettingsViewController: UITableViewController {
     @IBAction func showLicences(_ sender: Any) {
         let licensesViewController = LicensesViewController()
         licensesViewController.setNoticesFromJSONFile(filepath: Bundle.main.path(forResource: "licenses", ofType: "json")!)
-        licensesViewController.pageHeader = "<center><h2> Icons and Third Party Code Used in this Application</h2></center>"
+        licensesViewController.pageHeader = "<center><h2> Third Party Code and Icons Used in this Application</h2></center>"
         let navCont = UINavigationController(rootViewController: licensesViewController)
         licensesViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped(_:)))
         present(navCont, animated: true, completion: nil)
