@@ -123,7 +123,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         editLocationButton.tintColor = UIColor.flatSkyBlue()
         
         tableView.separatorStyle = .none
-
+        reminder.tintColor = UIColor.flatSkyBlue()
         showReminderDate = reminder.isOn
         showDueDatePicker = false
         showReminderDatePicker = false
