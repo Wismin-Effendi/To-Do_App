@@ -85,6 +85,9 @@ extension UserDefaults {
         public static let lastSync = "lastSync"
         public static let nonCKError4097RetryToken = "nonCKError4097RetryToken"
         public static let completedInTodayExtension = "completedInTodayExtension"
+        public static let dueHoursFromNow = "dueHoursFromNow"
+        public static let archivePastCompletion = "archivePastCompletion"
+        public static let deleteUnusedArchivedLocations = "deleteUnusedArchivedLocations"
     }
     
     public static let appGroup = "group.ninja.pragprog.todo"

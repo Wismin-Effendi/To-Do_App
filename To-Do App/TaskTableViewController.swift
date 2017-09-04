@@ -1,4 +1,4 @@
-//
+ //
 //  TaskTableViewController.swift
 //  To-Do App
 //
@@ -41,7 +41,6 @@ class TaskTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateFromWidget()
         self.edgesForExtendedLayout = []
         self.detailViewController = (tabBarController as? TabBarViewController)?.detailViewController as! TaskEditTableViewController
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
@@ -60,6 +59,11 @@ class TaskTableViewController: UITableViewController {
         // Gesture to enable Editing
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TaskTableViewController.setIsEditing))
         tableView.addGestureRecognizer(longPress)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateFromWidget()
     }
 
     private func updateFromWidget() {

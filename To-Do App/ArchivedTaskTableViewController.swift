@@ -91,6 +91,20 @@ class ArchivedTaskTableViewController: TaskTableViewController {
         }
     }
     
+    // hide the Editing button when not in editing mode. Need longPress to initiate to editing Mode
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            tabBarController?.navigationItem.rightBarButtonItems = [editButtonItem, settingsButton]
+            settingsButton.isEnabled = false
+        }
+        else {
+            tabBarController?.navigationItem.rightBarButtonItems = [settingsButton]
+            settingsButton.isEnabled = true
+        }
+    }
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

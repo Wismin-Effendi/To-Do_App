@@ -216,6 +216,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="94" id="40g-LH-zVJ"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="dueHourStepperChanged:" destination="aZ6-az-3by" eventType="valueChanged" id="TIy-y8-bgn"/>
+                                                    </connections>
                                                 </stepper>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6j-01-b1l">
                                                     <rect key="frame" x="58" y="12" width="20.5" height="21"/>
@@ -251,7 +254,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zye-0q-kR7">
-                                                    <rect key="frame" x="296" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="302" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="archivePastCompletedTasksChanged:" destination="aZ6-az-3by" eventType="valueChanged" id="f7T-z4-pXW"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -259,7 +265,7 @@
                                                 <constraint firstItem="hz1-7p-QQQ" firstAttribute="centerY" secondItem="SH9-3K-9uL" secondAttribute="centerY" id="KR4-me-CsR"/>
                                                 <constraint firstItem="hz1-7p-QQQ" firstAttribute="leading" secondItem="SH9-3K-9uL" secondAttribute="leading" constant="16" id="aWz-nw-iVn"/>
                                                 <constraint firstItem="hz1-7p-QQQ" firstAttribute="leading" secondItem="SH9-3K-9uL" secondAttribute="leadingMargin" constant="8" id="bDg-Sl-dWK"/>
-                                                <constraint firstItem="zye-0q-kR7" firstAttribute="leading" secondItem="hz1-7p-QQQ" secondAttribute="trailing" constant="20" id="tAZ-7m-HlB"/>
+                                                <constraint firstItem="zye-0q-kR7" firstAttribute="leading" secondItem="hz1-7p-QQQ" secondAttribute="trailing" constant="26" id="tAZ-7m-HlB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -279,15 +285,17 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Op4-0X-Q2M">
-                                                    <rect key="frame" x="307" y="7" width="30" height="30"/>
-                                                    <state key="normal" title="Run"/>
-                                                </button>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U2i-SR-oIT">
+                                                    <rect key="frame" x="302" y="7" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="deleteUnusedArchivedLocations:" destination="aZ6-az-3by" eventType="valueChanged" id="VDL-Nm-VJc"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="U2i-SR-oIT" firstAttribute="centerY" secondItem="J0K-Vk-czv" secondAttribute="centerY" id="567-kC-lqS"/>
+                                                <constraint firstItem="U2i-SR-oIT" firstAttribute="leading" secondItem="J0K-Vk-czv" secondAttribute="trailing" constant="5" id="KNr-NJ-QVS"/>
                                                 <constraint firstItem="J0K-Vk-czv" firstAttribute="leading" secondItem="aAH-Nt-nSa" secondAttribute="leadingMargin" constant="9" id="P5h-qr-TTq"/>
-                                                <constraint firstItem="Op4-0X-Q2M" firstAttribute="leading" secondItem="J0K-Vk-czv" secondAttribute="trailing" constant="10" id="a2O-PX-BLF"/>
-                                                <constraint firstItem="J0K-Vk-czv" firstAttribute="centerY" secondItem="Op4-0X-Q2M" secondAttribute="centerY" id="xkL-G4-4j1"/>
                                                 <constraint firstItem="J0K-Vk-czv" firstAttribute="centerY" secondItem="aAH-Nt-nSa" secondAttribute="centerY" id="zJV-yz-WVT"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -360,6 +368,12 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="archivePastCompletionSwitch" destination="zye-0q-kR7" id="3vK-Pi-JKS"/>
+                        <outlet property="deleteUnusedArchivedLocationsSwitch" destination="U2i-SR-oIT" id="QWA-Tl-pvQ"/>
+                        <outlet property="dueHourFromNowLabel" destination="p6j-01-b1l" id="cj4-FH-IXf"/>
+                        <outlet property="dueHourFromNowStepper" destination="aHU-d3-rrx" id="7KP-a0-pPa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ak-sU-dcJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

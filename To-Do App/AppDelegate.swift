@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         configureTheme()
-        
+        setupConfigurationUserDefaults()
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
         
@@ -83,6 +83,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let snoozeAction = UNNotificationAction(identifier: "SnoozeTasksAction", title: "Snooze", options: [])
         let category = UNNotificationCategory(identifier: "OverdueTasksCategory", actions: [snoozeAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
+    }
+    
+    private func setupConfigurationUserDefaults() {
+        let userDefaults = UserDefaults.standard
+        if userDefaults.object(forKey: UserDefaults.Keys.dueHoursFromNow) == nil {
+            userDefaults.set(3.0, forKey: UserDefaults.Keys.dueHoursFromNow)
+        }
+        
+        if userDefaults.object(forKey: UserDefaults.Keys.archivePastCompletion) == nil {
+            userDefaults.set(true, forKey: UserDefaults.Keys.archivePastCompletion)
+        }
+        
+        if userDefaults.object(forKey: UserDefaults.Keys.deleteUnusedArchivedLocationss) == nil {
+            userDefaults.set(true, forKey: UserDefaults.Keys.deleteUnusedArchivedLocationss)
+        }
     }
     
     private func setupViewControllers() {

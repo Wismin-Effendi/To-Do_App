@@ -10,16 +10,64 @@ import UIKit
 import LicensesKit
 
 class SettingsViewController: UITableViewController {
+    
+    @IBOutlet weak var dueHourFromNowLabel: UILabel!
+    @IBOutlet weak var dueHourFromNowStepper: UIStepper!
+    @IBOutlet weak var archivePastCompletionSwitch: UISwitch!
+    @IBOutlet weak var deleteUnusedArchivedLocationsSwitch: UISwitch!
+    
+    let userDefaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        configureUI()
         tableView.separatorStyle = .none
     }
+    
+    private func configureUI() {
+        configureDueHourStepper()
+        configureArchivePastCompletionSwitch()
+        configureDeleteUnusedArchiveLocatinSwitch()
+    }
+    
+    private func configureArchivePastCompletionSwitch() {
+        let switchValue = userDefaults.bool(forKey: UserDefaults.Keys.archivePastCompletion)
+        archivePastCompletionSwitch.isOn = switchValue
+    }
+    
+    private func configureDeleteUnusedArchiveLocatinSwitch() {
+        let switchValue = userDefaults.bool(forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
+        deleteUnusedArchivedLocationsSwitch.isOn = switchValue
+    }
 
+    private func configureDueHourStepper() {
+        dueHourFromNowStepper.isContinuous = false
+        dueHourFromNowStepper.autorepeat = true
+        dueHourFromNowStepper.minimumValue = 0
+        dueHourFromNowStepper.maximumValue = 24
+        let hours:Double = userDefaults.double(forKey: UserDefaults.Keys.dueHoursFromNow)
+        dueHourFromNowStepper.value = hours
+        dueHourFromNowLabel.text = String(hours)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    @IBAction func dueHourStepperChanged(_ sender: UIStepper) {
+        dueHourFromNowLabel.text = String(dueHourFromNowStepper.value)
+        userDefaults.set(dueHourFromNowStepper.value, forKey: UserDefaults.Keys.dueHoursFromNow)
+    }
+    
+    @IBAction func archivePastCompletedTasksChanged(_ sender: UISwitch) {
+        userDefaults.set(sender.isOn, forKey: UserDefaults.Keys.archivePastCompletion)
+    }
+    
+    @IBAction func deleteUnusedArchivedLocations(_ sender: UISwitch) {
+        userDefaults.set(sender.isOn, forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
     }
 
     @IBAction func showLicences(_ sender: Any) {

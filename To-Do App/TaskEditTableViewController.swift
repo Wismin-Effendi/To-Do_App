@@ -23,7 +23,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         case reminderDate
     }
     
-    
     @IBOutlet weak var taskNameTexField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var locationTitle: UILabel!
@@ -32,7 +31,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var reminderDateTextField: UITextField!
     
     var saveButton: UIBarButtonItem!
-    var saveButtonWidth: CGFloat!
     var cancelButton: UIBarButtonItem!
     @IBOutlet weak var editLocationButton: UIButton!
     
@@ -103,7 +101,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
         }
     }
-    
+        
     // TaskLocationDelegate
     var taskLocation = TaskLocation()     
     var locationIdenfifier = "" {
@@ -124,6 +122,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         
         tableView.separatorStyle = .none
         reminder.tintColor = UIColor.flatSkyBlue()
+        reminder.onTintColor = UIColor.flatSkyBlue()
         showReminderDate = reminder.isOn
         showDueDatePicker = false
         showReminderDatePicker = false
@@ -199,15 +198,11 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     func refreshUI() {
         if isArchivedView {
             setLabelsForArchiveView()
-            hideSaveBarButtons()
         } else {
             nonArchiveRefreshUI()
         }
     }
     
-    func hideSaveBarButtons() {
-        navigationItem.rightBarButtonItem?.isEnabled = false
-    }
     
     func nonArchiveRefreshUI() {
         guard taskNameTexField != nil else { return } // skip if called before viewDidLoad
@@ -323,6 +318,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     // MARK: Private Methods
     fileprivate func updateSaveButtonState() {
+        guard saveButton != nil else { return }
         // Disable the Save button if the text field is empty
         let text = taskNameTexField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
