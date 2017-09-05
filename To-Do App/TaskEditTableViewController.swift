@@ -103,7 +103,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             locationTitle.text = annotation.title
             locationSubtitle.text = annotation.subtitle
             os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
-            tableView.reloadSections(IndexSet(integer: EditTask.Sections.location), with: .automatic)
         }
     }
     
@@ -347,10 +346,13 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard task != nil else { return 0 }   // hide all rows if no data
         // Section 1: Location, Section 3: due DatePicker, only show one at anytime.
-        // section 0 - 3 should be hidden for archive task view
+        // section 0 - 4 should be hidden for archive task view
         let section = indexPath.section
         let row = indexPath.row
         let noLocationData = (location == nil)
+        if noLocationData {
+            print("*** what?  no location data ?? ***")
+        }
         guard !isArchivedView else {
             print("****** we are in archived view *****")
             return (section < EditTask.Sections.archiveView) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
