@@ -30,7 +30,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
         self.reminder = false
         self.reminderDate = dueDate
         self.title = NSLocalizedString("Rename this new Task", comment:"")
-        self.location = nil 
+        self.location = nil
     }
     
     public func setDefaultsForLocalChange() {

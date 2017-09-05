@@ -18,7 +18,7 @@ class UpgradeManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
     typealias SuccessHandler = (_ succeeded: Bool) -> (Void)
     var upgradeCompletionHandler: SuccessHandler?
     var restoreCompletionHandler: SuccessHandler?
-    var priceCompletionHandler: ((_ price: Float) -> Void)?
+    var priceCompletionHandler: ((_ price: String) -> Void)?
     var fullVersionTodododoProduct: SKProduct?
     
     
@@ -45,7 +45,7 @@ class UpgradeManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
-    func priceForUpgrade(_ success: @escaping (_ price: Float) -> Void) {
+    func priceForUpgrade(_ success: @escaping (_ price: String) -> Void) {
         priceCompletionHandler = success
         
         let identifiers: Set<String> = [productIdentifier]
@@ -85,7 +85,12 @@ class UpgradeManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
         fullVersionTodododoProduct = response.products.first
         
         if let price = fullVersionTodododoProduct?.price {
-            priceCompletionHandler?(Float(price))
+            let numberFormatter = NumberFormatter()
+            numberFormatter.formatterBehavior = .behavior10_4
+            numberFormatter.numberStyle = .currency
+            numberFormatter.locale = fullVersionTodododoProduct?.priceLocale
+            let localPrice = numberFormatter.string(from: price)
+            priceCompletionHandler?(localPrice!)
         }
     }
 }

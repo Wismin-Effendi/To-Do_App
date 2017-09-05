@@ -99,12 +99,11 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     // TaskLocationDelegate
     var location: LocationAnnotation? = nil {
         didSet {
-            guard let annotation = location?.annotation as? TaskLocation else { return }
-            locationTitle.text = annotation.title
-            locationSubtitle.text = annotation.subtitle
-            os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
-            locationTitleLabel.text = annotation.title
-            locationSubtitleLabel.text = annotation.subtitle
+            guard let annotation = location?.annotation as? TaskLocation else {
+                if locationTitle != nil { clearLocationTitleSubTitle() }
+                return
+            }
+            setLocationTitleSubTitle(annotation: annotation)
         }
     }
     
@@ -178,7 +177,21 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             self.navigationItem.rightBarButtonItem = cancelButton
             self.navigationItem.leftBarButtonItem = nil
         }
-
+    }
+    
+    private func clearLocationTitleSubTitle() {
+        locationTitle.text = nil
+        locationSubtitle.text = nil
+        locationTitleLabel.text = nil
+        locationSubtitleLabel.text = nil
+    }
+    
+    private func setLocationTitleSubTitle(annotation: TaskLocation) {
+        locationTitle.text = annotation.title
+        locationSubtitle.text = annotation.subtitle
+        os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
+        locationTitleLabel.text = annotation.title
+        locationSubtitleLabel.text = annotation.subtitle
     }
     
     private func setTagOnTextField() {
@@ -407,10 +420,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
 extension TaskEditTableViewController: TaskDetailViewDelegate {
     func taskSelected(task: Task?, managedContext: NSManagedObjectContext) {
         self.task = task
+        location = task?.location
         self.managedContext = managedContext
     }
     
     func addTask(managedContext: NSManagedObjectContext) {
+        location = nil
         self.managedContext = managedContext
         self.task = Task(context: managedContext)
         task?.setDefaultsForLocalCreate()
