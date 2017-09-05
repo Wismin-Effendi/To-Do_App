@@ -93,5 +93,14 @@ extension UserDefaults {
     public static let appGroup = "group.ninja.pragprog.todo"
 }
 
-
+public struct EditTask {
+    public struct Sections {
+        public static let taskTitle = 0
+        public static let location = 1
+        public static let dueDate = 2
+        public static let reminder = 3
+        public static let notes = 4
+        public static let archiveView = 5
+    }
+}
 

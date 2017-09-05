@@ -14,8 +14,6 @@ import os.log
 import ToDoCoreDataCloudKit
 
 protocol TaskLocationDelegate {
-    var locationIdentifier: String { get set }
-    var taskLocation: TaskLocation { get set }
     var location: LocationAnnotation? { get set }
 }
 
@@ -31,6 +29,8 @@ class MapViewController: UIViewController {
         
     let locationManager = CLLocationManager()
     var currentLocationCoordinate: CLLocationCoordinate2D?
+    
+    var locationAnnotation: LocationAnnotation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,10 +145,9 @@ extension MapViewController: MKMapViewDelegate {
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel",comment:"Cancel button"), style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: NSLocalizedString("OK", comment:"OK button"), style: .default) {[unowned self] (action) in
             taskLocation.title = alertController.textFields![0].text
-            self.delegate?.taskLocation = taskLocation
             let identifier = UUID().uuidString
-            self.delegate?.locationIdentifier = identifier
             self.saveToCoreData(identifier: identifier, taskLocation: taskLocation)
+            self.delegate?.location = self.locationAnnotation
             print("We have selected this location: \(taskLocation.coordinate)")
         }
         alertController.addTextField { (textField) in
@@ -161,7 +160,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     private func saveToCoreData(identifier: String, taskLocation: TaskLocation) {
-        let locationAnnotation = LocationAnnotation(context: managedContext)
+        locationAnnotation = LocationAnnotation(context: managedContext)
         locationAnnotation.setDefaultsForLocalCreate()
         locationAnnotation.title = taskLocation.title!
         locationAnnotation.annotation = taskLocation

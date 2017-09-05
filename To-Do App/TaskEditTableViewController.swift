@@ -42,6 +42,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var completionDateLabel: UILabel!
     
+    @IBOutlet weak var notesTextView: UITextView!
     
     var managedContext: NSManagedObjectContext!
     
@@ -94,21 +95,14 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         }
     }
     
+    // TaskLocationDelegate
     var location: LocationAnnotation? = nil {
         didSet {
             guard let annotation = location?.annotation as? TaskLocation else { return }
             locationTitle.text = annotation.title
             locationSubtitle.text = annotation.subtitle
             os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
-        }
-    }
-        
-    // TaskLocationDelegate
-    var taskLocation = TaskLocation()     
-    var locationIdentifier = "" {
-        didSet {
-            print("we have new locationIdentifier")
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet(integer: EditTask.Sections.location), with: .automatic)
         }
     }
     
@@ -238,20 +232,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         updateSaveButtonState()
     }
     
-    
-    
-    private func updateLocationInformation() {
-        guard locationIdentifier != "" else { return }
-        if let locationAnnotation = CoreDataUtil.locationAnnotation(by: locationIdentifier, managedContext: managedContext) {
-            location = locationAnnotation
-        }
-    }
-    
     private func updateSplitViewSetting() {
         isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
         setupNavigationBarItems()
     }
-    
     
     // MARK: Action
     
