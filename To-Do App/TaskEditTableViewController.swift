@@ -93,7 +93,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             tableView.endUpdates()
         }
     }
-    var location: LocationAnnotation? {
+    
+    var location: LocationAnnotation? = nil {
         didSet {
             guard let annotation = location?.annotation as? TaskLocation else { return }
             locationTitle.text = annotation.title
@@ -104,7 +105,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         
     // TaskLocationDelegate
     var taskLocation = TaskLocation()     
-    var locationIdenfifier = "" {
+    var locationIdentifier = "" {
         didSet {
             print("we have new locationIdentifier")
             tableView.reloadData()
@@ -130,6 +131,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         setTagOnTextField()
         setTextFieldDelegate()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        updateSplitViewSetting()
+       // updateLocationInformation()
+       
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         setupNavigationBarItems()
@@ -138,11 +145,13 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             print("is archive view..")
             setLabelsForArchiveView()
         } else {
-            refreshUI()
+            if isSplitView { refreshUI() }
             // Enable the Save button only if the text field has a valid Task name
             updateSaveButtonState()
         }
     }
+    
+
     
     private func setupNavigationBarItems() {
         
@@ -190,7 +199,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         navigationItem.title = task.title
         taskNameLabel.text = task.title
         locationTitleLabel.text = task.location?.title
-        location = task.location
+        location = task.location ?? location 
         dueDateLabel.text =  formatDateText(task.dueDate as Date)
         completionDateLabel.text = formatDateText(task.completionDate! as Date)
     }
@@ -210,7 +219,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task)
             navigationItem.title = task.title 
             taskNameTexField.text = task.title
-            location = task.location
+            location = task.location ?? location 
             let taskDueDate = task.dueDate as Date
             self.dueDate = taskDueDate
             self.dueDatePicker.date = taskDueDate
@@ -230,15 +239,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        updateSplitViewSetting()
-        updateLocationInformation()
-    }
-    
     
     private func updateLocationInformation() {
-        guard locationIdenfifier != "" else { return }
-        if let locationAnnotation = CoreDataUtil.locationAnnotation(by: locationIdenfifier, managedContext: managedContext) {
+        guard locationIdentifier != "" else { return }
+        if let locationAnnotation = CoreDataUtil.locationAnnotation(by: locationIdentifier, managedContext: managedContext) {
             location = locationAnnotation
         }
     }
@@ -403,6 +407,7 @@ extension TaskEditTableViewController: TaskDetailViewDelegate {
     }
     
     func addTask(managedContext: NSManagedObjectContext) {
+        self.managedContext = managedContext
         self.task = Task(context: managedContext)
         task?.setDefaultsForLocalCreate()
         nonArchiveRefreshUI()

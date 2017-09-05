@@ -19,9 +19,15 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         }
     }
     
-    var locationIdenfifier = "overrideMe" {
+    var locationIdentifier = "overrideMe" {
         didSet {
-            delegate?.locationIdenfifier = locationIdenfifier
+            delegate?.locationIdentifier = locationIdentifier
+        }
+    }
+    
+    var location: LocationAnnotation? = nil {
+        didSet {
+            delegate?.location = location
         }
     }
     
@@ -125,7 +131,8 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let locationAnnotation = fetchedResultsController.object(at: indexPath)
         taskLocation = locationAnnotation.annotation as! TaskLocation
-        locationIdenfifier = locationAnnotation.identifier
+        locationIdentifier = locationAnnotation.identifier
+        location = locationAnnotation
         navigationController?.popViewController(animated: true)
     }
     

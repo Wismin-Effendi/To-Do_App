@@ -14,8 +14,9 @@ import os.log
 import ToDoCoreDataCloudKit
 
 protocol TaskLocationDelegate {
-    var locationIdenfifier: String { get set }
+    var locationIdentifier: String { get set }
     var taskLocation: TaskLocation { get set }
+    var location: LocationAnnotation? { get set }
 }
 
 class MapViewController: UIViewController {
@@ -146,7 +147,7 @@ extension MapViewController: MKMapViewDelegate {
             taskLocation.title = alertController.textFields![0].text
             self.delegate?.taskLocation = taskLocation
             let identifier = UUID().uuidString
-            self.delegate?.locationIdenfifier = identifier
+            self.delegate?.locationIdentifier = identifier
             self.saveToCoreData(identifier: identifier, taskLocation: taskLocation)
             print("We have selected this location: \(taskLocation.coordinate)")
         }
