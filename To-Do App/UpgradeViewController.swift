@@ -44,8 +44,11 @@ class UpgradeViewController: UIViewController {
     @IBAction func upgradeButtonTapped(_ sender: UIButton) {
         UpgradeManager.sharedInstance.upgrade { (succeeded) -> (Void) in
             if succeeded {
-                let alertController = UIAlertController(title: "Upgraded!", message: "Thanks for upgrading. You can use the full version.", preferredStyle: .alert)
-                let doneAction = UIAlertAction(title: "Done", style: .default, handler: {[unowned self] (action) in
+                let alertController = UIAlertController(title: NSLocalizedString("Upgraded!", comment: ""),
+                                                        message: NSLocalizedString("Thanks for upgrading. You can use the full version.", comment: ""),
+                                                        preferredStyle: .alert)
+                let doneAction = UIAlertAction(title: NSLocalizedString("Done", comment: "alert action"),
+                                               style: .default, handler: {[unowned self] (action) in
                     self.delegate?.productHasUpgradeAction()
                     self.dismiss(animated: true, completion: nil)
                 })
@@ -59,8 +62,11 @@ class UpgradeViewController: UIViewController {
     @IBAction func restorePurchasesButtonTapped(_ sender: UIButton) {
         UpgradeManager.sharedInstance.restorePurchases { (succeeded) -> (Void) in
             if succeeded {
-                let alertController = UIAlertController(title: "Restored!", message: "Your purchases have been restored. You can now use the full version.", preferredStyle: .alert)
-                let doneAction = UIAlertAction(title: "Done", style: .default, handler: {[unowned self] (action) in
+                let alertController = UIAlertController(title: NSLocalizedString("Restored!", comment: ""),
+                                                        message: NSLocalizedString("Your purchases have been restored. You can now use the full version.", comment: ""),
+                                                        preferredStyle: .alert)
+                let doneAction = UIAlertAction(title: NSLocalizedString("Done", comment: "alert action"),
+                                               style: .default, handler: {[unowned self] (action) in
                     self.delegate?.productHasUpgradeAction()
                     self.dismiss(animated: true, completion: nil)
                 })

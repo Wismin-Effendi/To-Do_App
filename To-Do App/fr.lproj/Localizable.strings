@@ -33,4 +33,14 @@
 "Please login to iCloud for remote data sync." = "S'il vous plaît connectez-vous à iCloud pour la synchronisation de données";
 "Error:" = "Erreur:";
 "Ok" = "Bien";
-"Warning:" = "Attention";
+"Warning:" = "AVERTISSEMENT:";
+"Please upgrade" = "Veuillez mettre à jour";
+"Free Version has limit of 20 tasks." = "La version gratuite a une limite de 20 tâches.;
+"Upgrade" = "Actualización";
+"Later" = "Tard";
+"Upgraded!" = "Surclassés!";
+"Thanks for upgrading. You can use the full version." = "Merci pour la mise à niveau. Vous pouvez utiliser la version complète.";
+"Restored!" = "Restauré!";
+"Your purchases have been restored. You can now use the full version." = "Vos achats ont été restaurés. Vous pouvez maintenant utiliser la version complète.";
+"Done" = "Fait";
+

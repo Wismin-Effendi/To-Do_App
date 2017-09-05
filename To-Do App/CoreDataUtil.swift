@@ -122,9 +122,29 @@ public class CoreDataUtil {
                 locAnno.pendingDeletion = true
             }
             try! childContext.save()
-            DispatchQueue.main.async {
+            moc.perform {
                 try! moc.save()
             }
+        }
+    }
+    
+    public static func autoArchivingPastCompletedTasks(moc: NSManagedObjectContext) {
+        moc.perform {
+            let taskFetch: NSFetchRequest<Task> = Task.fetchRequest()
+            let predicate = Predicates.PastCompletedNotYetArchivedTasks
+            taskFetch.predicate = predicate
+            
+            let results: [Task]
+            do {
+                results = try moc.fetch(taskFetch)
+            } catch let error as NSError {
+                fatalError("Failed to fetch task. \(error.localizedDescription)")
+            }
+            
+            for task in results {
+                task.archived = true
+            }
+            try! moc.save()
         }
     }
     

@@ -115,3 +115,33 @@
 
 /* Class = "UINavigationItem"; title = "Archived Task"; ObjectID = "xZI-cX-aaa"; */
 "xZI-cX-aaa.title" = "Tâche archivée";
+
+/* Class = "UILabel"; text = "hours from now"; ObjectID = "Ose-Q0-SAL"; */
+"Ose-Q0-SAL.text" = "heures à partir de maintenant";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "RST-1X-fja"; */
+"RST-1X-fja.title" = "Paramètres";
+
+/* Class = "UILabel"; text = "Delete unused archived locations"; ObjectID = "J0K-Vk-czv"; */
+"J0K-Vk-czv.text" = "Supprimer les emplacements archivés inutilisés";
+
+/* Class = "UITableViewSection"; headerTitle = "Acknowlegement"; ObjectID = "JNP-nB-3P9"; */
+"JNP-nB-3P9.headerTitle" = "Remerciement";
+
+/* Class = "UITableViewSection"; headerTitle = "Configuration"; ObjectID = "e3c-Mt-bgN"; */
+"e3c-Mt-bgN.headerTitle" = "Configuration";
+
+/* Class = "UILabel"; text = "Archive past completed tasks"; ObjectID = "hz1-7p-QQQ"; */
+"hz1-7p-QQQ.text" = "Archiver les dernières tâches terminées";
+
+/* Class = "UIButton"; normalTitle = "Show Licenses"; ObjectID = "kZ3-rd-Zpg"; */
+"kZ3-rd-Zpg.normalTitle" = "Afficher les licences";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "lcZ-PB-49L"; */
+"lcZ-PB-49L.title" = "Fait";
+
+/* Class = "UILabel"; text = "24"; ObjectID = "p6j-01-b1l"; */
+"p6j-01-b1l.text" = "24";
+
+/* Class = "UILabel"; text = "Default due date for new task"; ObjectID = "vI9-oN-QNt"; */
+"vI9-oN-QNt.text" = "Default due date for new task";

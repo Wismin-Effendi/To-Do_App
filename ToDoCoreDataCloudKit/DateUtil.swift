@@ -34,4 +34,10 @@ public struct DateUtil {
                 return dueDateRowAfter!.addingTimeInterval(delta/2)
         }
     }
+    
+    public static func isInThePastDays(date: Date) -> Bool {
+        let now = Date()
+        let startOfDay = now.startOfDay
+        return date < startOfDay
+    }
 }

@@ -68,9 +68,9 @@ public enum TimeOrder: String {
 
 public struct Constant {
     public static let MaxFreeVersionTask: Int = 20
-    public static let NumRetryForError4097: Int = 5
-    public static let DelayForRetryError4097: Double = 6
-}
+    public static let NumRetryForError4097: Int = 6
+    public static let DelayForRetryError4097: Double = 10
+}  
 
 public struct SegueIdentifier {
     public static let AddNewLocation = "AddNewLocation"

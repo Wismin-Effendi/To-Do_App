@@ -1,141 +1,141 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "0h8-Fr-m9i"; */
-"0h8-Fr-m9i.text" = "Titel";
+"0h8-Fr-m9i.text" = "Title";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "1ed-5W-Uom"; */
-"1ed-5W-Uom.text" = "Untertitel";
+"1ed-5W-Uom.text" = "Subtitle";
 
 /* Class = "UILabel"; text = "dueDate"; ObjectID = "1oV-Zd-Lwn"; */
-"1oV-Zd-Lwn.text" = "DueDate";
+"1oV-Zd-Lwn.text" = "dueDate";
 
 /* Class = "UILabel"; text = "Completion Date:"; ObjectID = "1te-Zn-ESK"; */
-"1te-Zn-ESK.text" = "Fertigstellungstermin:";
+"1te-Zn-ESK.text" = "Completion Date:";
 
 /* Class = "UIButton"; normalTitle = "Restore Purchases"; ObjectID = "38b-k0-JTe"; */
-"38b-k0-JTe.normalTitle" = "Käufe wiederherstellen";
+"38b-k0-JTe.normalTitle" = "Restore Purchases";
 
 /* Class = "UITabBarItem"; title = "Location"; ObjectID = "3WT-hM-cqz"; */
-"3WT-hM-cqz.title" = "Lage";
+"3WT-hM-cqz.title" = "Location";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "3aa-GD-qeg"; */
-"3aa-GD-qeg.text" = "Untertitel";
+"3aa-GD-qeg.text" = "Subtitle";
 
 /* Class = "UITabBarItem"; title = "Time"; ObjectID = "4PD-e1-xK1"; */
-"4PD-e1-xK1.title" = "Zeit";
+"4PD-e1-xK1.title" = "Time";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "7qE-cu-e4D"; */
-"7qE-cu-e4D.text" = "Untertitel";
+"7qE-cu-e4D.text" = "Subtitle";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "CEB-cd-DQo"; */
-"CEB-cd-DQo.text" = "Titel";
+"CEB-cd-DQo.text" = "Title";
 
 /* Class = "UILabel"; text = "Task: "; ObjectID = "Dou-5C-dIo"; */
-"Dou-5C-dIo.text" = "Aufgabe: ";
+"Dou-5C-dIo.text" = "Task: ";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "FQb-1a-ygt"; */
-"FQb-1a-ygt.text" = "Titel";
+"FQb-1a-ygt.text" = "Title";
 
 /* Class = "UILabel"; text = "location subtitle"; ObjectID = "IA7-gP-PrY"; */
-"IA7-gP-PrY.text" = "Lage-Untertitel";
+"IA7-gP-PrY.text" = "location subtitle";
 
 /* Class = "UILabel"; text = "task name"; ObjectID = "IKX-3d-5ab"; */
-"IKX-3d-5ab.text" = "Task-Namen";
+"IKX-3d-5ab.text" = "task name";
+
+/* Class = "UILabel"; text = "Delete unused archived locations"; ObjectID = "J0K-Vk-czv"; */
+"J0K-Vk-czv.text" = "Delete unused archived locations";
+
+/* Class = "UITableViewSection"; headerTitle = "Acknowlegement"; ObjectID = "JNP-nB-3P9"; */
+"JNP-nB-3P9.headerTitle" = "Acknowlegement";
 
 /* Class = "UITabBarItem"; title = "Archived"; ObjectID = "L2Y-kP-jBo"; */
-"L2Y-kP-jBo.title" = "Archiviert";
+"L2Y-kP-jBo.title" = "Archived";
 
 /* Class = "UILabel"; text = "Remind me on a day: "; ObjectID = "MaY-bW-tqQ"; */
-"MaY-bW-tqQ.text" = "Später erinnern: ";
+"MaY-bW-tqQ.text" = "Remind me on a day: ";
 
 /* Class = "UINavigationItem"; title = "New Task"; ObjectID = "MbY-mZ-47F"; */
-"MbY-mZ-47F.title" = "Neue Aufgabe";
+"MbY-mZ-47F.title" = "New Task";
+
+/* Class = "UILabel"; text = "hours from now"; ObjectID = "Ose-Q0-SAL"; */
+"Ose-Q0-SAL.text" = "hours from now";
 
 /* Class = "UILabel"; text = "completionDate"; ObjectID = "Q9n-mn-4CE"; */
-"Q9n-mn-4CE.text" = "Fertigstellungstermin";
+"Q9n-mn-4CE.text" = "completionDate";
 
 /* Class = "UILabel"; text = "Location:"; ObjectID = "R2Y-4w-BCr"; */
-"R2Y-4w-BCr.text" = "Lage:";
+"R2Y-4w-BCr.text" = "Location:";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "RST-1X-fja"; */
+"RST-1X-fja.title" = "Settings";
 
 /* Class = "UINavigationItem"; title = "Task by Due Date"; ObjectID = "RX5-ih-2jr"; */
-"RX5-ih-2jr.title" = "Fälligkeitsdatum";
+"RX5-ih-2jr.title" = "Task by Due Date";
 
 /* Class = "UILabel"; text = "Due:"; ObjectID = "TPO-up-BFA"; */
-"TPO-up-BFA.text" = "Fällig:";
+"TPO-up-BFA.text" = "Due:";
 
 /* Class = "UINavigationItem"; title = "Upgrade"; ObjectID = "YdT-b6-ga0"; */
 "YdT-b6-ga0.title" = "Upgrade";
 
 /* Class = "UINavigationItem"; title = "Task by Location"; ObjectID = "ZGt-36-oEs"; */
-"ZGt-36-oEs.title" = "Nach Ort";
+"ZGt-36-oEs.title" = "Task by Location";
 
 /* Class = "UILabel"; text = "Task:"; ObjectID = "d90-1a-duf"; */
-"d90-1a-duf.text" = "Aufgabe:";
+"d90-1a-duf.text" = "Task:";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "dTf-t7-c3B"; */
-"dTf-t7-c3B.text" = "Titel";
+"dTf-t7-c3B.text" = "Title";
+
+/* Class = "UITableViewSection"; headerTitle = "Configuration"; ObjectID = "e3c-Mt-bgN"; */
+"e3c-Mt-bgN.headerTitle" = "Configuration";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "fdB-n5-f8Y"; */
-"fdB-n5-f8Y.text" = "Untertitel";
+"fdB-n5-f8Y.text" = "Subtitle";
 
 /* Class = "UINavigationItem"; title = "Add New Location"; ObjectID = "hbP-fn-82X"; */
-"hbP-fn-82X.title" = "Neuen Standort";
+"hbP-fn-82X.title" = "Add New Location";
+
+/* Class = "UILabel"; text = "Archive past completed tasks"; ObjectID = "hz1-7p-QQQ"; */
+"hz1-7p-QQQ.text" = "Archive past completed tasks";
 
 /* Class = "UIButton"; normalTitle = "Upgrade"; ObjectID = "iGr-Kk-cYB"; */
 "iGr-Kk-cYB.normalTitle" = "Upgrade";
 
 /* Class = "UILabel"; text = "location title"; ObjectID = "j5k-yJ-1nT"; */
-"j5k-yJ-1nT.text" = "Standorttitel";
+"j5k-yJ-1nT.text" = "location title";
+
+/* Class = "UIButton"; normalTitle = "Show Licenses"; ObjectID = "kZ3-rd-Zpg"; */
+"kZ3-rd-Zpg.normalTitle" = "Show Licenses";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "lcZ-PB-49L"; */
+"lcZ-PB-49L.title" = "Done";
 
 /* Class = "UILabel"; text = "Upgrade to Full Version"; ObjectID = "m6S-Ha-Hop"; */
 "m6S-Ha-Hop.text" = "Upgrade to Full Version";
 
-/* Class = "UILabel"; text = "Subtitle"; ObjectID = "sFO-Ff-c6g"; */
-"sFO-Ff-c6g.text" = "Untertitel";
-
-/* Class = "UILabel"; text = "At: "; ObjectID = "ssj-cy-f9h"; */
-"ssj-cy-f9h.text" = "Auf: ";
-
-/* Class = "UILabel"; text = "Due Date:"; ObjectID = "tJe-6f-hqI"; */
-"tJe-6f-hqI.text" = "Fälligkeitsdatum:";
-
-/* Class = "UILabel"; text = "Title"; ObjectID = "tmJ-hq-5np"; */
-"tmJ-hq-5np.text" = "Titel";
-
-/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "u0H-Lg-XkP"; */
-"u0H-Lg-XkP.normalTitle" = "Bearbeiten";
-
-/* Class = "UITextField"; placeholder = "Enter Business or Landmark or Address"; ObjectID = "xTW-EV-MbK"; */
-"xTW-EV-MbK.placeholder" = "Geben Sie Business oder Landmark oder Adresse ein";
-
-/* Class = "UINavigationItem"; title = "Archived Task"; ObjectID = "xZI-cX-aaa"; */
-"xZI-cX-aaa.title" = "Archivierte Aufgabe";
-
-/* Class = "UILabel"; text = "hours from now"; ObjectID = "Ose-Q0-SAL"; */
-"Ose-Q0-SAL.text" = "Stunden ab jetzt";
-
-/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "RST-1X-fja"; */
-"RST-1X-fja.title" = "Einstellungen";
-
-/* Class = "UILabel"; text = "Delete unused archived locations"; ObjectID = "J0K-Vk-czv"; */
-"J0K-Vk-czv.text" = "Löschen nicht verwendeter archivierter Speicherorte";
-
-/* Class = "UITableViewSection"; headerTitle = "Acknowlegement"; ObjectID = "JNP-nB-3P9"; */
-"JNP-nB-3P9.headerTitle" = "Acknowlegement";
-
-/* Class = "UITableViewSection"; headerTitle = "Configuration"; ObjectID = "e3c-Mt-bgN"; */
-"e3c-Mt-bgN.headerTitle" = "Konfiguration";
-
-/* Class = "UILabel"; text = "Archive past completed tasks"; ObjectID = "hz1-7p-QQQ"; */
-"hz1-7p-QQQ.text" = "Vergangene abgeschlossene Tasks archivieren";
-
-/* Class = "UIButton"; normalTitle = "Show Licenses"; ObjectID = "kZ3-rd-Zpg"; */
-"kZ3-rd-Zpg.normalTitle" = "Lizenzen anzeigen";
-
-/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "lcZ-PB-49L"; */
-"lcZ-PB-49L.title" = "Fertig";
-
 /* Class = "UILabel"; text = "24"; ObjectID = "p6j-01-b1l"; */
 "p6j-01-b1l.text" = "24";
 
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "sFO-Ff-c6g"; */
+"sFO-Ff-c6g.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "At: "; ObjectID = "ssj-cy-f9h"; */
+"ssj-cy-f9h.text" = "At: ";
+
+/* Class = "UILabel"; text = "Due Date:"; ObjectID = "tJe-6f-hqI"; */
+"tJe-6f-hqI.text" = "Due Date:";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "tmJ-hq-5np"; */
+"tmJ-hq-5np.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "u0H-Lg-XkP"; */
+"u0H-Lg-XkP.normalTitle" = "Edit";
+
 /* Class = "UILabel"; text = "Default due date for new task"; ObjectID = "vI9-oN-QNt"; */
-"vI9-oN-QNt.text" = "Default Fälligkeitsdatum für neue Aufgabe";
+"vI9-oN-QNt.text" = "Default due date for new task";
+
+/* Class = "UITextField"; placeholder = "Enter Business or Landmark or Address"; ObjectID = "xTW-EV-MbK"; */
+"xTW-EV-MbK.placeholder" = "Enter Business or Landmark or Address";
+
+/* Class = "UINavigationItem"; title = "Archived Task"; ObjectID = "xZI-cX-aaa"; */
+"xZI-cX-aaa.title" = "Archived Task";

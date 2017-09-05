@@ -150,17 +150,17 @@ class TaskTableViewController: UITableViewController {
             productHasUpgradeAction()
             return
         }
-        let alertController = UIAlertController(title: "Please Upgrade",
-                                                message: "Free Version has limit of 20 tasks.",
+        let alertController = UIAlertController(title: NSLocalizedString("Please Upgrade", comment: "Alert prompt"),
+                                                message: NSLocalizedString("Free Version has limit of 20 tasks.", comment: "alert message"),
                                                 preferredStyle: .alert)
         
-        let upgradeAction = UIAlertAction(title: "Upgrade",
+        let upgradeAction = UIAlertAction(title: NSLocalizedString("Upgrade", comment: "alert action"),
                                           style: .default,
                                           handler: { (action) in
                                             self.performSegue(withIdentifier: SegueIdentifier.ShowUpgradeViewController, sender: nil)
         })
         
-        let laterAction = UIAlertAction(title: "Later",
+        let laterAction = UIAlertAction(title: NSLocalizedString("Later", comment: "alert action"),
                                         style: .cancel,
                                         handler: nil)
         
@@ -237,6 +237,7 @@ extension TaskTableViewController {
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
             task.setDefaultsForCompletion()
+            if DateUtil.isInThePastDays(date: task.dueDate as Date) { task.archived = true }
             Mixpanel.mainInstance().people.increment(property: "completed task", by: 1)
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             return true
@@ -265,8 +266,6 @@ extension TaskTableViewController {
         attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.styleNone.rawValue, range: NSMakeRange(0, attributedString.length))
         return attributedString
     }
-    
-    
 }
 
 // MARK: - NSFetchedResultsControllerDelegate

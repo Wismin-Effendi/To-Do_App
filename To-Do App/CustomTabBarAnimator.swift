@@ -14,7 +14,7 @@ class CustomTabBarAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     var anim: UIViewImplicitlyAnimating!
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.4
+        return 0.3
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

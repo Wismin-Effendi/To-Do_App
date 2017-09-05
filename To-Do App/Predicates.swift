@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import CloudKit
+import SwiftDate
 
 
 public class Predicates {
@@ -42,6 +43,15 @@ public class Predicates {
     public static let NotNeedsUploadLocationAnnotation = NSPredicate(format: "%K == NO", #keyPath(LocationAnnotation.needsUpload))
     public static let UnusedArchivedNotPendingDeletionLocationAnnotation = NSCompoundPredicate(andPredicateWithSubpredicates:
         [Predicates.NotNeedsUploadLocationAnnotation, Predicates.NotDeletedLocationAnnotation, Predicates.ArchivedLocationAnnotation, Predicates.UnusedLocationAnnotation])
+    
+    public static let PastDaysTasks: NSPredicate = {
+        let now = Date()
+        let startOfDay = now.startOfDay as NSDate
+        return NSPredicate(format: "dueDate < %@ ", startOfDay)
+    }()
+    public static let CompletedTasks = NSPredicate(format: "%K == YES", #keyPath(Task.completed))
+    public static let PastCompletedNotYetArchivedTasks = NSCompoundPredicate(andPredicateWithSubpredicates:
+        [Predicates.TaskNotPendingDeletion, Predicates.TaskNotInArchived, Predicates.CompletedTasks, Predicates.PastDaysTasks])
     
     
 }

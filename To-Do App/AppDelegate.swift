@@ -102,8 +102,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     private func performAchivingAndDeletionInBackground() {
-        DispatchQueue.global(qos: .background).async {[unowned self] in
-            CoreDataUtil.deleteUnusedArchivedLocations(moc: self.coreDataStack.storeContainer.newBackgroundContext())
+        
+        let userDefaults = UserDefaults.standard
+        let deleteUnusedLocationAnnotations = userDefaults.bool(forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
+        let archivePastCompletedTask = userDefaults.bool(forKey: UserDefaults.Keys.archivePastCompletion)
+        
+        if deleteUnusedLocationAnnotations {
+            DispatchQueue.global(qos: .background).async {[unowned self] in
+                CoreDataUtil.deleteUnusedArchivedLocations(moc: self.coreDataStack.storeContainer.newBackgroundContext())
+            }
+        }
+        
+        // We need this in main context so NSFetchRequestController could detect and update the table
+        if archivePastCompletedTask {
+            DispatchQueue.main.async {[unowned self] in
+                CoreDataUtil.autoArchivingPastCompletedTasks(moc: self.coreDataStack.managedContext)
+            }
         }
     }
     

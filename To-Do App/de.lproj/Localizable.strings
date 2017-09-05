@@ -34,3 +34,12 @@
 "Error:" = "Fehler";
 "Ok" = "Okay";
 "Warning:" = "Warnung";
+"Please upgrade" = "Bitte aktualisieren";
+"Free Version has limit of 20 tasks." = "Freie Version hat Begrenzung von 20 Aufgaben.";
+"Upgrade" = "Aktualisierung";
+"Later" = "Später";
+"Upgraded!" = "Aktualisiert!";
+"Thanks for upgrading. You can use the full version." = "Danke fürs ausbauen. Sie können die Vollversion verwenden.";
+"Restored!" = "Wiederhergestellt!";
+"Your purchases have been restored. You can now use the full version." = "Ihre Einkäufe wurden wiederhergestellt. Sie können jetzt die Vollversion verwenden.";
+"Done" = "Fertig";
