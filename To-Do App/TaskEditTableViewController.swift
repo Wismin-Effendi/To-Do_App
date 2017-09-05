@@ -100,7 +100,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     var location: LocationAnnotation? = nil {
         didSet {
             guard let annotation = location?.annotation as? TaskLocation else {
-                if locationTitle != nil { clearLocationTitleSubTitle() }
+                clearLocationTitleSubTitle()
                 return
             }
             setLocationTitleSubTitle(annotation: annotation)
@@ -180,6 +180,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     private func clearLocationTitleSubTitle() {
+        guard locationTitle != nil else { return }
         locationTitle.text = nil
         locationSubtitle.text = nil
         locationTitleLabel.text = nil
