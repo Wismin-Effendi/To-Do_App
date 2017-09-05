@@ -139,3 +139,6 @@
 
 /* Class = "UILabel"; text = "Default due date for new task"; ObjectID = "vI9-oN-QNt"; */
 "vI9-oN-QNt.text" = "Default Fälligkeitsdatum für neue Aufgabe";
+
+/* Class = "UILabel"; text = "Notes: "; ObjectID = "6BM-gd-nCi"; */
+"6BM-gd-nCi.text" = "Notes: ";

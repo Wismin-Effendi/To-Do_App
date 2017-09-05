@@ -79,7 +79,7 @@ extension LocationAnnotation {
         ckRecord[ckLocationAnnotation.identifier] = self.identifier as CKRecordValue
         ckRecord[ckLocationAnnotation.localUpdate] = self.localUpdate
         ckRecord[ckLocationAnnotation.archived] = self.archived as CKRecordValue
-        let annotationData = NSKeyedArchiver.archivedData(withRootObject: self.annotation!)
+        let annotationData = NSKeyedArchiver.archivedData(withRootObject: self.annotation)
         ckRecord[ckLocationAnnotation.annotation] = annotationData as CKRecordValue
         
         return ckRecord
@@ -95,7 +95,7 @@ extension LocationAnnotation {
         ckRecord[ckLocationAnnotation.identifier] = self.identifier as CKRecordValue
         ckRecord[ckLocationAnnotation.localUpdate] = self.localUpdate
         ckRecord[ckLocationAnnotation.archived] = self.archived as CKRecordValue
-        let annotationData = NSKeyedArchiver.archivedData(withRootObject: self.annotation!)
+        let annotationData = NSKeyedArchiver.archivedData(withRootObject: self.annotation)
         ckRecord[ckLocationAnnotation.annotation] = annotationData as CKRecordValue
         
         return ckRecord

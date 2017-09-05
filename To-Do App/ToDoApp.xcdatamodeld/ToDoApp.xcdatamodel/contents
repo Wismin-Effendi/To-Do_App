@@ -23,6 +23,7 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="localUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="needsUpload" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pendingDeletion" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="reminder" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="reminderDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -30,8 +31,8 @@
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocationAnnotation" inverseName="tasks" inverseEntity="LocationAnnotation" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LocationAnnotation" positionX="-45" positionY="72" width="128" height="180"/>
-        <element name="Task" positionX="-45" positionY="0" width="128" height="240"/>
         <element name="ChangeToken" positionX="-36" positionY="108" width="128" height="60"/>
+        <element name="LocationAnnotation" positionX="-45" positionY="72" width="128" height="180"/>
+        <element name="Task" positionX="-45" positionY="0" width="128" height="255"/>
     </elements>
 </model>

@@ -26,6 +26,7 @@ struct ckTask {
     static let reminder = "reminder"
     static let reminderDate = "reminderDate"
     static let location = "location"
+    static let notes = "notes"
 }
 
 struct ckLocationAnnotation {

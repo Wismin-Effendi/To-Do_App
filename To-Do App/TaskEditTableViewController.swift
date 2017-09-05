@@ -29,6 +29,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var locationSubtitle: UILabel!
     @IBOutlet weak var reminder: UISwitch!
     @IBOutlet weak var reminderDateTextField: UITextField!
+    @IBOutlet weak var notesTextView: UITextView!
     
     var saveButton: UIBarButtonItem!
     var cancelButton: UIBarButtonItem!
@@ -41,8 +42,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var locationSubtitleLabel: UILabel!
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var completionDateLabel: UILabel!
-    
-    @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var notesTextLabel: UILabel!
+
     
     var managedContext: NSManagedObjectContext!
     
@@ -124,6 +125,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         
         setTagOnTextField()
         setTextFieldDelegate()
+        setTextViewDelegate()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -184,6 +186,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         reminderDateTextField.delegate = self
     }
     
+    private func setTextViewDelegate() {
+        notesTextView.delegate = self
+    }
+    
     private func setLabelsForArchiveView() {
         guard let task = task else {
             navigationItem.title = "No Data"
@@ -196,6 +202,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         location = task.location ?? location 
         dueDateLabel.text =  formatDateText(task.dueDate as Date)
         completionDateLabel.text = formatDateText(task.completionDate! as Date)
+        notesTextLabel.text = task.notes
     }
     
     func refreshUI() {
@@ -217,7 +224,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             let taskDueDate = task.dueDate as Date
             self.dueDate = taskDueDate
             self.dueDatePicker.date = taskDueDate
-            
+            notesTextView.text = task.notes
             reminder.isOn = task.reminder
             reminderSwitchState(reminder)
             if let reminderDate = task.reminderDate as Date? {
@@ -273,6 +280,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         task.location = location
         task.reminder = reminder.isOn
         task.reminderDate = (reminderDate! as NSDate)
+        let notes = notesTextView.text ?? ""
+        task.notes = notes
         do {
             try managedContext.save()   // this is childContext
             try managedContext.parent?.save()  // this is the main managedObjectContext
@@ -344,16 +353,16 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         let noLocationData = (location == nil)
         guard !isArchivedView else {
             print("****** we are in archived view *****")
-            return (section < 4) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
+            return (section < EditTask.Sections.archiveView) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
         }
         
         switch(showDueDatePicker, showReminderDate, showReminderDatePicker, noLocationData, section, row) {
-        case (false, _, _, _, 2, 1): return 0
-        case (_, false, _, _, 3, 1): fallthrough
-        case (_, false, _, _, 3, 2): return 0
-        case (_, true, false, _, 3, 2): return 0
-        case (_, _, _, true, 1, 1): return 0  
-        case (_, _, _, _, 4, _): return 0
+        case (false, _, _, _, EditTask.Sections.dueDate, 1): return 0
+        case (_, false, _, _, EditTask.Sections.reminder, 1): fallthrough
+        case (_, false, _, _, EditTask.Sections.reminder, 2): return 0
+        case (_, true, false, _, EditTask.Sections.reminder, 2): return 0
+        case (_, _, _, true, EditTask.Sections.location, 1): return 0
+        case (_, _, _, _, EditTask.Sections.archiveView, _): return 0
         default:
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
@@ -437,6 +446,19 @@ extension TaskEditTableViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
+        return true
+    }
+}
+
+// MARK: - TextViewDelegate 
+
+extension TaskEditTableViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            self.view.endEditing(true)
+            return false
+        }
         return true
     }
 }

@@ -1,9 +1,9 @@
 //
 //  ChangeToken+CoreDataProperties.swift
-//  To-Do App
+//  Todododo
 //
-//  Created by Wismin Effendi on 8/28/17.
-//  Copyright © 2017 iShinobi. All rights reserved.
+//  Created by Wismin Effendi on 9/5/17.
+//  Copyright © 2017 Wismin Effendi. All rights reserved.
 //
 
 import Foundation

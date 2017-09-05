@@ -229,7 +229,8 @@ extension TaskTableViewController {
         let attributedString = NSMutableAttributedString(string: text)
         cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
         let dueDateText = DateUtil.shortDateText(task.dueDate as Date)
-        cell.detailTextLabel?.text = dueDateText
+        let dueText = NSLocalizedString("Due", comment: "subtitle")
+        cell.detailTextLabel?.text = "\(dueText): \(dueDateText)"
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         cell.backgroundColor = UIColor.flatWhite()
         // configure left buttons

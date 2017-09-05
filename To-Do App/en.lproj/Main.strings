@@ -23,6 +23,9 @@
 /* Class = "UITabBarItem"; title = "Time"; ObjectID = "4PD-e1-xK1"; */
 "4PD-e1-xK1.title" = "Time";
 
+/* Class = "UILabel"; text = "Notes: "; ObjectID = "6BM-gd-nCi"; */
+"6BM-gd-nCi.text" = "Notes: ";
+
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "7qE-cu-e4D"; */
 "7qE-cu-e4D.text" = "Subtitle";
 

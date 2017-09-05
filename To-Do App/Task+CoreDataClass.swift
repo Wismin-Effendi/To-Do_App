@@ -153,6 +153,7 @@ extension Task {
         self.reminder = cloudKitRecord[ckTask.reminder] as! Bool
         self.reminderDate = (cloudKitRecord[ckTask.reminderDate] as! NSDate)
         self.title = cloudKitRecord[ckTask.title] as! String
+        self.notes = cloudKitRecord[ckTask.notes] as! String
         self.localUpdate = (cloudKitRecord[ckTask.localUpdate] as! NSDate)
         self.ckMetadata = CloudKitHelper.encodeMetadata(of: cloudKitRecord)
     }
@@ -180,6 +181,7 @@ extension Task {
         ckRecord[ckTask.reminder] = self.reminder as CKRecordValue
         ckRecord[ckTask.completionDate] = self.completionDate
         ckRecord[ckTask.completed] = self.completed as CKRecordValue
+        ckRecord[ckTask.notes] = self.notes as CKRecordValue
         if let locationAnnotation = self.location {
             ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: locationAnnotation)
         } else {
@@ -203,6 +205,7 @@ extension Task {
         ckRecord[ckTask.reminder] = self.reminder as CKRecordValue
         ckRecord[ckTask.completionDate] = self.completionDate
         ckRecord[ckTask.completed] = self.completed as CKRecordValue
+        ckRecord[ckTask.notes] = self.notes as CKRecordValue
         if let locationAnnotation = self.location {
             ckRecord[ckTask.location] = CoreDataHelper.sharedInstance.ckReferenceOf(locationAnnotation: locationAnnotation)
         } else {

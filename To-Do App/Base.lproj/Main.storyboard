@@ -667,7 +667,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y3E-px-b2E">
-                                                    <rect key="frame" x="8" y="4" width="359" height="87.5"/>
+                                                    <rect key="frame" x="32" y="4" width="319" height="87.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -675,9 +675,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="y3E-px-b2E" secondAttribute="bottom" constant="4" id="Eid-Lg-OYD"/>
-                                                <constraint firstItem="y3E-px-b2E" firstAttribute="leading" secondItem="JPd-jj-SHE" secondAttribute="leading" constant="8" id="IU2-iG-VlI"/>
+                                                <constraint firstItem="y3E-px-b2E" firstAttribute="leading" secondItem="JPd-jj-SHE" secondAttribute="leading" constant="32" id="IU2-iG-VlI"/>
                                                 <constraint firstItem="y3E-px-b2E" firstAttribute="top" secondItem="JPd-jj-SHE" secondAttribute="top" constant="4" id="VUA-J2-st8"/>
-                                                <constraint firstAttribute="trailing" secondItem="y3E-px-b2E" secondAttribute="trailing" constant="8" id="mBB-BF-e8i"/>
+                                                <constraint firstAttribute="trailing" secondItem="y3E-px-b2E" secondAttribute="trailing" constant="24" id="mBB-BF-e8i"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -808,6 +808,36 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="96" id="Tvn-zZ-658">
+                                        <rect key="frame" x="0.0" y="1086" width="375" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tvn-zZ-658" id="XP5-TX-YOF">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iiD-3B-UJO">
+                                                    <rect key="frame" x="22" y="8" width="50.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="notesText" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xa7-m8-rfW">
+                                                    <rect key="frame" x="85" y="8" width="270" height="75.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iiD-3B-UJO" firstAttribute="top" secondItem="XP5-TX-YOF" secondAttribute="top" constant="8" id="2As-JM-wey"/>
+                                                <constraint firstAttribute="trailing" secondItem="xa7-m8-rfW" secondAttribute="trailing" constant="20" id="56k-jC-6RV"/>
+                                                <constraint firstItem="xa7-m8-rfW" firstAttribute="leading" secondItem="iiD-3B-UJO" secondAttribute="trailing" constant="12" id="BgJ-Ge-6Wp"/>
+                                                <constraint firstItem="xa7-m8-rfW" firstAttribute="top" secondItem="iiD-3B-UJO" secondAttribute="top" id="YSs-V8-Ydd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="xa7-m8-rfW" secondAttribute="bottom" constant="4" id="k5r-IO-ECa"/>
+                                                <constraint firstItem="iiD-3B-UJO" firstAttribute="leading" secondItem="XP5-TX-YOF" secondAttribute="leading" constant="22" id="vAW-bd-4o4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -827,6 +857,7 @@
                         <outlet property="locationSubtitleLabel" destination="IA7-gP-PrY" id="lJN-fd-jRo"/>
                         <outlet property="locationTitle" destination="0h8-Fr-m9i" id="7r1-gn-DOx"/>
                         <outlet property="locationTitleLabel" destination="j5k-yJ-1nT" id="gyW-6W-yLr"/>
+                        <outlet property="notesTextLabel" destination="xa7-m8-rfW" id="tEQ-V7-3mG"/>
                         <outlet property="notesTextView" destination="y3E-px-b2E" id="x6g-Th-XlZ"/>
                         <outlet property="reminder" destination="rzs-fJ-3H7" id="0AR-g8-zUz"/>
                         <outlet property="reminderDatePicker" destination="dI2-Yz-v2d" id="nQr-xt-Vn3"/>
