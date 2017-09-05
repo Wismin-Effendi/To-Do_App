@@ -103,6 +103,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             locationTitle.text = annotation.title
             locationSubtitle.text = annotation.subtitle
             os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
+            locationTitleLabel.text = annotation.title
+            locationSubtitleLabel.text = annotation.subtitle
         }
     }
     
@@ -112,8 +114,13 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         isSplitView = (self.splitViewController?.viewControllers.count == 2)
+        view.backgroundColor = UIColor.flatWhite()
         editLocationButton.backgroundColor = UIColor.clear
         editLocationButton.tintColor = UIColor.flatSkyBlue()
+        notesTextView.backgroundColor = UIColor.flatPowderBlue()
+        taskNameTexField.backgroundColor = UIColor.flatPowderBlue()
+        dueDateTextField.backgroundColor = UIColor.flatPowderBlue()
+        reminderDateTextField.backgroundColor = UIColor.flatPowderBlue()
         
         tableView.separatorStyle = .none
         reminder.tintColor = UIColor.flatSkyBlue()
@@ -127,10 +134,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         setTextViewDelegate()
     }
 
+    
     override func viewWillAppear(_ animated: Bool) {
         updateSplitViewSetting()
-       // updateLocationInformation()
-       
+        
+        notesTextView.transform = CGAffineTransform(scaleX: 0.67, y: 0.67)
+        notesTextView.alpha = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -144,6 +153,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             // Enable the Save button only if the text field has a valid Task name
             updateSaveButtonState()
         }
+        AnimatorFactory.scaleUp(view: notesTextView).startAnimation()
     }
     
 
@@ -197,8 +207,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         print("We are inside the archive label assignment....")
         navigationItem.title = task.title
         taskNameLabel.text = task.title
-        locationTitleLabel.text = task.location?.title
-        location = task.location ?? location 
+        location = task.location ?? location
         dueDateLabel.text =  formatDateText(task.dueDate as Date)
         completionDateLabel.text = formatDateText(task.completionDate! as Date)
         notesTextLabel.text = task.notes

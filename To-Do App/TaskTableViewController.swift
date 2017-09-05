@@ -42,6 +42,7 @@ class TaskTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
+        self.view.backgroundColor = UIColor.flatWhite()
         self.detailViewController = (tabBarController as? TabBarViewController)?.detailViewController as! TaskEditTableViewController
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         initializeFetchResultsController()

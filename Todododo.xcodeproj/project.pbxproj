@@ -56,6 +56,7 @@
 		378175AC1F56412900DCDA80 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 378175991F56412900DCDA80 /* OpenSans-SemiBold.ttf */; };
 		378175AD1F56412900DCDA80 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3781759A1F56412900DCDA80 /* OpenSans-SemiBoldItalic.ttf */; };
 		378175AE1F56412900DCDA80 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3781759A1F56412900DCDA80 /* OpenSans-SemiBoldItalic.ttf */; };
+		378879341F5F2AA3008ED712 /* AnimatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378879331F5F2AA3008ED712 /* AnimatorFactory.swift */; };
 		378DB25D1F0193C300819B6D /* TaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB25C1F0193C300819B6D /* TaskTableViewController.swift */; };
 		378DB2611F019AE300819B6D /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB2601F019AE300819B6D /* TaskCell.swift */; };
 		3792EE561F4689D100ACAAAE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37814B381F466BA500A43C14 /* NotificationCenter.framework */; };
@@ -229,6 +230,7 @@
 		378175981F56412900DCDA80 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		378175991F56412900DCDA80 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		3781759A1F56412900DCDA80 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		378879331F5F2AA3008ED712 /* AnimatorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatorFactory.swift; sourceTree = "<group>"; };
 		378DB25C1F0193C300819B6D /* TaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewController.swift; sourceTree = "<group>"; };
 		378DB2601F019AE300819B6D /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		378DB2771F0297CD00819B6D /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -381,7 +383,7 @@
 		37514AFD1EEF736F00D67A6E /* To-Do App */ = {
 			isa = PBXGroup;
 			children = (
-				37E72D401F5CE792001E3D6C /* customTransitions */,
+				37E72D401F5CE792001E3D6C /* customAnimationAndTransitions */,
 				378175901F5640FA00DCDA80 /* Resources */,
 				3775C0E11F4E3F09002FE84D /* Model */,
 				3775C0E01F4E3EBA002FE84D /* Controller */,
@@ -551,14 +553,15 @@
 			name = Utility;
 			sourceTree = "<group>";
 		};
-		37E72D401F5CE792001E3D6C /* customTransitions */ = {
+		37E72D401F5CE792001E3D6C /* customAnimationAndTransitions */ = {
 			isa = PBXGroup;
 			children = (
 				37E72D451F5D0849001E3D6C /* CustomPresentAnimator.swift */,
 				37E72D431F5D0838001E3D6C /* CustomDismissAnimator.swift */,
 				37E72D411F5CE7EA001E3D6C /* CustomTabBarAnimator.swift */,
+				378879331F5F2AA3008ED712 /* AnimatorFactory.swift */,
 			);
-			name = customTransitions;
+			name = customAnimationAndTransitions;
 			sourceTree = "<group>";
 		};
 		CABC72885C02C8984D025A79 /* Pods */ = {
@@ -1140,6 +1143,7 @@
 				379B95451F506ACE0075F30B /* ArchivedTaskTableViewController.swift in Sources */,
 				378DB2611F019AE300819B6D /* TaskCell.swift in Sources */,
 				3781756E1F5634F900DCDA80 /* StyleManager.swift in Sources */,
+				378879341F5F2AA3008ED712 /* AnimatorFactory.swift in Sources */,
 				3781756B1F55265C00DCDA80 /* GlobalEnums_and_Strutcs.swift in Sources */,
 				3775C0D81F4D05FE002FE84D /* LocationListViewController.swift in Sources */,
 				37E72D421F5CE7EA001E3D6C /* CustomTabBarAnimator.swift in Sources */,

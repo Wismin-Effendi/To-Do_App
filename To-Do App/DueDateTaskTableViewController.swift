@@ -72,9 +72,10 @@ class DueDateTaskTableViewController: TaskTableViewController {
         self.coreDataStack.saveContext()
         
         if isFullVersion || withinFreeVersionLimit() {
+            self.delegate.isArchivedView = false
             let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
             childContext.parent = coreDataStack.managedContext
-            self.detailViewController?.addTask(managedContext: childContext)
+            self.delegate.addTask(managedContext: childContext)
             
             if let detailViewController = self.detailViewController {
                 splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
