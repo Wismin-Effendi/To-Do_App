@@ -25,7 +25,8 @@ public class Task: NSManagedObject, CloudKitConvertible {
         self.pendingDeletion = false
         self.identifier = UUID().uuidString
         self.archived = false
-        self.dueDate = (Date() + 3.hours) as NSDate
+        let defaultDeltaInHours: Int = Int( UserDefaults.standard.double(forKey: UserDefaults.Keys.dueHoursFromNow) )
+        self.dueDate = (Date() + (defaultDeltaInHours).hours) as NSDate
         self.reminder = false
         self.reminderDate = dueDate
         self.title = NSLocalizedString("Rename this new Task", comment:"")
