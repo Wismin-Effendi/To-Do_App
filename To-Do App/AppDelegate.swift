@@ -128,7 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let tabBarViewController = navController?.topViewController as? TabBarViewController
         
         splitViewController?.delegate = self
-        tabBarViewController?.selectedIndex = 0
         tabBarViewController?.coreDataStack = coreDataStack
         controller = tabBarViewController?.selectedViewController
         

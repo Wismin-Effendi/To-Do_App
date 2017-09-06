@@ -43,6 +43,11 @@ public class CloudKitHelper {
     
     var iCloudAvailable = false
     var setupCloudKitHasRun = false
+    var firstTimeSyncHasRun = false
+    
+    public var hasCloudKitSyncRunOnce: Bool {
+        return firstTimeSyncHasRun
+    }
     
     var fetchAllZonesOperations: CKFetchRecordZonesOperation!
     var modifyRecordZonesOperation: CKModifyRecordZonesOperation!
@@ -70,7 +75,7 @@ public class CloudKitHelper {
     let managedObjectContext: NSManagedObjectContext
     
     private init() {
-        managedObjectContext = CoreDataStack.shared(modelName: ModelName.ToDo).managedContext
+        managedObjectContext = CoreDataStack.shared(modelName: ModelName.ToDo).storeContainer.newBackgroundContext()
     }
     
     
@@ -83,7 +88,8 @@ public class CloudKitHelper {
             // Zones compliance
             setCustomZonesCompliance()
             // Sync first time 
-            syncToCloudKit {
+            syncToCloudKit {[unowned self] in
+                self.firstTimeSyncHasRun = true
                 os_log("First time sync after app start up")
             }
             // Create subscriptions

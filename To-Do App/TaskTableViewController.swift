@@ -51,17 +51,20 @@ class TaskTableViewController: UITableViewController {
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
         tableView.tableFooterView = UIView()
         
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error as NSError {
-            print("Fetching error: \(error), \(error.userInfo)")
-        }
-        
+        fetchAndReloadTableAfterFirstCloudKitSync()
         setupRefreshControl()
         
         // Gesture to enable Editing
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TaskTableViewController.setIsEditing))
         tableView.addGestureRecognizer(longPress)
+        
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        performFetch()
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,6 +75,30 @@ class TaskTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.coreDataStack.saveContext()
+    }
+    
+    func performFetch() {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Fetching error: \(error), \(error.userInfo)")
+        }
+    }
+    
+    private func fetchAndReloadTableAfterFirstCloudKitSync() {
+        guard !cloudKitHelper.hasCloudKitSyncRunOnce else { return }
+        
+        DispatchQueue.global(qos: .utility).async {[unowned self] in
+            var count = 10
+            while !self.cloudKitHelper.hasCloudKitSyncRunOnce && count > 0 {
+                sleep(1)
+                count -= 1
+            }
+            DispatchQueue.main.async {
+                self.performFetch()
+                self.tableView.reloadData()
+            }
+        }
     }
     
     private func updateFromWidget() {
@@ -90,15 +117,6 @@ class TaskTableViewController: UITableViewController {
          userDefault.synchronize()
     }
     
-    func saveToCloudKit() {
-        DispatchQueue.global(qos: .userInitiated).async {[unowned self] in 
-            self.cloudKitHelper.savingToCloudKitOnly()
-            DispatchQueue.main.async {
-                self.refreshControl?.endRefreshing()
-            }
-        }
-    }
-    
     func syncToCloudKit() {
         if coreDataStack.managedContext.hasChanges {
             try? coreDataStack.managedContext.save()
@@ -107,6 +125,7 @@ class TaskTableViewController: UITableViewController {
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             self.cloudKitHelper.syncToCloudKit {
                 DispatchQueue.main.async {[unowned self] in
+                    self.performFetch()
                     self.tableView.reloadData()
                 }
             }
@@ -291,7 +310,7 @@ extension TaskTableViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             tableView.deleteSections(indexSet, with: .automatic)
         case .move:
-            break 
+            break
         case .update:
             tableView.reloadSections(indexSet, with: .automatic)
         }
