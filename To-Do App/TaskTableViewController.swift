@@ -46,6 +46,8 @@ class TaskTableViewController: UITableViewController {
         self.detailViewController = (tabBarController as? TabBarViewController)?.detailViewController as! TaskEditTableViewController
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         initializeFetchResultsController()
+        tableView.estimatedRowHeight = 48.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
         tableView.tableFooterView = UIView()
         
@@ -67,6 +69,11 @@ class TaskTableViewController: UITableViewController {
         updateFromWidget()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.coreDataStack.saveContext()
+    }
+    
     private func updateFromWidget() {
         // check if there are any completed task from Today Extension
         // update the main managedObjectContext accordingly
@@ -212,9 +219,6 @@ class TaskTableViewController: UITableViewController {
         view.tintColor = UIColor.flatWhiteColorDark()
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 54
-    }
 }
 
 // MARK: - Internal 
@@ -287,7 +291,7 @@ extension TaskTableViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             tableView.deleteSections(indexSet, with: .automatic)
         case .move:
-            break
+            break 
         case .update:
             tableView.reloadSections(indexSet, with: .automatic)
         }
@@ -297,13 +301,21 @@ extension TaskTableViewController: NSFetchedResultsControllerDelegate {
         
         switch type {
         case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+            if let indexPath = newIndexPath {
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
         case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         case .update:
-            tableView.reloadRows(at: [indexPath!], with: .automatic)
+            if let indexPath = indexPath {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
         case .move:
-            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+            if let indexPath = indexPath, let newIndexPath = newIndexPath {
+                tableView.moveRow(at: indexPath, to: newIndexPath)
+            }
         }
     }
     

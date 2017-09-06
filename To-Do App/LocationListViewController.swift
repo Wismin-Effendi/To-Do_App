@@ -35,6 +35,8 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         self.navigationItem.title = NSLocalizedString("Choose Location", comment:"Navigation title")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(addNewLocation))
         
+        tableView.estimatedRowHeight = 48.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
     }
     
@@ -122,9 +124,6 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 52
-    }
 }
 
 

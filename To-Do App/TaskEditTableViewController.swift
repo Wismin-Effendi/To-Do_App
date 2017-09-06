@@ -135,6 +135,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
 
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         updateSplitViewSetting()
         
         notesTextView.transform = CGAffineTransform(scaleX: 0.67, y: 0.67)
@@ -142,6 +143,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupNavigationBarItems()
         // Set up views if editing an existing Task
         if isArchivedView {
@@ -154,8 +156,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         }
         AnimatorFactory.scaleUp(view: notesTextView).startAnimation()
     }
-    
-
     
     private func setupNavigationBarItems() {
         
@@ -188,11 +188,11 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     private func setLocationTitleSubTitle(annotation: TaskLocation) {
-        locationTitle.text = annotation.title
-        locationSubtitle.text = annotation.subtitle
-        os_log("We got %@ at %@", locationTitle.text!, locationSubtitle.text!)
-        locationTitleLabel.text = annotation.title
-        locationSubtitleLabel.text = annotation.subtitle
+        self.locationTitle.text = annotation.title
+        self.locationSubtitle.text = annotation.subtitle
+        self.locationTitleLabel.text = annotation.title
+        self.locationSubtitleLabel.text = annotation.subtitle
+        tableView.reloadData()
     }
     
     private func setTagOnTextField() {

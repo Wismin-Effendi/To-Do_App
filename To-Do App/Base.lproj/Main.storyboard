@@ -31,11 +31,12 @@
         <!--Navigation Controller-->
         <scene sceneID="vfC-9k-56H">
             <objects>
-                <navigationController id="6WW-b4-55a" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6WW-b4-55a" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bsG-aO-nf5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bsG-aO-nf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -49,11 +50,12 @@
         <!--Navigation Controller-->
         <scene sceneID="hAR-Bf-QJI">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Isn-jM-q7G" sceneMemberID="viewController">
+                <navigationController id="Isn-jM-q7G" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mmu-ml-EcY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Mmu-ml-EcY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -667,16 +669,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y3E-px-b2E">
-                                                    <rect key="frame" x="32" y="4" width="319" height="87.5"/>
+                                                    <rect key="frame" x="32" y="4" width="319" height="88"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="y3E-px-b2E" secondAttribute="bottom" constant="4" id="Eid-Lg-OYD"/>
                                                 <constraint firstItem="y3E-px-b2E" firstAttribute="leading" secondItem="JPd-jj-SHE" secondAttribute="leading" constant="32" id="IU2-iG-VlI"/>
                                                 <constraint firstItem="y3E-px-b2E" firstAttribute="top" secondItem="JPd-jj-SHE" secondAttribute="top" constant="4" id="VUA-J2-st8"/>
+                                                <constraint firstItem="y3E-px-b2E" firstAttribute="centerY" secondItem="JPd-jj-SHE" secondAttribute="centerY" id="lD6-7P-HlY"/>
                                                 <constraint firstAttribute="trailing" secondItem="y3E-px-b2E" secondAttribute="trailing" constant="24" id="mBB-BF-e8i"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -822,7 +824,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="notesText" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xa7-m8-rfW">
-                                                    <rect key="frame" x="85" y="8" width="270" height="75.5"/>
+                                                    <rect key="frame" x="85" y="8" width="270" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -833,7 +835,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="xa7-m8-rfW" secondAttribute="trailing" constant="20" id="56k-jC-6RV"/>
                                                 <constraint firstItem="xa7-m8-rfW" firstAttribute="leading" secondItem="iiD-3B-UJO" secondAttribute="trailing" constant="12" id="BgJ-Ge-6Wp"/>
                                                 <constraint firstItem="xa7-m8-rfW" firstAttribute="top" secondItem="iiD-3B-UJO" secondAttribute="top" id="YSs-V8-Ydd"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="xa7-m8-rfW" secondAttribute="bottom" constant="4" id="k5r-IO-ECa"/>
                                                 <constraint firstItem="iiD-3B-UJO" firstAttribute="leading" secondItem="XP5-TX-YOF" secondAttribute="leading" constant="22" id="vAW-bd-4o4"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -995,12 +996,13 @@
         <!--Time-->
         <scene sceneID="hQw-Sb-Uic">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dcu-m5-3Me" sceneMemberID="viewController">
+                <navigationController id="dcu-m5-3Me" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Time" image="clock" selectedImage="clock-fill" id="4PD-e1-xK1"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cSP-ux-svX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cSP-ux-svX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1014,12 +1016,13 @@
         <!--Location-->
         <scene sceneID="SB1-Bi-m4M">
             <objects>
-                <navigationController id="t2Q-uf-tIg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t2Q-uf-tIg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Location" image="location" selectedImage="location-fill" id="3WT-hM-cqz"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zTb-Wc-sfW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zTb-Wc-sfW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1084,9 +1087,10 @@
                 <navigationController id="xcw-oU-nh6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Archived" image="archive" selectedImage="archive-fill" id="L2Y-kP-jBo"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJS-B1-gKX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JJS-B1-gKX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1175,11 +1179,12 @@
         <!--Navigation Controller-->
         <scene sceneID="SZN-Tc-qgK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qL6-Vv-WU3" sceneMemberID="viewController">
+                <navigationController id="qL6-Vv-WU3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iRi-08-iOh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iRi-08-iOh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1193,11 +1198,12 @@
         <!--Navigation Controller-->
         <scene sceneID="ctS-T8-rC8">
             <objects>
-                <navigationController id="b57-vl-iqP" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b57-vl-iqP" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WQs-K7-uUs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="WQs-K7-uUs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
