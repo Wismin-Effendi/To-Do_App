@@ -28,8 +28,6 @@ class TaskTableViewController: UITableViewController {
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
     
-    var isFullVersion = UpgradeManager.sharedInstance.hasUpgraded()
-    
     var cloudKitHelper: CloudKitHelper!
     
     weak var delegate: TaskDetailViewDelegate!

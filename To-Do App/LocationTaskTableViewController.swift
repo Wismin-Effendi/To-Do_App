@@ -76,7 +76,7 @@ class LocationTaskTableViewController: TaskTableViewController {
     func addNewTaskTapped() {
         // save any pending edit on detail view
         self.coreDataStack.saveContext()
-        
+        let isFullVersion = UpgradeManager.sharedInstance.hasUpgraded()
         if isFullVersion || withinFreeVersionLimit() {
             self.delegate.isArchivedView = false
             let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)

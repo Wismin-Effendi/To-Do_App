@@ -70,7 +70,7 @@ class DueDateTaskTableViewController: TaskTableViewController {
     func addNewTaskTapped() {
         // save any pending edit on detail view
         self.coreDataStack.saveContext()
-        print("Is this a full version: \(isFullVersion)")
+        let isFullVersion = UpgradeManager.sharedInstance.hasUpgraded()
         if isFullVersion || withinFreeVersionLimit() {
             self.delegate.isArchivedView = false
             let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
