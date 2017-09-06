@@ -289,7 +289,7 @@ extension TaskTableViewController: NSFetchedResultsControllerDelegate {
         case .move:
             break
         case .update:
-            break
+            tableView.reloadSections(indexSet, with: .automatic)
         }
     }
     

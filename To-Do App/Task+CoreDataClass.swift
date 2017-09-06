@@ -141,8 +141,9 @@ extension Task {
         self.init(context: managedObjectContext)
         self.setDefaultsForRemoteModify()
         self.identifier = cloudKitRecord[ckTask.identifier] as! String 
-        let ckReference = cloudKitRecord[ckTask.location] as! CKReference
-        self.location = CoreDataHelper.sharedInstance.coreDataLocationAnnotationFrom(ckReference: ckReference, managedObjectContext: managedObjectContext)
+        if let ckReference = cloudKitRecord[ckTask.location] as? CKReference {
+            self.location = CoreDataHelper.sharedInstance.coreDataLocationAnnotationFrom(ckReference: ckReference, managedObjectContext: managedObjectContext)
+        }
         update(using: cloudKitRecord)
     }
     
