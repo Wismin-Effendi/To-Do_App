@@ -43,14 +43,14 @@ class WidgetTableViewCell: UITableViewCell {
     
     @IBAction func taskCompleted(_ sender: UIButton) {
         completed = true
-        // Instead of saving to CoreData directly, save the changes to UserDefaults in app group.
-        guard let userDefault = UserDefaults(suiteName: UserDefaults.appGroup) else { return }
-        let currentCompletedTasks = userDefault.array(forKey: UserDefaults.Keys.completedInTodayExtension) as! [String]?
-        completedTasks = (currentCompletedTasks != nil) ? currentCompletedTasks! : completedTasks
-        completedTasks.append(task.identifier)
-        userDefault.set(completedTasks, forKey: UserDefaults.Keys.completedInTodayExtension)
-        userDefault.synchronize()
         statusButton.setImage(#imageLiteral(resourceName: "checked-custom"), for: .normal)
+        task.completed = true
+        guard let managedContext = task.managedObjectContext else { return }
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            fatalError("Error during core data save in Widget: \(error.localizedDescription)")
+        }
     }
     
 }

@@ -40,10 +40,13 @@ class TaskTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.edgesForExtendedLayout = []
         self.view.backgroundColor = UIColor.flatWhite()
+        
         self.detailViewController = (tabBarController as? TabBarViewController)?.detailViewController as! TaskEditTableViewController
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
+        
         initializeFetchResultsController()
 
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
@@ -76,7 +79,6 @@ class TaskTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateFromWidget()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -114,22 +116,6 @@ class TaskTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
-    }
-    
-    private func updateFromWidget() {
-        // check if there are any completed task from Today Extension
-        // update the main managedObjectContext accordingly
-        
-        guard let userDefault = UserDefaults(suiteName: UserDefaults.appGroup),
-            let completedFromTodayExtension = userDefault.array(forKey: UserDefaults.Keys.completedInTodayExtension) as! [String]?
-            else { return }
-        
-        print("The identifiers we got:... \(completedFromTodayExtension)")
-        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        childContext.parent = coreDataStack.managedContext
-        CoreDataUtil.updateTaskCompletionFor(identifiers: completedFromTodayExtension, moc: childContext)
-        userDefault.set(nil, forKey: UserDefaults.Keys.completedInTodayExtension)
-         userDefault.synchronize()
     }
     
     func syncToCloudKit() {
