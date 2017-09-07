@@ -101,6 +101,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         didSet {
             guard location != nil else { return }
             locationInChildCtx = managedContext.object(with: location!.objectID) as? LocationAnnotation
+        }
+    }
+    
+    var locationInChildCtx: LocationAnnotation? = nil {
+        didSet {
+            guard locationInChildCtx != nil else { return }
             guard let annotation = locationInChildCtx?.annotation as? TaskLocation else {
                 clearLocationTitleSubTitle()
                 return
@@ -108,8 +114,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             setLocationTitleSubTitle(annotation: annotation)
         }
     }
-    
-    var locationInChildCtx: LocationAnnotation? = nil
     
     // App Delegate 
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -226,7 +230,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         print("We are inside the archive label assignment....")
         navigationItem.title = task.title
         taskNameLabel.text = task.title
-        location = task.location ?? location
+        locationInChildCtx = task.location ?? locationInChildCtx
         dueDateLabel.text =  formatDateText(task.dueDate as Date)
         completionDateLabel.text = formatDateText(task.completionDate! as Date)
         notesTextLabel.text = task.notes
@@ -247,7 +251,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             os_log("Task: %@", log: OSLog.default, type: OSLogType.debug, task)
             navigationItem.title = task.title 
             taskNameTexField.text = task.title
-            location = task.location ?? location 
+            locationInChildCtx = task.location ?? locationInChildCtx
             let taskDueDate = task.dueDate as Date
             self.dueDate = taskDueDate
             self.dueDatePicker.date = taskDueDate
@@ -378,7 +382,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         // section 0 - 4 should be hidden for archive task view
         let section = indexPath.section
         let row = indexPath.row
-        let noLocationData = (location == nil)
+        let noLocationData = (locationInChildCtx == nil)
         if noLocationData {
             print("*** what?  no location data ?? ***")
         }
@@ -427,12 +431,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
 extension TaskEditTableViewController: TaskDetailViewDelegate {
     func taskSelected(task: Task?, managedContext: NSManagedObjectContext) {
         self.task = task
-        location = task?.location
+        locationInChildCtx = task?.location
         self.managedContext = managedContext
     }
     
     func addTask(managedContext: NSManagedObjectContext) {
-        location = nil
+        locationInChildCtx = nil
         self.managedContext = managedContext
         self.task = Task(context: managedContext)
         task?.setDefaultsForLocalCreate()
