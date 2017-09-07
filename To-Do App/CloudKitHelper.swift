@@ -296,17 +296,17 @@ public class CloudKitHelper {
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         needToFetchBeforeSave = true
         fetchOfflineServerChanges(completion: fetchCompletion)
-        saveLocalChangesToCloudKit()
+        saveLocalChangesToCloudKit(completion: fetchCompletion)
     }
     
-    public func savingToCloudKitOnly() {
+    public func savingToCloudKitOnly(completion: @escaping () -> Void) {
         guard iCloudAvailable else {
             setupCloudKit()
             return
         }
         dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
         needToFetchBeforeSave = false
-        saveLocalChangesToCloudKit()
+        saveLocalChangesToCloudKit(completion: completion)
     }
     
     private func fetchOfflineServerChanges(completion: @escaping () -> Void) {
@@ -447,10 +447,10 @@ public class CloudKitHelper {
             options.previousServerChangeToken = {
                 let zoneKey =  zoneKeyPrefix + "\(zoneID.zoneName)"
                 guard let data = UserDefaults.standard.data(forKey: zoneKey) else { return nil }
+                print("We got this previous zone change token: \(NSKeyedUnarchiver.unarchiveObject(with: data))")
                 return NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken
             }()
-            // just at test 
-            // options.previousServerChangeToken = nil
+
             optionsByRecordZoneID[zoneID] = options
         }
         
@@ -610,7 +610,7 @@ public class CloudKitHelper {
     //MARK: - To save localChanges in CoreData to CloudKit
 
 
-    private func saveLocalChangesToCloudKit() {
+    private func saveLocalChangesToCloudKit(completion: @escaping () -> Void) {
         let group = DispatchGroup()
         
         let recordsToSave = coreDataHelper.getRecordsToModify(managedObjectContext: managedObjectContext)
@@ -638,13 +638,15 @@ public class CloudKitHelper {
                 }
                 self.coreDataHelper.postSuccessfyModifyOnCloudKit(modifiedCKRecords: modifiedCKRecords!, managedObjectContext: self.managedObjectContext)
                 self.coreDataHelper.postSuccessfulDeletionOnCloudKit(managedObjectContext: self.managedObjectContext)
+                completion()
                 group.leave()
+                
             }
             privateDB.add(saveToCloudKitOperation)
         }
         group.enter()
         WrapperSaveToCloudKitOperation()
-        let result = group.wait(timeout: DispatchTime.now() + 2)
+        let result = group.wait(timeout: DispatchTime.now() + 5)
         switch result {
         case .timedOut:
             os_log("Timed out save local change to iCloud")

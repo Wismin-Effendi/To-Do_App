@@ -105,7 +105,7 @@ extension FontType {
     var fontSize: CGFloat {
         switch self {
         case .Primary:
-            return 16
+            return 18
         }
     }
 }

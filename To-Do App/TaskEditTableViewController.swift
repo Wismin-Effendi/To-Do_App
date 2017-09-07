@@ -290,6 +290,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         guard !isSplitView else { return }
+        self.managedContext.reset()
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     

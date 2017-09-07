@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import CloudKit
 import SwiftDate
+import os.log
 
 @objc(Task)
 public class Task: NSManagedObject, CloudKitConvertible {
@@ -218,6 +219,7 @@ extension Task {
     
     public func getCKRecordID() -> CKRecordID {
         guard let ckMetadata = self.ckMetadata else {
+            os_log("Failed to read CKMetaData of %@", self.title)
             fatalError("CKMetaData is required to update CKRecord")
         }
         let ckRecord = CloudKitHelper.decodeMetadata(from: ckMetadata as! NSData)

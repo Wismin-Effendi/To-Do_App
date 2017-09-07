@@ -132,7 +132,11 @@ class LocationTaskTableViewController: TaskTableViewController {
             // Delete the row from the data source
             
             let taskToDelete = fetchedResultsController.object(at: indexPath)
-            taskToDelete.setForLocalDeletion()
+            if taskToDelete.ckMetadata != nil {
+                taskToDelete.setForLocalDeletion()
+            } else {
+                coreDataStack.managedContext.delete(taskToDelete)
+            }
             coreDataStack.saveContext()
             
         } else if editingStyle == .insert {

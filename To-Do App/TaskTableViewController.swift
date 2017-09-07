@@ -44,14 +44,12 @@ class TaskTableViewController: UITableViewController {
         self.detailViewController = (tabBarController as? TabBarViewController)?.detailViewController as! TaskEditTableViewController
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         initializeFetchResultsController()
-        tableView.estimatedRowHeight = 48.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
         tableView.tableFooterView = UIView()
         
         fetchAndReloadTableAfterFirstCloudKitSync()
         setupRefreshControl()
-        
         // Gesture to enable Editing
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TaskTableViewController.setIsEditing))
         tableView.addGestureRecognizer(longPress)
@@ -61,8 +59,7 @@ class TaskTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        performFetch()
-        tableView.reloadData()
+        refreshTableView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +70,11 @@ class TaskTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.coreDataStack.saveContext()
+    }
+    
+    func refreshTableView() {
+        performFetch()
+        tableView.reloadData()
     }
     
     func performFetch() {
@@ -123,6 +125,7 @@ class TaskTableViewController: UITableViewController {
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             self.cloudKitHelper.syncToCloudKit {
                 DispatchQueue.main.async {[unowned self] in
+                    self.coreDataStack.managedContext.refreshAllObjects()
                     self.performFetch()
                     self.tableView.reloadData()
                 }
@@ -236,6 +239,9 @@ class TaskTableViewController: UITableViewController {
         view.tintColor = UIColor.flatWhiteColorDark()
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
+    }
 }
 
 // MARK: - Internal 
