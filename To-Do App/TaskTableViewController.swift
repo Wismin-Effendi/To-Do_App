@@ -87,7 +87,7 @@ class TaskTableViewController: UITableViewController {
     }
     
     func refreshTableView() {
-        coreDataStack.managedContext.reset()
+        coreDataStack.saveContext()
         performFetch()
         tableView.reloadData()
     }
@@ -126,13 +126,12 @@ class TaskTableViewController: UITableViewController {
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             self.cloudKitHelper.syncToCloudKit {
                 DispatchQueue.main.async {[unowned self] in
-                    self.coreDataStack.managedContext.reset()
                     self.performFetch()
                     self.tableView.reloadData()
                 }
             }
         }
-        let delayTime = DispatchTime.now() + 1
+        let delayTime = DispatchTime.now() + 10
         DispatchQueue.global().asyncAfter(deadline: delayTime) {[unowned self] in
             DispatchQueue.main.async {[unowned self] in
                 self.refreshControl?.endRefreshing()
@@ -292,6 +291,7 @@ extension TaskTableViewController {
             guard (sender as? TaskCell) != nil else { return false }
             task.setDefaultsForCompletion()
             if DateUtil.isInThePastDays(date: task.dueDate as Date) { task.archived = true }
+            self.coreDataStack.saveContext()
             Mixpanel.mainInstance().people.increment(property: "completed task", by: 1)
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             return true
@@ -303,6 +303,7 @@ extension TaskTableViewController {
                 task.completed = true
                 task.completionDate = NSDate()
             }
+            self.coreDataStack.saveContext()
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             return true
         })]

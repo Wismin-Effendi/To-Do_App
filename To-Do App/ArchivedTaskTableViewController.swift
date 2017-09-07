@@ -34,14 +34,24 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     }
     
     func selectFirstItemIfExist(archivedView: Bool) {
-        if let split = self.splitViewController, split.viewControllers.count == 2  {
+        if let split = self.splitViewController, split.viewControllers.count == 2 {
+            
             let nc = split.viewControllers.last as! UINavigationController
+            nc.popToRootViewController(animated: true)
             self.detailViewController = nc.topViewController as? TaskEditTableViewController
             
+            guard self.detailViewController != nil else { return }
+            
             self.delegate.isArchivedView = archivedView
+            let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            childContext.parent = coreDataStack.managedContext
+            self.detailViewController.managedContext = childContext
+            
             if let section = fetchedResultsController.sections,
                 section.count > 0 {
-                self.detailViewController.task = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
+                let taskInParentContext = fetchedResultsController.object(at: IndexPath(item: 0, section: 0))
+                let taskInChildContext = childContext.object(with: taskInParentContext.objectID) as! Task
+                self.detailViewController.task = taskInChildContext
             } else {
                 self.detailViewController.task = nil
             }
@@ -146,6 +156,7 @@ extension ArchivedTaskTableViewController {
             (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
             CoreDataUtil.cloneAsActiveTask(task: task, managedContext: self.coreDataStack.managedContext)
+            self.coreDataStack.saveContext()
             return true
             }]
         cell.leftSwipeSettings.transition = .static

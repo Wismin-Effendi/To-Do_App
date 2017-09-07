@@ -53,7 +53,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     var showDueDatePicker: Bool = false {
         didSet {
-            tableView.beginUpdates()
+               tableView.beginUpdates()
             tableView.endUpdates()
         }
     }
@@ -274,6 +274,16 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         isSplitView = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular
         setupNavigationBarItems()
     }
+
+    private func updateTaskFromCurrentUserInput() {
+        if task != nil {
+            task!.title = self.taskNameTexField.text ?? ""
+            task!.dueDate = self.dueDate! as NSDate
+            task!.notes = self.notesTextView.text
+            task!.reminder = self.reminder.isOn
+            task!.reminderDate = self.reminderDate! as NSDate
+        }
+    }
     
     // MARK: Action
     
@@ -421,6 +431,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueIdentifier.LocationList {
+            updateTaskFromCurrentUserInput()
             let vc = segue.destination as! LocationListViewController
             vc.managedContext = managedContext.parent  // we always save in the locationList but not necessarily in this TaskEdit/NewTask 
             vc.delegate = self 
