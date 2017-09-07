@@ -107,10 +107,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     var locationInChildCtx: LocationAnnotation? = nil {
         didSet {
             guard locationInChildCtx != nil else { return }
+            task?.location = locationInChildCtx
             guard let annotation = locationInChildCtx?.annotation as? TaskLocation else {
                 clearLocationTitleSubTitle()
                 return
             }
+            guard let task = task else { return }
             setLocationTitleSubTitle(annotation: annotation)
         }
     }
