@@ -36,6 +36,7 @@ class TaskTableViewController: UITableViewController {
     
     var tasks = [Task]()
     
+    var addBarButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,12 @@ class TaskTableViewController: UITableViewController {
             disableRefreshControl()
         }
         refreshTableView()
+        
+        addBarButton = nil
+        tabBarController?.navigationItem.rightBarButtonItem = nil
+        addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TaskTableViewController.addNewTaskTapped))
+        tabBarController?.navigationItem.rightBarButtonItem = addBarButton
+        addBarButton.isEnabled = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -158,6 +165,24 @@ class TaskTableViewController: UITableViewController {
         guard refreshControl != nil else { return }
         refreshControl?.removeFromSuperview()
         refreshControl = nil
+    }
+    
+    func addNewTaskTapped() {
+        // save any pending edit on detail view
+        self.coreDataStack.saveContext()
+        let isFullVersion = UpgradeManager.sharedInstance.hasUpgraded()
+        if isFullVersion || withinFreeVersionLimit() {
+            self.delegate.isArchivedView = false
+            let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            childContext.parent = coreDataStack.managedContext
+            self.delegate.addTask(managedContext: childContext)
+            
+            if let detailViewController = self.detailViewController {
+                splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
+            }
+        } else {
+            self.segueToInAppPurchase()
+        }
     }
 
     // generic should be overriden by subclass

@@ -99,8 +99,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     // TaskLocationDelegate
     var location: LocationAnnotation? = nil {
         didSet {
-            guard let location = location else { return }
-            locationInChildCtx = managedContext.object(with: location.objectID) as? LocationAnnotation
+            guard location != nil else { return }
+            locationInChildCtx = managedContext.object(with: location!.objectID) as? LocationAnnotation
             guard let annotation = locationInChildCtx?.annotation as? TaskLocation else {
                 clearLocationTitleSubTitle()
                 return
@@ -160,6 +160,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         }
         AnimatorFactory.scaleUp(view: notesTextView).startAnimation()
     }
+    
     
     private func setupNavigationBarItems() {
         

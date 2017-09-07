@@ -23,4 +23,13 @@ class AnimatorFactory {
         }
         return scale
     }
+    
+    static func scaleDown(view: UIView) -> UIViewPropertyAnimator {
+        let scale = UIViewPropertyAnimator(duration: 0.33, curve: .easeOut)
+        scale.addAnimations {
+            view.transform = CGAffineTransform(scaleX: 0.67, y: 0.67)
+            view.alpha = 0
+        }
+        return scale
+    }
 }

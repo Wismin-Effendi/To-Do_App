@@ -16,8 +16,6 @@ import ToDoCoreDataCloudKit
 
 class LocationTaskTableViewController: TaskTableViewController {
     
-    var addBarButton: UIBarButtonItem!
-    
     // MARK: - Properties
     override var cellIdentifier: String { return CellIdentifier.LocationTaskCell }
     
@@ -29,9 +27,6 @@ class LocationTaskTableViewController: TaskTableViewController {
         super.viewDidAppear(animated)
     
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
-        addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(LocationTaskTableViewController.addNewTaskTapped))
-        tabBarController?.navigationItem.rightBarButtonItem = addBarButton
-        addBarButton.isEnabled = true
         
         // select the first navigationItem
         selectFirstItemIfExist(archivedView: false)
@@ -73,24 +68,6 @@ class LocationTaskTableViewController: TaskTableViewController {
         // Dispose of any resources that can be recreated.
     }
   
-    func addNewTaskTapped() {
-        // save any pending edit on detail view
-        self.coreDataStack.saveContext()
-        let isFullVersion = UpgradeManager.sharedInstance.hasUpgraded()
-        if isFullVersion || withinFreeVersionLimit() {
-            self.delegate.isArchivedView = false
-            let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-            childContext.parent = coreDataStack.managedContext
-            self.delegate.addTask(managedContext: childContext)
-            
-            if let detailViewController = self.detailViewController {
-                splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
-            }
-        } else {
-            self.segueToInAppPurchase()
-        }
-    }
-    
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
