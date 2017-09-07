@@ -87,7 +87,7 @@ class TaskTableViewController: UITableViewController {
     }
     
     func refreshTableView() {
-        coreDataStack.managedContext.refreshAllObjects()
+        coreDataStack.managedContext.reset()
         performFetch()
         tableView.reloadData()
     }
@@ -111,7 +111,7 @@ class TaskTableViewController: UITableViewController {
                 count -= 1
             }
             DispatchQueue.main.async {
-                self.coreDataStack.managedContext.refreshAllObjects()
+                self.coreDataStack.managedContext.reset()
                 self.performFetch()
                 self.tableView.reloadData()
             }
@@ -126,7 +126,7 @@ class TaskTableViewController: UITableViewController {
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             self.cloudKitHelper.syncToCloudKit {
                 DispatchQueue.main.async {[unowned self] in
-                    self.coreDataStack.managedContext.refreshAllObjects()
+                    self.coreDataStack.managedContext.reset()
                     self.performFetch()
                     self.tableView.reloadData()
                 }
