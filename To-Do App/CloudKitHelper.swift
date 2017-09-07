@@ -483,7 +483,7 @@ public class CloudKitHelper {
             
             fetchRecordZoneChangesOperation.recordZoneChangeTokensUpdatedBlock = { (zoneID, token, data) in
                 // Flush record changes and deletions for this zone to disk
-                DispatchQueue.main.async {
+                self.managedObjectContext.perform {
                     try! self.managedObjectContext.save()
                 }
                 
@@ -520,7 +520,7 @@ public class CloudKitHelper {
                 // Handle changeToken
                 
                 
-                DispatchQueue.main.async {
+                self.managedObjectContext.perform {
                     if self.managedObjectContext.hasChanges {
                         try! self.managedObjectContext.save()
                     }

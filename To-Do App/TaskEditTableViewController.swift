@@ -99,13 +99,17 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     // TaskLocationDelegate
     var location: LocationAnnotation? = nil {
         didSet {
-            guard let annotation = location?.annotation as? TaskLocation else {
+            guard let location = location else { return }
+            locationInChildCtx = managedContext.object(with: location.objectID) as? LocationAnnotation
+            guard let annotation = locationInChildCtx?.annotation as? TaskLocation else {
                 clearLocationTitleSubTitle()
                 return
             }
             setLocationTitleSubTitle(annotation: annotation)
         }
     }
+    
+    var locationInChildCtx: LocationAnnotation? = nil
     
     // App Delegate 
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -300,7 +304,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         let title = taskNameTexField.text ?? ""
         task.title = title
         task.dueDate = (dueDate! as NSDate)
-        task.location = location
+        task.location = locationInChildCtx
         task.reminder = reminder.isOn
         task.reminderDate = (reminderDate! as NSDate)
         let notes = notesTextView.text ?? ""
@@ -413,7 +417,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueIdentifier.LocationList {
             let vc = segue.destination as! LocationListViewController
-            vc.managedContext = managedContext
+            vc.managedContext = managedContext.parent  // we always save in the locationList but not necessarily in this TaskEdit/NewTask 
             vc.delegate = self 
         }
     }
