@@ -95,6 +95,7 @@ class TaskTableViewController: UITableViewController {
                 count -= 1
             }
             DispatchQueue.main.async {
+                self.coreDataStack.managedContext.refreshAllObjects()
                 self.performFetch()
                 self.tableView.reloadData()
             }
