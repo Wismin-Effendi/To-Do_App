@@ -59,6 +59,11 @@ class TaskTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if cloudKitHelper.hasLogin2iCloud {
+            setupRefreshControl()
+        } else {
+            disableRefreshControl()
+        }
         refreshTableView()
     }
     
@@ -73,6 +78,7 @@ class TaskTableViewController: UITableViewController {
     }
     
     func refreshTableView() {
+        coreDataStack.managedContext.refreshAllObjects()
         performFetch()
         tableView.reloadData()
     }
@@ -86,7 +92,8 @@ class TaskTableViewController: UITableViewController {
     }
     
     private func fetchAndReloadTableAfterFirstCloudKitSync() {
-        guard !cloudKitHelper.hasCloudKitSyncRunOnce else { return }
+        guard cloudKitHelper.hasLogin2iCloud,
+            !cloudKitHelper.hasCloudKitSyncRunOnce else { return }
         
         DispatchQueue.global(qos: .utility).async {[unowned self] in
             var count = 10
@@ -145,6 +152,12 @@ class TaskTableViewController: UITableViewController {
         refreshControl!.attributedTitle = NSAttributedString(string: "Sync to iCloud")
         refreshControl!.addTarget(self, action: #selector(TaskTableViewController.syncToCloudKit), for: .valueChanged)
         tableView.addSubview(refreshControl!)
+    }
+    
+    private func disableRefreshControl() {
+        guard refreshControl != nil else { return }
+        refreshControl?.removeFromSuperview()
+        refreshControl = nil
     }
 
     // generic should be overriden by subclass

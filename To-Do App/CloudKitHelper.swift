@@ -45,6 +45,10 @@ public class CloudKitHelper {
     var setupCloudKitHasRun = false
     var firstTimeSyncHasRun = false
     
+    public var hasLogin2iCloud: Bool {
+        return iCloudAvailable
+    }
+    
     public var hasCloudKitSyncRunOnce: Bool {
         return firstTimeSyncHasRun
     }
@@ -84,17 +88,18 @@ public class CloudKitHelper {
         // Check iCloud account status
         checkCKAccountStatus(completion: nil)
         
-        if iCloudAvailable {
-            // Zones compliance
-            setCustomZonesCompliance()
-            // Sync first time 
-            syncToCloudKit {[unowned self] in
-                self.firstTimeSyncHasRun = true
-                os_log("First time sync after app start up")
-            }
-            // Create subscriptions
-            createDBSubscription()
+        guard iCloudAvailable else { return }
+        
+        // Zones compliance
+        setCustomZonesCompliance()
+        // Sync first time
+        syncToCloudKit {[unowned self] in
+            self.firstTimeSyncHasRun = true
+            os_log("First time sync after app start up")
         }
+        // Create subscriptions
+        createDBSubscription()
+        
         setupCloudKitHasRun = true
     }
     
