@@ -112,7 +112,8 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
             locationAnnotation.setDefaultsForLocalUpdate()
             locationAnnotation.archived = true
             try! self.managedContext.save()
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
             return true
         })]
     }

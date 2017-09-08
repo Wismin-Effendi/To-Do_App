@@ -132,7 +132,7 @@ class TaskTableViewController: UITableViewController {
                 }
             }
         }
-        let delayTime = DispatchTime.now() + 10
+        let delayTime = DispatchTime.now() + Constant.DelayBeforeRefetchAfterUpload / 2.0
         DispatchQueue.global().asyncAfter(deadline: delayTime) {[unowned self] in
             DispatchQueue.main.async {[unowned self] in
                 self.refreshControl?.endRefreshing()
@@ -294,7 +294,8 @@ extension TaskTableViewController {
             if DateUtil.isInThePastDays(date: task.dueDate as Date) { task.archived = true }
             self.coreDataStack.saveContext()
             Mixpanel.mainInstance().people.increment(property: "completed task", by: 1)
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
             return true
         }), MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "archive-custom"), backgroundColor: UIColor.init(hexString: "C8F7C5"), callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
             guard (sender as? TaskCell) != nil else { return false }
@@ -304,8 +305,9 @@ extension TaskTableViewController {
                 task.completed = true
                 task.completionDate = NSDate()
             }
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
             self.coreDataStack.saveContext()
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             return true
         })]
         cell.leftSwipeSettings.transition = .static

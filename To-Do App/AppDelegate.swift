@@ -295,11 +295,12 @@ extension AppDelegate {
         guard let notification: CKDatabaseNotification = CKNotification(fromRemoteNotificationDictionary: dict) as?
             CKDatabaseNotification else { return }
         
-        cloudKitHelper.fetchChanges(in: notification.databaseScope) {
-            os_log("inside completion handler for fetch changes")
-            completionHandler(.newData)
+        DispatchQueue.global(qos: .utility).async {[unowned self] in
+            self.cloudKitHelper.fetchChanges(in: notification.databaseScope) {
+                os_log("inside completion handler for fetch changes")
+                completionHandler(.newData)
+            }
         }
-        
     }
 }
 

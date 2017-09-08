@@ -79,7 +79,10 @@ public class CloudKitHelper {
     let managedObjectContext: NSManagedObjectContext
     
     private init() {
-        managedObjectContext = CoreDataStack.shared(modelName: ModelName.ToDo).storeContainer.newBackgroundContext()
+        let mainContext = CoreDataStack.shared(modelName: ModelName.ToDo).managedContext
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = mainContext
+        managedObjectContext = childContext
     }
     
     
@@ -452,7 +455,7 @@ public class CloudKitHelper {
             options.previousServerChangeToken = {
                 let zoneKey =  zoneKeyPrefix + "\(zoneID.zoneName)"
                 guard let data = UserDefaults.standard.data(forKey: zoneKey) else { return nil }
-                print("We got this previous zone change token: \(NSKeyedUnarchiver.unarchiveObject(with: data))")
+                print("We got this previous zone change token: \(String(describing: NSKeyedUnarchiver.unarchiveObject(with: data)))")
                 return NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken
             }()
 
@@ -485,6 +488,9 @@ public class CloudKitHelper {
                 // Flush record changes and deletions for this zone to disk
                 self.managedObjectContext.perform {
                     try! self.managedObjectContext.save()
+                    self.managedObjectContext.parent?.perform {
+                        try! self.managedObjectContext.parent?.save()
+                    }
                 }
                 
                 // Write this new zone change token to disk
@@ -523,6 +529,9 @@ public class CloudKitHelper {
                 self.managedObjectContext.perform {
                     if self.managedObjectContext.hasChanges {
                         try! self.managedObjectContext.save()
+                        self.managedObjectContext.parent?.perform {
+                            try! self.managedObjectContext.parent?.save()
+                        }
                     }
                 }
                 
@@ -620,6 +629,16 @@ public class CloudKitHelper {
         
         let recordsToSave = coreDataHelper.getRecordsToModify(managedObjectContext: managedObjectContext)
         let recordIDsToDelete = coreDataHelper.getRecordIDsForDeletion(managedObjectContext: managedObjectContext)
+                
+        // any of the counts above > 0; then we also perform dispatch after  of secondary sync 
+        // if nothing to upload then just exit 
+        guard (recordsToSave != nil && recordsToSave!.count > 0) || (recordIDsToDelete != nil && recordIDsToDelete!.count > 0) else { return }
+        
+        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + Constant.DelayBeforeRefetchAfterUpload) {[unowned self] in
+            self.syncToCloudKit {
+                completion()
+            }
+        }
         
         func WrapperSaveToCloudKitOperation() {
             let saveToCloudKitOperation = CKModifyRecordsOperation(recordsToSave: recordsToSave, recordIDsToDelete: recordIDsToDelete)

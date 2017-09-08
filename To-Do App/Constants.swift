@@ -68,6 +68,7 @@ public enum TimeOrder: String {
 
 public struct Constant {
     public static let MaxFreeVersionTask: Int = 20
+    public static let DelayBeforeRefetchAfterUpload: Double = 4
     public static let NumRetryForError4097: Int = 0
     public static let DelayForRetryError4097: Double = 10
 }  
