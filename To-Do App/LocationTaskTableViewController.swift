@@ -99,6 +99,8 @@ class LocationTaskTableViewController: TaskTableViewController {
         self.delegate?.taskSelected(task: childTask, managedContext: childContext)
         
         if let detailViewController = self.delegate as? TaskEditTableViewController {
+            // in split view mode pop details to root of Nav Ctrl
+            (splitViewController?.viewControllers.last as! UINavigationController).popToRootViewController(animated: true)
             splitViewController?.showDetailViewController(detailViewController.navigationController!, sender: nil)
         }
     }

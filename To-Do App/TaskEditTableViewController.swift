@@ -112,7 +112,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
                 clearLocationTitleSubTitle()
                 return
             }
-            guard let task = task else { return }
+            guard task != nil else { return }
             setLocationTitleSubTitle(annotation: annotation)
         }
     }
