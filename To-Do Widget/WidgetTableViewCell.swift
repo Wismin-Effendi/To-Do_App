@@ -15,7 +15,7 @@ class WidgetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var statusButton: UIButton!
-    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+
     
     var task: Task! {
         didSet {
@@ -31,7 +31,6 @@ class WidgetTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        visualEffectView.effect = UIVibrancyEffect.widgetPrimary()
         statusButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         statusButton.isEnabled = false
     }

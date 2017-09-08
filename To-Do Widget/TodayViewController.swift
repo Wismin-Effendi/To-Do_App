@@ -54,6 +54,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             completionHandler(NCUpdateResult.failed)
             return
         }
+        
+        guard !todayTasks.isEmpty else {
+            print("---- Why return no data ??? ----- ")
+            completionHandler(NCUpdateResult.noData)
+            return
+        }
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
