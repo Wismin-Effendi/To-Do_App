@@ -79,11 +79,11 @@ extension MapViewController {
         search.start {[weak self] (response, error) in
             guard let strongSelf = self else { return }
             if error != nil {
-                print("Error occured in search: \(error!.localizedDescription)")
+                os_log("Error occured in search: %@", log: .default, type: OSLogType.error, (error?.localizedDescription)!)
             } else if response!.mapItems.count == 0 {
-                print("No matches found")
+                os_log("No matches found", log: .default, type: .debug)
             } else {
-                print("Matches found")
+                os_log("Matches found", log: .default, type: .debug)
                 let number = response!.mapItems.count
                 let title: String!
                 if number == 1 {
@@ -95,7 +95,7 @@ extension MapViewController {
                 
                 for item in response!.mapItems {
                     strongSelf.matchingItems.append(item as MKMapItem)
-                    print("Matching items = \(strongSelf.matchingItems.count)")
+                    os_log("Matching items = %@", log: .default, type: .debug, strongSelf.matchingItems.count)
                     
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = item.placemark.coordinate
@@ -148,7 +148,7 @@ extension MapViewController: MKMapViewDelegate {
             let identifier = UUID().uuidString
             self.saveToCoreData(identifier: identifier, taskLocation: taskLocation)
             self.delegate?.location = self.locationAnnotation
-            print("We have selected this location: \(taskLocation.coordinate)")
+            os_log("We have selected this location: %@", log: .default, type: .debug, taskLocation.coordinate as CVarArg)
         }
         alertController.addTextField { (textField) in
             textField.text = taskLocation.title
@@ -178,7 +178,7 @@ extension MapViewController: MKMapViewDelegate {
 // MARK: - LocationManager Delegate 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        os_log("Error getting user location: %@", error.localizedDescription)
+        os_log("Error getting user location: %@", log: .default, type: .error, error.localizedDescription)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -187,7 +187,7 @@ extension MapViewController: CLLocationManagerDelegate {
         }
         let locationCoordinate = location.coordinate
         currentLocationCoordinate = locationCoordinate
-        print("Current location: ", locationCoordinate.latitude, locationCoordinate.longitude)
+        os_log("Current location: %@ %@", log: .default, type: .debug, locationCoordinate.latitude, locationCoordinate.longitude)
         let region = makeRegion(center: locationCoordinate)
         mapView.region = region
     }

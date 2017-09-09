@@ -97,7 +97,7 @@ class TaskTableViewController: UITableViewController {
         do {
             try fetchedResultsController.performFetch()
         } catch let error as NSError {
-            print("Fetching error: \(error), \(error.userInfo)")
+            os_log("Fetching error: %@ %@", log: .default, type: OSLogType.error, error.localizedDescription, error.userInfo)
         }
     }
     
@@ -194,7 +194,7 @@ class TaskTableViewController: UITableViewController {
         let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         childContext.parent = coreDataStack.managedContext
         let taskCount = CoreDataUtil.getTaskCount(predicate: Predicates.TaskNotPendingDeletion, moc: childContext)
-        print("Number of task: \(taskCount)")
+        os_log("Number of task: %@", log: .default, type: .debug, taskCount)
         return taskCount < Constant.MaxFreeVersionTask
     }
     

@@ -157,7 +157,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         setupNavigationBarItems()
         // Set up views if editing an existing Task
         if isArchivedView {
-            print("is archive view..")
+            os_log("is archive view..", log: .default, type: .debug)
             setLabelsForArchiveView()
         } else {
             if isSplitView { refreshUI() }
@@ -229,7 +229,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             navigationItem.title = "No Data"
             return
         }
-        print("We are inside the archive label assignment....")
         navigationItem.title = task.title
         taskNameLabel.text = task.title
         locationInChildCtx = task.location ?? locationInChildCtx
@@ -330,7 +329,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             try managedContext.save()   // this is childContext
             try managedContext.parent?.save()  // this is the main managedObjectContext
         } catch {
-            print(error)
+            os_log("Erro during save childContext then parentContext %@", log: .default, type: OSLogType.error, error.localizedDescription)
         }
         
         let identifier = task.identifier
@@ -396,10 +395,9 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         let row = indexPath.row
         let noLocationData = (locationInChildCtx == nil)
         if noLocationData {
-            print("*** what?  no location data ?? ***")
+            os_log("no location data...", log: .default, type: .debug)
         }
         guard !isArchivedView else {
-            print("****** we are in archived view *****")
             return (section < EditTask.Sections.archiveView) ?  0 : super.tableView(tableView, heightForRowAt: indexPath)
         }
         

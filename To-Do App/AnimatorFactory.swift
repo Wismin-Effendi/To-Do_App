@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class AnimatorFactory {
 
@@ -19,7 +20,7 @@ class AnimatorFactory {
             view.transform = CGAffineTransform.identity
         }, delayFactor: 0.33)
         scale.addCompletion { (_) in
-            print("finished animation")
+            os_log("finished animation", log: OSLog.default, type: OSLogType.debug)
         }
         return scale
     }

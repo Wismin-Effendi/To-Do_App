@@ -8,6 +8,7 @@
 
 import Foundation
 import StoreKit
+import ToDoCoreDataCloudKit
 import os.log
 
 class UpgradeManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
@@ -24,7 +25,7 @@ class UpgradeManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
     
     func hasUpgraded() -> Bool {
         let upgraded = UserDefaults.standard.bool(forKey: userDefaultsKey)
-        os_log("User has upgrade?: %@", upgraded as CVarArg)
+        os_log("User has upgrade?: %@", log: .default, type: .debug, upgraded as CVarArg)
         return upgraded
     }
     
@@ -67,10 +68,10 @@ class UpgradeManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
                 UserDefaults.standard.set(true, forKey: userDefaultsKey)
                 restoreCompletionHandler?(true)
             case .failed:
-                os_log("Failed transaction...")
+                os_log("Failed purchase transaction...", log: .default, type: .error)
                 upgradeCompletionHandler?(false)
             default:
-                os_log("Fall through transaction...")
+                os_log("Fall through transaction...", log: .default, type: .debug)
                 return
             }
             
@@ -81,7 +82,7 @@ class UpgradeManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
     // MARK: SKProductsRequestDelegate
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        os_log("Product request: response = %@", response)
+        os_log("Product request: response = %@", log: .default, type: .debug, response)
         fullVersionTodododoProduct = response.products.first
         
         if let price = fullVersionTodododoProduct?.price {

@@ -86,7 +86,6 @@ class LocationTaskTableViewController: TaskTableViewController {
     
     // Override row selection, we want to automatically save the editing / new task into coredata
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("We are in row selected")
         // save any pending edit on detail view
         self.coreDataStack.saveContext()
         
@@ -170,7 +169,7 @@ class LocationTaskTableViewController: TaskTableViewController {
         do {
             try fetchedResultsController.performFetch()
         } catch let error as NSError {
-            print("Fetching error: \(error), \(error.userInfo)")
+            os_log("Fetching error: %@ %@", log: .default, type: OSLogType.error, error.localizedDescription, error.userInfo)
         }
         // reload tableView
         tableView.reloadData()
@@ -227,7 +226,7 @@ class LocationTaskTableViewController: TaskTableViewController {
         do {
             try coreDataStack.managedContext.save()
         } catch {
-            print(error)
+            os_log("Error during save managedContext: %@", log: .default, type: OSLogType.error, error.localizedDescription)
         }
     }
 }

@@ -87,7 +87,6 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
         guard let sectionInfo = fetchedResultsController.sections?[section] else {
             return 0
         }
-        print("Number of rows: \(sectionInfo.numberOfObjects)")
         return sectionInfo.numberOfObjects
     }
 

@@ -55,7 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             case .available:
                 self.setupCloudKit()
                 DispatchQueue.main.async {
-                    print("We have valid iCloud account....")
+                    
+                    os_log("We have valid iCloud account....", log: .default, type: .debug)
                     application?.registerForRemoteNotifications()
                 }
             default:
@@ -74,9 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         UNUserNotificationCenter.current().requestAuthorization(options:
         [[.alert, .sound,. badge]]) { (granted, error) in
             if error != nil {
-                os_log("Error when requesting notification %@", error!.localizedDescription)
+                os_log("Error when requesting notification %@", log: .default, type: .error, error!.localizedDescription)
             }
-            if !granted { os_log("Permission for user notification was not granted.") }
+            if !granted { os_log("Permission for user notification was not granted.", log: .default, type: .debug) }
         }
         
         UNUserNotificationCenter.current().delegate = self
@@ -186,7 +187,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         DispatchQueue.global(qos: .utility).async {
             self.cloudKitHelper.syncToCloudKit {
-                os_log("Sync to iCloud before going to background")
+                os_log("Sync to iCloud before going to background", log: .default, type: .debug)
             }
         }
     }
@@ -222,12 +223,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        if response.actionIdentifier == "ViewTaskAction" {
-            print("Tapped view task.")
-            // Need to open the app
-        } else if response.actionIdentifier == "SnoozeTasksAction" {
-            print("Tapped snooze.")
-            // Need to reschedule the notification 
+        if response.actionIdentifier == "SnoozeTasksAction" {
+            // Need to reschedule the notification
             let identifier = response.notification.request.identifier
             let content = response.notification.request.content
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: (15*30), repeats: false)
@@ -235,7 +232,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
             UNUserNotificationCenter.current().add(request) { (error) in
                 if let error = error {
-                    print("Uh oh! We had an error: \(error)         ")
+                    os_log("Uh oh! We had an error in adding user notification: %@", log: .default, type: OSLogType.error, error.localizedDescription)
                 }
             }
         }
@@ -259,13 +256,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
         UNUserNotificationCenter.current().add(request) { (error) in
             if let error = error {
-                print("Uh oh! We had an error: \(error)")
+                os_log("Uh oh! We had an error when scheduling notification: %@", log: .default, type: OSLogType.error, error.localizedDescription)
             }
         }
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("we received open app from URL.. Not sure what to do here....")
         return true
     }
 
@@ -275,20 +271,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("Registered for remote notification")
+        os_log("Registered for remote notification", log: .default, type: .debug)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         // Skip Code=3010 "remote notifications are not supported in the simulator"
         guard (error as NSError).code != 3010  else { return }
         
-        print("Remote notification registration failed: \(error)")
+        os_log("Remote notification registration failed: %@", log: .default, type: OSLogType.error, error.localizedDescription)
         controller?.showAlertWarning(message: NSLocalizedString("Please login to iCloud for remote data sync.", comment: ""))
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        os_log("Receive notification")
+        os_log("Receive notification", log: .default, type: .debug)
         
         let dict = userInfo as! [String: NSObject]
         
@@ -297,7 +293,7 @@ extension AppDelegate {
         
         DispatchQueue.global(qos: .utility).async {[unowned self] in
             self.cloudKitHelper.fetchChanges(in: notification.databaseScope) {
-                os_log("inside completion handler for fetch changes")
+                os_log("inside completion handler for fetch changes", log: .default, type: .debug)
                 completionHandler(.newData)
             }
         }

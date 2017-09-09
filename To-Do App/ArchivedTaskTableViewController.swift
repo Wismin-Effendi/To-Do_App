@@ -84,7 +84,6 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     
     // Override row selection, we want to automatically save the editing / new task into coredata
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("We are in row selected")
         // save any pending edit on detail view
         self.coreDataStack.saveContext()
         
