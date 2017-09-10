@@ -307,6 +307,14 @@ public class CloudKitHelper {
         saveLocalChangesToCloudKit(completion: fetchCompletion)
     }
     
+    public func fetchCloudKitChanges(fetchCompletion: @escaping () -> Void) {
+        guard iCloudAvailable else { return }
+        UserDefaults.standard.set(Constant.NumRetryForError4097, forKey: UserDefaults.Keys.nonCKError4097RetryToken)
+        UserDefaults.standard.synchronize()
+        dispatchPrecondition(condition: .notOnQueue(DispatchQueue.main))
+        fetchOfflineServerChanges(completion: fetchCompletion)
+    }
+    
     public func savingToCloudKitOnly(completion: @escaping () -> Void) {
         guard iCloudAvailable else {
             setupCloudKit()
@@ -635,7 +643,7 @@ public class CloudKitHelper {
         guard (recordsToSave != nil && recordsToSave!.count > 0) || (recordIDsToDelete != nil && recordIDsToDelete!.count > 0) else { return }
         
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + Constant.DelayBeforeRefetchAfterUpload) {[unowned self] in
-            self.syncToCloudKit {
+            self.fetchCloudKitChanges {
                 completion()
             }
         }

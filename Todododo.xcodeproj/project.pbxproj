@@ -218,6 +218,7 @@
 		3775C0D91F4D062E002FE84D /* TaskLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLocation.swift; sourceTree = "<group>"; };
 		3775C0DB1F4D561C002FE84D /* TaskEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditTableViewController.swift; sourceTree = "<group>"; };
 		3775C0DD1F4E3ABC002FE84D /* CoreDataUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataUtil.swift; path = "../To-Do App/CoreDataUtil.swift"; sourceTree = "<group>"; };
+		3779932F1F6530A6001B1146 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		37814B381F466BA500A43C14 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		3781756D1F5634F900DCDA80 /* StyleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		378175911F56412900DCDA80 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -338,6 +339,7 @@
 		346F108049622DEBD8353241 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3779932F1F6530A6001B1146 /* CoreLocation.framework */,
 				371F4BB21F4E773D00BFCF93 /* SwiftDate.framework */,
 				379EF42A1F1C67D80023174A /* CloudKit.framework */,
 				37814B381F466BA500A43C14 /* NotificationCenter.framework */,
@@ -1541,7 +1543,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -1574,7 +1576,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";

@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Override point for customization after application launch.
         configureTheme()
         setupConfigurationUserDefaults()
-        performAchivingAndDeletionInBackground()
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
         
@@ -102,16 +101,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
     }
     
-    private func performAchivingAndDeletionInBackground() {
+    private func performAchivingAndDeletion() {
         
         let userDefaults = UserDefaults.standard
         let deleteUnusedLocationAnnotations = userDefaults.bool(forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
         let archivePastCompletedTask = userDefaults.bool(forKey: UserDefaults.Keys.archivePastCompletion)
         
         if deleteUnusedLocationAnnotations {
-            DispatchQueue.global(qos: .background).async {[unowned self] in
-                CoreDataUtil.deleteUnusedArchivedLocations(moc: self.coreDataStack.storeContainer.newBackgroundContext())
-            }
+            CoreDataUtil.deleteUnusedArchivedLocations(moc: self.coreDataStack.storeContainer.newBackgroundContext())
         }
         
         // We need this in main context so NSFetchRequestController could detect and update the table
@@ -185,10 +182,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        DispatchQueue.global(qos: .utility).async {
-            self.cloudKitHelper.syncToCloudKit {
-                os_log("Sync to iCloud before going to background", log: .default, type: .debug)
-            }
+        DispatchQueue.global(qos: .utility).async {[unowned self] in
+            self.performAchivingAndDeletion()
         }
     }
 

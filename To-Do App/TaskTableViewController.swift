@@ -132,7 +132,7 @@ class TaskTableViewController: UITableViewController {
                 }
             }
         }
-        let delayTime = DispatchTime.now() + Constant.DelayBeforeRefetchAfterUpload / 2.0
+        let delayTime = DispatchTime.now() + Constant.DelayBeforeRefetchAfterUpload 
         DispatchQueue.global().asyncAfter(deadline: delayTime) {[unowned self] in
             DispatchQueue.main.async {[unowned self] in
                 self.refreshControl?.endRefreshing()

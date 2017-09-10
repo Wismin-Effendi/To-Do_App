@@ -295,11 +295,13 @@ public class CoreDataUtil {
         try! managedObjectContext.execute(batchDeleteRequest)
     }
     
-    public static func createOneSampleLocationAnnotation(title: String, moc: NSManagedObjectContext) {
+    public static func createLocationAnnotation(identifier: String, annotation: TaskLocation, moc: NSManagedObjectContext) {
         moc.perform {
-            let item = LocationAnnotation(context: moc)
-            item.title = title
-            item.identifier = UUID().uuidString
+            let location = LocationAnnotation(context: moc)
+            location.setDefaultsForLocalCreate()
+            location.identifier = identifier
+            location.title = annotation.title!
+            location.annotation = annotation
             do {
                 try moc.save()
             } catch let error as NSError {
