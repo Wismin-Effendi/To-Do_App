@@ -97,7 +97,7 @@ extension MapViewController {
                 
                 for item in response!.mapItems {
                     strongSelf.matchingItems.append(item as MKMapItem)
-                    os_log("Matching items = %d", log: .default, type: .debug, strongSelf.matchingItems.count)
+                    os_log("Matching item = %@", log: .default, type: .debug, item)
                     
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = item.placemark.coordinate
