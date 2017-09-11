@@ -1,25 +1,25 @@
 //
-//  To_Do_AppTests.swift
-//  To-Do AppTests
+//  TodododoTests.swift
+//  TodododoTests
 //
-//  Created by Wismin Effendi on 6/12/17.
-//  Copyright © 2017 iShinobi. All rights reserved.
+//  Created by Wismin Effendi on 9/10/17.
+//  Copyright © 2017 Wismin Effendi. All rights reserved.
 //
 
 import XCTest
 import os.log
 import ToDoCoreDataCloudKit
 import CoreData
-import CoreLocation
+import MapKit
 @testable import Todododo
 
-class To_Do_AppTests: XCTestCase {
+class TodododoTests: XCTestCase {
     
     let coreDataStack = CoreDataStack.shared(modelName: ModelName.ToDo)
     
     override func setUp() {
         super.setUp()
-        
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
@@ -27,10 +27,6 @@ class To_Do_AppTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
     
     func testCreateTaskWithoutLocation() {
         let identifier = UUID().uuidString
@@ -47,6 +43,7 @@ class To_Do_AppTests: XCTestCase {
         let identifier = UUID().uuidString
         let moc = coreDataStack.managedContext
         CoreDataTestUtil.createAppleLocation(identifier: identifier, moc: moc)
+        sleep(5)
         let locationAnnotation = CoreDataUtil.getALocationAnnotationOf(locationIdentifier: identifier, moc: moc)!
         let annotation = locationAnnotation.annotation as! TaskLocation
         XCTAssertEqual(annotation.title, AppleLocation.title)
@@ -54,16 +51,14 @@ class To_Do_AppTests: XCTestCase {
         XCTAssertEqual(annotation.coordinate.longitude, AppleLocation.coordinate2D.longitude)
     }
     
-    func testCreateTaskWithLocation() {
-        
+    func testPerformanceExample() {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
     }
     
-    func modifyLocationOfTheTask() {
-        
-    }
-
 }
-
 
 struct CoreDataTestUtil {
     
@@ -82,17 +77,16 @@ struct CoreDataTestUtil {
     static func createAppleLocation(identifier: String, moc: NSManagedObjectContext) {
         let title = AppleLocation.title
         let subtitle = AppleLocation.subtitle
-        let coordinate = AppleLocation.coordinate2D
-        let annotation = TaskLocation(title: title, subtitle: subtitle, coordinate: coordinate)
-        CoreDataUtil.createLocationAnnotation(identifier: identifier, annotation: annotation, moc: moc)
+        let coordinate2D: CLLocationCoordinate2D = AppleLocation.coordinate2D
+        let anno = TaskLocation(title: title, subtitle: subtitle, coordinate: coordinate2D)
+        
+        CoreDataUtil.createLocationAnnotation(identifier: identifier, annotation: anno, moc: moc)
     }
     
 }
-
 
 struct AppleLocation {
     static let title = "Apple Campus"
     static let subtitle = "1 Infinite Loop, Cupertino, CA 95014"
     static let coordinate2D = CLLocationCoordinate2D(latitude: 37.332051, longitude: -122.031180)
 }
-

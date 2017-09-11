@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import os.log
 
 public class TaskLocation: NSObject, NSCoding, MKAnnotation {
     public var title: String?
@@ -19,6 +20,7 @@ public class TaskLocation: NSObject, NSCoding, MKAnnotation {
         self.title = title
         self.subtitle = subtitle
         self.coordinate = coordinate
+        os_log("We create a Task Location %@", log: .default, type: .debug, coordinate as CVarArg)
     }
     
     public init(mapAnnotation: MKAnnotation) {

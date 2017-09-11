@@ -194,7 +194,7 @@ class TaskTableViewController: UITableViewController {
         let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         childContext.parent = coreDataStack.managedContext
         let taskCount = CoreDataUtil.getTaskCount(predicate: Predicates.TaskNotPendingDeletion, moc: childContext)
-        os_log("Number of task: %@", log: .default, type: .debug, taskCount)
+        os_log("Current task count: %d", log: .default, type: .debug, taskCount)
         return taskCount < Constant.MaxFreeVersionTask
     }
     

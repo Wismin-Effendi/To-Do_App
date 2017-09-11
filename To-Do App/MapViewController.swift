@@ -35,6 +35,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        searchText.isAccessibilityElement = true
+        searchText.accessibilityLabel = "searchText"
         mapView.showsUserLocation = true
         mapView.delegate = self
         setUpLocationManager()
@@ -95,7 +97,7 @@ extension MapViewController {
                 
                 for item in response!.mapItems {
                     strongSelf.matchingItems.append(item as MKMapItem)
-                    os_log("Matching items = %@", log: .default, type: .debug, strongSelf.matchingItems.count)
+                    os_log("Matching items = %d", log: .default, type: .debug, strongSelf.matchingItems.count)
                     
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = item.placemark.coordinate
@@ -187,7 +189,7 @@ extension MapViewController: CLLocationManagerDelegate {
         }
         let locationCoordinate = location.coordinate
         currentLocationCoordinate = locationCoordinate
-        os_log("Current location: %@ %@", log: .default, type: .debug, locationCoordinate.latitude, locationCoordinate.longitude)
+        os_log("Current location: %f %f", log: .default, type: .debug, locationCoordinate.latitude, locationCoordinate.longitude)
         let region = makeRegion(center: locationCoordinate)
         mapView.region = region
     }

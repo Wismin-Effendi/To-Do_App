@@ -38,15 +38,21 @@ target 'Todododo' do
   target 'TodododoTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'MGSwipeTableCell'
+    pod 'Mixpanel-swift'
     pod 'SwiftDate', '~> 4.0'
-
+    pod 'ChameleonFramework/Swift'
+    pod 'LicensesKit'
   end
 
   target 'TodododoUITests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'MGSwipeTableCell'
+    pod 'Mixpanel-swift'
     pod 'SwiftDate', '~> 4.0'
-
+    pod 'ChameleonFramework/Swift'
+    pod 'LicensesKit'
   end
 
 end

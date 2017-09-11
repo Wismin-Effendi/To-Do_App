@@ -90,9 +90,19 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SwiftDate/SwiftDate.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ChameleonFramework/ChameleonFramework.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/LicensesKit/LicensesKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MGSwipeTableCell/MGSwipeTableCell.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Mixpanel-swift/Mixpanel.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/StringBuilder/StringBuilder.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SwiftDate/SwiftDate.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ChameleonFramework/ChameleonFramework.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/LicensesKit/LicensesKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MGSwipeTableCell/MGSwipeTableCell.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Mixpanel-swift/Mixpanel.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/StringBuilder/StringBuilder.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

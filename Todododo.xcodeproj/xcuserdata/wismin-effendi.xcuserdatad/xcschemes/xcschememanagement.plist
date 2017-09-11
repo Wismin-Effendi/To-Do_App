@@ -9,35 +9,26 @@
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<key>ToDoCoreDataCloudKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>1</integer>
 		</dict>
 		<key>Todododo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>2</integer>
 		</dict>
 		<key>TodododoTests.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<true/>
 			<key>orderHint</key>
-			<integer>12</integer>
-		</dict>
-		<key>TodododoUITests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -53,6 +44,21 @@
 			<true/>
 		</dict>
 		<key>37514B1C1EEF736F00D67A6E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>377993341F653910001B1146</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>377993421F65F821001B1146</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>377993541F65FD29001B1146</key>
 		<dict>
 			<key>primary</key>
 			<true/>

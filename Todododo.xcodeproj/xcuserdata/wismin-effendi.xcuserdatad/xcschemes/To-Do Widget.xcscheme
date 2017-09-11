@@ -63,6 +63,26 @@
                ReferencedContainer = "container:Todododo.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "377993421F65F821001B1146"
+               BuildableName = "TodododoTests.xctest"
+               BlueprintName = "TodododoTests"
+               ReferencedContainer = "container:Todododo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "377993541F65FD29001B1146"
+               BuildableName = "TodododoUITests.xctest"
+               BlueprintName = "TodododoUITests"
+               ReferencedContainer = "container:Todododo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

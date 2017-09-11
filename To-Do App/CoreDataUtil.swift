@@ -302,8 +302,10 @@ public class CoreDataUtil {
             location.identifier = identifier
             location.title = annotation.title!
             location.annotation = annotation
+            fatalError("I want to stop here....!!")
             do {
                 try moc.save()
+                os_log("We successfully save the Location Annotation", log: .default, type: .debug)
             } catch let error as NSError {
                 fatalError("Failed to create sample LocationAnnotation item. \(error.localizedDescription)")
             }
