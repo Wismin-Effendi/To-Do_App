@@ -1659,6 +1659,7 @@
 				3779934C1F65F821001B1146 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3779935C1F65FD29001B1146 /* Build configuration list for PBXNativeTarget "TodododoUITests" */ = {
 			isa = XCConfigurationList;
@@ -1667,6 +1668,7 @@
 				3779935E1F65FD29001B1146 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3792EE611F4689D100ACAAAE /* Build configuration list for PBXNativeTarget "To-Do Widget" */ = {
 			isa = XCConfigurationList;
