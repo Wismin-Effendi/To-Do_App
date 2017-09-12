@@ -65,6 +65,10 @@ struct DetailView {
     static let tableButtonEdit = "Edit"
 }
 
+// Note: This UI test are designed to run on iPhone only. 
+// Modification might be needed for iPad, it's beyond the scope at this time. 
+// Instead we manually tested the iPad version for regression after this UI test. 
+
 class TodododoUITests: XCTestCase {
     
     let app = XCUIApplication()
@@ -123,6 +127,13 @@ class TodododoUITests: XCTestCase {
         
     }
     
+    func pickAnyOneLocation() {
+        // should be in Task detail view already 
+        XCTAssertTrue(app.navigationBars.buttons["Save"].exists)
+        XCTAssertTrue(app.navigationBars.buttons["Cancel"].exists)
+
+    }
+
     func testAddSomeTasksWithLocation() {
         let tabBarsQuery = app.tabBars
         let locationButton = tabBarsQuery.buttons["Location"]
@@ -182,17 +193,22 @@ class TodododoUITests: XCTestCase {
     
     func testEditTaskLocation() {
         
+        let tabBarsQuery = app.tabBars
+        let locationButton = tabBarsQuery.buttons["Location"]
+        locationButton.tap()
         let tablesQuery = app.tables
-
-        tablesQuery.staticTexts["Due: Sep 7, 2017, 10:09 PM"].tap()
-        
+        let cellsCount = tablesQuery.cells.count
+        // edit the last cell 
+        let lastCellIndex = cellsCount - UInt(1)
+        let lastCell = tablesQuery.cells.element(boundBy: lastCellIndex)
+        lastCell.tap()
         let editButton = tablesQuery.buttons["Edit"]
         editButton.tap()
-        tablesQuery.cells.containing(.staticText, identifier:"Costco Gasoline").staticTexts["10401 Research Blvd, Austin, TX  78759, United States"].tap()
-        editButton.tap()
-        app.navigationBars["Choose Location"].buttons["Add"].tap()
-        
-        
+        XCTAssertTrue(app.navigationBars["Choose Location"].exists) 
+        let locationCell = tablesQuery.cells.staticTexts["99 Ranch Market"]
+        locationCell.tap()
+        let locationTitle = "99 Ranch Market"
+        XCTAssertTrue(tablesQuery.cells.staticTexts[locationTitle].exists)
     }
     
     
@@ -215,13 +231,28 @@ class TodododoUITests: XCTestCase {
     }
     
     func testArchiveTask() {
-        
+        let tabBarsQuery = app.tabBars
         let tablesQuery = app.tables
-        tablesQuery.staticTexts["Test drive a Tesla Model 3"].swipeRight()
-        tablesQuery.buttons["checked"].tap()
-        tablesQuery.staticTexts["Ginger, instant noodles, etc"].swipeRight()
-        tablesQuery.buttons["archive custom"].tap()
+        let archivedTab = tabBarsQuery.buttons["Archived"]
+        archivedTab.tap()
+        let archivedCellCountBefore = tablesQuery.cells.count
         
+        let locationTab = tabBarsQuery.buttons["Time"]
+        locationTab.tap()
+        let timeCellCountBefore = tablesQuery.cells.count
+        
+        // archive first two task
+        for _ in 1...2 {
+            let cell = tablesQuery.cells.element(boundBy: 0)
+            cell.swipeRight()
+            cell.buttons["checked"].tap()
+            cell.swipeRight()
+            cell.buttons["archive custom"].tap()
+        }
+        XCTAssertEqual(tablesQuery.cells.count, timeCellCountBefore - UInt(2))
+        
+        archivedTab.tap()
+        XCTAssertEqual(tablesQuery.cells.count, archivedCellCountBefore + UInt(2))
     }
     
     func testDeleteNonArchivedTask() {
@@ -354,6 +385,8 @@ class TodododoUITests: XCTestCase {
     }
     
     func testAddNewTaskAskForUpgrade() {
+        
+        
         app.navigationBars["Task by due date"].buttons["Add"].tap()
         
         app.alerts["Please Upgrade"].buttons["Upgrade"].tap()
