@@ -26,7 +26,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var taskNameTexField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var locationTitle: UILabel!
-    @IBOutlet weak var locationSubtitle: UILabel!
+    @IBOutlet weak var locationSubtitle: UITextView!
     @IBOutlet weak var reminder: UISwitch!
     @IBOutlet weak var reminderDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
@@ -43,7 +43,6 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var completionDateLabel: UILabel!
     @IBOutlet weak var notesTextLabel: UILabel!
-
     
     var managedContext: NSManagedObjectContext!
     
@@ -130,6 +129,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         taskNameTexField.backgroundColor = UIColor.flatPowderBlue()
         dueDateTextField.backgroundColor = UIColor.flatPowderBlue()
         reminderDateTextField.backgroundColor = UIColor.flatPowderBlue()
+        locationSubtitle.inputView = UIView(frame: .zero) // no keyboard for readonly textfield 
+        locationSubtitle.backgroundColor = .clear
         
         tableView.separatorStyle = .none
         reminder.tintColor = UIColor.flatSkyBlue()
