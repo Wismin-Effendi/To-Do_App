@@ -409,6 +409,7 @@
 				379EF4291F1C67D50023174A /* To-Do App.entitlements */,
 				37514AFE1EEF736F00D67A6E /* AppDelegate.swift */,
 				37514B021EEF736F00D67A6E /* Main.storyboard */,
+				3792EE5A1F4689D100ACAAAE /* MainInterface.storyboard */,
 				37514B0A1EEF736F00D67A6E /* LaunchScreen.storyboard */,
 				37514B0D1EEF736F00D67A6E /* Info.plist */,
 				3753BB061F4860C500EBD7CD /* assets.xcassets */,
@@ -509,7 +510,6 @@
 			children = (
 				3792EE661F47605200ACAAAE /* To-Do Widget.entitlements */,
 				3792EE581F4689D100ACAAAE /* TodayViewController.swift */,
-				3792EE5A1F4689D100ACAAAE /* MainInterface.storyboard */,
 				3792EE5D1F4689D100ACAAAE /* Info.plist */,
 				3769B3B61F58E11B006D5AF2 /* WidgetTableViewCell.swift */,
 			);
@@ -1312,6 +1312,7 @@
 				376C8FB41F5833A70014A7ED /* fr */,
 			);
 			name = MainInterface.storyboard;
+			path = "../To-Do Widget";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
