@@ -28,7 +28,7 @@ final class StyleManager {
     }
     
     static func theme() -> UIColor {
-        return FlatWhite()
+        return FlatBlackDark()
     }
     
     static func toolBarTheme() -> UIColor {
@@ -48,7 +48,7 @@ final class StyleManager {
     }
     
     static func titleTextTheme() -> UIColor {
-        return FlatWhite()
+        return FlatBlackDark()
     }
     
     static func titleTheme() -> UIColor {
@@ -60,7 +60,7 @@ final class StyleManager {
     }
     
     static func backgroudTheme() -> UIColor {
-        return FlatWhite()
+        return FlatBlackDark()
     }
     
     static func positiveTheme() -> UIColor {

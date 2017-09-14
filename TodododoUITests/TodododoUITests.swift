@@ -28,6 +28,7 @@ struct Alert {
         static let Later = "Later"
         static let Upgrade = "Upgrade"
         static let Dismiss = "Dismiss"
+        static let Cancel = "Cancel"
 
     }
 }
@@ -58,11 +59,23 @@ struct MapVC {
     struct AnnotationText {
         static let Ranch99_Grant_Rd = "99 Ranch Market, 1350 Grant Rd, Mountain View, CA  94040, United States"
         static let Chicken99 = "99 Chicken, 2781 El Camino Real, Santa Clara, CA  95051, United States"
+        static let LowT99  = "Low T 99, 5150 Graves Ave, Unit 11H, San Jose, CA  95129, United States"
     }
 }
 
 struct DetailView {
     static let tableButtonEdit = "Edit"
+}
+
+struct LocationTitle {
+    static let Ranch99 = "99 Ranch Market"
+}
+
+struct TableCellButton {
+    static let archive = "archive custom"
+    static let reschedule = "clock custom"
+    static let completed = "checked"
+    static let delete = "Delete"
 }
 
 // Note: This UI test are designed to run on iPhone only. 
@@ -72,6 +85,7 @@ struct DetailView {
 class TodododoUITests: XCTestCase {
     
     let app = XCUIApplication()
+    let doesExists = NSPredicate(format: "exists == true")
 
     override func setUp() {
         super.setUp()
@@ -109,11 +123,8 @@ class TodododoUITests: XCTestCase {
         timeBasedButton.tap()
         
         let tablesQuery = app.tables
-        let cellsCount = tablesQuery.cells.count
+        let cellsCount = tablesQuery.element(boundBy: 0).cells.count
         print("Number of cells: \(cellsCount)")
-        let kayakingCell = tablesQuery.cells.staticTexts["Kayaking"]
-        kayakingCell.tap()
-        app.navigationBars["Kayaking"].buttons["Cancel"].tap()
         
         for idx in 0..<cellsCount {
             let cell = tablesQuery.cells.element(boundBy: idx)
@@ -123,72 +134,75 @@ class TodododoUITests: XCTestCase {
         }
     }
     
-    func testAddSomeTasksWithoutLocation() {
-        
+    func addSeveralTasksWithoutLocation(count: Int) {
+        handle_iTunesLogin()
+
+        for _ in 1...count {
+            app.navigationBars["Task by due date"].buttons["Add"].tap()
+            app.navigationBars.buttons["Save"].tap()
+        }
+    }
+    
+    func handle_iTunesLogin() {
+        let signInAlert = app.alerts["Sign In to iTunes Store"]
+        if signInAlert.exists {
+            signInAlert.buttons["Cancel"].tap()
+        }
     }
     
     func pickAnyOneLocation() {
         // should be in Task detail view already 
         XCTAssertTrue(app.navigationBars.buttons["Save"].exists)
         XCTAssertTrue(app.navigationBars.buttons["Cancel"].exists)
-
+        let tablesQuery = app.tables
+        tablesQuery.buttons["Edit"].tap()
+        // select in Location List
+        XCTAssertTrue(app.navigationBars["Choose Location"].exists)
+        let ranch99 = tablesQuery.element(boundBy: 0).cells.textFields["99 Ranch Market"]
+        ranch99.tap()
+        // check in TaskEdit page
+        XCTAssertTrue(tablesQuery.element(boundBy: 0).cells.textFields["99 Ranch Market"].exists)
+        app.navigationBars.buttons["Save"].tap()
     }
 
-    func testAddSomeTasksWithLocation() {
-        let tabBarsQuery = app.tabBars
-        let locationButton = tabBarsQuery.buttons["Location"]
-        locationButton.tap()
-        app.navigationBars.buttons["Add"].tap()
-        app.tables.buttons["Edit"].tap()
-        let chooseLocationNavigationBar = app.navigationBars["Choose Location"]
-        XCTAssertTrue(chooseLocationNavigationBar.exists)
-        chooseLocationNavigationBar.buttons["Add"].tap()
-        
-        let enterBusinessOrLandmarkOrAddressTextField = app.textFields["Enter Business or Landmark or Address"]
-        enterBusinessOrLandmarkOrAddressTextField.tap()
-        enterBusinessOrLandmarkOrAddressTextField.typeText("99")
-        app.typeText(" \r")
-        app.alerts["10 locations found"].buttons["Dismiss"].tap()
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element(boundBy: 1).tap()
-        app.otherElements["99 Chicken, 2781 El Camino Real, Santa Clara, CA  95051, United States"].tap()
-        
-        let moreInfoButton = app.buttons["More Info"]
-        moreInfoButton.tap()
-        moreInfoButton.tap()
-        
-        let okButton = app.alerts["Choose Location"].buttons["OK"]
-        okButton.tap()
-        okButton.tap()
-        app.navigationBars["Add New Location"].buttons["Done"].tap()
-        chooseLocationNavigationBar.buttons["Jogging"].tap()
-        
+     func getTotalTasksCount() -> Int {
+        let tablesQuery = app.tables
+        app.tabBars.buttons["Time"].tap()
+        let activeTasksCount = tablesQuery.element(boundBy: 0).cells.count
+        print(activeTasksCount)
+        app.tabBars.buttons["Archived"].tap()
+        let archivedTasksCount = tablesQuery.element(boundBy: 0).cells.count
+        print(archivedTasksCount)
+        return Int(activeTasksCount + archivedTasksCount)
     }
     
-    func testAddNewLocation() {
+    
+    func trimTasksToMaxTotal(count: Int) {
+        let totalCount = getTotalTasksCount()
+        let maxEachType = totalCount / 2
         
-        
+        let tabBarsQuery = app.tabBars
         let tablesQuery = app.tables
-        let editButton = tablesQuery.buttons["Edit"]
-        editButton.tap()
-        tablesQuery.staticTexts["99 Ranch Market"].tap()
-        editButton.tap()
-        editButton.tap()
-        app.navigationBars["Choose Location"].buttons["Add"].tap()
+        let locationButton = tabBarsQuery.buttons["Location"]
+        let archivedButton = tabBarsQuery.buttons["Archived"]
         
-        let enterBusinessOrLandmarkOrAddressTextField = app.textFields["Enter Business or Landmark or Address"]
-        enterBusinessOrLandmarkOrAddressTextField.tap()
-        enterBusinessOrLandmarkOrAddressTextField.typeText("99 ")
-        app.typeText("\r")
+        locationButton.tap()
+        let activeTaskCount = Int(tablesQuery.element(boundBy: 0).cells.count)
+        let numActiveTasksToDelete = activeTaskCount - maxEachType
+        if numActiveTasksToDelete > 0 {
+            deleteActiveTasks(count: numActiveTasksToDelete)
+        }
         
-        
+        archivedButton.tap()
+        let archivedTaskCount = Int(tablesQuery.element(boundBy: 0).cells.count)
+        let numArchivedTaskToDelete = archivedTaskCount - maxEachType
+        if numArchivedTaskToDelete > 0 {
+            deleteArchivedTasks(count: numArchivedTaskToDelete)
+        }
     }
 
-    func testAddLocationAskForUpgrade() {
-        
-        app.navigationBars["Task by due date"].buttons["Add"].tap()
-        app.alerts["Please Upgrade"].buttons["Upgrade"].tap()
-        app.buttons["Restore Purchases"].tap()
-        app.navigationBars["Upgrade"].buttons["Done"].tap()
+    func testTrimTasks() {
+        trimTasksToMaxTotal(count: 18)
     }
     
     func testEditTaskLocation() {
@@ -197,7 +211,7 @@ class TodododoUITests: XCTestCase {
         let locationButton = tabBarsQuery.buttons["Location"]
         locationButton.tap()
         let tablesQuery = app.tables
-        let cellsCount = tablesQuery.cells.count
+        let cellsCount = tablesQuery.element(boundBy: 0).cells.count
         // edit the last cell 
         let lastCellIndex = cellsCount - UInt(1)
         let lastCell = tablesQuery.cells.element(boundBy: lastCellIndex)
@@ -205,168 +219,156 @@ class TodododoUITests: XCTestCase {
         let editButton = tablesQuery.buttons["Edit"]
         editButton.tap()
         XCTAssertTrue(app.navigationBars["Choose Location"].exists) 
-        let locationCell = tablesQuery.cells.staticTexts["99 Ranch Market"]
+        let locationCell = tablesQuery.element(boundBy: 0).cells.staticTexts["99 Ranch Market"]
         locationCell.tap()
         let locationTitle = "99 Ranch Market"
-        XCTAssertTrue(tablesQuery.cells.staticTexts[locationTitle].exists)
+        XCTAssertTrue(tablesQuery.element(boundBy: 0).cells.staticTexts[locationTitle].exists)
     }
     
     
-    func testDeleteArchivedTasks() {
+    
+    func deleteArchivedTasks(count: Int) {
         
         app.tabBars.buttons["Archived"].tap()
         let tablesQuery = app.tables
-        var cellsCount = tablesQuery.cells.count
+        let cellsCount = tablesQuery.element(boundBy: 0).cells.count
         guard cellsCount > 0 else {
             XCTFail("Table has not cell")
             return
         }
-        for _ in 0..<cellsCount {
+        
+        let countCellsToDelete = min(Int(cellsCount), count)
+        for _ in 0..<countCellsToDelete {
             let cell = tablesQuery.cells.element(boundBy: 0)
             cell.swipeLeft()
             cell.buttons["Delete"].tap()
         }
-        cellsCount = tablesQuery.cells.count
-        XCTAssertTrue(cellsCount == 0)
     }
     
-    func testArchiveTask() {
+    func testDeleteAllArchivedTasks() {
+        app.tabBars.buttons["Archived"].tap()
+        let tablesQuery = app.tables
+        let beforeCellsCount = tablesQuery.element(boundBy: 0).cells.count
+        rescheduleFromArchive(count: Int(beforeCellsCount))
+        
+        deleteArchivedTasks(count: Int(beforeCellsCount))
+        
+        let cellsCount = tablesQuery.element(boundBy: 0).cells.count
+        XCTAssertTrue(cellsCount == 0)
+        
+        archiveTasks(count: Int(beforeCellsCount))
+    }
+    
+    func archiveTasks(count: Int) {
+        guard count > 0 else {
+            fatalError("got count: \(count)")
+        }
         let tabBarsQuery = app.tabBars
         let tablesQuery = app.tables
         let archivedTab = tabBarsQuery.buttons["Archived"]
         archivedTab.tap()
-        let archivedCellCountBefore = tablesQuery.cells.count
+        let archivedCellCountBefore = tablesQuery.element(boundBy: 0).cells.count
         
-        let locationTab = tabBarsQuery.buttons["Time"]
-        locationTab.tap()
-        let timeCellCountBefore = tablesQuery.cells.count
+        let timeTab = tabBarsQuery.buttons["Time"]
+        timeTab.tap()
+        let timeCellCountBefore = tablesQuery.element(boundBy: 0).cells.count
         
-        // archive first two task
-        for _ in 1...2 {
+        let currentCount = Int(tablesQuery.element(boundBy: 0).cells.count)
+        let countCellsToArchive = min(currentCount, count)
+        
+        // archive tasks
+        for _ in 1...countCellsToArchive {
             let cell = tablesQuery.cells.element(boundBy: 0)
+            expectation(for: doesExists, evaluatedWith: cell, handler: nil)
+            waitForExpectations(timeout: 2, handler: nil)
             cell.swipeRight()
-            cell.buttons["checked"].tap()
-            cell.swipeRight()
-            cell.buttons["archive custom"].tap()
+            let archiveButton = tablesQuery.buttons[TableCellButton.archive]
+            expectation(for: doesExists, evaluatedWith: archiveButton, handler: nil)
+            waitForExpectations(timeout: 2, handler: nil)
+            archiveButton.tap()
+            print("blah")
         }
-        XCTAssertEqual(tablesQuery.cells.count, timeCellCountBefore - UInt(2))
+        XCTAssertEqual(tablesQuery.element(boundBy: 0).cells.count, timeCellCountBefore - UInt(countCellsToArchive))
         
         archivedTab.tap()
-        XCTAssertEqual(tablesQuery.cells.count, archivedCellCountBefore + UInt(2))
+        XCTAssertEqual(tablesQuery.element(boundBy: 0).cells.count, archivedCellCountBefore + UInt(countCellsToArchive))
+        
     }
     
-    func testDeleteNonArchivedTask() {
-        
+    func deleteActiveTasks(count: Int) {
+        guard count > 0 else { return }
         app.tabBars.buttons["Location"].tap()
         let tablesQuery = app.tables
-        tablesQuery.staticTexts["Gasoline, blueberry, water, and bread"].press(forDuration: 5.7);
-        print("stop here")
         
-        tablesQuery.buttons["Delete Walk the dog, Due: Sep 7, 2017, 3:19 PM"].tap()
+        let currentCount = Int(tablesQuery.element(boundBy: 0).cells.count)
+        let countCellsToDelete = min(currentCount, count)
         
-        let deleteButton = tablesQuery.buttons["Delete"]
-        deleteButton.tap()
-        tablesQuery.staticTexts["Jogging "].tap()
-        tablesQuery.buttons["Delete Jogging, Due: Sep 7, 2017, 10:09 PM"].tap()
-        deleteButton.tap()
-        app.navigationBars["Task by due date"].buttons["Done"].tap()
-        
+        for _ in 1...countCellsToDelete {
+            let cell = tablesQuery.cells.element(boundBy: 0)
+            expectation(for: doesExists, evaluatedWith: cell, handler: nil)
+            waitForExpectations(timeout: 2, handler: nil)
+            cell.swipeLeft()
+            let deleteButton = cell.buttons["Delete"]
+            expectation(for: doesExists, evaluatedWith: deleteButton, handler: nil)
+            waitForExpectations(timeout: 2, handler: nil)
+            deleteButton.tap()
+        }
     }
     
-    func testAddNewLocation2() {
-        
-        let tablesQuery = app.tables
-        tablesQuery.staticTexts["Gasoline, blueberry, water, and bread"].tap()
-        tablesQuery.buttons["Edit"].tap()
-        app.navigationBars["Choose Location"].buttons["Add"].tap()
-        
-        let enterBusinessOrLandmarkOrAddressTextField = app.textFields["Enter Business or Landmark or Address"]
-        enterBusinessOrLandmarkOrAddressTextField.tap()
-        enterBusinessOrLandmarkOrAddressTextField.typeText("99 ")
-        app.typeText("\r")
-        app.alerts["10 locations found"].buttons["Dismiss"].tap()
-        app.otherElements["99 Ranch Market, 1350 Grant Rd, Mountain View, CA  94040, United States"].tap()
-        
-        let moreInfoButton = app.buttons["More Info"]
-        moreInfoButton.tap()
-        moreInfoButton.tap()
-        
-        let chooseLocationAlert = app.alerts["Choose Location"]
-        let textField = chooseLocationAlert.collectionViews.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .textField).element
-        textField.typeText(" - 1")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element(boundBy: 1).tap()
-        
-        let popoverdismissregionElement = app.otherElements["PopoverDismissRegion"]
-        popoverdismissregionElement.tap()
-        moreInfoButton.tap()
-        moreInfoButton.tap()
-        textField.typeText(" - 1")
-        
-        let okButton = chooseLocationAlert.buttons["OK"]
-        okButton.press(forDuration: 2.7);
-        popoverdismissregionElement.tap()
-        moreInfoButton.tap()
-        okButton.tap()
-        popoverdismissregionElement.tap()
-        moreInfoButton.tap()
-        moreInfoButton.tap()
-        okButton.tap()
-        popoverdismissregionElement.tap()
-        moreInfoButton.tap()
-        moreInfoButton.tap()
-        okButton.tap()
-        popoverdismissregionElement.tap()
-        moreInfoButton.tap()
-        
-    }
-    
-    func testAddNewTask() {
-        app.navigationBars["Task by due date"].buttons["Add"].tap()
-        app.alerts["Please Upgrade"].buttons["Upgrade"].tap()
-        app.navigationBars["Upgrade"].buttons["Done"].tap()
-        
-    }
     
     func testRescheduleFromArchive() {
         
         let tabBarsQuery = app.tabBars
+        let tablesQuery = app.tables
         let timeTab = tabBarsQuery.buttons["Time"]
-        let archivedTab = tabBarsQuery.buttons["Archived"]
         let locationTab = tabBarsQuery.buttons["Location"]
         
         locationTab.tap()
-        var tablesQuery = app.tables
-        let locationCellCount = tablesQuery.cells.count
+        let locationCellCount = tablesQuery.element(boundBy: 0).cells.count
         
         timeTab.tap()
-        tablesQuery = app.tables
-        let timeCellCount = tablesQuery.cells.count
+        let timeCellCount = tablesQuery.element(boundBy: 0).cells.count
         
+        rescheduleFromArchive(count: 2)
+        
+        locationTab.tap()
+        let newLocationCellCount = tablesQuery.element(boundBy: 0).cells.count
+        XCTAssertEqual(newLocationCellCount, locationCellCount + UInt(2))
+        
+        timeTab.tap()
+        let newTimeCellCount = tablesQuery.element(boundBy: 0).cells.count
+        XCTAssertEqual(newTimeCellCount, timeCellCount + UInt(2))
+        
+    }
+    
+    func rescheduleFromArchive(count: Int) {
+        guard count > 0 else { return }
+        let tabBarsQuery = app.tabBars
+        let tablesQuery = app.tables
+        let archivedTab = tabBarsQuery.buttons["Archived"]
+
         archivedTab.tap()
-        tablesQuery = app.tables
-        let cellsCount = tablesQuery.cells.count
+        let cellsCount = tablesQuery.element(boundBy: 0).cells.count
         guard cellsCount > 0 else {
             XCTFail("Table has not cell")
             return
         }
-        let randomIndex = UInt(arc4random_uniform(UInt32(cellsCount)))
-        let cell = tablesQuery.cells.element(boundBy: randomIndex)
-        cell.swipeRight()
-        cell.buttons["clock custom"].tap()
         
-        locationTab.tap()
-        tablesQuery = app.tables
-        let newLocationCellCount = tablesQuery.cells.count
-        XCTAssertEqual(newLocationCellCount, locationCellCount + UInt(1))
-        
-        timeTab.tap()
-        tablesQuery = app.tables
-        let newTimeCellCount = tablesQuery.cells.count
-        XCTAssertEqual(newTimeCellCount, timeCellCount + UInt(1))
-        
+        for _ in 1...count {
+            let cell = tablesQuery.cells.element(boundBy: 0)
+            expectation(for: doesExists, evaluatedWith: cell, handler: nil)
+            waitForExpectations(timeout: 2, handler: nil)
+            cell.swipeRight()
+            let rescheduleButton = cell.buttons[TableCellButton.reschedule]
+            expectation(for: doesExists, evaluatedWith: rescheduleButton, handler: nil)
+            waitForExpectations(timeout: 1, handler: { (_) -> Void in cell.swipeRight() })
+            XCTAssert(rescheduleButton.exists)
+            rescheduleButton.tap()
+        }
     }
 
     func testShowLicenses() {
+        
         let tabBarsQuery = app.tabBars
         let archivedTab = tabBarsQuery.buttons["Archived"]
         archivedTab.tap()
@@ -385,61 +387,27 @@ class TodododoUITests: XCTestCase {
     }
     
     func testAddNewTaskAskForUpgrade() {
+        archiveTasks(count: 4)
+        let numTasksToAdd = 20 - getTotalTasksCount()
         
+        print("Number of task to Add :  \(numTasksToAdd)")
         
-        app.navigationBars["Task by due date"].buttons["Add"].tap()
+        if numTasksToAdd > 0 {
+            rescheduleFromArchive(count: numTasksToAdd)
+        }
         
-        app.alerts["Please Upgrade"].buttons["Upgrade"].tap()
+        app.tabBars.buttons[TabBarTitle.Time].tap()
+        app.navigationBars[NavBar.Title.byDueDate].buttons[NavBar.Button.Add].tap()
         
-        app.navigationBars["Upgrade"].buttons["Done"].tap()
-    }
-    
-    func testAddTaskWithoutLocation() {
+        let upgradeAlert = app.alerts[Alert.Title.pleaseUpgrade]
+        XCTAssertTrue(upgradeAlert.exists)
+        upgradeAlert.buttons[Alert.Button.Upgrade].tap()
         
-    }
-    
-    func testAddTaskWithLocation() {
+        let upgradeVCNavBar = app.navigationBars[NavBar.Title.upgrade]
+        XCTAssertTrue(upgradeVCNavBar.exists)
+        upgradeVCNavBar.buttons[NavBar.Button.Done].tap()
         
-    }
-    
-    func testCompleteSomeTask() {
-        
-    }
-    
-    func testAddNewLocation3() {
-        
-        let app = XCUIApplication()
-        app.navigationBars["Task by due date"].buttons["Add"].tap()
-        app.tables.buttons["Edit"].tap()
-        app.navigationBars["Choose Location"].buttons["Add"].tap()
-        
-        let enterBusinessOrLandmarkOrAddressTextField = app.textFields["Enter Business or Landmark or Address"]
-        enterBusinessOrLandmarkOrAddressTextField.tap()
-        enterBusinessOrLandmarkOrAddressTextField.typeText("99 ")
-        app.typeText("\r")
-        app.alerts["10 locations found"].buttons["Dismiss"].tap()
-        app.otherElements["Low T 99, 5150 Graves Ave, Unit 11H, San Jose, CA  95129, United States"].tap()
-        
-        let moreInfoButton = app.buttons["More Info"]
-        moreInfoButton.tap()
-        
-        let chooseLocationAlert = app.alerts["Choose Location"]
-        let okButton = chooseLocationAlert.buttons["OK"]
-        okButton.tap()
-        
-        let popoverdismissregionElement = app.otherElements["PopoverDismissRegion"]
-        popoverdismissregionElement.tap()
-        popoverdismissregionElement.tap()
-        moreInfoButton.tap()
-        okButton.tap()
-        moreInfoButton.tap()
-        
-        let cancelButton = chooseLocationAlert.buttons["Cancel"]
-        cancelButton.tap()
-        cancelButton.tap()
-        moreInfoButton.tap()
-        cancelButton.tap()
-        cancelButton.tap()
-        
+        guard numTasksToAdd > 0 else { return }
+        deleteActiveTasks(count: numTasksToAdd)
     }
 }

@@ -762,7 +762,6 @@
 					};
 					377993541F65FD29001B1146 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = WZFHSP6QD4;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 37514AFA1EEF736F00D67A6E;
 					};
@@ -1474,12 +1473,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22E681AA5D0AB224F03EC1A9 /* Pods-TodododoUITests.debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = WZFHSP6QD4;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TodododoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.TodododoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "700daab0-f1f4-4013-a702-a84ba348cacd";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Todododo;
 			};
@@ -1489,12 +1490,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3FF1CED171A647A0FB49C8EE /* Pods-TodododoUITests.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = WZFHSP6QD4;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TodododoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ninja.pragprog.TodododoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "700daab0-f1f4-4013-a702-a84ba348cacd";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Todododo;
 			};

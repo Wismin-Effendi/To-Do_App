@@ -75,6 +75,8 @@ class TaskTableViewController: UITableViewController {
         addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TaskTableViewController.addNewTaskTapped))
         tabBarController?.navigationItem.rightBarButtonItem = addBarButton
         addBarButton.isEnabled = true
+        addBarButton.isAccessibilityElement = true
+        addBarButton.accessibilityLabel = "Add"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -284,7 +286,6 @@ extension TaskTableViewController {
         let dueDateText = DateUtil.shortDateText(task.dueDate as Date)
         let dueText = NSLocalizedString("Due", comment: "subtitle")
         cell.detailTextLabel?.text = "\(dueText): \(dueDateText)"
-        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         cell.backgroundColor = UIColor.flatWhite()
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "checked"), backgroundColor: .white, callback: {[unowned self]

@@ -30,6 +30,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>TodododoUITests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>

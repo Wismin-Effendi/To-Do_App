@@ -131,6 +131,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         reminderDateTextField.backgroundColor = UIColor.flatPowderBlue()
         locationSubtitle.inputView = UIView(frame: .zero) // no keyboard for readonly textfield 
         locationSubtitle.backgroundColor = .clear
+        notesTextView.layer.cornerRadius = 8
+        notesTextView.clipsToBounds = true 
         
         tableView.separatorStyle = .none
         reminder.tintColor = UIColor.flatSkyBlue()
@@ -139,6 +141,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         showDueDatePicker = false
         showReminderDatePicker = false
         
+        setUITestAccessibility()
         setTagOnTextField()
         setTextFieldDelegate()
         setTextViewDelegate()
@@ -168,6 +171,10 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         AnimatorFactory.scaleUp(view: notesTextView).startAnimation()
     }
     
+    private func setUITestAccessibility() {
+        taskNameTexField.isAccessibilityElement = true
+        taskNameTexField.accessibilityLabel = "taskName"
+    }
     
     private func setupNavigationBarItems() {
         

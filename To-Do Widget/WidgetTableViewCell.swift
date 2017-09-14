@@ -44,6 +44,7 @@ class WidgetTableViewCell: UITableViewCell {
         completed = true
         statusButton.setImage(#imageLiteral(resourceName: "checked-custom"), for: .normal)
         task.completed = true
+        task.completionDate = NSDate()
         guard let managedContext = task.managedObjectContext else { return }
         do {
             try managedContext.save()
