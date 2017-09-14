@@ -280,11 +280,15 @@ extension TaskTableViewController {
         let task = fetchedResultsController.object(at: indexPath)
         let text = task.title
         let attributedString = NSMutableAttributedString(string: text)
-        cell.textLabel?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
+        cell.title?.attributedText = task.completed ? addThickStrikethrough(attributedString) : noStrikethrough(attributedString)
         let dueDateText = DateUtil.shortDateText(task.dueDate as Date)
         let dueText = NSLocalizedString("Due", comment: "subtitle")
-        cell.detailTextLabel?.text = "\(dueText): \(dueDateText)"
+        cell.subtitle?.text = "\(dueText): \(dueDateText)"
         cell.backgroundColor = UIColor.flatWhite()
+        cell.alarmImageView.isHidden = !task.reminder
+        cell.noteImageView.isHidden = task.notes == ""
+        cell.disclosureImageView.isHidden = cell.isEditing
+            
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "checked"), backgroundColor: .white, callback: {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in

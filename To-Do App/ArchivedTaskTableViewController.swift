@@ -150,6 +150,9 @@ extension ArchivedTaskTableViewController {
         let completionDateText = DateUtil.shortDateText(task.completionDate! as Date)
         cell.detailTextLabel?.text = "Completion date: \(completionDateText)"
         cell.backgroundColor = UIColor.flatGray()
+        cell.alarmImageView.isHidden = true
+        cell.noteImageView.isHidden = task.notes == ""
+        cell.disclosureImageView.isHidden = cell.isEditing
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "clock-custom"), backgroundColor: .white) {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
