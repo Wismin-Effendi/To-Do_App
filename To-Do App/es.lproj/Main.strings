@@ -148,3 +148,7 @@
 
 /* Class = "UILabel"; text = "Notes: "; ObjectID = "6BM-gd-nCi"; */
 "6BM-gd-nCi.text" = "Notas: ";
+
+/* Class = "UITextField"; placeholder = "Enter task name here."; ObjectID = "OsY-sT-Pz2"; */
+"OsY-sT-Pz2.placeholder" = "Nombre de la nueva tarea";
+

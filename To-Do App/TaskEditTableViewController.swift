@@ -33,6 +33,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     var saveButton: UIBarButtonItem!
     var cancelButton: UIBarButtonItem!
+    
     @IBOutlet weak var editLocationButton: UIButton!
     
     @IBOutlet weak var dueDatePicker: UIDatePicker!
@@ -370,7 +371,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         // Disable the Save button if the text field is empty
         let text = taskNameTexField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
-        saveButton.tintColor = saveButton.isEnabled ? UIColor.white : UIColor.clear
+        saveButton.tintColor = saveButton.isEnabled ? UIColor.white : UIColor.flatGray()
     }
     
     fileprivate func askMasterViewToSelectFirstRow() {

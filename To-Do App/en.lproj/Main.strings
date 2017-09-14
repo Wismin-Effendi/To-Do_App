@@ -17,9 +17,6 @@
 /* Class = "UITabBarItem"; title = "Location"; ObjectID = "3WT-hM-cqz"; */
 "3WT-hM-cqz.title" = "Location";
 
-/* Class = "UILabel"; text = "Subtitle"; ObjectID = "3aa-GD-qeg"; */
-"3aa-GD-qeg.text" = "Subtitle";
-
 /* Class = "UITabBarItem"; title = "Time"; ObjectID = "4PD-e1-xK1"; */
 "4PD-e1-xK1.title" = "Time";
 
@@ -58,6 +55,9 @@
 
 /* Class = "UINavigationItem"; title = "New Task"; ObjectID = "MbY-mZ-47F"; */
 "MbY-mZ-47F.title" = "New Task";
+
+/* Class = "UITextField"; placeholder = "Enter task name here."; ObjectID = "OsY-sT-Pz2"; */
+"OsY-sT-Pz2.placeholder" = "Name of the new task";
 
 /* Class = "UILabel"; text = "hours from now"; ObjectID = "Ose-Q0-SAL"; */
 "Ose-Q0-SAL.text" = "hours from now";
@@ -104,6 +104,9 @@
 /* Class = "UIButton"; normalTitle = "Upgrade"; ObjectID = "iGr-Kk-cYB"; */
 "iGr-Kk-cYB.normalTitle" = "Upgrade";
 
+/* Class = "UILabel"; text = "Notes:"; ObjectID = "iiD-3B-UJO"; */
+"iiD-3B-UJO.text" = "Notes:";
+
 /* Class = "UILabel"; text = "location title"; ObjectID = "j5k-yJ-1nT"; */
 "j5k-yJ-1nT.text" = "location title";
 
@@ -142,3 +145,6 @@
 
 /* Class = "UINavigationItem"; title = "Archived Task"; ObjectID = "xZI-cX-aaa"; */
 "xZI-cX-aaa.title" = "Archived Task";
+
+/* Class = "UILabel"; text = "notesText"; ObjectID = "xa7-m8-rfW"; */
+"xa7-m8-rfW.text" = "notesText";

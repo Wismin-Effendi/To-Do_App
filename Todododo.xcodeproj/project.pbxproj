@@ -175,11 +175,11 @@
 		22E681AA5D0AB224F03EC1A9 /* Pods-TodododoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodododoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TodododoUITests/Pods-TodododoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3050C6C3417098D41122A9B5 /* Pods-To-Do Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To-Do Widget.release.xcconfig"; path = "Pods/Target Support Files/Pods-To-Do Widget/Pods-To-Do Widget.release.xcconfig"; sourceTree = "<group>"; };
 		370FEACC1F539D6F0096AAA5 /* DueDateTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DueDateTaskTableViewController.swift; sourceTree = "<group>"; };
-		371C3EE71F5EFC1E00BE4CDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		371F4BB21F4E773D00BFCF93 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = ../../../Carthage_workdir/SwiftDate/Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		371F4BB51F4E7C0500BFCF93 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftDate.framework; sourceTree = "<group>"; };
 		372B37111F6ACDDA00E6BEE2 /* CustomTaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTaskCell.swift; sourceTree = "<group>"; };
 		372B37121F6ACDDA00E6BEE2 /* CustomTaskCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTaskCell.xib; sourceTree = "<group>"; };
+		372B37161F6ADC4C00E6BEE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		372DF3291F5B84E1005C0D7E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		373F9CAC1F54999200D6B26C /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataHelper.swift; path = "../To-Do App/CoreDataHelper.swift"; sourceTree = "<group>"; };
 		373F9CAE1F5499C800D6B26C /* CloudKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudKitHelper.swift; path = "../To-Do App/CloudKitHelper.swift"; sourceTree = "<group>"; };
@@ -1276,7 +1276,7 @@
 				376C8FA91F5833660014A7ED /* de */,
 				376C8FAC1F5833750014A7ED /* es */,
 				376C8FB21F5833A70014A7ED /* fr */,
-				371C3EE71F5EFC1E00BE4CDE /* en */,
+				372B37161F6ADC4C00E6BEE2 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
