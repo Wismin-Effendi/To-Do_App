@@ -17,7 +17,7 @@ import ToDoCoreDataCloudKit
 class LocationTaskTableViewController: TaskTableViewController {
     
     // MARK: - Properties
-    override var cellIdentifier: String { return CellIdentifier.LocationTaskCell }
+    override var cellIdentifier: String { return CellIdentifier.customTaskCell }
     
     override func viewDidLoad() {
         super.viewDidLoad()

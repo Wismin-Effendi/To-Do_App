@@ -146,9 +146,9 @@ extension ArchivedTaskTableViewController {
         let task = fetchedResultsController.object(at: indexPath)
         let text = task.title
         let attributedString = NSMutableAttributedString(string: text)
-        cell.textLabel?.attributedText = noStrikethrough(attributedString)
+        cell.title?.attributedText = noStrikethrough(attributedString)
         let completionDateText = DateUtil.shortDateText(task.completionDate! as Date)
-        cell.detailTextLabel?.text = "Completion date: \(completionDateText)"
+        cell.subtitle?.text = "Completion date: \(completionDateText)"
         cell.backgroundColor = UIColor.flatGray()
         cell.alarmImageView.isHidden = true
         cell.noteImageView.isHidden = task.notes == ""

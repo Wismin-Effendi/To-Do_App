@@ -53,6 +53,8 @@ class TaskTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "CustomTaskCell", bundle: nil), forCellReuseIdentifier: "customTaskCell")
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
         tableView.tableFooterView = UIView()
+        tableView.estimatedRowHeight = 72
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         fetchAndReloadTableAfterFirstCloudKitSync()
         setupRefreshControl()

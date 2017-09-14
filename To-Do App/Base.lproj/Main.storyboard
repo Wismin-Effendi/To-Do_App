@@ -33,7 +33,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6WW-b4-55a" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bsG-aO-nf5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bsG-aO-nf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -52,7 +52,7 @@
             <objects>
                 <navigationController id="Isn-jM-q7G" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mmu-ml-EcY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Mmu-ml-EcY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1026,7 +1026,7 @@
                 <navigationController id="dcu-m5-3Me" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Time" image="clock" selectedImage="clock-fill" id="4PD-e1-xK1"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cSP-ux-svX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cSP-ux-svX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1046,7 +1046,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t2Q-uf-tIg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Location" image="location" selectedImage="location-fill" id="3WT-hM-cqz"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zTb-Wc-sfW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zTb-Wc-sfW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1114,7 +1114,7 @@
                 <navigationController id="xcw-oU-nh6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Archived" image="archive" selectedImage="archive-fill" id="L2Y-kP-jBo"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJS-B1-gKX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JJS-B1-gKX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1208,7 +1208,7 @@
             <objects>
                 <navigationController id="qL6-Vv-WU3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iRi-08-iOh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iRi-08-iOh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1227,7 +1227,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b57-vl-iqP" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WQs-K7-uUs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="WQs-K7-uUs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1251,6 +1251,6 @@
         <image name="location-fill" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Chc-xw-RgH"/>
+        <segue reference="eOD-zq-1gJ"/>
     </inferredMetricsTieBreakers>
 </document>
