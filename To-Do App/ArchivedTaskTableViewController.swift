@@ -17,7 +17,7 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     var settingsButton: UIBarButtonItem!
     
     // MARK: - Properties
-    override var cellIdentifier: String { return CellIdentifier.ArchivedTaskCell }
+    override var cellIdentifier: String { return CellIdentifier.customTaskCell }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -139,7 +139,7 @@ class ArchivedTaskTableViewController: TaskTableViewController {
 // MARK: - Internal
 extension ArchivedTaskTableViewController {
     override func configure(cell: MGSwipeTableCell, for indexPath: IndexPath) {
-        guard let cell = cell as? TaskCell else {
+        guard let cell = cell as? CustomTaskCell else {
             return
         }
         
@@ -153,7 +153,7 @@ extension ArchivedTaskTableViewController {
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "clock-custom"), backgroundColor: .white) {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
-            guard (sender as? TaskCell) != nil else { return false }
+            guard (sender as? CustomTaskCell) != nil else { return false }
             CoreDataUtil.cloneAsActiveTask(task: task, managedContext: self.coreDataStack.managedContext)
             self.coreDataStack.saveContext()
             return true

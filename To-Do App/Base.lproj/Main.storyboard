@@ -33,7 +33,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6WW-b4-55a" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bsG-aO-nf5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bsG-aO-nf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -52,7 +52,7 @@
             <objects>
                 <navigationController id="Isn-jM-q7G" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Mmu-ml-EcY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mmu-ml-EcY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,7 +75,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DueDateTaskCell" textLabel="dTf-t7-c3B" detailTextLabel="7qE-cu-e4D" style="IBUITableViewCellStyleSubtitle" id="KcP-Tj-Igb" customClass="TaskCell" customModule="Todododo" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customTaskCell" textLabel="dTf-t7-c3B" detailTextLabel="7qE-cu-e4D" style="IBUITableViewCellStyleSubtitle" id="KcP-Tj-Igb" customClass="CustomTaskCell" customModule="Todododo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KcP-Tj-Igb" id="wxY-No-xhi">
@@ -125,7 +125,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationTaskCell" textLabel="FQb-1a-ygt" detailTextLabel="sFO-Ff-c6g" style="IBUITableViewCellStyleSubtitle" id="4ZU-AA-irE" customClass="TaskCell" customModule="Todododo" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customTaskCell" textLabel="FQb-1a-ygt" detailTextLabel="sFO-Ff-c6g" style="IBUITableViewCellStyleSubtitle" id="4ZU-AA-irE" customClass="CustomTaskCell" customModule="Todododo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ZU-AA-irE" id="dL3-im-dVR">
@@ -407,13 +407,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d90-1a-duf">
-                                                    <rect key="frame" x="16" y="14" width="49" height="29"/>
+                                                    <rect key="frame" x="16" y="13.5" width="49" height="29"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="21"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OsY-sT-Pz2">
-                                                    <rect key="frame" x="75" y="8.5" width="282" height="40"/>
+                                                    <rect key="frame" x="75" y="8" width="282" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="XSz-Vh-HM8"/>
                                                     </constraints>
@@ -1026,7 +1026,7 @@
                 <navigationController id="dcu-m5-3Me" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Time" image="clock" selectedImage="clock-fill" id="4PD-e1-xK1"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cSP-ux-svX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cSP-ux-svX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1046,7 +1046,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t2Q-uf-tIg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Location" image="location" selectedImage="location-fill" id="3WT-hM-cqz"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zTb-Wc-sfW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zTb-Wc-sfW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1069,7 +1069,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArchivedTaskCell" textLabel="tmJ-hq-5np" detailTextLabel="fdB-n5-f8Y" style="IBUITableViewCellStyleSubtitle" id="arb-Ri-MfU" customClass="TaskCell" customModule="Todododo" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customTaskCell" textLabel="tmJ-hq-5np" detailTextLabel="fdB-n5-f8Y" style="IBUITableViewCellStyleSubtitle" id="arb-Ri-MfU" customClass="CustomTaskCell" customModule="Todododo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="arb-Ri-MfU" id="bWq-kT-55z">
@@ -1114,7 +1114,7 @@
                 <navigationController id="xcw-oU-nh6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Archived" image="archive" selectedImage="archive-fill" id="L2Y-kP-jBo"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="JJS-B1-gKX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJS-B1-gKX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1208,7 +1208,7 @@
             <objects>
                 <navigationController id="qL6-Vv-WU3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iRi-08-iOh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iRi-08-iOh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1227,7 +1227,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b57-vl-iqP" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="WQs-K7-uUs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WQs-K7-uUs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.87893050910000003" green="0.52741062640000003" blue="0.22521415350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

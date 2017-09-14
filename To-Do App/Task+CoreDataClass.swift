@@ -30,7 +30,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
         self.dueDate = (Date() + (defaultDeltaInHours).hours) as NSDate
         self.reminder = false
         self.reminderDate = dueDate
-        self.title = NSLocalizedString("Rename this new Task", comment:"")
+        self.title = NSLocalizedString("", comment:"")
         self.location = nil
     }
     

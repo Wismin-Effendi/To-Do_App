@@ -23,7 +23,7 @@ protocol TaskDetailViewDelegate: class {
 class TaskTableViewController: UITableViewController {
 
     // MARK: - Properties
-    var cellIdentifier: String { return CellIdentifier.DueDateTaskCell }
+    var cellIdentifier: String { return CellIdentifier.customTaskCell }
     
     var coreDataStack: CoreDataStack!
     var fetchedResultsController: NSFetchedResultsController<Task>!
@@ -49,6 +49,8 @@ class TaskTableViewController: UITableViewController {
         
         initializeFetchResultsController()
 
+        // Register CustomTaskCell
+        tableView.register(UINib(nibName: "CustomTaskCell", bundle: nil), forCellReuseIdentifier: "customTaskCell")
         tableView.separatorColor = UIColor.flatNavyBlueColorDark()
         tableView.tableFooterView = UIView()
         
@@ -252,8 +254,8 @@ class TaskTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: TaskCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TaskCell else {
-            fatalError("The dequeed cell is not an instance of TaskCell")
+        guard let cell: CustomTaskCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CustomTaskCell else {
+            fatalError("The dequeed cell is not an instance of CustomTaskCell")
         }
 
         configure(cell: cell, for: indexPath)
@@ -265,17 +267,13 @@ class TaskTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.flatWhiteColorDark()
     }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 56
-    }
 }
 
 // MARK: - Internal 
 extension TaskTableViewController {
     
     func configure(cell: MGSwipeTableCell, for indexPath: IndexPath) {
-        guard let cell = cell as? TaskCell else {
+        guard let cell = cell as? CustomTaskCell else {
             return
         }
         
@@ -290,7 +288,7 @@ extension TaskTableViewController {
         // configure left buttons
         cell.leftButtons = [MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "checked"), backgroundColor: .white, callback: {[unowned self]
             (sender: MGSwipeTableCell!) -> Bool in
-            guard (sender as? TaskCell) != nil else { return false }
+            guard (sender as? CustomTaskCell) != nil else { return false }
             task.setDefaultsForCompletion()
             if DateUtil.isInThePastDays(date: task.dueDate as Date) { task.archived = true }
             self.coreDataStack.saveContext()
@@ -299,7 +297,7 @@ extension TaskTableViewController {
             self.tableView.endUpdates()
             return true
         }), MGSwipeButton(title: "", icon: #imageLiteral(resourceName: "archive-custom"), backgroundColor: UIColor.init(hexString: "C8F7C5"), callback: {[unowned self] (sender: MGSwipeTableCell!) -> Bool in
-            guard (sender as? TaskCell) != nil else { return false }
+            guard (sender as? CustomTaskCell) != nil else { return false }
             task.setDefaultsForLocalChange()
             task.archived = true
             if !task.completed {

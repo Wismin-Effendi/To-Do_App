@@ -15,7 +15,7 @@ import ToDoCoreDataCloudKit
 
 class DueDateTaskTableViewController: TaskTableViewController {
     
-    override var cellIdentifier: String { return CellIdentifier.DueDateTaskCell }
+    override var cellIdentifier: String { return CellIdentifier.customTaskCell }
 
     override func viewDidLoad() {
         super.viewDidLoad()

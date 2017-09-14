@@ -20,6 +20,7 @@ public struct ModelName {
 }
 
 public struct CellIdentifier {
+    public static let customTaskCell = "customTaskCell"
     public static let DueDateTaskCell = "DueDateTaskCell"
     public static let LocationTaskCell = "LocationTaskCell"
     public static let ArchivedTaskCell = "ArchivedTaskCell"
