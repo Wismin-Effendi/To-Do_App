@@ -23,6 +23,12 @@ extension UIViewController {
     }
 }
 
+extension NSDate {
+    func isInThePast() -> Bool {
+        return (self as Date) < Date()
+    }
+}
+
 extension Sample {
     func test() -> Bool {
         return true

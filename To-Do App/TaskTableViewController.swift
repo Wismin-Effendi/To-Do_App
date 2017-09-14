@@ -287,7 +287,7 @@ extension TaskTableViewController {
         let dueText = NSLocalizedString("Due", comment: "subtitle")
         cell.subtitle?.text = "\(dueText): \(dueDateText)"
         cell.backgroundColor = UIColor.flatWhite()
-        cell.alarmImageView.isHidden = !task.reminder
+        cell.alarmImageView.isHidden = !task.reminder || task.completed || task.reminderDate!.isInThePast()
         cell.noteImageView.isHidden = task.notes == ""
         cell.disclosureImageView.isHidden = cell.isEditing
             

@@ -222,7 +222,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             // Need to reschedule the notification
             let identifier = response.notification.request.identifier
             let content = response.notification.request.content
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: (15*30), repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: (5*60), repeats: false)
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
             UNUserNotificationCenter.current().add(request) { (error) in

@@ -44,6 +44,7 @@ public class Task: NSManagedObject, CloudKitConvertible {
         setDefaultsForLocalChange()
         self.completed = true 
         self.completionDate = NSDate()
+        self.reminder = false 
     }
     
     public func setForLocalDeletion() {
