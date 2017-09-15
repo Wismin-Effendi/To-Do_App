@@ -19,8 +19,9 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     // MARK: - Properties
     override var cellIdentifier: String { return CellIdentifier.customTaskCell }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.ArchivedTask
         settingsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(ArchivedTaskTableViewController.settingTapped))
         tabBarController?.navigationItem.rightBarButtonItem = settingsButton

@@ -21,8 +21,8 @@ class DueDateTaskTableViewController: TaskTableViewController {
         super.viewDidLoad()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
 
         

@@ -155,11 +155,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         
         notesTextView.transform = CGAffineTransform(scaleX: 0.67, y: 0.67)
         notesTextView.alpha = 0
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setupNavigationBarItems()
+        
         // Set up views if editing an existing Task
         if isArchivedView {
             os_log("is archive view..", log: .default, type: .debug)
@@ -169,6 +165,12 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
             // Enable the Save button only if the text field has a valid Task name
             updateSaveButtonState()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupNavigationBarItems()
+
         AnimatorFactory.scaleUp(view: notesTextView).startAnimation()
     }
     
