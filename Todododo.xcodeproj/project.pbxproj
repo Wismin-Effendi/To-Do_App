@@ -83,6 +83,8 @@
 		379B95451F506ACE0075F30B /* ArchivedTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B95441F506ACE0075F30B /* ArchivedTaskTableViewController.swift */; };
 		379EF42B1F1C67D80023174A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379EF42A1F1C67D80023174A /* CloudKit.framework */; };
 		379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379EF42C1F1C6B2D0023174A /* Extensions.swift */; };
+		37A9957E1F6C22F500AC8E63 /* AppDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A9957D1F6C22F500AC8E63 /* AppDelegateHelper.swift */; };
+		37A995801F6C330400AC8E63 /* UserNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A9957F1F6C330400AC8E63 /* UserNotificationHelper.swift */; };
 		37C16E481F5704F400008C61 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C16E471F5704F400008C61 /* UpgradeViewController.swift */; };
 		37C16E4A1F57050200008C61 /* UpgradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C16E491F57050200008C61 /* UpgradeManager.swift */; };
 		37E72D3D1F5BBCC0001E3D6C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E72D3C1F5BBCC0001E3D6C /* SettingsViewController.swift */; };
@@ -262,6 +264,8 @@
 		379EF4291F1C67D50023174A /* To-Do App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To-Do App.entitlements"; sourceTree = "<group>"; };
 		379EF42A1F1C67D80023174A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		379EF42C1F1C6B2D0023174A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		37A9957D1F6C22F500AC8E63 /* AppDelegateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateHelper.swift; sourceTree = "<group>"; };
+		37A9957F1F6C330400AC8E63 /* UserNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHelper.swift; sourceTree = "<group>"; };
 		37C16E471F5704F400008C61 /* UpgradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
 		37C16E491F57050200008C61 /* UpgradeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeManager.swift; sourceTree = "<group>"; };
 		37E72D3C1F5BBCC0001E3D6C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -423,6 +427,8 @@
 				379EF42C1F1C6B2D0023174A /* Extensions.swift */,
 				37C16E491F57050200008C61 /* UpgradeManager.swift */,
 				3781756D1F5634F900DCDA80 /* StyleManager.swift */,
+				37A9957D1F6C22F500AC8E63 /* AppDelegateHelper.swift */,
+				37A9957F1F6C330400AC8E63 /* UserNotificationHelper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1155,9 +1161,11 @@
 				37C16E481F5704F400008C61 /* UpgradeViewController.swift in Sources */,
 				37514AFF1EEF736F00D67A6E /* AppDelegate.swift in Sources */,
 				37C16E4A1F57050200008C61 /* UpgradeManager.swift in Sources */,
+				37A9957E1F6C22F500AC8E63 /* AppDelegateHelper.swift in Sources */,
 				378DB25D1F0193C300819B6D /* TaskTableViewController.swift in Sources */,
 				372B37131F6ACDDA00E6BEE2 /* CustomTaskCell.swift in Sources */,
 				379EF42D1F1C6B2D0023174A /* Extensions.swift in Sources */,
+				37A995801F6C330400AC8E63 /* UserNotificationHelper.swift in Sources */,
 				379B95451F506ACE0075F30B /* ArchivedTaskTableViewController.swift in Sources */,
 				378DB2611F019AE300819B6D /* TaskCell.swift in Sources */,
 				3781756E1F5634F900DCDA80 /* StyleManager.swift in Sources */,

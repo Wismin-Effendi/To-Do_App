@@ -28,9 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         configureTheme()
-        setupConfigurationUserDefaults()
-        locationManager = CLLocationManager()
-        locationManager?.requestWhenInUseAuthorization()
+        AppDelegateHelper.setupConfigurationUserDefaults()
         
         setupMixPanel()
         setupViewControllers()
@@ -71,14 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     private func setupUserNotification() {
         
-        UNUserNotificationCenter.current().requestAuthorization(options:
-        [[.alert, .sound,. badge]]) { (granted, error) in
-            if error != nil {
-                os_log("Error when requesting notification %@", log: .default, type: .error, error!.localizedDescription)
-            }
-            if !granted { os_log("Permission for user notification was not granted.", log: .default, type: .debug) }
-        }
-        
         UNUserNotificationCenter.current().delegate = self
         
         let snoozeAction = UNNotificationAction(identifier: "SnoozeTasksAction", title: "Snooze", options: [])
@@ -86,38 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
     
-    private func setupConfigurationUserDefaults() {
-        let userDefaults = UserDefaults.standard
-        if userDefaults.object(forKey: UserDefaults.Keys.dueHoursFromNow) == nil {
-            userDefaults.set(3.0, forKey: UserDefaults.Keys.dueHoursFromNow)
-        }
-        
-        if userDefaults.object(forKey: UserDefaults.Keys.archivePastCompletion) == nil {
-            userDefaults.set(true, forKey: UserDefaults.Keys.archivePastCompletion)
-        }
-        
-        if userDefaults.object(forKey: UserDefaults.Keys.deleteUnusedArchivedLocations) == nil {
-            userDefaults.set(true, forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
-        }
-    }
-    
-    private func performAchivingAndDeletion() {
-        
-        let userDefaults = UserDefaults.standard
-        let deleteUnusedLocationAnnotations = userDefaults.bool(forKey: UserDefaults.Keys.deleteUnusedArchivedLocations)
-        let archivePastCompletedTask = userDefaults.bool(forKey: UserDefaults.Keys.archivePastCompletion)
-        
-        if deleteUnusedLocationAnnotations {
-            CoreDataUtil.deleteUnusedArchivedLocations(moc: self.coreDataStack.storeContainer.newBackgroundContext())
-        }
-        
-        // We need this in main context so NSFetchRequestController could detect and update the table
-        if archivePastCompletedTask {
-            DispatchQueue.main.async {[unowned self] in
-                CoreDataUtil.autoArchivingPastCompletedTasks(moc: self.coreDataStack.managedContext)
-            }
-        }
-    }
     
     private func setupViewControllers() {
         // Case of SplitView controller
@@ -182,8 +140,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        DispatchQueue.global(qos: .utility).async {[unowned self] in
-            self.performAchivingAndDeletion()
+        DispatchQueue.global(qos: .utility).async {
+            AppDelegateHelper.performAchivingAndDeletion(container: self.coreDataStack.storeContainer)
         }
     }
 

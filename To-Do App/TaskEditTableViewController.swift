@@ -53,7 +53,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     var showDueDatePicker: Bool = false {
         didSet {
-               tableView.beginUpdates()
+            tableView.beginUpdates()
             tableView.endUpdates()
         }
     }
@@ -124,8 +124,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
         super.viewDidLoad()
         isSplitView = (self.splitViewController?.viewControllers.count == 2)
         view.backgroundColor = UIColor.flatWhite()
-        editLocationButton.backgroundColor = UIColor.clear
-        editLocationButton.tintColor = UIColor.flatSkyBlue()
+        editLocationButton.backgroundColor = UIColor.flatOrange()
+        editLocationButton.tintColor = UIColor.flatWhite()
         notesTextView.backgroundColor = UIColor.flatPowderBlue()
         taskNameTexField.backgroundColor = UIColor.flatPowderBlue()
         dueDateTextField.backgroundColor = UIColor.flatPowderBlue()
@@ -304,7 +304,17 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     @IBAction func reminderSwitchState(_ sender: UISwitch) {
-        showReminderDate = sender.isOn
+        UserNotificationHelper.requestAuthorization()
+        UserNotificationHelper.getNotificationSettings {[unowned self] (settings: UNNotificationSettings) in
+            if settings.authorizationStatus == .authorized {
+                self.showReminderDate = sender.isOn
+            } else {
+                self.showAlertWarning(message: "Please enable User Notification")
+                sender.setOn(false, animated: true)
+                self.showReminderDate = false
+            }
+        }
+        
     }
     
     @IBAction func reminderDatePickerValueChange(_ sender: UIDatePicker) {

@@ -9,6 +9,7 @@
 import UIKit
 import ToDoCoreDataCloudKit
 import CoreData
+import MapKit
 import MGSwipeTableCell
 
 class LocationListViewController: UITableViewController, TaskLocationDelegate {
@@ -61,7 +62,14 @@ class LocationListViewController: UITableViewController, TaskLocationDelegate {
     }
     
     func addNewLocation() {
-        performSegue(withIdentifier: SegueIdentifier.AddNewLocation, sender: nil)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.locationManager = CLLocationManager()
+        appDelegate.locationManager?.requestWhenInUseAuthorization()
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            performSegue(withIdentifier: SegueIdentifier.AddNewLocation, sender: nil)
+        } else {
+            showAlertWarning(message: "Please authorize use of location")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
