@@ -37,10 +37,14 @@ class TaskTableViewController: UITableViewController {
     var tasks = [Task]()
     
     var addBarButton: UIBarButtonItem!
+    
+    var isArchivedView: Bool!
+    var firstTimeLoad: Bool!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        firstTimeLoad = true
         self.edgesForExtendedLayout = []
         self.view.backgroundColor = UIColor.flatWhite()
         
@@ -83,6 +87,7 @@ class TaskTableViewController: UITableViewController {
         addBarButton.accessibilityLabel = "Add"
     }
     
+    
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -99,6 +104,10 @@ class TaskTableViewController: UITableViewController {
     func performFetch() {
         do {
             try fetchedResultsController.performFetch()
+            if firstTimeLoad && fetchedResultsController.sections?.count == 0 && !isArchivedView {
+                showAlertInfo(message: "Add New Task using + button")
+            }
+            firstTimeLoad = false 
         } catch let error as NSError {
             os_log("Fetching error: %@ %@", log: .default, type: OSLogType.error, error.localizedDescription, error.userInfo)
         }

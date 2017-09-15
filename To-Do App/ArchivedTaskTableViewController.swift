@@ -19,14 +19,19 @@ class ArchivedTaskTableViewController: TaskTableViewController {
     // MARK: - Properties
     override var cellIdentifier: String { return CellIdentifier.customTaskCell }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        isArchivedView = true
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.ArchivedTask
         settingsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(ArchivedTaskTableViewController.settingTapped))
         tabBarController?.navigationItem.rightBarButtonItem = settingsButton
+        isArchivedView = true 
         // select the first navigationItem
-        selectFirstItemIfExist(archivedView: true)
+        selectFirstItemIfExist(archivedView: isArchivedView)
     }
     
     @objc func settingTapped(_ sender: UIBarButtonItem) {
@@ -90,7 +95,7 @@ class ArchivedTaskTableViewController: TaskTableViewController {
         
         let managedContext = coreDataStack.managedContext
         let selectedTask = fetchedResultsController.object(at: indexPath)
-        self.delegate?.isArchivedView = true
+        self.delegate?.isArchivedView = isArchivedView
         let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         childContext.parent = managedContext
         let childTask = childContext.object(with: selectedTask.objectID) as? Task
@@ -132,7 +137,7 @@ class ArchivedTaskTableViewController: TaskTableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
         
-        selectFirstItemIfExist(archivedView: true)
+        selectFirstItemIfExist(archivedView: isArchivedView)
     }
 }
 

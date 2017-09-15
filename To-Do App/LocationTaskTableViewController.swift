@@ -21,15 +21,16 @@ class LocationTaskTableViewController: TaskTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isArchivedView = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    
+        super.viewWillAppear(animated)
+        isArchivedView = false 
         tabBarController?.navigationItem.title = NavBarTitle.TaskByLocation
         
         // select the first navigationItem
-        selectFirstItemIfExist(archivedView: false)
+        selectFirstItemIfExist(archivedView: isArchivedView)
     }
     
     func selectFirstItemIfExist(archivedView: Bool) {
@@ -91,7 +92,7 @@ class LocationTaskTableViewController: TaskTableViewController {
         
         let managedContext = coreDataStack.managedContext
         let selectedTask = fetchedResultsController.object(at: indexPath)
-        self.delegate?.isArchivedView = false
+        self.delegate?.isArchivedView = isArchivedView
         let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         childContext.parent = managedContext
         let childTask = childContext.object(with: selectedTask.objectID) as? Task
@@ -129,7 +130,7 @@ class LocationTaskTableViewController: TaskTableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
         
-        selectFirstItemIfExist(archivedView: false)
+        selectFirstItemIfExist(archivedView: isArchivedView)
     }
 
     

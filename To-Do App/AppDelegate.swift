@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var controller: UIViewController?
 
     var locationManager: CLLocationManager?
+    var notificationAuthorized: Bool?
+    
     lazy var coreDataStack = CoreDataStack.shared(modelName: ModelName.ToDo)
     let cloudKitHelper: CloudKitHelper = CloudKitHelper.sharedInstance
     

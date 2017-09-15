@@ -90,6 +90,7 @@ extension UserDefaults {
         public static let dueHoursFromNow = "dueHoursFromNow"
         public static let archivePastCompletion = "archivePastCompletion"
         public static let deleteUnusedArchivedLocations = "deleteUnusedArchivedLocations"
+        public static let notificationEnabled = "notificationEnabled"
     }
     
     public static let appGroup = "group.ninja.pragprog.todo"

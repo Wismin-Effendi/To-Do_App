@@ -19,15 +19,16 @@ class DueDateTaskTableViewController: TaskTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isArchivedView = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = NavBarTitle.TaskByDueDate
-
+        isArchivedView = false 
         
         // select the first navigationItem
-        selectFirstItemIfExist(archivedView: false)
+        selectFirstItemIfExist(archivedView: isArchivedView)
     }
     
     func selectFirstItemIfExist(archivedView: Bool) {
@@ -87,7 +88,7 @@ class DueDateTaskTableViewController: TaskTableViewController {
         
         let managedContext = coreDataStack.managedContext
         let selectedTask = fetchedResultsController.object(at: indexPath)
-        self.delegate?.isArchivedView = false
+        self.delegate?.isArchivedView = isArchivedView
         let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         childContext.parent = managedContext
         let childTask = childContext.object(with: selectedTask.objectID) as? Task

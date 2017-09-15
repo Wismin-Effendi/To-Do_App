@@ -21,6 +21,12 @@ extension UIViewController {
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func showAlertInfo(message: String) {
+        let alertController = UIAlertController(title: NSLocalizedString("Info:", comment:""), message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension NSDate {
