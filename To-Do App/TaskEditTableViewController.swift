@@ -305,18 +305,8 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     }
     
     @IBAction func reminderSwitchState(_ sender: UISwitch) {
-        UserNotificationHelper.requestAuthorization()
-        UserNotificationHelper.getNotificationSettings {[unowned self] (settings: UNNotificationSettings) in
-            if settings.authorizationStatus == .authorized {
-                self.showReminderDate = sender.isOn
-            } else {
-                self.showAlertWarning(message: "Please enable User Notification")
-                sender.setOn(false, animated: true)
-                self.showReminderDate = false
-            }
-        }
+        showReminderDate = sender.isOn
     }
-
 
     @IBAction func reminderDatePickerValueChange(_ sender: UIDatePicker) {
         reminderDate = sender.date

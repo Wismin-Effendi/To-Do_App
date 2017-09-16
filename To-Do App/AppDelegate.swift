@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     private func setupUserNotification() {
-        
+        UserNotificationHelper.requestAuthorization()
         UNUserNotificationCenter.current().delegate = self
         
         let snoozeAction = UNNotificationAction(identifier: "SnoozeTasksAction", title: "Snooze", options: [])
