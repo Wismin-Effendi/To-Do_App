@@ -121,7 +121,7 @@ class TodododoUITests: XCTestCase {
         locationButton.tap()
         archivedButton.tap()
         timeBasedButton.tap()
-        locationButton.tap()
+        // locationButton.tap()
         
         let tablesQuery = app.tables
         let cellsCount = tablesQuery.element(boundBy: 0).cells.count
