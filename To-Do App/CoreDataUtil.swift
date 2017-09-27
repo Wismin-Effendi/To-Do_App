@@ -286,31 +286,20 @@ public class CoreDataUtil {
     public static func batchDeleteTaskPendingDeletion(managedObjectContext: NSManagedObjectContext) {
         let taskFetch: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
         taskFetch.predicate = Predicates.DeletedTask
+        let localUpdateSortDescriptor = NSSortDescriptor.init(key: #keyPath(Task.localUpdate), ascending: true)
+        taskFetch.sortDescriptors = [localUpdateSortDescriptor]
         batchDeleteManagedObject(fetchRequest: taskFetch, managedObjectContext: managedObjectContext)
     }
     
     public static func batchDeleteManagedObject(fetchRequest: NSFetchRequest<NSFetchRequestResult>, managedObjectContext: NSManagedObjectContext) {
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         batchDeleteRequest.resultType = .resultTypeStatusOnly
-        try! managedObjectContext.execute(batchDeleteRequest)
-    }
-    
-    public static func createLocationAnnotation(identifier: String, annotation: TaskLocation, moc: NSManagedObjectContext) {
-        moc.perform {
-            let location = LocationAnnotation(context: moc)
-            location.setDefaultsForLocalCreate()
-            location.identifier = identifier
-            location.title = annotation.title!
-            location.annotation = annotation
-            do {
-                try moc.save()
-                os_log("We successfully save the Location Annotation", log: .default, type: .debug)
-            } catch let error as NSError {
-                fatalError("Failed to create sample LocationAnnotation item. \(error.localizedDescription)")
-            }
+        do {
+            try managedObjectContext.execute(batchDeleteRequest)
+        } catch let error as NSError {
+            os_log("Error while batch delete task %@", log: .default, type: .debug, error.localizedDescription)
         }
     }
-
      
     /// MARK:  Get records count
     

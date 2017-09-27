@@ -211,6 +211,8 @@
 		376C8FBA1F58598B0014A7ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		376C8FBB1F58598D0014A7ED /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		376C8FBC1F58598E0014A7ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		376E73D61F7AF88F00AC8572 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		376E73D71F7AF88F00AC8572 /* ToDoCoreDataCloudKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCoreDataCloudKitTests.swift; sourceTree = "<group>"; };
 		3775C0D11F4CAF72002FE84D /* LocationAnnotation+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationAnnotation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3775C0D21F4CAF72002FE84D /* LocationAnnotation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationAnnotation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3775C0D51F4D05BF002FE84D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -421,6 +423,15 @@
 			path = "To-Do App";
 			sourceTree = "<group>";
 		};
+		376E73D51F7AF88F00AC8572 /* ToDoCoreDataCloudKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				376E73D61F7AF88F00AC8572 /* Info.plist */,
+				376E73D71F7AF88F00AC8572 /* ToDoCoreDataCloudKitTests.swift */,
+			);
+			path = ToDoCoreDataCloudKitTests;
+			sourceTree = SOURCE_ROOT;
+		};
 		3775C0DF1F4E3D87002FE84D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,6 +549,7 @@
 		3792EE921F47816900ACAAAE /* ToDoCoreDataCloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				376E73D51F7AF88F00AC8572 /* ToDoCoreDataCloudKitTests */,
 				379B95411F4F65FF0075F30B /* Utility */,
 				379157251F4349ED00B7C178 /* Constants.swift */,
 				373F9CB01F549A6B00D6B26C /* GlobalEnums_and_Strutcs.swift */,

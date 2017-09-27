@@ -13,9 +13,12 @@ import CoreData
 import MapKit
 @testable import Todododo
 
+
+// MARK: - Nothing here.  Please see ToDoCoreDataCloudKitTests for Unit Test
+
 class TodododoTests: XCTestCase {
     
-    let coreDataStack = CoreDataStack.shared(modelName: ModelName.ToDo)
+    let mainContext = createMainContextInMemory()
     
     override func setUp() {
         super.setUp()
@@ -28,29 +31,6 @@ class TodododoTests: XCTestCase {
     }
     
     
-    func testCreateTaskWithoutLocation() {
-        let identifier = UUID().uuidString
-        let title = "Important task without location"
-        let moc = coreDataStack.managedContext
-        CoreDataTestUtil.createOneTask(identifier: identifier, title: title, moc: moc)
-        let task = CoreDataUtil.getTask(identifier: identifier, moc: moc)
-        XCTAssertNotNil(task)
-        XCTAssertNil(task?.location)
-        XCTAssertEqual(title, task?.title)
-    }
-    
-    func testCreateOneLocation() {
-        let identifier = UUID().uuidString
-        let moc = coreDataStack.managedContext
-        CoreDataTestUtil.createAppleLocation(identifier: identifier, moc: moc)
-        sleep(5)
-        let locationAnnotation = CoreDataUtil.getALocationAnnotationOf(locationIdentifier: identifier, moc: moc)!
-        let annotation = locationAnnotation.annotation as! TaskLocation
-        XCTAssertEqual(annotation.title, AppleLocation.title)
-        XCTAssertEqual(annotation.coordinate.latitude, AppleLocation.coordinate2D.latitude)
-        XCTAssertEqual(annotation.coordinate.longitude, AppleLocation.coordinate2D.longitude)
-    }
-    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
@@ -60,33 +40,21 @@ class TodododoTests: XCTestCase {
     
 }
 
-struct CoreDataTestUtil {
+func createMainContextInMemory() -> NSManagedObjectContext {
     
-    static func createOneTask(identifier: String, title: String, moc: NSManagedObjectContext) {
-        let task = Task(context: moc)
-        task.setDefaultsForLocalCreate()
-        task.identifier = identifier
-        task.title = title
-        do {
-            try moc.save()
-        } catch let error as NSError {
-            os_log("Error try to create one sample task: %@", log: .default, type: .default, error.debugDescription)
-        }
-    }
+    // Initialize NSManagedObjectModel
+    let modelURL = Bundle.main.url(forResource: "ToDoApp", withExtension: "momd")
+    guard let model = NSManagedObjectModel(contentsOf: modelURL!) else { fatalError("model not found") }
     
-    static func createAppleLocation(identifier: String, moc: NSManagedObjectContext) {
-        let title = AppleLocation.title
-        let subtitle = AppleLocation.subtitle
-        let coordinate2D: CLLocationCoordinate2D = AppleLocation.coordinate2D
-        let anno = TaskLocation(title: title, subtitle: subtitle, coordinate: coordinate2D)
-        
-        CoreDataUtil.createLocationAnnotation(identifier: identifier, annotation: anno, moc: moc)
-    }
+    // Configure NSPersistentStoreCoordinator with an NSPersistentStore
+    let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+    try! psc.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
     
+    // Create and return NSManagedObjectContext
+    let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    context.persistentStoreCoordinator = psc
+    
+    return context
 }
 
-struct AppleLocation {
-    static let title = "Apple Campus"
-    static let subtitle = "1 Infinite Loop, Cupertino, CA 95014"
-    static let coordinate2D = CLLocationCoordinate2D(latitude: 37.332051, longitude: -122.031180)
-}
+
