@@ -92,6 +92,7 @@
 		37E72D421F5CE7EA001E3D6C /* CustomTabBarAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E72D411F5CE7EA001E3D6C /* CustomTabBarAnimator.swift */; };
 		37E72D441F5D0838001E3D6C /* CustomDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E72D431F5D0838001E3D6C /* CustomDismissAnimator.swift */; };
 		37E72D461F5D0849001E3D6C /* CustomPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E72D451F5D0849001E3D6C /* CustomPresentAnimator.swift */; };
+		37F307761F7EB9E70087C33E /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F307751F7EB9E70087C33E /* AsyncOperation.swift */; };
 		63CC915C37CE47D12F5F2893 /* Pods_Todododo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B06EAEDD8AD500902BB28A /* Pods_Todododo.framework */; };
 		69036269643CE58DE2139935 /* Pods_TodododoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF7719B602FC2C2B2076FE /* Pods_TodododoUITests.framework */; };
 		740F21CCD2C11BEBC1966138 /* Pods_ToDoCoreDataCloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6DF59B21FA12B496D8F24D /* Pods_ToDoCoreDataCloudKit.framework */; };
@@ -275,6 +276,7 @@
 		37E72D411F5CE7EA001E3D6C /* CustomTabBarAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarAnimator.swift; sourceTree = "<group>"; };
 		37E72D431F5D0838001E3D6C /* CustomDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDismissAnimator.swift; sourceTree = "<group>"; };
 		37E72D451F5D0849001E3D6C /* CustomPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentAnimator.swift; sourceTree = "<group>"; };
+		37F307751F7EB9E70087C33E /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		3FF1CED171A647A0FB49C8EE /* Pods-TodododoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodododoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodododoUITests/Pods-TodododoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4153C11E96D8E28518C5B2E8 /* Pods-ToDoCoreDataCloudKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoCoreDataCloudKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoCoreDataCloudKitTests/Pods-ToDoCoreDataCloudKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		50B06EAEDD8AD500902BB28A /* Pods_Todododo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todododo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -585,6 +587,7 @@
 			children = (
 				373F9CB21F54B46500D6B26C /* Predicates.swift */,
 				379B95421F4F66D40075F30B /* DateUtil.swift */,
+				37F307751F7EB9E70087C33E /* AsyncOperation.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1241,6 +1244,7 @@
 				373F9CB71F54B76800D6B26C /* ChangeToken+CoreDataProperties.swift in Sources */,
 				3792EEB61F478D9F00ACAAAE /* Constants.swift in Sources */,
 				373F9CB61F54B76800D6B26C /* ChangeToken+CoreDataClass.swift in Sources */,
+				37F307761F7EB9E70087C33E /* AsyncOperation.swift in Sources */,
 				373F9CBC1F55087200D6B26C /* Predicates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
