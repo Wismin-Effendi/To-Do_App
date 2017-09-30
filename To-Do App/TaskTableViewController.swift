@@ -45,7 +45,7 @@ class TaskTableViewController: UITableViewController {
         super.viewDidLoad()
         
         firstTimeLoad = true
-        self.edgesForExtendedLayout = []
+        self.edgesForExtendedLayout = [] // To prevent view get underneath NavBar
         self.view.backgroundColor = UIColor.flatWhite()
         
         self.detailViewController = (tabBarController as? TabBarViewController)?.detailViewController as! TaskEditTableViewController

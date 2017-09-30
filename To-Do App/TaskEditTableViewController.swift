@@ -122,6 +122,7 @@ class TaskEditTableViewController: UITableViewController, TaskLocationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.edgesForExtendedLayout = [] // To prevent view get underneath NavBar
         isSplitView = (self.splitViewController?.viewControllers.count == 2)
         view.backgroundColor = UIColor.flatWhite()
         editLocationButton.setTitle("Edit Location", for: .normal)
