@@ -143,6 +143,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         DispatchQueue.global(qos: .utility).async {
+            self.cloudKitHelper.syncToCloudKit {
+                os_log("Sync to cloudKit during will enter foreground", log: .default, type: .debug)
+            }
             AppDelegateHelper.performAchivingAndDeletion(container: self.coreDataStack.storeContainer)
         }
     }
